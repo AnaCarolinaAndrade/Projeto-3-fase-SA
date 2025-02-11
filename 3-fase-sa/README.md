@@ -1,8 +1,10 @@
-# React + Vite
+# Sprint00
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Dexes
 
-Currently, two official plugins are available:
+# Descrição do projeto
+Este projeto tem como objetivo promover a troca de habilidades entre as pessoas, garantindo que todos adquiram novos conhecimentos e aprimorem suas competências.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+# integrantes da equipe
+Gabriel da Cunha Castanhel, Ana Carolina Andrade, Pedro Henrique Marques
