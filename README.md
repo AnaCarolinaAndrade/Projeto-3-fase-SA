@@ -7,4 +7,4 @@ Este projeto tem como objetivo promover a troca de habilidades entre as pessoas,
 
 
 # integrantes da equipe
-Gabriel da Cunha Castanhel, Ana Carolina Andrade, Pedro Henrique Marques
+Gabriel da Cunha Castanhel, Ana Carolina Andrade, Pedro Henrique Marque
