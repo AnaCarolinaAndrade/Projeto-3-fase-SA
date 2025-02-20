@@ -1,9 +1,20 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from '../pages/Home'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
-const Routes = createBrowserRouter([
-  { path: '/', element: <PageWrapper element={ <Home /> } /> },
+function App() {
+  return (
+    <Router>
+      <div className="app-container">
+        <Sidebar /> {/* Sidebar está dentro do Router */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
 
-]);
-
-export default Routes;
+export default App;

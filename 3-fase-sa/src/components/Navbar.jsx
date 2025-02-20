@@ -7,7 +7,7 @@ function Navbar() {
     <>
     <div>
       <nav>
-        <Link>dssws</Link>
+        
       </nav>
     </div>
     </>

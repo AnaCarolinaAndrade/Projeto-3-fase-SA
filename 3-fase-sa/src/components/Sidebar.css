@@ -1,6 +1,19 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
+.container-sidebar {
+    font-family: "Poppins", serif;
+    font-weight: 100;
+    font-style: normal;
+    width: 17%;
+    height: 100vh;
+    background-color: #00171F;
+}
+
+.sidebar{
+    color: aqua;
+}
