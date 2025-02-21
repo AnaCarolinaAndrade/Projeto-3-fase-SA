@@ -1,22 +1,27 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
-}
-
-.container-sidebar {
-    position: relative;
-    position: fixed;
-    padding: 40px;
-    font-family: "Poppins", serif;
-    font-weight: 100;
-    font-style: normal;
-    width: 17%;
+.sidebar {
+    width: 250px;
     height: 100vh;
-    background-color: #00171F;
+    background-color: #02141a; /* Cor de fundo escura */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.sidebar{
-    color: aqua;
+.sidebar a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sidebar a:hover {
+    color: #00bfff; /* Azul claro no hover */
+}
+
+.sidebar a i {
+    margin-right: 10px;
+    color: #00bfff; /* Azul claro para os ícones */
 }

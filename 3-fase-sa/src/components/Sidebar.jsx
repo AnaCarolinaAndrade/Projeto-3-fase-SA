@@ -5,11 +5,11 @@ import "./Sidebar.css";
 function Sidebar() {
   return (
     <div className="container-sidebar">
-      <nav className="sidebar">
-        <ul>
-            oi      
-        </ul>
-      </nav>
+        <nav class="sidebar">
+          <a href="#"><i class="fas fa-home"></i> Página inicial</a>
+          <a href="#"><i class="fas fa-compass"></i> Explorar</a>
+          <a href="#"><i class="fas fa-bell"></i> Notificações</a>
+        </nav>
     </div>
   );
 }
