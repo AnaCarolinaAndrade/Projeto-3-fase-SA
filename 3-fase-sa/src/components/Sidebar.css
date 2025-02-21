@@ -1,27 +1,86 @@
-.sidebar {
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Ajuste conforme necessário */
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    z-index: 102; /* Certifique-se de que a navbar fica acima da sidebar */
+}
+
+.container-sidebar {
+    position: fixed;
+    left: -250px; /* Sidebar oculta inicialmente */
+    top: 60px; /* Define a posição abaixo da navbar */
+    height: calc(100vh - 60px); /* Reduzindo a altura para não cobrir a navbar */
     width: 250px;
-    height: 100vh;
-    background-color: #02141a; /* Cor de fundo escura */
+    background-color: #02141a;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    transition: left 0.3s ease-in-out;
+    z-index: 101; /* Um nível abaixo da navbar */
+}
+
+/* Quando a sidebar estiver ativa */
+.container-sidebar.show {
+    left: 0;
+}
+
+.sidebar{
+    margin-left: 40px;
 }
 
 .sidebar a {
+    margin-top: 20px;
     display: flex;
     align-items: center;
     text-decoration: none;
     color: white;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s;
 }
 
 .sidebar a:hover {
-    color: #00bfff; /* Azul claro no hover */
+    background: rgba(255, 255, 255, 0.1);
+    color: #00bfff;
 }
 
 .sidebar a i {
     margin-right: 10px;
-    color: #00bfff; /* Azul claro para os ícones */
+    color: #00bfff;
+    font-size: 20px;
+}
+
+/* Botão de alternância */
+.toggle-btn {
+    position: fixed;
+    top: 100px;
+    left: 20px;
+    background: #00bfff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 102;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container-sidebar {
+        width: 200px;
+    }
+
+    .toggle-btn {
+        left: 10px;
+    }
 }

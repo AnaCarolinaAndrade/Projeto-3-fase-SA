@@ -14,14 +14,17 @@ function Navbar() {
 
           <div class="search-bar">
             <input type="search" />
+
             <button>
               <img src="./img/lupa.png" alt="" srcset="" />
             </button>
-          </div>
 
-          <div class="user-icon">
-            👤
           </div>
+          <Link to={'./Perfil'}>
+            <div class="user-icon">
+              👤
+            </div>
+          </Link>
         </nav>
       </div>
     </>
