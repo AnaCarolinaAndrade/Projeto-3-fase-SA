@@ -6,6 +6,9 @@
 }
 
 .container-sidebar {
+    position: relative;
+    position: fixed;
+    padding: 40px;
     font-family: "Poppins", serif;
     font-weight: 100;
     font-style: normal;

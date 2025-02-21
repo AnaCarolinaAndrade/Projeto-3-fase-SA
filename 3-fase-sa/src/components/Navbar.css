@@ -4,3 +4,9 @@
     box-sizing: border-box;
 }
 
+.container-navbar{
+    position: relative;
+    width: 100vw;
+    background-color: aqua;
+}
+

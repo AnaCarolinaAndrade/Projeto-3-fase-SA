@@ -7,9 +7,7 @@ function Sidebar() {
     <div className="container-sidebar">
       <nav className="sidebar">
         <ul>
-          <li>
-            oi
-          </li>      
+            oi      
         </ul>
       </nav>
     </div>
