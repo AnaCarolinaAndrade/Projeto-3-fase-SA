@@ -33,7 +33,7 @@
 }
 
 .sidebar{
-    margin-left: 40px;
+    margin-left: 50px;
 }
 
 .sidebar a {
@@ -62,14 +62,16 @@
 
 /* Botão de alternância */
 .toggle-btn {
+    font-size: 15px;
+    width: 40px;
     position: fixed;
     top: 100px;
     left: 20px;
     background: #00bfff;
     color: white;
     border: none;
+    border-radius: 15px;
     padding: 10px;
-    border-radius: 5px;
     cursor: pointer;
     z-index: 102;
 }

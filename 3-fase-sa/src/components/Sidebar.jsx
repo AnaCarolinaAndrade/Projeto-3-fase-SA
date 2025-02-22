@@ -3,22 +3,23 @@ import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <>
-      {/* Botão de alternância */}
 
         <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
           ☰
         </button>
-      {/* Sidebar oculta/invisível até clicar no botão */}
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>        
 
         <nav className="sidebar">      
-          <a href="#"><i className="fas fa-home"></i> Página inicial</a>
-          <a href="#"><i className="fas fa-compass"></i> Explorar</a>
-          <a href="#"><i className="fas fa-bell"></i> Notificações</a>
+          <Link to={'/'}> Página inicial</Link>
+          <a href="#"> Explorar</a>
+          <a href="#"> Notificações</a>
+          <Link to={'./perfil'}>Perfil</Link>
+          <Link to={'./login'}>Login</Link>
+
         </nav>
       </div>
     </>

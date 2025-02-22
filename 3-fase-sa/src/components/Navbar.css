@@ -26,6 +26,7 @@
     flex: 1;
     max-width: 30rem;
     min-width: 150px;
+    margin-right: 5%;
 }
 
 .search-bar input {
@@ -35,7 +36,7 @@
     border-radius: 20px;
     margin-left: 10px;
     font-size: 17px;
-    flex: 1;
+    flex: 2;
 }
 
 .search-bar button {
@@ -53,14 +54,15 @@
 .user-icon {
     width: 30px;
     height: 30px;
-    background-color: #0094ff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 20px;
     margin-left: 10px;
+}
+
+.foto-perfil{
+    height: 40px;
 }
 
 /* Responsividade */

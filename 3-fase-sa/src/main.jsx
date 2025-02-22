@@ -4,7 +4,9 @@ import Home from './pages/Home.jsx'
 import PerfilUser from './pages/PerfilUser.jsx'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import Login from './pages/Login.jsx'
 const router = createBrowserRouter([
+  
   {
     path: "/",
     element: <Home />,
@@ -13,6 +15,11 @@ const router = createBrowserRouter([
   {
     path: "/perfil",
     element: <PerfilUser />,
+  },
+
+  {
+    path:"/login",
+    element: <Login />
   }
 ])
 
