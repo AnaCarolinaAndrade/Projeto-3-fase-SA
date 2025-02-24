@@ -12,7 +12,7 @@
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
+    background-color: #02141a;
     padding: 20px;
 }
 
@@ -22,13 +22,13 @@
 }
 
 .logo-login {
-    width: 350px;
-    margin-bottom: 20px;
+    width: 35pc;
+    margin-bottom: 50px;
 }
 
 .login-left p {
     font-size: 20px;
-    color: #333;
+    color: #ffffff;
 }
 
 .login-right {
@@ -39,13 +39,11 @@
 }
 
 .login-box {
-    background-color: #02141a;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 5);
     text-align: center;
     width: 400px;
-    height: 40pc;
+    height: 20pc;
 }
 
 .input-field {
@@ -70,11 +68,10 @@
 }
 
 .divider {
-    top: 60rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 15px 0;
+    margin: 25px 0;
     color: white;
     font-size: 14px;
 }

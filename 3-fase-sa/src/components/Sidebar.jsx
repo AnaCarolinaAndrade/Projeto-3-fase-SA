@@ -19,6 +19,7 @@ function Sidebar() {
           <a href="#"> Notificações</a>
           <Link to={'./perfil'}>Perfil</Link>
           <Link to={'./login'}>Login</Link>
+          <Link to={'./cadastro'}>Cadastro</Link>
 
         </nav>
       </div>

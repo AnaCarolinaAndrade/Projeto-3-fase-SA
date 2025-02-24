@@ -8,20 +8,20 @@ function Navbar() {
       <div className='container-navbar'>
         <nav class="navbar">
 
-          <div>
+          <div className='nav-logo'>
             <img src="./img/logo.png" className='logo' />
           </div>
 
           <div class="search-bar">
             <input type="search" />
             <button>
-              <img src="./img/lupa.png" alt="" srcset="" />
+              <img src="./img/lupa.png" />
             </button>
           </div>
 
           <div class="user-icon">
             <Link to={'./Perfil'} className='link-perfil'>
-              <img src="./img/foto-user.png" className="foto-perfil"/>
+              <img src="./img/foto-user.png" className="foto-perfil" />
             </Link>
           </div>
 
