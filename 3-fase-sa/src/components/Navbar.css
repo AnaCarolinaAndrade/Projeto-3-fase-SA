@@ -1,8 +1,8 @@
 .navbar {
+    background-color: #05071E;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #02141a;
     padding: 5px 10px;
     position: relative;
     width: 100%;
@@ -10,13 +10,13 @@
 }
 
 .nav-logo{
-    width: 10%;
+    width: 7%;
 }
-.logo {
+
+.logo-navbar {
     height: 45px;
     font-size: 24px;
     font-weight: bold;
-    color: #600;
     display: flex;
     align-items: center;
 }

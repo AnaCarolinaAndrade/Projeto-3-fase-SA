@@ -11,6 +11,7 @@ function Sidebar() {
         <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
           ☰
         </button>
+        
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>        
 
         <nav className="sidebar">      

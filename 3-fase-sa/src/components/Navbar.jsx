@@ -9,7 +9,9 @@ function Navbar() {
         <nav class="navbar">
 
           <div className='nav-logo'>
-            <img src="./img/logo.png" className='logo' />
+            <Link to={'/'}>
+              <img src="./img/logo.png" className='logo-navbar' />
+            </Link>
           </div>
 
           <div class="search-bar">

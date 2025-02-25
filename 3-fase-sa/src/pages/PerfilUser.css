@@ -34,12 +34,13 @@
 }
 
 .username {
-  font-size: 20px;
+  font-size: 29px;
   font-weight: bold;
   margin-top: 10px;
 }
 
 .bio {
+  margin: 20px;
   font-size: 14px;
   color: gray;
 }
@@ -55,4 +56,14 @@
   width: 150px;
   height: auto;
   border-radius: 10px;
+}
+
+.divisor{
+  margin-top: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  background-color: rgb(104, 213, 94);
+  height: 2px;
 }

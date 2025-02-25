@@ -1,36 +1,51 @@
-* {
-    background-color: #02141a;
-    font-family: Arial, sans-serif;
-}
-
 .container {
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    overflow: hidden;
+    background-color: #05071E;
 }
 
 .form-wrapper {
+    display: flex;
     width: 100%;
-    max-width: 800px;
-    background-color: #02141a;
+    transition: transform 0.6s ease-in-out;
+}
+
+.move-left {
+    transform: translateX(-100%);
+}
+
+.form-section1 {
+    margin-left: 28%;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #05071E;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.form-section2 {
+    margin-left: 63%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #05071E;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
+    color: white;
 }
-
-.logo-cadastro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 4rem;
-    margin-top: 3%;
-}
-
-.div-logo-cadastro {
-    display: flex;
-    justify-content: center;
-}   
 
 .grid {
     display: grid;
@@ -38,19 +53,21 @@
     gap: 40px;
 }
 
-.input-group {
+.label-cadastro {
     display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.input-group label {
     color: white;
-    margin-bottom: 5px;
-    margin: 10px;
 }
 
-.input-group input {
+.label-cadastro2 {
+    margin-left: 10px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 5px; 
+}
+
+.input-group select {
     padding: 8px;
     border-radius: 4px;
     border: none;
@@ -58,18 +75,43 @@
     color: gray;
 }
 
+.input-group label {
+    color: white;
+    margin-bottom: 5px;
+    margin: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 350px;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 17px;
+}
+
 .button-container {
     margin-top: 20px;
 }
 
 .submit-button {
-    color: white;
+    margin-top: 20px;
+    font-size: 15px;
+    background-color: #00A3F5;
+    color: rgb(255, 255, 255);
     padding: 10px 20px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
+    transition: 0.4s;
 }
 
 .submit-button:hover {
-    background-color: darkgray;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+}
+
+.div-logo-cadastro {
+    margin-bottom: 10%;
 }

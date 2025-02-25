@@ -12,7 +12,7 @@
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background-color: #02141a;
+    background-color: #05071E;
     padding: 20px;
 }
 
@@ -58,7 +58,7 @@
 .login-btn {
     width: 100%;
     padding: 10px;
-    background-color: #0094ff;
+    background-color: #00A3F5;
     color: white;
     border: none;
     border-radius: 5px;
