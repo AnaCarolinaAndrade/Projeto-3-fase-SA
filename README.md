@@ -63,7 +63,7 @@ Siga-nos no Instagram para acompanhar as novidades do projeto: [@dexes_project](
 
 ## Colaboradores do Projeto e as funções que irão exercer
 
-| Nome             | Responsabilidades (RF)                     |
+| Nome             | Requisitos Funcionais (RF)                     |
 |------------------|--------------------------------------------|
 | Ana Carolina     | [RF 003], [RF 006], [RF 007], [RF 010]    |
 | Gabriel Castanhel| [RF 001], [RF 002], [RF 004], [RF 011]    |
