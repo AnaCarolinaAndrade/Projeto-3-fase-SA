@@ -61,13 +61,9 @@ Siga-nos no Instagram para acompanhar as novidades do projeto: [@dexes_project](
 ### Tela de Cadastro (Parte 2 - Seleção de Experiência e Área)
 ![Cadastro 2](Cadastro_2.png)
 
-## Colaboradores do Projeto
+## Colaboradores do Projeto e as funções que irão exercer
 
 **Ana Carolina**      [RF 003], [RF 006], [RF 007], [RF 010] 
 **Gabriel Castanhel** [RF 001], [RF 002], [RF 004], [RF 011]
 **Pedro Henrique**    [RF 005], [RF 008], [RF 009], [RF 012]
-
-
-# integrantes da equipe
-Gabriel da Cunha Castanhel, Ana Carolina Andrade, Pedro Henrique Marques
 
