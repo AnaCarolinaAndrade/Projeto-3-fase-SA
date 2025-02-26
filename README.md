@@ -53,13 +53,13 @@ Siga-nos no Instagram para acompanhar as novidades do projeto: [@dexes_project](
 ## Protótipo das Telas de Login e Cadastro
 
 ### Tela de Login
-![Login](Login.png)
+![Login](./img/Login.png)
 
 ### Tela de Cadastro (Parte 1)
-![Cadastro](Cadastro.png)
+![Cadastro](./img/Cadastro.png)
 
 ### Tela de Cadastro (Parte 2 - Seleção de Experiência e Área)
-![Cadastro 2](Cadastro_2.png)
+![Cadastro 2](./img/Cadastro_2.png)
 
 ## Colaboradores do Projeto e as funções que irão exercer
 
