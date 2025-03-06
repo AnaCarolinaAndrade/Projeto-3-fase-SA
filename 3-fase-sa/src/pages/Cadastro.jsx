@@ -1,110 +1,75 @@
-import React, { useState } from 'react';
-import './Cadastro.css';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import "./Cadastro.css";
 
-function Cadastro() {
-    const [moverParaLogin, setMoverParaLogin] = useState(false);
+export default function Cadastro() {
+  const [etapa, setEtapa] = useState(1);
 
-    const handleRegisterClick = () => {
-        setMoverParaLogin(true);
-    };
+  return (
+    <div className="container">
+      <div className={`form-wrapper ${etapa === 2 ? "move-left" : ""}`}>
+        {/* Tela 1 - Cadastro */}
+        <motion.div
+          key="form1"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 50 }}
+          transition={{ duration: 0.4 }}
+          className="form-section1"
+        >
+          <div className="div-logo-cadastro">
+            <h1 className="text-3xl font-semibold">Cadastro</h1>
+          </div>
 
-    const handleBackClick = () => {
-        setMoverParaLogin(false);
-    };
+          <div className="input-group">
+            <input type="email" placeholder="Digite seu Email" />
+            <input type="text" placeholder="Digite seu Nome" />
+            <input type="date" />
+            <input type="password" placeholder="Crie uma senha" />
+            <input type="password" placeholder="Confirme sua senha" />
+          </div>
 
-    return (
-        <div className="container">
-            <div className={`form-wrapper ${moverParaLogin ? "move-left" : ""}`}>
+          <div className="button-container">
+            <button onClick={() => setEtapa(2)} className="submit-button">
+              Próximo →
+            </button>
+          </div>
+        </motion.div>
 
-                <div className="form-section1">
-                    <div>
-                        <img src="./img/logo.png" alt="Logo" className='div-logo-cadastro' />
-                    </div>
-                    <div className="grid">
-                        <div className="input-group">
-                            <label className='label-cadastro'>Email</label>
-                            <input type="email" placeholder="Digite seu Email" />
-                        </div>
-                        <div className="input-group">
-                            <label className='label-cadastro'>Data</label>
-                            <input type="date" />
-                        </div>
-                        <div className="input-group">
-                            <label className='label-cadastro'>Nome</label>
-                            <input type="text" placeholder="Digite seu nome" />
-                        </div>
-                        <div className="input-group">
-                            <label className='label-cadastro'>Senha</label>
-                            <input type="password" placeholder="Crie uma senha" />
-                        </div>
-                        <div className="input-group">
-                            <label className='label-cadastro'>Escolha seu genêro</label>
-                            <select>
-                                <option value="opcao1">Homem</option>
-                                <option value="opcao2">Mulher</option>
-                                <option value="opcao3">Macho</option>
-                                <option value="opcao3">Fêmea</option>
-                            </select>
-                        </div>
-                        <div className="input-group">
-                            <label className='label-cadastro'>Confirmar Senha</label>
-                            <input type="password" placeholder="Digite a senha novamente" />
-                        </div>
-                    </div>
-                    <div className="button-container">
-                        <button className="submit-button" onClick={handleRegisterClick}>
-                            Registrar
-                        </button>
-                    </div>
-                </div>
+        {/* Tela 2 - Experiência */}
+        <motion.div
+          key="form2"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.4 }}
+          className="form-section2"
+        >
+          <div className="div-logo-cadastro">
+            <h1 className="text-3xl font-semibold">Experiência</h1>
+          </div>
 
-                {/* Formulário de Login */}
-                <div className="form-section2">
-                    <div className="grid">
-                        <img src="./img/logo.png" alt="Logo" className='div-logo-cadastro' />
-                        <div className="grid">
+          <div className="input-group">
+            <label>Nível de experiência:</label>
+            <select>
+              <option>Selecione</option>
+              <option>Júnior (2-5 anos)</option>
+              <option>Pleno (6-9 anos)</option>
+              <option>Sênior (9+ anos)</option>
+            </select>
+          </div>
 
-                            <div>
-                                <input type="checkbox" className='checkbox-cadastro' />
-                                <label className='label-cadastro2'>Email</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" className='checkbox-cadastro' />
-                                <label className='label-cadastro2'>Email</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" className='checkbox-cadastro' />
-                                <label className='label-cadastro2'>Email</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" className='checkbox-cadastro' />
-                                <label className='label-cadastro2'>Email</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" className='checkbox-cadastro' />
-                                <label className='label-cadastro2'>Email</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" className='checkbox-cadastro' />
-                                <label className='label-cadastro2'>Email</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" className='checkbox-cadastro' />
-                                <label className='label-cadastro2'>Email</label>
-                            </div>
+          <p className="text-sm text-gray-400">
+            Selecione a área que possui mais experiência
+          </p>
 
-
-                        </div>
-                        <div className="button-container">
-                            <button className="submit-button" onClick={handleBackClick}>
-                                Voltar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+          <div className="button-container">
+            <button onClick={() => setEtapa(1)} className="submit-button">
+              ← Voltar
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
 }
-
-export default Cadastro;

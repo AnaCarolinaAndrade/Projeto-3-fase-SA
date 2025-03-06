@@ -18,7 +18,7 @@
     top: 60px; /* Define a posição abaixo da navbar */
     height: calc(100vh - 60px); /* Reduzindo a altura para não cobrir a navbar */
     width: 250px;
-    background-color: #05071E;
+    background-color: #0F1457;
     padding: 20px;
     display: flex;
     flex-direction: column;
