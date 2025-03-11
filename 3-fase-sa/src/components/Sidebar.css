@@ -3,28 +3,32 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px; /* Ajuste conforme necessário */
+    height: 60px;
     background-color: #ccc;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
-    z-index: 102; /* Certifique-se de que a navbar fica acima da sidebar */
+    z-index: 102;
 }
 
 .container-sidebar {
     position: fixed;
-    left: -250px; /* Sidebar oculta inicialmente */
-    top: 60px; /* Define a posição abaixo da navbar */
-    height: calc(100vh - 60px); /* Reduzindo a altura para não cobrir a navbar */
+    left: -250px;
+    /* Sidebar oculta inicialmente */
+    top: 60px;
+    /* Define a posição abaixo da navbar */
+    height: calc(100vh - 60px);
+    /* Reduzindo a altura para não cobrir a navbar */
     width: 250px;
-    background-color: #0F1457;
+    background-color: #141414;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     transition: left 0.3s ease-in-out;
-    z-index: 101; /* Um nível abaixo da navbar */
+    z-index: 101;
+    /* Um nível abaixo da navbar */
 }
 
 /* Quando a sidebar estiver ativa */
@@ -32,8 +36,8 @@
     left: 0;
 }
 
-.sidebar{
-    margin-left: 50px;
+.sidebar {
+    margin-left: 60px;
 }
 
 .sidebar a {
@@ -62,7 +66,7 @@
 
 /* Botão de alternância */
 .toggle-btn {
-    font-size: 15px;
+    font-size: 20px;
     width: 40px;
     position: fixed;
     top: 100px;
@@ -71,9 +75,65 @@
     color: white;
     border: none;
     border-radius: 15px;
-    padding: 10px;
+    padding: 7px;
     cursor: pointer;
     z-index: 102;
+}
+
+.icon-text {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.9s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    margin: 10px;
+}
+
+.icon-text:hover {
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.icon-text::before {
+    transition: opacity 0.1s ease;
+}
+
+.icon-text:hover img {
+    display: none; /* Oculta o ícone */
+}
+
+/* Ícone de casa */
+.home:hover::before {
+    content: "Página inicial";
+}
+
+.notifications:hover::before {
+    content: "Notificações";
+}
+
+.profile:hover::before {
+    content: "Perfil";
+}
+
+
+/* Ícone de chave */
+.login:hover::before {
+    content: "Login";
+}
+
+
+/* Ícone de cadastro */
+.signup:hover::before {
+    content: "Cadastro";
 }
 
 /* Responsividade */

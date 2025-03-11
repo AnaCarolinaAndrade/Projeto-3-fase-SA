@@ -65,7 +65,7 @@ export default function Cadastro() {
 
           <div className="button-container">
             <button onClick={() => setEtapa(1)} className="submit-button">
-              ← Voltar
+              ←  Voltar
             </button>
           </div>
         </motion.div>

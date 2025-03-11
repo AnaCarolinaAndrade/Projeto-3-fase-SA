@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #0F1457;
+    background-color: #141414;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,7 +43,7 @@
 }
 
 .search-bar button {
-    background-color: #0094ff;
+    background-color: #ffffff;
     border: none;
     height: 30px;
     width: 40px;

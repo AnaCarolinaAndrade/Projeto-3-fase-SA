@@ -7,21 +7,17 @@ function Sidebar() {
 
   return (
     <>
+      <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
 
-        <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
-          ☰
-        </button>
-        
-      <div className={`container-sidebar ${isOpen ? "show" : ""}`}>        
-
-        <nav className="sidebar">      
-          <Link to={'/'}> Página inicial</Link>
-          <a href="#"> Explorar</a>
-          <a href="#"> Notificações</a>
-          <Link to={'./perfil'}>Perfil</Link>
-          <Link to={'./login'}>Login</Link>
-          <Link to={'./cadastro'}>Cadastro</Link>
-
+        <nav className="sidebar">
+          
+          <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
+            ☰
+          </button>
+          <Link to={'/'} class="icon-text home"><img src="./img/botao-de-inicio.png" alt="" srcset="" /></Link>
+          <a href="#" class="icon-text notifications"><img src="./img/notificacoes.png" alt="" srcset="" /> </a>
+          <Link to={'./perfil'} class="icon-text profile"><img src="./img/perfil.png" alt="" srcset="" /></Link>
+          <Link to={'./cadastro'} class="icon-text login"><img src="./img/entrar.png" alt="" srcset="" /></Link>
         </nav>
       </div>
     </>
