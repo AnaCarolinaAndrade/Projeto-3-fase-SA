@@ -15,12 +15,9 @@
 .container-sidebar {
     position: fixed;
     left: -250px;
-    /* Sidebar oculta inicialmente */
     top: 60px;
-    /* Define a posição abaixo da navbar */
     height: calc(100vh - 60px);
-    /* Reduzindo a altura para não cobrir a navbar */
-    width: 250px;
+    width: 150px;
     background-color: #141414;
     padding: 20px;
     display: flex;
@@ -28,7 +25,6 @@
     gap: 20px;
     transition: left 0.3s ease-in-out;
     z-index: 101;
-    /* Um nível abaixo da navbar */
 }
 
 /* Quando a sidebar estiver ativa */
@@ -37,7 +33,9 @@
 }
 
 .sidebar {
-    margin-left: 60px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .sidebar a {
@@ -58,26 +56,48 @@
     color: #00bfff;
 }
 
-.sidebar a i {
+.sidebar a {
     margin-right: 10px;
     color: #00bfff;
     font-size: 20px;
 }
 
-/* Botão de alternância */
+/* Botão de toggle (menu hambúrguer) */
 .toggle-btn {
-    font-size: 20px;
+    position: absolute;
+    align-items: center;
+    top: 15px;
     width: 40px;
-    position: fixed;
-    top: 100px;
-    left: 20px;
-    background: #00bfff;
-    color: white;
+    height: 40px;
+    background: transparent;
     border: none;
-    border-radius: 15px;
-    padding: 7px;
     cursor: pointer;
-    z-index: 102;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Linhas do hambúrguer */
+.toggle-btn span {
+    display: block;
+    width: 35px;
+    height: 4px;
+    background: rgb(255, 0, 0);
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação para transformar no "X" */
+.container-sidebar.show .toggle-btn span:nth-child(1) {
+    transform: translateY(25px) rotate(45deg);
+}
+
+.container-sidebar.show .toggle-btn span:nth-child(2) {
+    opacity: 0;
+}
+
+.container-sidebar.show .toggle-btn span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 .icon-text {
@@ -108,7 +128,8 @@
 }
 
 .icon-text:hover img {
-    display: none; /* Oculta o ícone */
+    display: none;
+    /* Oculta o ícone */
 }
 
 /* Ícone de casa */

@@ -5,15 +5,18 @@ import "./Sidebar.css";
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
 
+
   return (
     <>
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
+        
+        <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
         <nav className="sidebar">
-          
-          <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)}>
-            ☰
-          </button>
           <Link to={'/'} class="icon-text home"><img src="./img/botao-de-inicio.png" alt="" srcset="" /></Link>
           <a href="#" class="icon-text notifications"><img src="./img/notificacoes.png" alt="" srcset="" /> </a>
           <Link to={'./perfil'} class="icon-text profile"><img src="./img/perfil.png" alt="" srcset="" /></Link>
