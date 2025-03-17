@@ -23,7 +23,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    transition: left 0.3s ease-in-out;
+    transition: left 0.4s ease-in-out;
     z-index: 101;
 }
 
@@ -93,14 +93,13 @@
 
 .icon-text {
     font-family: Arial, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
     cursor: pointer;
+    margin-left: 10px;
     transition: all 0.9s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
     height: 50px;
     border-radius: 50%;
     color: white;

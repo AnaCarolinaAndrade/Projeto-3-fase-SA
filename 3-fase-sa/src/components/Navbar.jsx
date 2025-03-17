@@ -18,7 +18,7 @@ function Navbar() {
           <div class="search-bar">
             <input type="search" />
             <button>
-            <IoIosSearch fontSize={20}/>
+              <IoIosSearch fontSize={20} />
             </button>
           </div>
 
