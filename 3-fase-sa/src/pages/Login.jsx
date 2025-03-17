@@ -1,24 +1,39 @@
 import React from "react";
+import { FaRegEyeSlash } from "react-icons/fa";
 import "./Login.css";
 
 function Login() {
+
   return (
     <div className="login-container">
-      <div className="login-left">
-        <img src="./img/logo.png" alt="Deqex Logo" className="logo-login" />
-        <p>Texto de introdução da empresa</p>
-      </div>
 
       <div className="login-right">
         <form className="login-box">
-          <input type="email" placeholder="Email" className="input-field" />
-          <input type="password" placeholder="Senha" className="input-field" />
+
+          <div className="container-input">
+            <div class="input-wrapper">
+              <div className="ipt-email">
+                <input type="email" placeholder="Email" />
+              </div>
+              <div className="ipt-senha">
+                <input type="password" placeholder="Senha" />
+                <button className="button"><FaRegEyeSlash size={25} color="black" /></button>
+              </div>
+              <button className="btn-rec-senha">Esqueceu sua senha?</button>
+            </div>
+          </div>
+
+
           <button type="submit" className="login-btn">Log in</button>
+
+
           <div className="divider">
             <span></span> ou <span></span>
           </div>
-          <button className="google-btn">
+
+          <button className="container-btn">
             <img src="./img/google.png" alt="Google" />
+            <img src="./img/github.png" alt="" srcset="" />
           </button>
         </form>
       </div>

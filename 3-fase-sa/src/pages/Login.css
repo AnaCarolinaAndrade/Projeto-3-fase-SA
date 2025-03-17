@@ -2,7 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+}
+
+body {
+    font-family: 'Poppins';
+    font-size: 22px;
 }
 
 .login-container {
@@ -12,8 +16,8 @@
     height: 100vh;
     align-items: center;
     justify-content: center;
-    background-color: #05071E;
     padding: 20px;
+    background: linear-gradient(0deg,#2337A7 1%, #0F1111 80% );
 }
 
 .login-left {
@@ -42,17 +46,8 @@
     padding: 30px;
     border-radius: 10px;
     text-align: center;
-    width: 400px;
+    width: 500px;
     height: 20pc;
-}
-
-.input-field {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    font-size: 17px;
 }
 
 .login-btn {
@@ -83,12 +78,57 @@
     margin: 0 10px;
 }
 
-.google-btn {
+.container-btn {
     background: transparent;
     border: none;
     cursor: pointer;
 }
 
-.google-btn img {
+.container-btn img {
     width: 40px;
+    margin: 10px;
+}
+
+.ipt-email {
+    background-color: rgb(255, 255, 255);
+    padding: 13px;
+    margin: 34px 0;
+    display: flex;
+    border-radius: 10px;
+}
+
+.ipt-senha {
+    background-color: rgb(255, 255, 255);
+    padding: 13px;
+    margin: 10px 0;
+    display: flex;
+    border-radius: 10px;
+}
+
+.container-input input {
+    background-color: transparent;
+    border: 0;
+    font-size: 20px;
+    color: white;
+    outline: none;
+    margin-right: 8px;
+}
+
+.button {
+    background-color: transparent;
+    border: 0;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    cursor: pointer;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.btn-rec-senha{
+    text-decoration:underline;
+    border: 0;
+    background-color: transparent;
+    color: #ffffff;
+    cursor:pointer;
 }

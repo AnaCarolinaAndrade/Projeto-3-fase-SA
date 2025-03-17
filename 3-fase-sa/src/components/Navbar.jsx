@@ -1,5 +1,6 @@
 import React from 'react'
 import './Navbar.css'
+import { IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
 function Navbar() {
@@ -17,7 +18,7 @@ function Navbar() {
           <div class="search-bar">
             <input type="search" />
             <button>
-              <img src="./img/lupa.png" />
+            <IoIosSearch fontSize={20}/>
             </button>
           </div>
 

@@ -30,11 +30,12 @@
 /* Quando a sidebar estiver ativa */
 .container-sidebar.show {
     left: 0;
+    width: 200px;
 }
 
 .sidebar {
     display: flex;
-    align-items: center;
+    align-items: start;
     flex-direction: column;
 }
 
@@ -46,25 +47,16 @@
     color: white;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    padding: 10px;
     border-radius: 8px;
-    transition: background 0.3s;
 }
 
 .sidebar a:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: #00bfff;
-}
-
-.sidebar a {
-    margin-right: 10px;
-    color: #00bfff;
-    font-size: 20px;
+    color: #ffffff;
 }
 
 /* Botão de toggle (menu hambúrguer) */
 .toggle-btn {
-    position: absolute;
     align-items: center;
     top: 15px;
     width: 40px;
@@ -74,7 +66,6 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 /* Linhas do hambúrguer */
@@ -113,49 +104,18 @@
     height: 50px;
     border-radius: 50%;
     color: white;
-    margin: 10px;
 }
 
 .icon-text:hover {
     width: auto;
-    height: auto;
-    padding: 10px 20px;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .icon-text::before {
     transition: opacity 0.1s ease;
 }
 
-.icon-text:hover img {
-    display: none;
-    /* Oculta o ícone */
-}
-
-/* Ícone de casa */
-.home:hover::before {
-    content: "Página inicial";
-}
-
-.notifications:hover::before {
-    content: "Notificações";
-}
-
-.profile:hover::before {
-    content: "Perfil";
-}
-
-
-/* Ícone de chave */
-.login:hover::before {
-    content: "Login";
-}
-
-
-/* Ícone de cadastro */
-.signup:hover::before {
-    content: "Cadastro";
-}
 
 /* Responsividade */
 @media (max-width: 768px) {
