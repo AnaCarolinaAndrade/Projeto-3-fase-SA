@@ -3,9 +3,11 @@ import { createRoot } from 'react-dom/client'
 import Home from './pages/Home.jsx'
 import PerfilUser from './pages/PerfilUser.jsx'
 import Cadastro from './pages/Cadastro.jsx'
+import Login from './pages/Login.jsx'
+import Chat from './pages/Chat.jsx'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Login from './pages/Login.jsx'
+
 const router = createBrowserRouter([
   
   {
@@ -26,6 +28,10 @@ const router = createBrowserRouter([
   {
     path:"/cadastro",
     element: <Cadastro />
+  },
+  {
+    path:"/chat",
+    element: <Chat />
   }
 ])
 

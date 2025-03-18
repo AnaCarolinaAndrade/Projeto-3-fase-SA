@@ -17,7 +17,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: linear-gradient(0deg,#2337A7 1%, #0F1111 80% );
+    background: linear-gradient(0deg, #2337A7 1%, #0F1111 80%);
 }
 
 .login-left {
@@ -106,10 +106,11 @@ body {
 }
 
 .container-input input {
-    background-color: transparent;
+    width: 900%;
+    background-color: white;
     border: 0;
     font-size: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
     outline: none;
     margin-right: 8px;
 }
@@ -125,10 +126,10 @@ body {
     margin-right: 10px;
 }
 
-.btn-rec-senha{
-    text-decoration:underline;
+.btn-rec-senha {
+    text-decoration: underline;
     border: 0;
     background-color: transparent;
     color: #ffffff;
-    cursor:pointer;
+    cursor: pointer;
 }

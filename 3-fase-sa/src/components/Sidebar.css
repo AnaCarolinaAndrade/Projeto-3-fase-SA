@@ -17,7 +17,7 @@
     left: -250px;
     top: 60px;
     height: calc(100vh - 60px);
-    width: 150px;
+    width: 200px;
     background-color: #141414;
     padding: 20px;
     display: flex;
@@ -40,11 +40,12 @@
 }
 
 .sidebar a {
-    margin-top: 20px;
+    margin-top: 20px;   
     display: flex;
     align-items: center;
     text-decoration: none;
     color: white;
+    letter-spacing: 1.3px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     border-radius: 8px;

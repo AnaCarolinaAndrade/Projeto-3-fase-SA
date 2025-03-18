@@ -9,14 +9,12 @@
     flex-wrap: wrap;
 }
 
-.nav-logo{
-    width: 7%;
+.nav-logo {
+    display: block;
 }
 
 .logo-navbar {
-    height: 45px;
-    font-size: 24px;
-    font-weight: bold;
+    height: 40px;
     display: flex;
     align-items: center;
 }
@@ -64,7 +62,7 @@
     margin-left: 10px;
 }
 
-.foto-perfil{
+.foto-perfil {
     height: 40px;
 }
 

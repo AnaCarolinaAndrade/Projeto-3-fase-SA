@@ -1,8 +1,15 @@
 import React from "react";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 import "./Login.css";
 
 function Login() {
+
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+
+  const toggleMostrarSenha = () => {
+    setMostrarSenha(!mostrarSenha);
+  };
 
   return (
     <div className="login-container">
@@ -16,12 +23,13 @@ function Login() {
                 <input type="email" placeholder="Email" />
               </div>
               <div className="ipt-senha">
-                <input type="password" placeholder="Senha" />
-                <button className="button"><FaRegEyeSlash size={25} color="black" /></button>
+                <input id="senha"   type={mostrarSenha ? 'text' : 'password'} />
+                <button className="button" onClick={toggleMostrarSenha}><FaRegEyeSlash size={25} color="black" /></button>
               </div>
-              <button className="btn-rec-senha">Esqueceu sua senha?</button>
             </div>
           </div>
+          <button className="btn-rec-senha">Esqueceu sua senha?</button>
+
 
 
           <button type="submit" className="login-btn">Log in</button>
