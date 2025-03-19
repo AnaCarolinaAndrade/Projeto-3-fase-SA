@@ -16,20 +16,23 @@ function Sidebar() {
 
   return (
     <>
-      <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
-        <RxHamburgerMenu color="black" fontSize={60} />
-      </button>
+      <div className="toggle">
+        <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
+          <RxHamburgerMenu color="black" fontSize={60} />
+        </button>
+      </div>
+
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
 
         <nav className="sidebar">
           <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
             <IoCloseOutline color="white" fontSize={30} />
           </button>
-
-            <Link to={'/'} class="icon-text home"><HiMiniHome color="white" fontSize={20} />Home</Link>
-            <a href="#" class="icon-text notifications"><GoBellFill color="white" fontSize={20} />Notificações</a>
-            <Link to={'./perfil'} class="icon-text profile"><IoPersonSharp color="white" fontSize={20} />Perfil</Link>
-            <Link to={'./login'} class="icon-text login"><IoLogIn color="white" fontSize={20} />Login</Link>
+            
+          <Link to={'/'} class="icon-text home"><HiMiniHome color="white" fontSize={20} />Home</Link>
+          <Link to={'./chat'} class="icon-text notifications"><GoBellFill color="white" fontSize={20} />Notificações</Link>
+          <Link to={'./perfil'} class="icon-text profile"><IoPersonSharp color="white" fontSize={20} />Perfil</Link>
+          <Link to={'./login'} class="icon-text login"><IoLogIn color="white" fontSize={20} />Login</Link>
 
         </nav>
       </div>

@@ -40,12 +40,11 @@
 }
 
 .sidebar a {
-    margin-top: 20px;   
+    margin-top: 20px;
     display: flex;
     align-items: center;
     text-decoration: none;
     color: white;
-    letter-spacing: 1.3px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
     border-radius: 8px;
@@ -69,15 +68,7 @@
     flex-direction: column;
 }
 
-/* Linhas do hambúrguer */
-.toggle-btn span {
-    display: block;
-    width: 35px;
-    height: 4px;
-    background: rgb(255, 0, 0);
-    border-radius: 5px;
-    transition: all 0.3s ease-in-out;
-}
+
 
 /* Animação para transformar no "X" */
 .container-sidebar.show .toggle-btn span:nth-child(1) {
@@ -97,11 +88,11 @@
     font-size: 20px;
     cursor: pointer;
     margin-left: 10px;
-    transition: all 0.9s ease;
+    transition: all 0.5s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 40px;
     border-radius: 50%;
     color: white;
 }

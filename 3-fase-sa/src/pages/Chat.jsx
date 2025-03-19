@@ -1,10 +1,19 @@
 import React from 'react'
-import { BiSolidConversation } from "react-icons/bi";
+import './Chat.css'
 
 
 export default function Chat() {
     return (
-        <div>Chat</div>
+        <div>
+            <div className="chat-container">
+                <div className='nav-chat'>
+                    <h2>nicholas</h2>
+                    <div className='area-conversa'>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
     )
 }
