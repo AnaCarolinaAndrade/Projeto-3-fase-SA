@@ -11,16 +11,13 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import "./Sidebar.css";
 
 function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true);
-
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <div className="toggle">
         <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
-          <RxHamburgerMenu color="black" fontSize={60} />
+          <RxHamburgerMenu color="white" fontSize={40} />
         </button>
-      </div>
 
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
 

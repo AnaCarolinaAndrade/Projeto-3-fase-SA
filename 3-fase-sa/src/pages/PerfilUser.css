@@ -1,69 +1,37 @@
-.profile-container {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #ffffff;
+body{
+  background-color: #212121;
+  height: 100vh;
+
 }
 
-.rainbow-banner {
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+.profile{
+  margin: 90px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.profile-content {
-  margin-top: -25px;
+.profile img{
+  height: 90px;
 }
 
-.profile-picture {
-  width: 10rem;
+.infos{
   height: 10rem;
-  border-radius: 50%;
-  background-color: rgb(255, 255, 255);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  margin-top: -90px;
-  margin-bottom: 20px;
+  width: 30rem;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
-.profile-img {
-  width: 9rem;
-  height: 9rem;
-  border-radius: 50%;
+h2{
+  height: 50px;
 }
 
-.username {
-  font-size: 29px;
-  font-weight: bold;
-  margin-top: 10px;
+h1{
+  color: #fff;
 }
 
-.bio {
-  margin: 20px;
-  font-size: 14px;
-  color: gray;
-}
+p{
+  font-size: 15px;
 
-.posts-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.post img {
-  width: 150px;
-  height: auto;
-  border-radius: 10px;
-}
-
-.divisor{
-  margin-top: 10px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  background-color: rgb(104, 213, 94);
-  height: 2px;
 }

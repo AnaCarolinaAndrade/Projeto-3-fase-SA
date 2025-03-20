@@ -1,30 +1,31 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import './PerfilUser.css'
+import Sidebar from '../components/Sidebar'
+import { BsGenderFemale } from "react-icons/bs";
+import { IoMapOutline } from "react-icons/io5";
+
+
 
 function PerfilUser() {
   return (
     <>
-      <Navbar />
+      <Sidebar />
 
       <div className="profile-container">
-        
-        <div className="rainbow-banner"></div>
+        <div className='profile'>
 
-        <div className="profile-content">
-          <div className="profile-picture">
-            <img src="./img/foto-user.png" alt="User" className="profile-img" />
+            <img src="./img/foto-user.png"/>
+
+            <h1>Ana Maria Dos Santos</h1> 
+            <h2><BsGenderFemale fontSize={20} /> Feminino</h2>
+            <h2><IoMapOutline fontSize={20}/> Florianópolis </h2>
+
+            <div className='infos'>
+              <p>alguma coisa para preencher o campo</p>
+            </div>
+
           </div>
-          <h1 className="username">Pedro_Henrique_Marques</h1>
-          <p className="bio">Sou o Pedro e vejo coisas gays</p>
-        </div>
-
-        <div className='divisor'>
-        </div>
       </div>
-
-
-
     </>
   )
 }
