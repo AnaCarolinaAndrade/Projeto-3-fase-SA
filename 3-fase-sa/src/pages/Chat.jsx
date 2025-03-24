@@ -9,7 +9,7 @@ export default function Chat() {
                 <div className='nav-chat'>
                     <h2>nicholas</h2>
                     <div className='area-conversa'>
-
+                        
                     </div>
                 </div>
             </div>

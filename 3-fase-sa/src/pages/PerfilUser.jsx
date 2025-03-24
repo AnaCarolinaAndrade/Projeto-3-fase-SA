@@ -5,7 +5,6 @@ import { BsGenderFemale } from "react-icons/bs";
 import { IoMapOutline } from "react-icons/io5";
 
 
-
 function PerfilUser() {
   return (
     <>

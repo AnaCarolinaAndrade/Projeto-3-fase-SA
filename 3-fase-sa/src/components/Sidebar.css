@@ -27,6 +27,11 @@
     z-index: 101;
 }
 
+.profile{
+    display: flex;
+    margin: auto;
+}
+
 /* Quando a sidebar estiver ativa */
 .container-sidebar.show {
     left: 0;
@@ -51,10 +56,6 @@
     border-radius: 8px;
 }
 
-.sidebar a:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-}
 
 /* Botão de toggle (menu hambúrguer) */
 .toggle-btn {
@@ -63,7 +64,7 @@
     width: 40px;
     height: 40px;
     background: transparent;
-    border: none;
+    border: none;   
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -99,7 +100,7 @@
 }
 
 .icon-text:hover {
-    width: auto;
+    background-color: #2b2b2b;
     padding: 10px;
     border-radius: 10px;
 }
