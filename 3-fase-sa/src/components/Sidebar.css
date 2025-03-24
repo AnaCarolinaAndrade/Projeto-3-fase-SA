@@ -27,7 +27,7 @@
     z-index: 101;
 }
 
-.profile{
+.profile {
     display: flex;
     margin: auto;
 }
@@ -60,11 +60,22 @@
 /* Botão de toggle (menu hambúrguer) */
 .toggle-btn {
     align-items: center;
-    top: 15px;
     width: 40px;
-    height: 40px;
+    height: 30px;
     background: transparent;
-    border: none;   
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.configs {
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    background: transparent;
+    border: none;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -107,6 +118,12 @@
 
 .icon-text::before {
     transition: opacity 0.1s ease;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 

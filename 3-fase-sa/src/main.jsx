@@ -5,6 +5,7 @@ import PerfilUser from './pages/PerfilUser.jsx'
 import Cadastro from './pages/Cadastro.jsx'
 import Login from './pages/Login.jsx'
 import Chat from './pages/Chat.jsx'
+import Configs from './pages/Configs.jsx'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path:"/chat",
     element: <Chat />
+  },
+  {
+    path:"/configs",
+    element: <Configs />
   }
 ])
 
