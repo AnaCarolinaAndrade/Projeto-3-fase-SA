@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-O **Dexes** é um web site destinado a facilitar a divulgação dos projetos e a comunicação eficiente entre profissionais das principais áreas da tecnologia einvestidores interessados nos projetos, abrangendo desde iniciantes até especialistas. O objetivo é garantir que os usuários possam adquirir reconhecimento aos seus projetos e aprimorar suas competências por meio de uma rede colaborativa.
+O **Dexes** é um web site destinado a facilitar a divulgação dos projetos e a comunicação eficiente entre profissionais das principais áreas da tecnologia e investidores interessados nos projetos, abrangendo desde iniciantes até especialistas. O objetivo é garantir que os usuários possam adquirir reconhecimento aos seus projetos e aprimorar suas competências por meio de uma rede colaborativa.
 
 O site possui diversas funcionalidades, como um chat para comunicação direta entre os usuários, possibilitando uma troca rápida e eficiente de informações. Cada usuário pode criar, editar e excluir seu perfil pessoal, onde será possível compartilhar informações sobre sua experiência e interesses profissionais. Junto com o perfil, há um portfólio para divulgar os projetos realizados e os serviços prestados, além de permitir a adição de feedbacks sobre os trabalhos executados.
 
