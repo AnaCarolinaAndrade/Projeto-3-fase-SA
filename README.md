@@ -61,11 +61,14 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 ### Tela de Login
 ![Login](./3-fase-sa/public/img/Login.png)
 
-### Tela de Cadastro (Parte 1)
-![Cadastro](./3-fase-sa/public/img/cadastro1.png)
+### Tela de Cadastro  Profissional (Parte 1)
+![Cadastro](./3-fase-sa/public/img/Tela_cadastro_profissional_1.png)
 
 ### Tela de Cadastro (Parte 2 - Seleção de Experiência e Área)
-![Cadastro 2](./3-fase-sa/public/img/cadastro2.png)
+![Cadastro 2](./3-fase-sa/public/img/Tela_cadastro_profissional_2.png)
+
+### Tela de Cadastro (Parte 3 - Seleção de softwares e Linguagens de programação)
+![Cadastro 3](./3-fase-sa/public/img/Tela_cadastro_prossional_3.png)
 
 ## Colaboradores do Projeto e as funções que irão exercer
 
