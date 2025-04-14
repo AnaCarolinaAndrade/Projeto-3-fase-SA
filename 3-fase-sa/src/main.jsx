@@ -10,7 +10,7 @@ import Configs from './pages/Configs.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 const router = createBrowserRouter([
-  
+
   {
     path: "/",
     element: <Home />,
@@ -22,26 +22,26 @@ const router = createBrowserRouter([
   },
 
   {
-    path:"/login",
+    path: "/login",
     element: <Login />
   },
-  
+
   {
-    path:"/cadastro",
+    path: "/cadastro",
     element: <Cadastro />
   },
   {
-    path:"/chat",
+    path: "/chat",
     element: <Chat />
   },
   {
-    path:"/configs",
+    path: "/configs",
     element: <Configs />
   }
-])
+]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </StrictMode>,
 )

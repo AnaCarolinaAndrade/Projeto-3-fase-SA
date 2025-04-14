@@ -1,5 +1,4 @@
 .chat-container {
-    position: absolute;
     height: 50vh;
     width: 50vw;
     background-color: #141414;
@@ -8,9 +7,10 @@
 }
 
 .nav-chat {
-    position: relative;
+    display: flex;
+    align-items: center;
     width: auto;
-    height: 50px;    
+    height: 50px;
     background-color: #152033;
 }
 
@@ -20,7 +20,13 @@
     align-items: center;
 }
 
-h2{
+h2 {
+    margin: 0;
+    padding: 0;
     color: white;
     font-size: 10px;
+}
+
+p {
+    color: black;
 }
