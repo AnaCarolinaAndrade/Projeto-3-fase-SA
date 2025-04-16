@@ -64,6 +64,9 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 ### Tela de Login
 ![Login](./3-fase-sa/public/img/Login.png)
 
+### Tela de Cadastro  Investidor
+![Cadastro_investidor](./3-fase-sa/public/img/Tela_cadastro_investidor.png)
+
 ### Tela de Cadastro  Profissional (Parte 1)
 ![Cadastro](./3-fase-sa/public/img/Tela_cadastro_profissional_1.png)
 
