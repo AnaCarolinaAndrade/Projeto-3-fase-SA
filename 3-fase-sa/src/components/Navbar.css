@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #141414;
+    background-color:#0F0F0F;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,6 +7,9 @@
     position: relative;
     width: 100%;
     flex-wrap: wrap;
+    border-right-color: rgb(255, 255, 255);
+    border-bottom-style:outset;
+    border-bottom-width: 0.3px;
 }
 
 .nav-logo{

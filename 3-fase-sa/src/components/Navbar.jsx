@@ -9,12 +9,6 @@ function Navbar() {
       <div className='container-navbar'>
         <nav class="navbar">
 
-          <div className='nav-logo'>
-            <Link to={'/'}>
-              <img src="./img/logo.png" className='logo-navbar' />
-            </Link>
-          </div>
-
           <div class="search-bar">
             <input type="search" />
             <button>
