@@ -1,117 +1,91 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    overflow: hidden;
-    background-color: #05071E;
-}
-
-.form-wrapper {
-    display: flex;
-    width: 100%;
-    transition: transform 0.6s ease-in-out;
-}
-
-.move-left {
-    transform: translateX(-100%);
-}
-
-.form-section1 {
-    margin-left: 28%;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #05071E;
-    padding: 20px;
-    text-align: center;
-    color: white;
-}
-
-.form-section2 {
-    margin-left: 63%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #05071E;
-    padding: 20px;
+    overflow-y: hidden;
+    background-color: #fff;
     border-radius: 8px;
-    text-align: center;
-    color: white;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-
-.label-cadastro {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     display: flex;
-    color: white;
+    width: 80%;
+    max-width: 960px;
+    overflow: hidden;
+    margin: 20px auto;
+    transition: transform 0.5s ease-in-out;
 }
 
-.label-cadastro2 {
-    margin-left: 10px;
+.cadastro-esquerda,
+.cadastro-direita {
+    flex: 1 0 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-input[type="checkbox"] {
-    transform: scale(1.5);
-    margin-right: 5px; 
+.cadastro-direita {
+    transform: translateX(100%);
 }
 
-.input-group select {
-    padding: 8px;
-    border-radius: 4px;
-    border: none;
-    background: #ffffff;
-    color: gray;
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.input-group label {
-    color: white;
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
     margin-bottom: 5px;
-    margin: 5px;
+    color: #555;
+    font-size: 0.9em;
 }
 
-.input-group input,
-.input-group select {
-    width: 350px;
+input[type='text'],
+input[type='email'],
+input[type='password'] {
+    width: calc(100% - 12px);
     padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    font-size: 17px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
 }
 
-.button-container {
-    margin-top: 20px;
-}
-
-.submit-button {
-    margin-top: 20px;
-    font-size: 15px;
-    background-color: #00A3F5;
-    color: rgb(255, 255, 255);
-    padding: 10px 20px;
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 15px;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: 0.4s;
+    font-size: 1em;
+    width: 100%;
+    margin-top: 15px;
 }
 
-.submit-button:hover {
-    background-color: transparent;
-    border: 1px solid #ffffff;
+button:hover {
+    background-color: #0056b3;
 }
 
-.div-logo-cadastro {
-    margin-bottom: 10%;
+.mover-para-direita {
+    transform: translateX(-200%);
+}
+
+/* Estilos responsivos (opcional) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .cadastro-esquerda,
+    .cadastro-direita {
+        flex: 1 0 auto;
+        width: 100%;
+        transform: translateX(0);
+    }
+
+    .mover-para-direita {
+        transform: translateY(-100%);
+    }
 }

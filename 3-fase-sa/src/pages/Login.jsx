@@ -23,18 +23,14 @@ function Login() {
                 <input type="email" placeholder="Email" />
               </div>
               <div className="ipt-senha">
-                <input id="senha"   type={mostrarSenha ? 'text' : 'password'} />
+                <input id="senha" type={mostrarSenha ? 'text' : 'password'} placeholder="Senha" />
                 <button className="button" onClick={toggleMostrarSenha}><FaRegEyeSlash size={25} color="black" /></button>
               </div>
             </div>
           </div>
           <button className="btn-rec-senha">Esqueceu sua senha?</button>
 
-
-
           <button type="submit" className="login-btn">Log in</button>
-
-
           <div className="divider">
             <span></span> ou <span></span>
           </div>
