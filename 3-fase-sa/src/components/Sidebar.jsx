@@ -16,11 +16,11 @@ function Sidebar() {
 
   return (
     <>
-      <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
+      <button className="btn-menu" onClick={() => setIsOpen(!isOpen)()}>
       <img 
           src="./img/logo_pequena.png" 
           alt="Menu" 
-          style={{ width: '80px', height: '72px', cursor: 'pointer',  position:'absolute', }} 
+          style={{ width: '80px', height: '72px', cursor: 'pointer',   }} 
         />
       </button>
 

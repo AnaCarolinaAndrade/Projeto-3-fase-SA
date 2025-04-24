@@ -9,7 +9,7 @@ function Home() {
     <div> 
       <Navbar/> 
       <Sidebar/>
-      <h2>Descubra e Divulge projetos Web, para o mundo todo com o DEXES</h2>   
+      <h2 className='title-home'>Descubra e Divulge projetos Web, para o <h2>mundo todo com o DEXES</h2></h2>   
     </div>
   )
 }

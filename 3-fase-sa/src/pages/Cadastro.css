@@ -64,10 +64,6 @@ button {
     margin-top: 15px;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
 .mover-para-direita {
     transform: translateX(-200%);
 }
