@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import "./Cadastro.css";
-
+[]
 export default function Cadastro() {
   const [showPj, setShowPj] = useState(false);
   const [cadastroPf, setCadastroPf] = useState({

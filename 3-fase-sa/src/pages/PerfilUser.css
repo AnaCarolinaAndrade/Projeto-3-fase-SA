@@ -1,9 +1,3 @@
-body {
-  background-color:#0F0F0F;
-  height: 100vh;
-
-}
-
 .profile {
   font-size: 15px;
   margin: 90px;
@@ -15,6 +9,17 @@ body {
 .profile img {
   height: 90px;
 }
+
+.trocar-foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  height: 95px;
+  width: 95px;
+  background-color: #fff;
+}
+
 
 .infos {
   height: 10rem;
