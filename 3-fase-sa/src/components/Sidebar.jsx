@@ -34,6 +34,8 @@ function Sidebar() {
            <Link to={'/chat'} class="icon-text "><GoBellFill color="white" fontSize={20} />chat</Link>
            <Link to={'/login'} class="icon-text "><IoLogIn color="white" fontSize={20} />Login</Link>
            <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={15} />Configurações</Link>
+           <Link to={'/cadastro'} className="icon-text"><FaGear color="white" fontSize={15} />Cadastro</Link>
+
         </nav>
 
       </div>

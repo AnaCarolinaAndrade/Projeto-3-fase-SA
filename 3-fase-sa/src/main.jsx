@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   {
     path: "/configs",
     element: <Configs />
-  }
+  },
 ]);
 
 createRoot(document.getElementById('root')).render(
