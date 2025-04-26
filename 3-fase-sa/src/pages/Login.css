@@ -1,38 +1,37 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins';
-    font-size: 22px;
-}
-
 .login-container {
-    -webkit-user-select: none;
     user-select: none;
     display: flex;
     height: 100vh;
+    width: 100vw;
     align-items: center;
     justify-content: center;
-    padding: 20px;
     background: linear-gradient(0deg, #2337A7 1%, #0F1111 80%);
+    color: #ffffff;
 }
 
 .login-left {
     flex: 1;
     text-align: center;
+    padding: 20px;
+}
+
+.input-wrapper label {
+    margin-left: 0;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .logo-login {
+    max-width: 80%;
     width: 35pc;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .login-left p {
-    font-size: 20px;
-    color: #ffffff;
+    font-size: 1.25rem;
+    line-height: 1.6;
 }
 
 .login-right {
@@ -40,90 +39,114 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 .login-box {
     padding: 30px;
     border-radius: 10px;
     text-align: center;
-    width: 500px;
-    height: 20pc;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .login-btn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background-color: #00A3F5;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;
-    margin-top: 30px;
+    font-size: 1rem;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #007acc;
 }
 
 .divider {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 25px 0;
+    margin: 20px 0;
     color: white;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .divider span {
     flex: 1;
     height: 1px;
     background: white;
-    margin: 0 10px;
+    margin: 0 15px;
 }
 
 .container-btn {
-    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.social-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
     border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
     cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
 }
 
-.container-btn img {
-    width: 40px;
-    margin: 10px;
+.social-login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
-.ipt-email {
-    background-color: rgb(255, 255, 255);
-    padding: 13px;
-    margin: 34px 0;
-    display: flex;
-    border-radius: 10px;
+.social-login-btn img {
+    width: 25px;
+    margin-right: 10px;
 }
 
+.ipt-email,
 .ipt-senha {
-    background-color: rgb(255, 255, 255);
-    padding: 13px;
-    margin: 10px 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    width: 100%;
+    margin: 15px 0;
     display: flex;
-    border-radius: 10px;
+    border-radius: 5px;
+    align-items: center;
 }
 
 .container-input input {
-    width: 900%;
-    background-color: white;
+    flex-grow: 1;
+    background-color: transparent;
     border: 0;
-    font-size: 20px;
-    color: rgb(0, 0, 0);
+    font-size: 1rem;
+    color: black;
     outline: none;
     margin-right: 8px;
 }
 
-.button {
+.olhar-senha {
+    margin: 0;
+    padding: 0;
+    gap: 0;
     background-color: transparent;
-    border: 0;
-    display: flex;
-    justify-content: end;
-    align-items: end;
-    cursor: pointer;
-    flex: 1;
     margin-right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .btn-rec-senha {
@@ -132,4 +155,10 @@ body {
     background-color: transparent;
     color: #ffffff;
     cursor: pointer;
+    font-size: 0.875rem;
+    margin-top: 15px;
+}
+
+.btn-rec-senha:hover {
+    color: #ddd;
 }

@@ -34,6 +34,10 @@ h2 {
     margin-bottom: 15px;
 }
 
+li{
+    color: #fff;
+}
+
 label {
     display: block;
     margin-bottom: 5px;
@@ -52,7 +56,7 @@ input[type='password'] {
     font-size: 1em;
 }
 
-button {
+.criar-user {
     background-color: #007bff;
     color: white;
     padding: 12px 15px;
