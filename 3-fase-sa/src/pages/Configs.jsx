@@ -9,10 +9,18 @@ import { h1 } from 'framer-motion/client';
 
 function Configs() {
 
+  fetch('http://localhost:5000/api/user/me', {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
+    },
+  })
+  
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const fileInputRef = useRef(null); // Referência para o input do tipo file
+
+  
 
   useEffect(() => {
     fetch('http://localhost:5000/api/usuarios')
@@ -29,6 +37,15 @@ function Configs() {
         }
       })
   };
+
+  const salvarUsuario = (id) => {
+    axios.put(`http://localhost:5000/api/usuarios/${id}`)
+    .then(response => {
+      if (response.status === 200) {
+        setUsuarios(usuarios.filter(usuario => usuario.id !== id));
+      }
+    })
+  }
 
 
   const handleImageChange = (event) => {
@@ -62,6 +79,27 @@ function Configs() {
     formData.append('profileImage', file);
   };
 
+  const SalvarAlteracoes = async () => {
+    const token = localStorage.getItem('sessionToken');
+    if (token) {
+        try {
+            const response = await fetch('http://localhost:5000/api/user/update', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(userData), // userData contendo nome, sexo, localidade, bio
+            });
+            // ... processar a resposta
+        } catch (error) {
+            console.error('Erro ao salvar as alterações:', error);
+        }
+    } else {
+        // Redirecionar para login se não houver token
+    }
+};
+
 
   return (
     <>
@@ -75,8 +113,8 @@ function Configs() {
               onClick={handleClickProfileImage}
               style={{
                 cursor: 'pointer',
-                width: '100px',
-                height: '100px',
+                width: '150px',
+                height: '150px',
                 borderRadius: '50%',
                 overflow: 'hidden',
                 display: 'flex',
@@ -110,7 +148,7 @@ function Configs() {
               {usuario.nome}
             </h1>
           ))}</div>
-          <h2><BsGenderFemale fontSize={20} /> Feminino </h2>
+          <h2><BsGenderFemale fontSize={20} /> Masculino </h2>
           <h2><IoMapOutline fontSize={20} /> Florianópolis </h2>
 
           <div className='infos'>
@@ -120,6 +158,7 @@ function Configs() {
               {usuarios.map(usuario => (
                 <div key={usuario}>
                   <button onClick={() => deletarUsuario(usuario.id) } className='deletar-usuario'>Excluir conta</button>
+                  <button onClick={() => SalvarAlteracoes(usuario.id) } className='salvar-usuario'>Salvar Alterações</button>
                 </div>
               ))}
 

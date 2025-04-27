@@ -45,8 +45,20 @@ p {
     font-size: 15px;
 }
 
-.deletar-usuario{
-    color: #fc362c;
-    border: 1px solid rgb(111, 111, 111);
+.salvar-usuario {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #2cfc36;
+    border: 1px solid #2cfc36;
+    background-color: #2a2d32;
+}
+
+.deletar-usuario {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #ff1c10;
+    border: 1px solid #ff1c10;
     background-color: #2a2d32;
 }

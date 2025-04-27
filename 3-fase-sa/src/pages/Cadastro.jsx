@@ -1,20 +1,56 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import axios from 'axios';
 import "./Cadastro.css";
 
 export default function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [usuarios, setUsuarios] = useState([]);
+  const [sexo, setSexo] = useState('')
 
   const criarUsuario = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/usuarios', { nome, email });
       setNome('');
       setEmail('');
+      setSexo('')
     } catch (error) {
       console.error('Erro:', error);
       setMensagem(error.message);
+    }
+  };
+
+  useEffect(() => {
+    function handleCredentialResponse(response) {
+      console.log("Encoded JWT ID token: " + response.credential);
+      enviarTokenParaBackend(response.credential);
+    }
+
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: "187533279088-8ck947lb5vptqltevj9e04m9rvs8i4tu.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv")
+      );
+    }
+  }, []);
+
+  const enviarTokenParaBackend = async (token) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/google-login', { // Sua rota no backend
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token })
+      });
+      const data = await response.json();
+      // Lógica para lidar com a resposta do backend (armazenar token de sessão, redirecionar, etc.)
+      console.log('Resposta do backend:', data);
+    } catch (error) {
+      console.error('Erro ao enviar token para o backend:', error);
     }
   };
 
@@ -37,6 +73,15 @@ export default function Cadastro() {
           onChange={e => setEmail(e.target.value)}
           required
         />
+        <select name="" id="">
+          <option value="1">LÉSBICA</option>
+          <option value="2">GAY</option>
+          <option value="3">BISSEXUAL</option>
+          <option value="4">TRANSEXUAL</option>
+          <option value="5">NÃO BINÁRIO</option>
+          <option value="6">OUTRO</option>
+          <option value="7">PREFIRO NÃO DIZER</option>
+        </select>
       </form>
 
       <button onClick={criarUsuario} className='criar-user'>Criar</button>
