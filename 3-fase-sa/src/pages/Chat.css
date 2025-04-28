@@ -1,32 +1,59 @@
+
 .chat-container {
-    height: 50vh;
-    width: 50vw;
-    background-color: #141414;
-    border-radius: 9px;
-
+    width: 70em;
+    height: 40rem;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 0px 50px #0f0f0f3c;
 }
 
-.nav-chat {
+.topo-chat{
+    height: 60px;
+    border: 1px solid black;
+    background-color: #0F0F0F;
+}
+
+.message-area {
+    height: 400px;
+    overflow-y: scroll;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.message-area p {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #e4e4e4;
+    border-radius: 4px;
+}
+
+.message-input {
     display: flex;
-    align-items: center;
-    width: auto;
-    height: 50px;
-    background-color: #152033;
-}
-
-.area-conversa {
-    width: auto;
-    height: 50vh;
+    justify-content: space-between;
     align-items: center;
 }
 
-h2 {
-    margin: 0;
-    padding: 0;
+.message-input input {
+    width: 85%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.message-input button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
     color: white;
-    font-size: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-p {
-    color: black;
+.message-input button:hover {
+    background-color: #45a049;
 }

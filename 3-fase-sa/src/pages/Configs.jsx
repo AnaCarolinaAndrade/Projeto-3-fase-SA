@@ -17,9 +17,7 @@ function Configs() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
-  const fileInputRef = useRef(null); // Referência para o input do tipo file
-
-
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/usuarios')

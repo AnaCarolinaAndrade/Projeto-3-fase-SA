@@ -1,18 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask_socketio import SocketIO, send
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-from google.cloud import storage
-
-# Inicializar o cliente do Google Cloud Storage
-storage_client = storage.Client()
-
-# Agora você pode interagir com o Google Cloud Storage, sem precisar especificar o caminho da chave diretamente
-bucket = storage_client.get_bucket('your-bucket-name')
-
 import os
 import uuid
 import datetime
@@ -22,17 +15,22 @@ load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")  # Permitir qualquer origem
 
 # Conexão com o MongoDB
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 
-# Inicializar o cliente do Google Cloud Storage
-storage_client = storage.Client()
+@app.route('/')
+def index():
+    return render_template('index.html')  # Arquivo HTML do frontend
 
-# Agora você pode interagir com o Google Cloud Storage, sem precisar especificar o caminho da chave diretamente
-bucket = storage_client.get_bucket('your-bucket-name')
+@socketio.on('message')
+def handle_message(msg):
+    
+    print('Mensagem recebida:', msg)
+    send(msg, broadcast=True)  # Envia a mensagem para todos os clientes conectados
 
 try:
     client = MongoClient(MONGO_URI)
@@ -224,3 +222,5 @@ def update_user():
 # Executar aplicação
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+
