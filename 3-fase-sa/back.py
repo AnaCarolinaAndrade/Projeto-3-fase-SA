@@ -4,17 +4,35 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from bson.objectid import ObjectId
+from google.cloud import storage
+
+# Inicializar o cliente do Google Cloud Storage
+storage_client = storage.Client()
+
+# Agora você pode interagir com o Google Cloud Storage, sem precisar especificar o caminho da chave diretamente
+bucket = storage_client.get_bucket('your-bucket-name')
+
 import os
 import uuid
 import datetime
 
+# Carregar variáveis de ambiente
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
+# Conexão com o MongoDB
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
+# Inicializar o cliente do Google Cloud Storage
+storage_client = storage.Client()
+
+# Agora você pode interagir com o Google Cloud Storage, sem precisar especificar o caminho da chave diretamente
+bucket = storage_client.get_bucket('your-bucket-name')
 
 try:
     client = MongoClient(MONGO_URI)
@@ -25,17 +43,35 @@ except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
     exit()
 
+# Funções auxiliares
+def gerar_token_de_sessao():
+    return str(uuid.uuid4())
+
+def verificar_token():
+    token = request.headers.get('Authorization')
+    if not token or not token.startswith('Bearer '):
+        return None, {'error': 'Token de autorização ausente ou inválido'}, 401
+    session_token = token.split(' ')[1]
+    session_data = sessions_collection.find_one({'session_token': session_token})
+    if session_data:
+        user_id = session_data['user_id']
+        user = usuarios_collection.find_one({'_id': ObjectId(user_id)})
+        return user, None, None
+    else:
+        return None, {'error': 'Sessão inválida'}, 401
+
+# Rotas de Usuário
 @app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
     usuarios_data = list(usuarios_collection.find({}, {'_id': 0}))
     return jsonify(usuarios_data)
-
 
 @app.route('/api/usuarios', methods=['POST'])
 def criar_usuario():
     data = request.get_json()
     nome = data.get('nome')
     email = data.get('email')
+
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios.'}), 400
 
@@ -51,11 +87,7 @@ def atualizar_usuario(user_id):
     data = request.get_json()
     nome = data.get('nome')
     email = data.get('email')
-    profile_pic = data.get('picture')
-    given_name = data.get('given_name')
-    family_name = data.get('family_name')
-    locale = data.get('locale')
-    
+
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios para atualização.'}), 400
 
@@ -72,23 +104,6 @@ def deletar_usuario(user_id):
         return jsonify({'mensagem': f'Usuário com ID {user_id} deletado com sucesso.'}), 200
     return jsonify({'erro': 'Usuário não encontrado'}), 404
 
-def gerar_token_de_sessao():
-    return str(uuid.uuid4())
-
-
-def verificar_token():
-    token = request.headers.get('Authorization')
-    if not token or not token.startswith('Bearer '):
-        return None, {'error': 'Token de autorização ausente ou inválido'}, 401
-    session_token = token.split(' ')[1]
-    session_data = sessions_collection.find_one({'session_token': session_token})
-    if session_data:
-        user_id = session_data['user_id']
-        user = usuarios_collection.find_one({'_id': ObjectId(user_id)}, {'_id': 0})
-        return user, None, None
-    else:
-        return None, {'error': 'Sessão inválida'}, 401
-    
 @app.route('/api/google-login', methods=['POST'])
 def google_login():
     data = request.get_json()
@@ -100,7 +115,7 @@ def google_login():
     try:
         idinfo = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-            raise ValueError('Wrong issuer.')
+            raise ValueError('Emissor inválido.')
 
         google_user_id = idinfo['sub']
         email = idinfo.get('email')
@@ -112,54 +127,66 @@ def google_login():
 
         usuario_existente = usuarios_collection.find_one({'google_id': google_user_id})
 
+        session_token = gerar_token_de_sessao()
+
         if usuario_existente:
-            session_token = gerar_token_de_sessao()
             usuarios_collection.update_one(
                 {'google_id': google_user_id},
-                {'$set': {
-                    'email': email, 
-                    'nome': name, 
-                    'profile_pic': profile_pic, 
-                    'given_name': given_name, 
-                    'family_name': family_name, 
-                    'locale': locale
-                    }}
+                {'$set': {'email': email, 'nome': name}}
             )
-            return jsonify({'success': True, 'message': 'Login com Google bem-sucedido (usuário existente)', 'session_token': session_token, 'user': {'id': str(usuario_existente['_id']), 'google_id': usuario_existente['google_id'], 'email': usuario_existente['email'], 'nome': usuario_existente['nome'], 'profile_pic': usuario_existente.get('profile_pic'), 'given_name': usuario_existente.get('given_name'), 'family_name': usuario_existente.get('family_name'), 'locale': usuario_existente.get('locale')}}), 200
+            user_id = usuario_existente['_id']
         else:
             novo_usuario = {
                 'google_id': google_user_id,
                 'email': email,
                 'nome': name,
                 'profile_pic': profile_pic,
+                'given_name': given_name,
+                'family_name': family_name,
                 'locale': locale,
                 'created_at': datetime.datetime.now()
             }
             result = usuarios_collection.insert_one(novo_usuario)
-            novo_usuario_id = result.inserted_id
-            session_token = gerar_token_de_sessao()
-            return jsonify({'success': True, 'message': 'Login com Google bem-sucedido (novo usuário criado)', 'session_token': session_token, 'user': {'id': str(novo_usuario_id), 'google_id': google_user_id, 'email': email, 'nome': name, 'profile_pic': profile_pic, 'given_name': given_name, 'family_name': family_name, 'locale': locale}}), 201
-        
-        
+            user_id = result.inserted_id
+
+        sessions_collection.insert_one({
+            'user_id': str(user_id),
+            'session_token': session_token,
+            'created_at': datetime.datetime.now()
+        })
+
+        return jsonify({
+            'success': True,
+            'message': 'Login com Google bem-sucedido',
+            'session_token': session_token,
+            'user': {
+                'id': str(user_id),
+                'google_id': google_user_id,
+                'email': email,
+                'nome': name,
+                'profile_pic': profile_pic,
+                'given_name': given_name,
+                'family_name': family_name,
+                'locale': locale
+            }
+        }), 200
 
     except ValueError as e:
         return jsonify({'error': f'Token de ID do Google inválido: {e}'}), 401
     except Exception as e:
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
-    
-    from bson.objectid import ObjectId
 
+# Rotas de Perfil
 @app.route('/api/user/me', methods=['GET'])
 def get_me():
     user, error, status_code = verificar_token()
     if error:
         return jsonify(error), status_code
-    return jsonify({'id': str(user['_id']), 
-                    'nome': user.get('nome'), 
-                    'sexo': user.get('sexo'), 
-                    'localidade': user.get('localidade'), 
-                    'bio': user.get('bio'), 
-                    'profile_pic': user.get('profile_pic')}), 200
+
+    return jsonify({
+        'id': str(user['_id']),
+        'nome': user.get('nome')
+    }), 200
 
 @app.route('/api/user/update', methods=['PUT'])
 def update_user():
@@ -168,27 +195,25 @@ def update_user():
         return jsonify(error), status_code
 
     data = request.get_json()
-    nome = data.get('nome')
-    sexo = data.get('sexo')
-    localidade = data.get('localidade')
-    bio = data.get('bio')
-
     update_data = {}
+
+    nome = data.get('nome')
+
     if nome is not None:
         update_data['nome'] = nome
-    if sexo is not None:
-        update_data['sexo'] = sexo
-    if localidade is not None:
-        update_data['localidade'] = localidade
-    if bio is not None:
-        update_data['bio'] = bio
 
     if update_data:
         try:
-            result = usuarios_collection.update_one({'_id': ObjectId(user['id'])}, {'$set': update_data})
+            result = usuarios_collection.update_one({'_id': user['_id']}, {'$set': update_data})
             if result.modified_count > 0:
-                updated_user = usuarios_collection.find_one({'_id': ObjectId(user['id'])}, {'_id': 0})
-                return jsonify({'message': 'Informações atualizadas com sucesso!', 'user': {'id': str(updated_user['_id']), 'nome': updated_user.get('nome'), 'sexo': updated_user.get('sexo'), 'localidade': updated_user.get('localidade'), 'bio': updated_user.get('bio'), 'profile_pic': updated_user.get('profile_pic')}}), 200
+                updated_user = usuarios_collection.find_one({'_id': user['_id']})
+                return jsonify({
+                    'message': 'Informações atualizadas com sucesso!',
+                    'user': {
+                        'id': str(updated_user['_id']),
+                        'nome': updated_user.get('nome')
+                    }
+                }), 200
             else:
                 return jsonify({'message': 'Nenhuma informação foi alterada.'}), 200
         except Exception as e:
@@ -196,5 +221,6 @@ def update_user():
     else:
         return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
+# Executar aplicação
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

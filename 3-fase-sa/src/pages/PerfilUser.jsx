@@ -1,54 +1,18 @@
-import { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import './PerfilUser.css'
+import './Configs.css'
 import Sidebar from '../components/Sidebar'
 import { BsGenderFemale } from "react-icons/bs";
 import { IoMapOutline } from "react-icons/io5";
+import { h1 } from 'framer-motion/client';
 
 
-function PerfilUser() {
+function Configs() {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [uploadError, setUploadError] = useState('');
-  const [profileImageUrl, setProfileImageUrl] = useState('URL_DA_SUA_FOTO_DE_PERFIL_ATUAL'); // Inicialize com a foto atual
+  const [usuarios, setUsuarios] = useState([]);
   const fileInputRef = useRef(null); // Referência para o input do tipo file
-
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-      handleUpload(file); // Inicia o upload automaticamente após a seleção
-    } else {
-      setSelectedImage(null);
-      setPreviewImage(null);
-    }
-  };
-
-  const handleClickProfileImage = () => {
-    // Simula o clique no input do tipo file ao clicar na imagem de perfil
-    fileInputRef.current.click();
-  };
-
-  const handleUpload = async (file) => {
-    if (!file) {
-      setUploadError('Por favor, selecione uma imagem.');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('profileImage', file);
-  };
-
 
   return (
     <>
@@ -59,11 +23,10 @@ function PerfilUser() {
 
           <div>
             <div
-              onClick={handleClickProfileImage}
               style={{
-                cursor: 'pointer',
-                width: '100px',
-                height: '100px',
+                width: '150px',
+                height: '150px',
+                borderRadius: '50%',
                 overflow: 'hidden',
                 display: 'flex',
                 justifyContent: 'center',
@@ -72,7 +35,7 @@ function PerfilUser() {
               }}
             >
               {previewImage && (
-                <img src={previewImage} alt="Pré-visualização"
+                <img alt="Pré-visualização"
                   style={{
                     width: '100%',
                     height: '100%',
@@ -80,23 +43,23 @@ function PerfilUser() {
               )}
             </div>
 
-            {uploading && <p>Enviando...</p>}
-            {uploadSuccess && <p style={{ color: 'green' }}>Foto de perfil atualizada com sucesso!</p>}
-            {uploadError && <p style={{ color: 'red' }}>Erro: {uploadError}</p>}
-
             <input
               type="file"
               id="profileImageInput"
               accept="image/*"
-              onChange={handleImageChange}
               style={{ display: 'none' }}
-              ref={fileInputRef}
             />
           </div>
 
 
-          <h1>Ana Maria Dos Santos</h1>
-          <h2><BsGenderFemale fontSize={20} /> Feminino</h2>
+          <div>{usuarios.map(usuario => (
+            <h1 key={usuario.id}>
+              {usuario.nome}
+            </h1>
+          ))}
+          </div>
+
+          <h2><BsGenderFemale fontSize={20} /> Masculino </h2>
           <h2><IoMapOutline fontSize={20} /> Florianópolis </h2>
 
           <div className='infos'>
@@ -109,4 +72,4 @@ function PerfilUser() {
   )
 }
 
-export default PerfilUser
+export default Configs;

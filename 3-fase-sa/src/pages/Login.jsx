@@ -34,7 +34,7 @@ function Login() {
       const data = await response.json();
       if (data.success) {
         localStorage.setItem('sessionToken', data.sessionToken);
-        navigate('/dashboard');
+        navigate('/');
       } else {
         console.error('Erro no login com Google (backend):', data.error);
       }

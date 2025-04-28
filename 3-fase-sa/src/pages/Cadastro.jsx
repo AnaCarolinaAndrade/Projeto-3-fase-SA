@@ -5,14 +5,12 @@ import "./Cadastro.css";
 export default function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [sexo, setSexo] = useState('')
 
   const criarUsuario = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/usuarios', { nome, email });
       setNome('');
       setEmail('');
-      setSexo('')
     } catch (error) {
       console.error('Erro:', error);
       setMensagem(error.message);
@@ -56,7 +54,7 @@ export default function Cadastro() {
 
   return (
     <div>
-      <form>
+      <form className='form-cadastro'>
         <input
           type="text"
           name='nome'
@@ -73,15 +71,6 @@ export default function Cadastro() {
           onChange={e => setEmail(e.target.value)}
           required
         />
-        <select name="" id="">
-          <option value="1">LÉSBICA</option>
-          <option value="2">GAY</option>
-          <option value="3">BISSEXUAL</option>
-          <option value="4">TRANSEXUAL</option>
-          <option value="5">NÃO BINÁRIO</option>
-          <option value="6">OUTRO</option>
-          <option value="7">PREFIRO NÃO DIZER</option>
-        </select>
       </form>
 
       <button onClick={criarUsuario} className='criar-user'>Criar</button>

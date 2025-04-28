@@ -8,20 +8,20 @@ function Navbar() {
     <>
       <div className='container-navbar'>
         <nav class="navbar">
+          <div class="logo">&lt;DEXES/&gt;</div>
 
-          <div class="search-bar">
-            <input type="search" />
-            <button>
-              <IoIosSearch fontSize={20} />
-            </button>
+          <div class="search-container">
+            <input type="text" placeholder="Pesquisar..." />
           </div>
 
-          <div class="user-icon">
-            <Link to={'./Perfil'} className='link-perfil'>
-              <img src="./img/foto-user.png" className="foto-perfil" />
+          <div class="buttons-container">
+            <button class="btn login">Login</button>
+            <button class="btn signup">Cadastro</button>
+            <Link to={'/perfil'}>
+              <img src="./img/perfil.png"  />
             </Link>
+            
           </div>
-
         </nav>
       </div>
     </>

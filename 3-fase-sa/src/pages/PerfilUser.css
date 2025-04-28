@@ -17,11 +17,12 @@
   border-radius: 100%;
   height: 95px;
   width: 95px;
-  background-color: #fff;
+  background-color: #000000;
 }
 
 
 .infos {
+  border: 1px solid black;
   height: 10rem;
   width: 30rem;
   padding: 10px;
@@ -42,4 +43,22 @@ h1 {
 
 p {
   font-size: 15px;
+}
+
+.salvar-usuario {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #2cfc36;
+  border: 1px solid #2cfc36;
+  background-color: #2a2d32;
+}
+
+.deletar-usuario {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #ff1c10;
+  border: 1px solid #ff1c10;
+  background-color: #2a2d32;
 }

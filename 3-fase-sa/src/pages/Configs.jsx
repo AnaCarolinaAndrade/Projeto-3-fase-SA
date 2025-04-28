@@ -4,8 +4,7 @@ import './Configs.css'
 import Sidebar from '../components/Sidebar'
 import { BsGenderFemale } from "react-icons/bs";
 import { IoMapOutline } from "react-icons/io5";
-import { h1 } from 'framer-motion/client';
-
+import { Navigate } from 'react-router-dom';
 
 function Configs() {
 
@@ -14,13 +13,13 @@ function Configs() {
       'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
     },
   })
-  
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const fileInputRef = useRef(null); // Referência para o input do tipo file
 
-  
+
 
   useEffect(() => {
     fetch('http://localhost:5000/api/usuarios')
@@ -38,21 +37,11 @@ function Configs() {
       })
   };
 
-  const salvarUsuario = (id) => {
-    axios.put(`http://localhost:5000/api/usuarios/${id}`)
-    .then(response => {
-      if (response.status === 200) {
-        setUsuarios(usuarios.filter(usuario => usuario.id !== id));
-      }
-    })
-  }
-
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
 
     if (file) {
-      setSelectedImage(file); 
+      setSelectedImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result);
@@ -82,23 +71,22 @@ function Configs() {
   const SalvarAlteracoes = async () => {
     const token = localStorage.getItem('sessionToken');
     if (token) {
-        try {
-            const response = await fetch('http://localhost:5000/api/user/update', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(userData), // userData contendo nome, sexo, localidade, bio
-            });
-            // ... processar a resposta
-        } catch (error) {
-            console.error('Erro ao salvar as alterações:', error);
-        }
+      try {
+        const response = await fetch('http://localhost:5000/api/user/update', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(userData),
+        });
+      } catch (error) {
+        console.error('Erro ao salvar as alterações:', error);
+      }
     } else {
-        // Redirecionar para login se não houver token
+      Navigate('/login')
     }
-};
+  };
 
 
   return (
@@ -107,6 +95,12 @@ function Configs() {
 
       <div className="profile-container">
         <div className='profile'>
+
+          <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" id="profile-image" accept="image/*" />
+            <button type="submit">Salvar imagem</button>
+          </form>
+
 
           <div>
             <div
@@ -155,12 +149,12 @@ function Configs() {
             <p>alguma coisa para preencher o campo</p>
           </div>
 
-              {usuarios.map(usuario => (
-                <div key={usuario}>
-                  <button onClick={() => deletarUsuario(usuario.id) } className='deletar-usuario'>Excluir conta</button>
-                  <button onClick={() => SalvarAlteracoes(usuario.id) } className='salvar-usuario'>Salvar Alterações</button>
-                </div>
-              ))}
+          {usuarios.map(usuario => (
+            <div key={usuario}>
+              <button onClick={() => deletarUsuario(usuario.id)} className='deletar-usuario'>Excluir conta</button>
+              <button onClick={() => SalvarAlteracoes(usuario.id)} className='salvar-usuario'>Salvar Alterações</button>
+            </div>
+          ))}
 
         </div>
       </div>
