@@ -6,10 +6,10 @@ import './Home.css'
 
 function Home() {
   return (
-    <div> 
+    <div className='Home-container'> 
       <Navbar/> 
       <Sidebar/>
-      <h2 className='title-home'>Descubra e Divulge projetos Web, para o <h2>mundo todo com o DEXES</h2></h2>   
+      <h1 className='title-home'>Descubra e Divulge projetos Web, para o mundo todo com o DEXES</h1>   
     </div>
   )
 }
