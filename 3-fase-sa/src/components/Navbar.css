@@ -42,6 +42,7 @@
 }
 
 .btn {
+    text-decoration: none;
     padding: 8px 20px;
     border: none;
     border-radius: 5px;

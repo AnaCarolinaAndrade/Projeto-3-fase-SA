@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import './Configs.css'; // Vamos criar esse CSS
-import Sidebar from '../components/Sidebar'; // Se já tiver um Sidebar
+import './Configs.css';
+import Sidebar from '../components/Sidebar';
 import { BsGenderFemale, BsPersonCircle } from 'react-icons/bs';
 import { IoMapOutline } from 'react-icons/io5';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Configs() {
   const [usuario, setUsuario] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsuario = async () => {
@@ -47,7 +48,7 @@ function Configs() {
   const deletarUsuario = async () => {
     try {
       await axios.delete(`http://localhost:5000/api/usuarios/${usuario.id}`);
-      Navigate('/login');
+      navigate('/login');
     } catch (error) {
       console.error('Erro ao deletar conta:', error);
     }

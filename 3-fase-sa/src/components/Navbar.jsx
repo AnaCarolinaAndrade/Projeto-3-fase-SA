@@ -1,6 +1,5 @@
 import React from 'react'
 import './Navbar.css'
-import { IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
 function Navbar() {
@@ -15,8 +14,8 @@ function Navbar() {
           </div>
 
           <div class="buttons-container">
-            <button class="btn login">Login</button>
-            <button class="btn signup">Cadastro</button>
+            <Link class="btn login">Login</Link>
+            <Link class="btn signup">Cadastro</Link>
             <Link to={'/perfil'}>
               <img src="./img/perfil.png"  />
             </Link>

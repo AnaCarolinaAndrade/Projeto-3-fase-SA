@@ -26,9 +26,14 @@ export default function Cadastro() {
 
     window.onload = function () {
       google.accounts.id.initialize({
-        client_id: "187533279088-8ck947lb5vptqltevj9e04m9rvs8i4tu.apps.googleusercontent.com",
         callback: handleCredentialResponse
       });
+
+      google.accounts.id.initialize({
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse
+      });
+    
 
       google.accounts.id.renderButton(
         document.getElementById("buttonDiv")

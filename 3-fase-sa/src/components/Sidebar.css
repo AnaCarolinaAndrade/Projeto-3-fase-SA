@@ -26,7 +26,7 @@
     transition: left 0.4s ease-in-out;
     z-index: 101;
     border-right-color: rgb(255, 255, 255);
-    border-right-style:outset;
+    border-right-style: outset;
     border-right-width: 0.3px;
 }
 
