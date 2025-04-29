@@ -1,64 +1,89 @@
-.profile {
-    font-size: 15px;
-    margin: 90px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+.configs-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  background: #f0f2f5;
+  min-height: 100vh;
 }
 
-.profile img {
-    height: 90px;
+.profile-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
 }
 
-.trocar-foto {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-    height: 95px;
-    width: 95px;
-    background-color: #000000;
+.profile-image {
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
-
-.infos {
-    border: 1px solid black;
-    height: 10rem;
-    width: 30rem;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-}
-
-div h2 {
-    font-weight: 100;
-    font-size: 20px;
-    margin: 10px;
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #4f46e5;
 }
 
 h1 {
-    color: #fff;
-    margin: 10px;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-p {
-    font-size: 15px;
+.info {
+  font-size: 16px;
+  color: #666;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.salvar-usuario {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    color: #2cfc36;
-    border: 1px solid #2cfc36;
-    background-color: #2a2d32;
+.actions {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.deletar-usuario {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    color: #ff1c10;
-    border: 1px solid #ff1c10;
-    background-color: #2a2d32;
+.save-btn, .delete-btn {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-btn {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #4338ca;
+}
+
+.delete-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #dc2626;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 24px;
+  color: #555;
 }

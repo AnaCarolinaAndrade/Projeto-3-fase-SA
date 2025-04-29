@@ -22,10 +22,6 @@ MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 
-@app.route('/')
-def index():
-    return render_template('index.html')  # Arquivo HTML do frontend
-
 @socketio.on('message')
 def handle_message(msg):
     
@@ -73,7 +69,8 @@ def criar_usuario():
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios.'}), 400
 
-    ultimo_usuario = usuarios_collection.find_one({}, sort=[('id', -1)])
+    # Buscar apenas usuários que têm campo 'id'
+    ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
 
     novo_usuario = {'id': proximo_id, 'nome': nome, 'email': email}
@@ -221,6 +218,5 @@ def update_user():
 
 # Executar aplicação
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
 

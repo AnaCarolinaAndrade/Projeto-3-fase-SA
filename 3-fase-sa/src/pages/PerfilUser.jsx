@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import './Configs.css'
+import './PerfilUser.css'
 import Sidebar from '../components/Sidebar'
 import { BsGenderFemale } from "react-icons/bs";
 import { IoMapOutline } from "react-icons/io5";
-import { h1 } from 'framer-motion/client';
 
 
 function Configs() {
@@ -59,8 +58,8 @@ function Configs() {
           ))}
           </div>
 
-          <h2><BsGenderFemale fontSize={20} /> Masculino </h2>
-          <h2><IoMapOutline fontSize={20} /> Florianópolis </h2>
+          <h2 className='info-usuario'> <BsGenderFemale fontSize={20} color='white'/> Masculino </h2>
+          <h2 className='info-usuario'> <IoMapOutline fontSize={20} color='white'/> Florianópolis </h2>
 
           <div className='infos'>
             <p>alguma coisa para preencher o campo</p>

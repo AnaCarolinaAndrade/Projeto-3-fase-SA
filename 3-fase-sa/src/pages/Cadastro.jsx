@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Cadastro.css";
 
@@ -6,14 +6,15 @@ export default function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
 
-  const criarUsuario = async () => {
+  const criarUsuario = async (e) => {
+    e.preventDefault();  // <-- Impede o comportamento padrão do formulário (não recarrega a página e não manda GET)
     try {
       const response = await axios.post('http://localhost:5000/api/usuarios', { nome, email });
+      console.log('Usuário criado:', response.data);
       setNome('');
       setEmail('');
     } catch (error) {
-      console.error('Erro:', error);
-      setMensagem(error.message);
+      console.error('Erro ao criar usuário:', error);
     }
   };
 
@@ -37,7 +38,7 @@ export default function Cadastro() {
 
   const enviarTokenParaBackend = async (token) => {
     try {
-      const response = await fetch('http://localhost:5000/api/google-login', { // Sua rota no backend
+      const response = await fetch('http://localhost:5000/api/google-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +46,6 @@ export default function Cadastro() {
         body: JSON.stringify({ token })
       });
       const data = await response.json();
-      // Lógica para lidar com a resposta do backend (armazenar token de sessão, redirecionar, etc.)
       console.log('Resposta do backend:', data);
     } catch (error) {
       console.error('Erro ao enviar token para o backend:', error);
@@ -54,10 +54,10 @@ export default function Cadastro() {
 
   return (
     <div>
-      <form className='form-cadastro'>
+      <form className='form-cadastro' onSubmit={criarUsuario}>
         <input
           type="text"
-          name='nome'
+          name="nome"
           placeholder="Nome"
           value={nome}
           onChange={e => setNome(e.target.value)}
@@ -71,9 +71,10 @@ export default function Cadastro() {
           onChange={e => setEmail(e.target.value)}
           required
         />
+        <button type="submit" className='criar-user'>Criar</button>
       </form>
 
-      <button onClick={criarUsuario} className='criar-user'>Criar</button>
+      <div id="buttonDiv"></div>
     </div>
   );
 }

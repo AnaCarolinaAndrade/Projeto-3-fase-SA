@@ -22,7 +22,6 @@
 
 
 .infos {
-  border: 1px solid black;
   height: 10rem;
   width: 30rem;
   padding: 10px;
@@ -30,7 +29,8 @@
   border-radius: 5px;
 }
 
-div h2 {
+.info-usuario{
+  color: white;
   font-weight: 100;
   font-size: 20px;
   margin: 10px;
@@ -42,6 +42,7 @@ h1 {
 }
 
 p {
+  background-color: #fff;
   font-size: 15px;
 }
 
