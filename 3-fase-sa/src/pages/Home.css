@@ -9,11 +9,16 @@ body{
  background-color: #0f0f0f;
 }
 
+.home-container {
+    display: flex;
+    align-items: center; 
+  }
+
 .title-home{
  margin-left: 145px;
- margin-top: 100px;
+ margin-top: 110px;
  color: #F6F6F6;
- font-size: 58px;
+ font-size: 67px;
  border-radius: 5px; 
  background-color: transparent; 
  box-shadow: none; 
@@ -23,13 +28,33 @@ body{
 }
 
 .subtitle-home {
- margin-left: 143px;
- margin-top: 30px;
+ margin-left: 150px;
+ margin-top: 20px;
  font-size: 22px;
  color: #F6F6F6;
  background-color: transparent; 
  border-radius: 5px; 
  margin-left: 150px;
+}
+
+.degrade-container img{
+ position: absolute;
+ object-fit: cover;
+ width: 525px;
+ height: auto;
+ left: 57%;
+ top: 210px;
+}
+
+.degrade-container{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-image: radial-gradient(circle at center, rgba(36, 204, 255, 0.7), rgba(0, 255, 234, 0.3));
+    display: flex; /* Necessário para centralizar a imagem se ela não preencher completamente */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
 
 input{

@@ -9,10 +9,12 @@ function Home() {
     <div className='Home-container'>
       <Navbar />
       <Sidebar />
-      <h1 className='title-home'>Descubra e Divulge projetos Web, <br/> para o mundo todo com o DEXES</h1>
-      <p className='subtitle-home'>O DEXES é o hub ideal para desenvolvedores, criadores e entusiastas explorarem, divulgarem e colaborarem em projetos web inovadores. <br/>
-      Conecte-se com uma comunidade global, compartilhe suas ideias e transforme boas iniciativas em oportunidades reais  tudo em um só lugar.</p>
-      <img scr="./img/landig_page.png" alt=""/>
+      <h1 className='title-home'>Descubra e Divulge projetos <br/> Web, para o mundo todo <br/> com o DEXES</h1>
+      <p className='subtitle-home'> Hub para desenvolvedores e criadores colaborarem em projetos web. <br/> Conecte-se, compartilhe ideias e transforme-as em oportunidades - tudo em um só lugar.</p>
+     <div className='degrade-container'>
+      <img className='container-img' src="./img/landig_page.png"/>
+     </div>
+
     </div>
   )
 }
