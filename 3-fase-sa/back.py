@@ -1,9 +1,9 @@
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from dotenv import load_dotenv
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
