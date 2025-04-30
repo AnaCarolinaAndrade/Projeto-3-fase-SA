@@ -93,8 +93,6 @@ export default function Cadastro() {
               />
             </div>
 
-
-
             <div className="form-group">
               <label>Senha</label>
               <div className='ipt-senha-cadastro'>
@@ -113,16 +111,11 @@ export default function Cadastro() {
               </div>
             </div>
 
-
-
           </form>
-          <p className="login-link">
-            Já tem uma conta? <a href="#">Entrar</a>
-          </p>
         </div>
       </div>
       <div className='form-wrapper2'>
-        <div className="form-container2">
+        <div className="form-container">
           <div className="form-group">
             <label>Email</label>
 
@@ -134,6 +127,7 @@ export default function Cadastro() {
               onChange={e => setEmail(e.target.value)}
               required
             />
+
           </div>
 
           <form onSubmit={criarUsuario}>
@@ -149,8 +143,6 @@ export default function Cadastro() {
               />
             </div>
 
-
-
             <div className="form-group">
               <label>Senha</label>
               <div className='ipt-senha-cadastro'>
@@ -158,23 +150,12 @@ export default function Cadastro() {
                 <button
                   type="button"
                   className="olhar-senha"
-                  onClick={toggleMostrarSenha}
                 >
-                  {mostrarSenha ? (
-                    <FaRegEye size={25} color="black" />
-                  ) : (
-                    <FaRegEyeSlash size={25} color="black" />
-                  )}
                 </button>
               </div>
             </div>
-
-
-
+            <button type="submit" className="criar-user">Cadastrar</button>
           </form>
-          <p className="login-link">
-            Já tem uma conta? <a href="#">Entrar</a>
-          </p>
         </div>
       </div>
 
@@ -183,4 +164,3 @@ export default function Cadastro() {
 }
 
 
-{/* <button type="submit" className="criar-user">Cadastrar</button> */ }

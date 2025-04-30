@@ -1,106 +1,65 @@
 .container-form-cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 40px;
+    padding: 40px;
     background: linear-gradient(0deg, #2b6ade66, #000000);
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.form-wrapper {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
+.form-wrapper,
 .form-wrapper2 {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 35%;
+    padding: 50px;
+    border-radius: 10px;
 }
 
 .form-container {
-    padding: 2rem;
-    border-radius: 1.5rem;
-    width: 100%;
-}
-
-.form-container2 {
-    padding: 2rem;
-    border-radius: 1.5rem;
-    width: 100%;
-}
-
-.form-wrapper h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    color: #fff;
-}
-
-.form-group {
-    width: 50%;
-    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group label {
-    display: block;
-    font-size: 0.9rem;
     color: #fff;
-    margin-bottom: 0.4rem;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: block;
 }
 
 .form-group input {
-    font-size: 17px;
     width: 100%;
-    padding: 1rem;
-    border: none;
+    padding: 10px;
     border-radius: 5px;
-    outline: none;
+    border: 1px solid #ccc;
 }
 
 .ipt-senha-cadastro {
-    background-color: rgb(255, 255, 255);
-    width: 100%;
     display: flex;
-    border-radius: 5px;
     align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-button.criar-user {
-    width: 100%;
-    background-color: #3b82f6;
-    color: white;
-    font-weight: 600;
+.ipt-senha-cadastro input {
+    flex: 1;
     border: none;
-    padding: 0.75rem;
-    border-radius: 0.8rem;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+}
+
+.ipt-senha-cadastro button {
+    background: none;
+    border: none;
+    padding: 0 10px;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
 }
 
-button.criar-user:hover {
-    background-color: #2563eb;
-}
-
-.login-link {
-    color: #fff;
-    background-color: transparent;
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-}
-
-.login-link a {
-    color: #3b82f6;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.login-link a:hover {
-    text-decoration: underline;
+.criar-user {
+    border-radius: 5px;
+    background-color: #fff;
+    height: 30px;
+    width: 150px;
 }
