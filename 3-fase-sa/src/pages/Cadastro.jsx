@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from 'axios';
 import "./Cadastro.css";
 
 export default function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false)
+
+  const toggleMostrarSenha = () => {
+    setMostrarSenha(!mostrarSenha);
+  };
 
   const criarUsuario = async (e) => {
-    e.preventDefault();  // <-- Impede o comportamento padrão do formulário (não recarrega a página e não manda GET)
+    e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/usuarios', { nome, email });
       console.log('Usuário criado:', response.data);
@@ -33,7 +39,7 @@ export default function Cadastro() {
         client_id: process.env.GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse
       });
-    
+
 
       google.accounts.id.renderButton(
         document.getElementById("buttonDiv")
@@ -58,28 +64,60 @@ export default function Cadastro() {
   };
 
   return (
-    <div>
-      <form className='form-cadastro' onSubmit={criarUsuario}>
-        <input
-          type="text"
-          name="nome"
-          placeholder="Nome"
-          value={nome}
-          onChange={e => setNome(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Seu email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-        <button type="submit" className='criar-user'>Criar</button>
-      </form>
+    <div className="form-wrapper">
+      <div className="form-container">
+        <h2>Criar Conta</h2>
+        <form onSubmit={criarUsuario}>
+          <div className="form-group">
+            <label>Nome completo</label>
+            <input
+              type="text"
+              name="nome"
+              placeholder="Nome"
+              value={nome}
+              onChange={e => setNome(e.target.value)}
+              required
+            />
+          </div>
 
-      <div id="buttonDiv"></div>
+
+          <div className="form-group">
+            <label>Email</label>
+
+            <div className='ipt-senha'>
+              <input
+                type="email"
+                name="email"
+                placeholder="Seu email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Senha</label>
+              <input placeholder="Sua senha" type={mostrarSenha ? 'text' : 'password'} />
+              <button
+                type="button"
+                className="olhar-senha"
+                onClick={toggleMostrarSenha}
+              >
+                {mostrarSenha ? (
+                  <FaRegEye size={25} color="black" />
+                ) : (
+                  <FaRegEyeSlash size={25} color="black" />
+                )}
+              </button>
+            </div>
+
+
+          </div>
+          <button type="submit" className="criar-user">Cadastrar</button>
+        </form>
+        <p className="login-link">
+          Já tem uma conta? <a href="#">Entrar</a>
+        </p>
+      </div>
     </div>
   );
 }

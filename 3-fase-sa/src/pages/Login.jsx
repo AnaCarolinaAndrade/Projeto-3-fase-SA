@@ -13,8 +13,6 @@ function Login() {
 
   const navigate = useNavigate();
 
-
-
   const onSuccess = async (credentialResponse) => {
     fetch('/api/user/me', {
       headers: {
@@ -56,7 +54,13 @@ function Login() {
               <label htmlFor="email">Email:</label>
               <div className="ipt-email">
 
-                <input type="email" id="email" placeholder="Email" required />
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  required
+                />
+
               </div>
               <label htmlFor="senha">Senha:</label>
               <div className="ipt-senha">

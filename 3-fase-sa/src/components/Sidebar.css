@@ -1,14 +1,5 @@
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
     z-index: 102;
 }
 
@@ -17,7 +8,7 @@
     left: -250px;
     top: 0px;
     height: 100vh;
-    width: 200px;
+    width: 190px;
     background-color: #0F0F0F;
     padding: 20px;
     display: flex;
@@ -37,7 +28,7 @@
 
 .container-sidebar.show {
     left: 0;
-    width: 200px;
+    width: 190px;
 }
 
 .sidebar {

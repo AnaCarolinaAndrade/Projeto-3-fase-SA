@@ -118,13 +118,14 @@
 
 .ipt-email,
 .ipt-senha {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgb(255, 255, 255);
     width: 100%;
     margin: 15px 0;
     display: flex;
     border-radius: 5px;
     align-items: center;
 }
+
 
 .container-input input {
     flex-grow: 1;
@@ -134,6 +135,16 @@
     color: black;
     outline: none;
     margin-right: 8px;
+    
+}
+
+.input-wrapper input {
+    margin: 5px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
 }
 
 .olhar-senha {

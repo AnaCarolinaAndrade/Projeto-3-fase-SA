@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import './Chat.css';
 import Sidebar from "../components/Sidebar";
@@ -6,24 +6,26 @@ import Sidebar from "../components/Sidebar";
 const Chat = () => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const socket = io("http://localhost:5000", {
-        transports: ["websocket"],
-    });
-
+    const socketRef = useRef(null);
 
     useEffect(() => {
-        socket.on("message", (msg) => {
+        socketRef.current = io("http://localhost:5000", {
+            transports: ["websocket"],
+        });
+
+        socketRef.current.on("message", (msg) => {
             setMessages((prevMessages) => [...prevMessages, msg]);
         });
 
+
         return () => {
-            socket.off("message");
+            socketRef.current.disconnect();
         };
     }, []);
 
     const sendMessage = () => {
         if (message.trim() !== "") {
-            socket.emit("message", message);
+            socketRef.current.emit("message", message);
             setMessage("");
         }
     };
@@ -34,7 +36,7 @@ const Chat = () => {
         }
     };
 
-    return ( 
+    return (
         <div className="chat-container">
             <nav className="topo-chat"></nav>
 

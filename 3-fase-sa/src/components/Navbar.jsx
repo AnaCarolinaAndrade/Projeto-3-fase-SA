@@ -10,12 +10,12 @@ function Navbar() {
           <div class="logo">&lt;DEXES/&gt;</div>
 
           <div class="search-container">
-            <input type="text" placeholder="Pesquisar..." />
+            <input type="text" placeholder="Pesquisar por..." />
           </div>
 
           <div class="buttons-container">
-            <Link class="btn login">Login</Link>
-            <Link class="btn signup">Cadastro</Link>
+            <Link to={'./login'} class="btn login">Login</Link>
+            <Link to={'./cadastro'} class="btn signup">Cadastro</Link>
             <Link to={'/perfil'}>
               <img src="./img/perfil.png"  />
             </Link>

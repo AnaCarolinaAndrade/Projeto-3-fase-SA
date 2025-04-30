@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, emit
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from dotenv import load_dotenv
@@ -10,14 +10,12 @@ import os
 import uuid
 import datetime
 
-# Carregar variáveis de ambiente
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*")  # Permitir qualquer origem
+socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Conexão com o MongoDB
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
@@ -26,7 +24,7 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 def handle_message(msg):
     
     print('Mensagem recebida:', msg)
-    send(msg, broadcast=True)  # Envia a mensagem para todos os clientes conectados
+    emit(msg, broadcast=True)
 
 try:
     client = MongoClient(MONGO_URI)
@@ -37,7 +35,6 @@ except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
     exit()
 
-# Funções auxiliares
 def gerar_token_de_sessao():
     return str(uuid.uuid4())
 
@@ -54,7 +51,6 @@ def verificar_token():
     else:
         return None, {'error': 'Sessão inválida'}, 401
 
-# Rotas de Usuário
 @app.route('/api/usuarios', methods=['GET'])
 def get_usuarios():
     usuarios_data = list(usuarios_collection.find({}, {'_id': 0}))
@@ -69,7 +65,6 @@ def criar_usuario():
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios.'}), 400
 
-    # Buscar apenas usuários que têm campo 'id'
     ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
 
