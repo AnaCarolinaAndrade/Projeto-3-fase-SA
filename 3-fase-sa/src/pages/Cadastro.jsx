@@ -64,60 +64,123 @@ export default function Cadastro() {
   };
 
   return (
-    <div className="form-wrapper">
-      <div className="form-container">
-        <h2>Criar Conta</h2>
-        <form onSubmit={criarUsuario}>
+    <div className="container-form-cadastro">
+      <div className="form-wrapper">
+        <div className="form-container">
           <div className="form-group">
-            <label>Nome completo</label>
+            <label>Email</label>
+
             <input
-              type="text"
-              name="nome"
-              placeholder="Nome"
-              value={nome}
-              onChange={e => setNome(e.target.value)}
+              type="email"
+              name="email"
+              placeholder="Seu email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               required
             />
           </div>
 
-
-          <div className="form-group">
-            <label>Email</label>
-
-            <div className='ipt-senha'>
+          <form onSubmit={criarUsuario}>
+            <div className="form-group">
+              <label>Nome completo</label>
               <input
-                type="email"
-                name="email"
-                placeholder="Seu email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                type="text"
+                name="nome"
+                placeholder="Nome"
+                value={nome}
+                onChange={e => setNome(e.target.value)}
                 required
               />
             </div>
+
+
+
             <div className="form-group">
               <label>Senha</label>
-              <input placeholder="Sua senha" type={mostrarSenha ? 'text' : 'password'} />
-              <button
-                type="button"
-                className="olhar-senha"
-                onClick={toggleMostrarSenha}
-              >
-                {mostrarSenha ? (
-                  <FaRegEye size={25} color="black" />
-                ) : (
-                  <FaRegEyeSlash size={25} color="black" />
-                )}
-              </button>
+              <div className='ipt-senha-cadastro'>
+                <input placeholder="Sua senha" type={mostrarSenha ? 'text' : 'password'} />
+                <button
+                  type="button"
+                  className="olhar-senha"
+                  onClick={toggleMostrarSenha}
+                >
+                  {mostrarSenha ? (
+                    <FaRegEye size={25} color="black" />
+                  ) : (
+                    <FaRegEyeSlash size={25} color="black" />
+                  )}
+                </button>
+              </div>
             </div>
 
 
-          </div>
-          <button type="submit" className="criar-user">Cadastrar</button>
-        </form>
-        <p className="login-link">
-          Já tem uma conta? <a href="#">Entrar</a>
-        </p>
+
+          </form>
+          <p className="login-link">
+            Já tem uma conta? <a href="#">Entrar</a>
+          </p>
+        </div>
       </div>
+      <div className='form-wrapper2'>
+        <div className="form-container2">
+          <div className="form-group">
+            <label>Email</label>
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Seu email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <form onSubmit={criarUsuario}>
+            <div className="form-group">
+              <label>Nome completo</label>
+              <input
+                type="text"
+                name="nome"
+                placeholder="Nome"
+                value={nome}
+                onChange={e => setNome(e.target.value)}
+                required
+              />
+            </div>
+
+
+
+            <div className="form-group">
+              <label>Senha</label>
+              <div className='ipt-senha-cadastro'>
+                <input placeholder="Sua senha" type={mostrarSenha ? 'text' : 'password'} />
+                <button
+                  type="button"
+                  className="olhar-senha"
+                  onClick={toggleMostrarSenha}
+                >
+                  {mostrarSenha ? (
+                    <FaRegEye size={25} color="black" />
+                  ) : (
+                    <FaRegEyeSlash size={25} color="black" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+
+
+          </form>
+          <p className="login-link">
+            Já tem uma conta? <a href="#">Entrar</a>
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 }
+
+
+{/* <button type="submit" className="criar-user">Cadastrar</button> */ }

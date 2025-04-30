@@ -1,52 +1,74 @@
+.container-form-cadastro {
+    background: linear-gradient(0deg, #2b6ade66, #000000);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .form-wrapper {
     height: 100vh;
     width: 100vw;
-    background: linear-gradient(0deg, #2b6ade48, #000000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-wrapper2 {
+    height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .form-container {
-    background-color: rgba(255, 255, 255, 0.521);
-    background-color: blur(90px);
-    
     padding: 2rem;
     border-radius: 1.5rem;
-    max-width: 400px;
     width: 100%;
 }
 
-.form-container h2 {
+.form-container2 {
+    padding: 2rem;
+    border-radius: 1.5rem;
+    width: 100%;
+}
+
+.form-wrapper h2 {
     text-align: center;
     margin-bottom: 1.5rem;
     font-size: 2rem;
-    color: #333;
+    color: #fff;
 }
 
 .form-group {
+    width: 50%;
     margin-bottom: 1.2rem;
 }
 
 .form-group label {
     display: block;
     font-size: 0.9rem;
-    color: #555;
+    color: #fff;
     margin-bottom: 0.4rem;
 }
 
 .form-group input {
+    font-size: 17px;
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.8rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
     outline: none;
-    transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.form-group input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+.ipt-senha-cadastro {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
 }
 
 button.criar-user {
@@ -66,10 +88,11 @@ button.criar-user:hover {
 }
 
 .login-link {
+    color: #fff;
+    background-color: transparent;
     text-align: center;
     margin-top: 1rem;
     font-size: 0.9rem;
-    color: #666;
 }
 
 .login-link a {
