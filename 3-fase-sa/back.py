@@ -24,7 +24,7 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 def handle_message(msg):
     
     print('Mensagem recebida:', msg)
-    emit(msg, broadcast=True)
+    emit('message' ,msg, broadcast=True)
 
 try:
     client = MongoClient(MONGO_URI)
