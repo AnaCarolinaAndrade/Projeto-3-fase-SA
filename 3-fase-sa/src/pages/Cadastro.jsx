@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect, use, } from 'react';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from 'axios';
 import "./Cadastro.css";
@@ -6,7 +6,9 @@ import "./Cadastro.css";
 export default function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [mostrarSenha, setMostrarSenha] = useState(false)
+  const [senha, setSenha] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
@@ -15,10 +17,12 @@ export default function Cadastro() {
   const criarUsuario = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/usuarios', { nome, email });
-      console.log('Usuário criado:', response.data);
+      const res = await axios.post('http://localhost:5000/api/usuarios', { nome, email, data });
       setNome('');
       setEmail('');
+      setDataNascimento('');
+      setSenha('');
+
     } catch (error) {
       console.error('Erro ao criar usuário:', error);
     }
@@ -94,9 +98,68 @@ export default function Cadastro() {
             </div>
 
             <div className="form-group">
-              <label>Senha</label>
+              <label>Gênero</label>
               <div className='ipt-senha-cadastro'>
-                <input placeholder="Sua senha" type={mostrarSenha ? 'text' : 'password'} />
+                <input placeholder="Digite seu gênero"/>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+      <div className='form-wrapper2'>
+        <div className="form-container">
+          <div className="form-group">
+            <label>Data De Nascimento</label>
+
+            <input
+              type='date'
+              name="email"
+              placeholder="Seu email"
+              value={dataNascimento}
+              onChange={e => setDataNascimento(e.target.value)}
+              required
+            />
+
+          </div>
+
+          <form onSubmit={criarUsuario}>
+            <div className="form-group">
+              <label>Senha</label>
+
+              <div className='ipt-senha-cadastro'>
+
+                <input
+                  type="text"
+                  name="senha"
+                  placeholder="Sua senha"
+                  value={senha}
+                  onChange={e => setSenha(e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="olhar-senha"
+                  onClick={toggleMostrarSenha}
+                >
+                  {mostrarSenha ? (
+                    <FaRegEye size={25} color="black" />
+                  ) : (
+                    <FaRegEyeSlash size={25} color="black" />
+                  )}
+                </button>
+
+              </div>
+
+            </div>
+
+            <div className="form-group">
+              <label>Confirmar Senha</label>
+              <div className='ipt-senha-cadastro'>
+                <input
+                  placeholder="Confirmar senha"
+                  type={mostrarSenha ? 'text' : 'password'}
+                />
                 <button
                   type="button"
                   className="olhar-senha"
@@ -110,55 +173,10 @@ export default function Cadastro() {
                 </button>
               </div>
             </div>
-
           </form>
+
         </div>
       </div>
-      <div className='form-wrapper2'>
-        <div className="form-container">
-          <div className="form-group">
-            <label>Email</label>
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Seu email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
-
-          </div>
-
-          <form onSubmit={criarUsuario}>
-            <div className="form-group">
-              <label>Nome completo</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Nome"
-                value={nome}
-                onChange={e => setNome(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Senha</label>
-              <div className='ipt-senha-cadastro'>
-                <input placeholder="Sua senha" type={mostrarSenha ? 'text' : 'password'} />
-                <button
-                  type="button"
-                  className="olhar-senha"
-                >
-                </button>
-              </div>
-            </div>
-            <button type="submit" className="criar-user">Cadastrar</button>
-          </form>
-        </div>
-      </div>
-
     </div>
   );
 }
