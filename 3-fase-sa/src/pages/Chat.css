@@ -1,59 +1,97 @@
-
 .chat-container {
-    width: 70em;
-    height: 40rem;
-    margin: 40px auto;
-    padding: 20px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0px 0px 50px #0f0f0f3c;
+    background-color: #fff;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.topo-chat{
+.container-chat {
+    display: flex;
+    flex-direction: column;
+    height: 75%;
+    width: 75%;
+    background-color: #f3f4f6;
+    border-radius: 13px;
+    box-shadow: 0px 0px 40px #0000005e;
+}
+
+.topo-chat {
     height: 60px;
-    border: 1px solid black;
-    background-color: #0F0F0F;
+    background-color: #0f0f0f;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 10px 10px 0 0;
 }
 
 .message-area {
-    height: 400px;
-    overflow-y: scroll;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #fff;
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-area::-webkit-scrollbar {
+    width: 10px;
+}
+
+.message-area::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 2px solid #000000;
 }
 
 .message-area p {
-    margin: 5px 0;
-    padding: 5px;
-    background-color: #e4e4e4;
-    border-radius: 4px;
+    box-shadow: 5px 5px #0f0f0f61;
+    background-color: #e5e7eb;
+    padding: 15px 12px;
+    border-radius: 0px 18px 18px 18px;
+    max-width: 60%;
+    align-self: flex-start;
+    margin: 5px;
+    font-size: 17px;
+}
+
+.message-area p.you {
+    background-color: #4f46e5;
+    color: white;
+    align-self: flex-end;
 }
 
 .message-input {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    padding: 12px;
+    background-color: white;
+    gap: 48px;
+    border-radius: 0 0 10px 10px;
 }
 
 .message-input input {
-    width: 85%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-right: 10px;
+    width: 50%;
+    padding: 10px 12px;
+    border-radius: 20px;
+    border: 1px solid #000000;
+    font-size: 15px;
+    outline: none;
 }
 
 .message-input button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: none;
-    border-radius: 4px;
+    height: 100%;
+    width: 40px;
+    border-radius: 90px;
+    border: none;
     cursor: pointer;
-}
-
-.message-input button:hover {
-    background-color: #45a049;
 }
