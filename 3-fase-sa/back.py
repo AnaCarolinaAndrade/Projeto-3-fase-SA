@@ -61,6 +61,7 @@ def criar_usuario():
     data = request.get_json()
     nome = data.get('nome')
     email = data.get('email')
+    data_nascimento = data.get('data_nascimento')
 
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios.'}), 400
@@ -68,7 +69,7 @@ def criar_usuario():
     ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
 
-    novo_usuario = {'id': proximo_id, 'nome': nome, 'email': email}
+    novo_usuario = {'id': proximo_id, 'nome': nome, 'email': email, 'data_nascimento': data_nascimento }
     usuarios_collection.insert_one(novo_usuario)
     return jsonify(novo_usuario), 201
 
