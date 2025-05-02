@@ -19,7 +19,7 @@ dist-ssr
 .DS_Store
 .env
 google-configs
-venv
+venv/
 *.suo
 *.ntvs*
 *.njsproj
