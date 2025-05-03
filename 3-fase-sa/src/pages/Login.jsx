@@ -6,12 +6,40 @@ import "./Login.css";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
   };
 
-  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem('sessionToken', data.session_token);
+        navigate('/');
+      } else {
+        alert(data.error || "Login falhou.");
+      }
+    } catch (error) {
+      console.error("Erro no login tradicional:", error);
+    }
+  };
+
+
+
 
   const onSuccess = async (credentialResponse) => {
     fetch('/api/user/me', {
@@ -19,7 +47,6 @@ function Login() {
         'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
       },
     })
-    console.log(credentialResponse);
     const idToken = credentialResponse.credential;
     try {
       const response = await fetch('http://localhost:5000/api/google-login', {
@@ -45,6 +72,8 @@ function Login() {
     console.error('Login com Google falhou:', error);
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="login-container">
       <div className="login-right">
@@ -58,6 +87,8 @@ function Login() {
                   type="email"
                   id="email"
                   placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
 
@@ -68,6 +99,8 @@ function Login() {
                 <input
                   id="senha"
                   type={mostrarSenha ? 'text' : 'password'}
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
                   placeholder="Senha"
                   required
                 />
@@ -87,7 +120,7 @@ function Login() {
           </div>
           <button type="button" className="btn-rec-senha">Esqueceu sua senha?</button>
 
-          <button type="submit" className="login-btn">
+          <button type="submit" className="login-btn" onClick={handleLogin}>
             Log in
           </button>
           <div className="divider">

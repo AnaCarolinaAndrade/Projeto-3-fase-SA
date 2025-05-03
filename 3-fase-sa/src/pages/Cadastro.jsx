@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use, } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import axios from 'axios';
 import "./Cadastro.css";
@@ -17,13 +17,25 @@ export default function Cadastro() {
   const criarUsuario = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/usuarios', { nome, email, data });
+      const res = await axios.post('http://localhost:5000/api/usuarios', {
+        nome,
+        email,
+        senha,
+        dataNascimento
+      });
+
+      console.log("Usuário criado:", res.data);
+
+      localStorage.setItem("username", nome);
+
       setNome('');
       setEmail('');
       setDataNascimento('');
       setSenha('');
 
-    } catch (error) {
+    }
+
+    catch (error) {
       console.error('Erro ao criar usuário:', error);
     }
   };
@@ -71,20 +83,19 @@ export default function Cadastro() {
     <div className="container-form-cadastro">
       <div className="form-wrapper">
         <div className="form-container">
-          <div className="form-group">
-            <label>Email</label>
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Seu email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
-          </div>
-
           <form onSubmit={criarUsuario}>
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Seu email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
             <div className="form-group">
               <label>Nome completo</label>
               <input
@@ -99,38 +110,25 @@ export default function Cadastro() {
 
             <div className="form-group">
               <label>Gênero</label>
-              <div className='ipt-senha-cadastro'>
-                <input placeholder="Digite seu gênero"/>
-              </div>
+              <input placeholder="Digite seu gênero" />
             </div>
 
-          </form>
-        </div>
-      </div>
-      <div className='form-wrapper2'>
-        <div className="form-container">
-          <div className="form-group">
-            <label>Data De Nascimento</label>
+            <div className="form-group">
+              <label>Data de Nascimento</label>
+              <input
+                type='date'
+                name="dataNascimento"
+                value={dataNascimento}
+                onChange={e => setDataNascimento(e.target.value)}
+                required
+              />
+            </div>
 
-            <input
-              type='date'
-              name="email"
-              placeholder="Seu email"
-              value={dataNascimento}
-              onChange={e => setDataNascimento(e.target.value)}
-              required
-            />
-
-          </div>
-
-          <form onSubmit={criarUsuario}>
             <div className="form-group">
               <label>Senha</label>
-
               <div className='ipt-senha-cadastro'>
-
                 <input
-                  type="text"
+                  type={mostrarSenha ? "text" : "password"}
                   name="senha"
                   placeholder="Sua senha"
                   value={senha}
@@ -142,15 +140,9 @@ export default function Cadastro() {
                   className="olhar-senha"
                   onClick={toggleMostrarSenha}
                 >
-                  {mostrarSenha ? (
-                    <FaRegEye size={25} color="black" />
-                  ) : (
-                    <FaRegEyeSlash size={25} color="black" />
-                  )}
+                  {mostrarSenha ? <FaRegEye size={25} /> : <FaRegEyeSlash size={25} />}
                 </button>
-
               </div>
-
             </div>
 
             <div className="form-group">
@@ -160,19 +152,10 @@ export default function Cadastro() {
                   placeholder="Confirmar senha"
                   type={mostrarSenha ? 'text' : 'password'}
                 />
-                <button
-                  type="button"
-                  className="olhar-senha"
-                  onClick={toggleMostrarSenha}
-                >
-                  {mostrarSenha ? (
-                    <FaRegEye size={25} color="black" />
-                  ) : (
-                    <FaRegEyeSlash size={25} color="black" />
-                  )}
-                </button>
               </div>
             </div>
+
+            <button type="submit">Enviar Formulário</button>
           </form>
 
         </div>
