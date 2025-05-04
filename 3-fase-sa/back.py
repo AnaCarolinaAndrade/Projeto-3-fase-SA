@@ -1,16 +1,29 @@
 # === IMPORTAÇÕES ===
-import os
-import uuid
-import bcrypt
-import datetime
-from dotenv import load_dotenv
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-from flask_socketio import SocketIO, emit
-from pymongo import MongoClient
-from bson.objectid import ObjectId
-from google.oauth2 import id_token
-from google.auth.transport import requests
+import os # Biblioteca padrão para interagir com o sistema operacional (ex: ler variáveis de ambiente, caminhos, etc.)
+
+import uuid # Gera identificadores únicos (UUIDs), útil para tokens, IDs de sessões, etc.
+
+import bcrypt # Biblioteca para criptografar e verificar senhas de forma segura
+
+import datetime # Manipulação de datas e horas (ex: gerar timestamps, datas de expiração)
+
+from dotenv import load_dotenv # Carrega variáveis de ambiente do arquivo .env
+
+from flask import Flask, request, jsonify # Framework principal do backend (Flask): cria rotas, lida com requisições/respostas
+
+from flask_cors import CORS # Liberação de requisições entre domínios (CORS), necessário para frontend se comunicar com backend em outro domínio/porta
+
+from flask_socketio import SocketIO, emit # Comunicação em tempo real com WebSocket (usado em chats, notificações ao vivo, etc.)
+
+from pymongo import MongoClient # Conexão com banco de dados MongoDB
+
+from bson.objectid import ObjectId # Permite trabalhar com IDs do MongoDB (ObjectId) de forma adequada no Python
+
+from google.oauth2 import id_token # Verifica e decodifica tokens de autenticação do Google (ex: login com Google)
+
+from google.auth.transport import requests # Transporta requisições para validação de tokens com os servidores do Google
+
+
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -258,6 +271,5 @@ def update_user():
 
 # === EXECUTAR APLICAÇÃO ===
 if __name__ == '__main__':
-    import eventlet
-    import eventlet.wsgi
+
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
