@@ -11,9 +11,9 @@ function Home() {
       <Sidebar />
       <h1 className='title-home'>Descubra e Divulge projetos <br/> Web, para o mundo todo <br/> com o DEXES</h1>
       <p className='subtitle-home'> Hub para desenvolvedores e criadores colaborarem em projetos web. <br/> Conecte-se, compartilhe ideias e transforme-as em oportunidades - tudo em um só lugar.</p>
-     <div className='degrade-container'>
       <img className='container-img' src="./img/landig_page.png"/>
-     </div>
+     <div className='degrade-container'/>
+     <button className='acessar-container'>ioioioio</button>
 
     </div>
   )

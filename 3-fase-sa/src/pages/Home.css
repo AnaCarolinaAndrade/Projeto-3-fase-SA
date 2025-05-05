@@ -37,24 +37,30 @@ body{
  margin-left: 150px;
 }
 
-.degrade-container img{
+.container-img {
  position: absolute;
  object-fit: cover;
  width: 525px;
  height: auto;
- left: 57%;
- top: 210px;
+ left: 61%;
+ top: 225px;
+ z-index: 1; /* Garante que a imagem fique na frente */
 }
 
 .degrade-container{
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-image: radial-gradient(circle at center, rgba(36, 204, 255, 0.7), rgba(0, 255, 234, 0.3));
-    display: flex; /* Necessário para centralizar a imagem se ela não preencher completamente */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
+  width: 589px;
+  height: 500px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-image: radial-gradient(circle at center, #40c9ff, rgba(139, 244, 252, 0.164));
+  margin-left: 67%;
+  margin-top: -14%;
+  filter: blur(48px);
+}
+
+.acessar-container{
+ color: #fff;
+ background-color: #3b3b3b;
 }
 
 input{
