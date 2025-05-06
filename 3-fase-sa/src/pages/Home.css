@@ -42,26 +42,46 @@ body{
  object-fit: cover;
  width: 525px;
  height: auto;
- left: 61%;
+ left: 58%;
  top: 225px;
  z-index: 1; /* Garante que a imagem fique na frente */
 }
 
 .degrade-container{
-  width: 589px;
-  height: 500px;
+  width: 520px;
+  height: 450px;
   border-radius: 50%;
   overflow: hidden;
   background-image: radial-gradient(circle at center, #40c9ff, rgba(139, 244, 252, 0.164));
-  margin-left: 67%;
-  margin-top: -14%;
+  margin-left: 66%;
+  margin-top: -12%;
   filter: blur(48px);
 }
 
-.acessar-container{
+.buttons-landig{
+  margin-left: 150px;
+  margin-top: -155px;
+}
+
+.posts-container{
  color: #fff;
  background-color: #3b3b3b;
+ font-size: 20px;
+ height: 50px;
+ width: 200px;
+ border-radius: 8px;
+ margin-left: 30px;
 }
+
+.projetos-container{
+  color: #fff;
+  background-color: #3b3b3b;
+  font-size: 20px;
+  height: 50px;
+  width: 200px;
+  border-radius: 8px;
+}
+
 
 input{
  background-color: #fff;
