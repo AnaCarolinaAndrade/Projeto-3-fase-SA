@@ -16,29 +16,31 @@ export default function Cadastro() {
 
   const criarUsuario = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await axios.post('http://localhost:5000/api/usuarios', {
-        nome,
-        email,
-        senha,
-        dataNascimento
+      const response = await fetch('http://localhost:5000/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha, nome, dataNascimento }),
       });
 
-      console.log("Usuário criado:", res.data);
-
-      localStorage.setItem("username", nome);
+      const data = await response.json();
 
       setNome('');
       setEmail('');
       setDataNascimento('');
       setSenha('');
 
-    }
-
-    catch (error) {
-      console.error('Erro ao criar usuário:', error);
+      if (data.success) {
+        navigate('/');
+      } else {
+        alert(data.error || "Login falhou.");
+      }
+    } catch (error) {
+      console.error("Erro no login tradicional:", error);
     }
   };
+
 
   useEffect(() => {
     function handleCredentialResponse(response) {
