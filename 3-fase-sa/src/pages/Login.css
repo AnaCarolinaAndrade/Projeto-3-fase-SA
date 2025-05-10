@@ -5,7 +5,7 @@
     width: 100vw;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(0deg, #2337A7 1%, #0F1111 80%);
+    background: linear-gradient(0deg, #2337a7cb 1%, #0F1111 80%);
     color: #ffffff;
 }
 
@@ -16,6 +16,8 @@
 }
 
 .input-wrapper label {
+    padding-top: 20px;
+    padding-bottom: 10px;
     margin-left: 0;
     color: #ffffff;
     display: flex;
@@ -117,10 +119,10 @@
 }
 
 .ipt-email,
-.ipt-senha {
+.ipt-senha-cadastro {
+    padding: 0;
     background-color: rgb(255, 255, 255);
     width: 100%;
-    margin: 15px 0;
     display: flex;
     border-radius: 5px;
     align-items: center;
@@ -139,23 +141,33 @@
 }
 
 .input-wrapper input {
-    margin: 5px;
     width: 100%;
     padding: 10px;
     border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 1em;
+    box-sizing: border-box; 
+    font-size: 16px;
 }
 
-.olhar-senha {
-    margin: 0;
-    padding: 0;
-    gap: 0;
-    background-color: transparent;
-    cursor: pointer;
+.ipt-senha-cadastro {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.ipt-senha-cadastro input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+}
+
+.ipt-senha-cadastro button {
+    background: none;
+    border: none;
+    padding: 0 10px;
+    cursor: pointer;
 }
 
 .btn-rec-senha {

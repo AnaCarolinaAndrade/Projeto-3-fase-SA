@@ -7,12 +7,14 @@
 
 body {
   background-color: #0f0f0f;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .home-container {
   display: flex;
   align-items: center;
-  
+
 }
 
 .title-home {

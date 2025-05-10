@@ -93,14 +93,13 @@ function Login() {
 
               </div>
               <label htmlFor="senha">Senha:</label>
-              <div className="ipt-senha">
-
+              <div className='ipt-senha-cadastro'>
                 <input
-                  id="senha"
-                  type={mostrarSenha ? 'text' : 'password'}
+                  type={mostrarSenha ? "text" : "password"}
+                  name="senha"
+                  placeholder="Sua senha"
                   value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  placeholder="Senha"
+                  onChange={e => setSenha(e.target.value)}
                   required
                 />
                 <button
@@ -108,13 +107,9 @@ function Login() {
                   className="olhar-senha"
                   onClick={toggleMostrarSenha}
                 >
-                  {mostrarSenha ? (
-                    <FaRegEye size={25} color="black" />
-                  ) : (
-                    <FaRegEyeSlash size={25} color="black" />
-                  )}
+                  {mostrarSenha ? <FaRegEye size={25} /> : <FaRegEyeSlash size={25} />}
                 </button>
-              </div>
+              </div>  
             </div>
           </div>
           <button type="button" className="btn-rec-senha">Esqueceu sua senha?</button>
