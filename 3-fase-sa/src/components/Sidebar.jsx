@@ -4,6 +4,8 @@ import { HiMiniHome } from "react-icons/hi2";
 import { GoBellFill } from "react-icons/go";
 import { IoLogIn } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
+import { LuChartSpline } from "react-icons/lu";
+
 
 import { FaGear } from "react-icons/fa6";
 
@@ -35,6 +37,8 @@ function Sidebar() {
            <Link to={'/login'} class="icon-text "><IoLogIn color="white" fontSize={20} />Login</Link>
            <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={15} />Configurações</Link>
            <Link to={'/cadastro'} className="icon-text"><FaGear color="white" fontSize={15} />Cadastro</Link>
+           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Projetos</Link>
+
 
         </nav>
 
