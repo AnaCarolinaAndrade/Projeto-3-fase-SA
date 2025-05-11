@@ -25,6 +25,7 @@
 .ranking-card {
     background-color: #f9f9f9;
     padding: 16px;
+    height: 100%;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
@@ -37,7 +38,7 @@
 }
 
 .ranking-scroll {
-    max-height: 280px;
+    max-height: 460px;
     overflow-y: auto;
     padding-right: 6px;
 }
@@ -45,6 +46,7 @@
 .ranking-item {
     display: flex;
     align-items: center;
+    padding: 20px;
     margin-bottom: 12px;
 }
 

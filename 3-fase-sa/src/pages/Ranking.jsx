@@ -26,7 +26,7 @@ export default function Ranking() {
                         {projetos.map((projeto, index) => (
                             <div key={index} className="ranking-item">
                                 {projeto.destaque ? (
-                                    <img src="/logo.svg" alt="Logo" className="ranking-logo" />
+                                    <img src="./img/logo-myWord.png" alt="Logo" className="ranking-logo" />
                                 ) : (
                                     <div className="ranking-placeholder" />
                                 )}
