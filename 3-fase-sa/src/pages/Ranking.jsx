@@ -1,5 +1,5 @@
-import { Sidebar } from 'lucide-react';
 import './Ranking.css'
+import Sidebar from'../components/Sidebar.jsx'
 
 const projetos = [
     { nome: "Equipe MyWord", destaque: true },
@@ -19,7 +19,7 @@ const projetos = [
 export default function Ranking() {
     return (
         <div className='container-ranking'>
-            <Sidebar/>
+            <Sidebar />
             <div className="ranking-container">
                 <h2 className="ranking-title">Ranking projetos</h2>
                 <div className="ranking-card">
