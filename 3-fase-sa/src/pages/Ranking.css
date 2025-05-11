@@ -1,0 +1,73 @@
+.ranking-container {
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  height: 100vh;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+.ranking-title {
+  font-size: 24px;
+  color: #001858;
+  margin-bottom: 16px;
+}
+
+.ranking-card {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.ranking-subtitle {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.ranking-scroll {
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ranking-logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.ranking-placeholder {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.ranking-nome {
+  width: 120px;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.ranking-bar {
+  flex: 1;
+  height: 14px;
+  background-color: #e5e5e5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ranking-fill {
+  height: 100%;
+  background-color: #d1d1d1;
+  border-radius: 6px 0 0 6px;
+}
