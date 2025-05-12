@@ -11,8 +11,8 @@
 .footer-section {
  display: flex; 
  flex-wrap: wrap;
-
- background: linear-gradient(180deg, rgba(15, 15, 15, 0.2) 12%, #2b6ade24 89%), #0F0F0F;
+ margin-top: 100%;
+ background: linear-gradient(180deg, rgba(17, 17, 17, 0.164) 38%, #0e5bb342 89%), #0F0F0F;
  
 }
 

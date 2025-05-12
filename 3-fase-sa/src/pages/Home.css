@@ -86,6 +86,16 @@ body {
   border-radius: 8px;
 }
 
+.posts-container:hover{
+ background-color: #202020;
+ transition: 0.3s;
+}
+
+.projetos-container:hover{
+  background-color: #202020;
+  transition: 0.3s;
+}
+
 
 input {
   background-color: #fff;
