@@ -3,21 +3,18 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    gap: 40px;
-    padding: 40px;
     background: linear-gradient(0deg, #2b6ade66, #000000);
 }
 
-.form-wrapper,
-.form-wrapper2 {
-    width: 35%;
-    padding: 50px;
+.form-wrapper {
+    width: 25rem;
     border-radius: 10px;
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
+    width: 100%
 }
 
 .form-group label {
