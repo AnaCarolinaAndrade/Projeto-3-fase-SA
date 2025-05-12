@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import './Ranking.css'
 import Sidebar from'../components/Sidebar.jsx'
 
@@ -46,4 +47,16 @@ export default function Ranking() {
             </div>
         </div>
     )
+=======
+import React from 'react'
+
+export default function Ranking() {
+  return (
+    <div className='container-ranking'>
+        <div className='ranking'>
+            
+        </div>
+    </div>
+  )
+>>>>>>> 416d649 (Colocando a pagina de ranking de projetos)
 }
