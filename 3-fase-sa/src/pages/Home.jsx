@@ -2,6 +2,7 @@ import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import './Home.css'
+import Footer from '../components/Footer';
 
 
 function Home() {
@@ -19,7 +20,7 @@ function Home() {
        <button className='projetos-container'>Acessar Projetos</button>
        <button className='posts-container'>Acessar Posts</button>
       </div>
-
+      <Footer/>
     </div>
   )
 }
