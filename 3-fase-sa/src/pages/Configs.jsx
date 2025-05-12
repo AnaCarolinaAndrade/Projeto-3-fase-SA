@@ -15,7 +15,7 @@ function Configs() {
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/user/me', {
+        const response = await fetch('http://localhost:5000/api/usuarios', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
           },
@@ -54,10 +54,6 @@ function Configs() {
     }
   };
 
-  const salvarAlteracoes = async () => {
-    // Sua lógica de salvar aqui
-  };
-
   if (!usuario) return <div className="loading">Carregando...</div>;
 
   return (
@@ -89,7 +85,7 @@ function Configs() {
           </div>
 
           <div className="actions">
-            <button className="save-btn" onClick={salvarAlteracoes}>Salvar Alterações</button>
+            <button className="save-btn">Salvar Alterações</button>
             <button className="delete-btn" onClick={deletarUsuario}>Excluir Conta</button>
           </div>
         </div>
