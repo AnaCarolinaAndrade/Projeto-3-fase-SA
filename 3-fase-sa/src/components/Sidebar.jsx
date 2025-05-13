@@ -20,7 +20,7 @@ function Sidebar() {
       <button className="btn-menu" onClick={() => setIsOpen(!isOpen)()}>
         <img
           src="./img/logo_pequena.png"
-          alt="Menu"
+          alt=""
           style={{ width: '80px', height: '72px', cursor: 'pointer', }}
         />
       </button>

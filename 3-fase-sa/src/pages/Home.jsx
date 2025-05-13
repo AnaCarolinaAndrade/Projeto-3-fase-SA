@@ -8,7 +8,7 @@ import { div } from 'framer-motion/client';
 
 function Home() {
   return (
-    <div>        
+    <div>       
       <Navbar />
       <Sidebar />
       <div className='Home-container'>
