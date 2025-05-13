@@ -1,7 +1,7 @@
 .container-footer-2 {
   padding: 40px 20px;
   display: flex;
-  justify-content: space-around; 
+  justify-content: space-around;
   align-items: flex-start;
   font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
@@ -9,11 +9,11 @@
 }
 
 .footer-section {
- display: flex; 
- flex-wrap: wrap;
- margin-top: 100%;
- background: linear-gradient(180deg, rgba(17, 17, 17, 0.164) 38%, #0e5bb342 89%), #0F0F0F;
- 
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 100%;
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0.164) 38%, #0e5bb342 89%), #0F0F0F;
+
 }
 
 .container-contatos {
@@ -24,7 +24,7 @@
   margin-left: 20%;
 }
 
-.container-menu{
+.container-menu {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -44,7 +44,7 @@
   font-size: 24px;
   margin-bottom: 10px;
   color: #F6F6F6;
- text-align: center;
+  text-align: center;
 }
 
 .container-contatos li,
@@ -59,15 +59,16 @@
   color: #F6F6F6;
 }
 
-.line-2{
- border-left: 0.8px solid #F6F6F6;
-  height: 190px; 
-  margin: 0 20px; 
+.line-2 {
+  border-left: 0.8px solid #F6F6F6;
+  height: 190px;
+  margin: 0 20px;
 }
+
 .line-3 {
   border-left: 0.8px solid #F6F6F6;
-  height: 190px; 
-  margin: 0 30px; 
+  height: 190px;
+  margin: 0 30px;
 }
 
 .line-4 {
@@ -77,9 +78,9 @@
   margin-top: 20px;
 }
 
-.container-paragrafo{
- margin-left: 40%;
- margin-top: 20px;
- background-color: transparent;
- color: #F6F6F6;
+.container-paragrafo {
+  margin-left: 40%;
+  margin-top: 20px;
+  background-color: transparent;
+  color: #F6F6F6;
 }
