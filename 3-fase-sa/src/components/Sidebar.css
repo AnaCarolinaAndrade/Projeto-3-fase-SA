@@ -8,6 +8,7 @@
     left: -250px;
     top: 0px;
     height: 100vh;
+    width: 190px;
     background-color: #0F0F0F;
     padding: 20px;
     display: flex;
@@ -20,14 +21,14 @@
     border-right-width: 0.3px;
 }
 
-.profile {
-    display: flex;
-    margin: auto;
-}
-
 .container-sidebar.show {
     left: 0;
     width: 190px;
+}
+
+.profile {
+    display: flex;
+    margin: auto;
 }
 
 .sidebar {
