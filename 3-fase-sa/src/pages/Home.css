@@ -11,15 +11,18 @@ body {
   overflow-x: hidden;
 }
 
-.home-container {
+.container-home{
   display: flex;
   align-items: center;
-
+  justify-content: center;
 }
 
+.container-title-home {
+  height: 900px;
+}
+
+
 .title-home {
-  margin-left: 145px;
-  margin-top: 110px;
   color: #F6F6F6;
   font-size: 67px;
   border-radius: 5px;
@@ -31,13 +34,10 @@ body {
 }
 
 .subtitle-home {
-  margin-left: 150px;
-  margin-top: 20px;
   font-size: 22px;
   color: #F6F6F6;
   background-color: transparent;
   border-radius: 5px;
-  margin-left: 150px;
 }
 
 .container-img {
@@ -48,7 +48,6 @@ body {
   left: 58%;
   top: 225px;
   z-index: 1;
-  /* Garante que a imagem fique na frente */
 }
 
 .degrade-container {
@@ -57,8 +56,6 @@ body {
   border-radius: 50%;
   overflow: hidden;
   background-image: radial-gradient(circle at center, #40c9ff, rgba(139, 244, 252, 0.164));
-  margin-left: 66%;
-  margin-top: -12%;
   filter: blur(48px);
 }
 
@@ -74,7 +71,6 @@ body {
   height: 50px;
   width: 200px;
   border-radius: 8px;
-  margin-left: 30px;
 }
 
 .projetos-container {
@@ -86,12 +82,12 @@ body {
   border-radius: 8px;
 }
 
-.posts-container:hover{
- background-color: #202020;
- transition: 0.3s;
+.posts-container:hover {
+  background-color: #202020;
+  transition: 0.3s;
 }
 
-.projetos-container:hover{
+.projetos-container:hover {
   background-color: #202020;
   transition: 0.3s;
 }
