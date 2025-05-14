@@ -3,11 +3,12 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+
     background: linear-gradient(0deg, #2b6ade66, #000000);
 }
 
 .form-wrapper {
-    width: 25rem;
+    width: 30rem;
     border-radius: 10px;
 }
 
@@ -70,22 +71,24 @@
     background-size: 202% 100%;
     background-position: 99% 0;
     animation: anima 9s ease-in-out infinite;
-
-
 }
+
 @keyframes anima {
     0% {
-      /* movemo o background para mostrar apenas 100% de uma cor */
-      background-position: 99% 0;
+        /* movemo o background para mostrar apenas 100% de uma cor */
+        background-position: 99% 0;
     }
+
     /* do 0% do tempo da animação até 16,66% do tempo a barra permance parada */
     16.66% {
         background-position: 99% 0;
     }
+
     /* esse intervalo representa 4 segundos do tempo da animação até a barra fica 100% cheia */
     83.34% {
         background-position: 0 0;
     }
+
     /* esse intervalo de 83,34% a 100% representa 1 segundo da animação e a barra fica cheia por 1s antes de reiniciar*/
     100% {
         /* de 75% a 100% eu repito o estado da propriedade para vc ter um tempo de ver a barra 100% completa antes de reiniciar a animação */

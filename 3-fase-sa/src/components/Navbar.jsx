@@ -24,8 +24,8 @@ function Navbar() {
           <div class="buttons-container">
             <Link to={'./login'} class="btn login">Login</Link>
             <Link to={'./cadastro'} class="btn signup">Cadastro</Link>
-            <Link to={'/perfil'}>
-              <img src="./img/perfil.png"  />
+            <Link to={'/perfil'} >
+              <img src="./img/perfil.png" className='foto-perfil-nav' />
             </Link>
             
           </div>

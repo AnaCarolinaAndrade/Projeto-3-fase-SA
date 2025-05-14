@@ -83,84 +83,86 @@ export default function Cadastro() {
 
   return (
     <div className="container-form-cadastro">
-      <div class="barra"></div>
-      <div className="form-wrapper">
-        <div className="form-container">
-          <form onSubmit={criarUsuario}>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Seu email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Nome completo</label>
-              <input
-                type="text"
-                name="nome"
-                placeholder="Nome"
-                value={nome}
-                onChange={e => setNome(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Gênero</label>
-              <input placeholder="Digite seu gênero" />
-            </div>
-
-            <div className="form-group">
-              <label>Data de Nascimento</label>
-              <input
-                type='date'
-                name="dataNascimento"
-                value={dataNascimento}
-                onChange={e => setDataNascimento(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Senha</label>
-              <div className='ipt-senha-cadastro'>
+      <div className='container-cadastro'>
+        <div class="barra"></div>
+        <div className="form-wrapper">
+          <div className="form-container">
+            <form onSubmit={criarUsuario}>
+              <div className="form-group">
+                <label>Email</label>
                 <input
-                  type={mostrarSenha ? "text" : "password"}
-                  name="senha"
-                  placeholder="Sua senha"
-                  value={senha}
-                  onChange={e => setSenha(e.target.value)}
+                  type="email"
+                  name="email"
+                  placeholder="Seu email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                   required
                 />
-                <button
-                  type="button"
-                  className="olhar-senha"
-                  onClick={toggleMostrarSenha}
-                >
-                  {mostrarSenha ? <FaRegEye size={25} /> : <FaRegEyeSlash size={25} />}
-                </button>
               </div>
-            </div>
 
-            <div className="form-group">
-              <label>Confirmar Senha</label>
-              <div className='ipt-senha-cadastro'>
+              <div className="form-group">
+                <label>Nome completo</label>
                 <input
-                  placeholder="Confirmar senha"
-                  type={mostrarSenha ? 'text' : 'password'}
+                  type="text"
+                  name="nome"
+                  placeholder="Nome"
+                  value={nome}
+                  onChange={e => setNome(e.target.value)}
+                  required
                 />
               </div>
-            </div>
 
-            <button type="submit">Enviar Formulário</button>
-          </form>
+              <div className="form-group">
+                <label>Gênero</label>
+                <input placeholder="Digite seu gênero" />
+              </div>
 
+              <div className="form-group">
+                <label>Data de Nascimento</label>
+                <input
+                  type='date'
+                  name="dataNascimento"
+                  value={dataNascimento}
+                  onChange={e => setDataNascimento(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Senha</label>
+                <div className='ipt-senha-cadastro'>
+                  <input
+                    type={mostrarSenha ? "text" : "password"}
+                    name="senha"
+                    placeholder="Sua senha"
+                    value={senha}
+                    onChange={e => setSenha(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="olhar-senha"
+                    onClick={toggleMostrarSenha}
+                  >
+                    {mostrarSenha ? <FaRegEye size={25} /> : <FaRegEyeSlash size={25} />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Confirmar Senha</label>
+                <div className='ipt-senha-cadastro'>
+                  <input
+                    placeholder="Confirmar senha"
+                    type={mostrarSenha ? 'text' : 'password'}
+                  />
+                </div>
+              </div>
+
+              <button type="submit">Enviar Formulário</button>
+            </form>
+
+          </div>
         </div>
       </div>
     </div>
