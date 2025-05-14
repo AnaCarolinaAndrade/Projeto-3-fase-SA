@@ -7,7 +7,6 @@ function Navbar() {
     <>
       <div className='container-navbar'>
         <nav class="navbar">
-          <div class="logo">&lt;DEXES/&gt;</div>
 
           <div class="search-container">
             <input type="text" placeholder="Pesquisar por..." />
