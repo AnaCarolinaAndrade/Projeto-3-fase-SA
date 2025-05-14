@@ -18,6 +18,10 @@
     color: #ffffff;
 }
 
+.toggle-btn {
+    cursor: pointer;
+}
+
 .search-container {
     flex: 1;
     margin: 0 30px;
