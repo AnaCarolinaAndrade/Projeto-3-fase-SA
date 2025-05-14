@@ -84,8 +84,6 @@
     flex-direction: column;
 }
 
-
-
 .container-sidebar.show .toggle-btn span:nth-child(1) {
     transform: translateY(25px) rotate(45deg);
 }
