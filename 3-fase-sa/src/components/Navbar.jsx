@@ -5,17 +5,15 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(true);
-
   return (
     <>
       <div className='container-navbar'>
         <nav class="navbar">
-        <button  className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
+        <button className="btn-menu" onClick={() => setIsOpen(!isOpen)()}>
         <img
           src="./img/logo_pequena.png"
           alt=""
           style={{ width: '80px', height: '72px', cursor: 'pointer', }}
-          className={`container-sidebar ${isOpen ? "show" : ""}`}
         />
       </button>
 
@@ -24,9 +22,12 @@ function Navbar() {
           </div>
 
           <div class="buttons-container">
+            <div className="links-nav">
             <Link to={'./login'} class="btn login">Login</Link>
             <Link to={'./cadastro'} class="btn signup">Cadastro</Link>
-            <Link to={'/perfil'} >
+            </div>
+
+            <Link to={'/perfil'} className="link-perfil">
               <img src="./img/perfil.png" className='foto-perfil-nav' />
             </Link>
             

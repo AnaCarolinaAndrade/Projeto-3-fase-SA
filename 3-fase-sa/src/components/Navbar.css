@@ -42,6 +42,7 @@
 
 .buttons-container {
     display: flex;
+    height: auto;
     gap: 30px;
 }
 
@@ -78,5 +79,17 @@
 }
 
 .foto-perfil-nav {
-    border-radius: 1px solid white;
+    border: 1px solid white;
+    padding: 7px;
+    border-radius: 50px;
+}
+
+.links-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.link-perfil {
+    border-radius: 50px;
 }
