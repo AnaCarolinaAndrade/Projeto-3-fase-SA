@@ -4,8 +4,8 @@ import { IoPaperPlaneOutline } from "react-icons/io5";
 import './Chat.css';
 
 const fundos = [
-    "/wallpapers/fundo1.jpg",
     "/wallpapers/fundo2.jpg",
+    "/wallpapers/fundo1.jpg",
     "/wallpapers/fundo3.jpg",
     "/wallpapers/fundo4.jpg"
 ]
@@ -70,12 +70,11 @@ const Chat = () => {
             </div>
 
             <div className="container-mudar-fundo">
-                <div className="grid grid-cols-2 gap-2">
+                <div className="config-mudar-fundo">
                     {fundos.map((wall, index) => (
                         <button
                             key={index}
                             onClick={() => setBackground(wall)}
-                            className="mudar-fundo"
                         >
                             <img src={wall} alt={`wallpaper ${index}`} className="mudar-fundo" />
                         </button>
