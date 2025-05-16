@@ -87,7 +87,7 @@ export default function Cadastro() {
         <div class="barra"></div>
         <div className="form-wrapper">
           <div className="form-container">
-            <form onSubmit={criarUsuario}>
+            <form onSubmit={criarUsuario} className='form-cadastro'>
               <div className="form-group">
                 <label>Email</label>
                 <input
