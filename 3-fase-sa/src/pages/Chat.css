@@ -95,3 +95,14 @@
     border: none;
     cursor: pointer;
 }
+
+.mudar-fundo{
+    height: 60px;
+}
+
+.container-mudar-fundo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

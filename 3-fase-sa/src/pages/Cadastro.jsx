@@ -142,7 +142,7 @@ export default function Cadastro() {
                   <button
                     type="button"
                     className="olhar-senha"
-                    onClick={toggleMostrarSenha}
+                    onClick={toggleMostrarSenha}  
                   >
                     {mostrarSenha ? <FaRegEye size={25} /> : <FaRegEyeSlash size={25} />}
                   </button>
