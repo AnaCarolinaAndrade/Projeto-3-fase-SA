@@ -159,7 +159,7 @@ export default function Cadastro() {
                 </div>
               </div>
 
-              <button type="submit">Enviar Formulário</button>
+              <button type="submit" className='enviar-formulario'>Enviar Formulário</button>
             </form>
 
           </div>
