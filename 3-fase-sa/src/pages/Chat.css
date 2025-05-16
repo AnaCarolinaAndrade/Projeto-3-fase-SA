@@ -117,4 +117,5 @@
 .config-mudar-fundo {
     display: flex;
     flex-direction: column;
+    padding: 20px;
 }
