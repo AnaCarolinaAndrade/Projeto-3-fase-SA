@@ -270,6 +270,34 @@ def update_user():
             return jsonify({'error': f'Erro ao atualizar o usuário: {e}'}), 500
     return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
+@app.route('/api/user/profile-picture', methods=['PUT'])
+def salvar_foto_perfil():
+    user, error, status_code = verificar_token()
+    print("Usuário autenticado?", user)
+    if error:
+        print("Erro na verificação do token:", error)
+        return jsonify(error), status_code
+
+    data = request.get_json()
+    print("Payload recebido:", data)
+    imagem_base64 = data.get('imagem')
+
+    if not imagem_base64:
+        print("Imagem não fornecida.")
+        return jsonify({'error': 'Imagem não fornecida'}), 400
+
+    try:
+        usuarios_collection.update_one(
+            {'_id': user['_id']},
+            {'$set': {'profile_pic': imagem_base64}}
+        )
+        print("Imagem atualizada com sucesso no Mongo.")
+        return jsonify({'message': 'Imagem de perfil atualizada com sucesso!'}), 200
+    except Exception as e:
+        print("Erro ao atualizar imagem:", e)
+        return jsonify({'error': f'Erro ao salvar imagem: {e}'}), 500
+
+
 # === EXECUTAR APLICAÇÃO ===
 if __name__ == '__main__':
 

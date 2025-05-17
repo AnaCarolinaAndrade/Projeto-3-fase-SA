@@ -35,11 +35,36 @@ function Configs() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result);
+        const base64Image = reader.result;
+        setPreviewImage(base64Image);
+
+        // Salva automaticamente ao selecionar a imagem
+        salvarImagemNoBanco(base64Image);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  const salvarAlteracoes = async () => {
+  try {
+    const response = await axios.put(
+      'http://localhost:5000/api/user/profile-picture',
+      { imagem: previewImage },
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    alert('Imagem salva com sucesso!');
+  } catch (error) {
+    const responseText = await error.response?.text();
+    console.error("Erro detalhado:", responseText);
+    alert("Erro ao salvar imagem: " + responseText);
+  }
+};
+
 
   const handleClickProfileImage = () => {
     fileInputRef.current.click();
@@ -62,11 +87,12 @@ function Configs() {
       <div className="configs-container">
         <div className="profile-card">
           <div className="profile-image" onClick={handleClickProfileImage}>
-            {previewImage ? (
-              <img src={previewImage} alt="Preview" />
+            {previewImage || usuario.profile_pic ? (
+              <img src={previewImage || usuario.profile_pic} alt="Preview" />
             ) : (
               <BsPersonCircle size={150} color="#ccc" />
             )}
+
           </div>
           <input
             type="file"
@@ -85,7 +111,7 @@ function Configs() {
           </div>
 
           <div className="actions">
-            <button className="save-btn">Salvar Alterações</button>
+            <button className="save-btn"  onClick={salvarAlteracoes}>Salvar Alterações</button>
             <button className="delete-btn" onClick={deletarUsuario}>Excluir Conta</button>
           </div>
         </div>
