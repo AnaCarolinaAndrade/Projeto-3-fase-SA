@@ -18,7 +18,7 @@ function Sidebar() {
   return (
     <>
 
-      <div className={`container-sidebar ${isOpen ? "show" : ""}`}> 
+      <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
 
         <nav className="sidebar">
           <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
@@ -32,6 +32,8 @@ function Sidebar() {
           <Link to={'/cadastro'} className="icon-text"><FaGear color="white" fontSize={15} />Cadastro</Link>
           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Projetos</Link>
           <Link to={'/ranking'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Ranking</Link>
+          <Link to={'/moderador'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Moderador</Link>
+
 
 
         </nav>

@@ -33,6 +33,7 @@
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -61,6 +62,7 @@
 
 .message-area p.you {
     background-color: #4f46e5;
+    border-radius: 18px 0px 18px 18px;
     color: white;
     align-self: flex-end;
 }

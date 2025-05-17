@@ -85,7 +85,6 @@ def criar_usuario():
     email = data.get('email')
     senha = data.get('senha')
 
-
     ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
 
