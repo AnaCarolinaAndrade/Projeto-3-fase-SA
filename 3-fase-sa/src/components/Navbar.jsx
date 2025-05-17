@@ -9,13 +9,17 @@ function Navbar() {
     <>
       <div className='container-navbar'>
         <nav class="navbar">
-        <button className="btn-menu" onClick={() => setIsOpen(!isOpen)()}>
-        <img
-          src="./img/logo_pequena.png"
-          alt=""
-          style={{ width: '80px', height: '72px', cursor: 'pointer', }}
-        />
-      </button>
+          <button className="btn-menu" onClick={() => setIsOpen(!isOpen)()}>
+            <img
+              src="./img/logo_pequena.png"
+              alt=""
+              style={{
+                width: '80px',
+                height: '50px',
+                cursor: 'pointer',
+              }}
+            />
+          </button>
 
           <div class="search-container">
             <input type="text" placeholder="Pesquisar por..." />
@@ -23,14 +27,14 @@ function Navbar() {
 
           <div class="buttons-container">
             <div className="links-nav">
-            <Link to={'./login'} class="btn login">Login</Link>
-            <Link to={'./cadastro'} class="btn signup">Cadastro</Link>
+              <Link to={'./login'} class="btn login">Login</Link>
+              <Link to={'./cadastro'} class="btn signup">Cadastro</Link>
             </div>
 
             <Link to={'/perfil'} className="link-perfil">
               <img src="./img/perfil.png" className='foto-perfil-nav' />
             </Link>
-            
+
           </div>
         </nav>
       </div>
