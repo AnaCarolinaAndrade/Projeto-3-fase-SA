@@ -21,7 +21,6 @@ const router = createBrowserRouter([
     { path: "/ranking", element: <Ranking /> },
     { path: "/moderador", element: <Moderador /> }
 
-
 ])
 
 export default router;
