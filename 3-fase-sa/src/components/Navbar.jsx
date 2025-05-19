@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(true);
   return (
     <>
       <div className='container-navbar'>
         <nav class="navbar">
-          <button className="btn-menu" onClick={() => setIsOpen(!isOpen)()}>
+          <button className="btn-menu">
             <img
               src="./img/logo_pequena.png"
               alt=""
