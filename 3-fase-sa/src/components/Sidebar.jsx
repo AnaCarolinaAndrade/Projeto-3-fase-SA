@@ -19,7 +19,6 @@ function Sidebar() {
     <>
 
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
-
         <nav className="sidebar">
           <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
             <IoCloseOutline color="white" fontSize={30} />
@@ -34,10 +33,7 @@ function Sidebar() {
           <Link to={'/ranking'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Ranking</Link>
           <Link to={'/moderador'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Moderador</Link>
 
-
-
         </nav>
-
       </div>
     </>
   );

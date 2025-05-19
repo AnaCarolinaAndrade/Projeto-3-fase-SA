@@ -5,16 +5,15 @@
 
 .container-sidebar {
     position: fixed;
-    left: -250px;
     top: 0px;
     height: 100vh;
-    width: 190px;
+    width: 90px;
     background-color: #0F0F0F;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    transition: left 0.4s ease-in-out;
+    transition: 0.4s ease-in-out;
     z-index: 101;
     border-right-color: rgb(255, 255, 255);
     border-right-style: outset;
@@ -99,7 +98,6 @@
 .icon-text {
     gap: 10px;
     font-family: Arial, sans-serif;
-    font-size: 20px;
     cursor: pointer;
     margin-left: 10px;
     transition: all 0.5s ease;
@@ -109,6 +107,10 @@
     height: 40px;
     border-radius: 50%;
     color: white;
+}
+
+.icon-text.show{
+    font-size: 10px;
 }
 
 .icon-text:hover {
