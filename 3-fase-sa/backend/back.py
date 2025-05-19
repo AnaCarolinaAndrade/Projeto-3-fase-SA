@@ -4,7 +4,7 @@ import uuid
 import bcrypt 
 import datetime 
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify 
+from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS 
 from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
@@ -297,16 +297,15 @@ def github_login():
         return jsonify({'error': f'Erro ao processar login com GitHub: {e}'}), 500
     
     
-    
-@app.route('/auth/github/callback')
+@app.route("/auth/github/callback")
 def github_callback():
     code = request.args.get('code')
     if not code:
-        return jsonify({'error': 'Código não encontrado na URL'}), 400
+        return jsonify({'error': 'Código de autorização não fornecido'}), 400
 
-    # Trocar o code por um access_token
-    token_response = pyrequests.post(
-        'https://github.com/login/oauth/access_token',
+    # Troca o código pelo access_token
+    token_response = requests.post(
+        "https://github.com/login/oauth/access_token",
         headers={'Accept': 'application/json'},
         data={
             'client_id': GITHUB_CLIENT_ID,
@@ -321,37 +320,39 @@ def github_callback():
     if not access_token:
         return jsonify({'error': 'Não foi possível obter o access_token'}), 400
 
-    # Buscar os dados do usuário
-    user_response = pyrequests.get(
-        'https://api.github.com/user',
+    # Pega dados do usuário no GitHub
+    user_response = requests.get(
+        "https://api.github.com/user",
         headers={'Authorization': f'token {access_token}'}
     )
-    user_data = user_response.json()
 
-    github_id = user_data.get('id')
-    nome = user_data.get('name') or user_data.get('login')
-    email = user_data.get('email')  # Pode ser None, GitHub nem sempre retorna
-    profile_pic = user_data.get('avatar_url')
+    github_user = user_response.json()
+    github_id = github_user.get('id')
+    nome = github_user.get('name') or github_user.get('login')
+    email = github_user.get('email') or f"{github_user.get('login')}@users.noreply.github.com"
+    profile_pic = github_user.get('avatar_url')
 
     if not github_id:
-        return jsonify({'error': 'Falha ao obter dados do GitHub'}), 400
+        return jsonify({'error': 'Erro ao obter dados do usuário GitHub'}), 500
 
-    # Verificar se já existe usuário
-    usuario = usuarios_collection.find_one({'github_id': str(github_id)})
-    if not usuario:
-        novo_usuario = {
-            'github_id': str(github_id),
+    # Verifica se já existe
+    usuario_existente = usuarios_collection.find_one({'github_id': github_id})
+    if usuario_existente:
+        user_id = usuario_existente['_id']
+        usuarios_collection.update_one(
+            {'_id': user_id},
+            {'$set': {'nome': nome, 'email': email, 'profile_pic': profile_pic}}
+        )
+    else:
+        result = usuarios_collection.insert_one({
+            'github_id': github_id,
             'nome': nome,
             'email': email,
             'profile_pic': profile_pic,
             'created_at': datetime.datetime.now()
-        }
-        result = usuarios_collection.insert_one(novo_usuario)
+        })
         user_id = result.inserted_id
-    else:
-        user_id = usuario['_id']
 
-    # Criar token de sessão
     session_token = gerar_token_de_sessao()
     sessions_collection.insert_one({
         'user_id': str(user_id),
@@ -359,7 +360,7 @@ def github_callback():
         'created_at': datetime.datetime.now()
     })
 
-    # Redirecionar para o frontend com o session_token
+    # Redireciona para o frontend com o token
     redirect_url = f"http://localhost:3000/github-success?token={session_token}"
     return redirect(redirect_url)
 

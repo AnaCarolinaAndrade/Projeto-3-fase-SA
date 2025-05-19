@@ -136,22 +136,13 @@ function Login() {
             <GoogleLogin
               onSuccess={onSuccess}
               onError={onFailure}
-              text="signin_with"
-              size="large"
-              shape="rectangular"
-              theme="outline"
-              id="google-login-btn"
             />
             <button type="button" className="social-login-btn">
               <img src="./img/github.png" alt="GitHub" className="social-icon" />
               <GitHubLogin
                 onSuccess={onSuccess}
                 onError={onFailure}
-                text="signin_with"
-                size="large"
-                shape="rectangular"
-                theme="outline"
-                id="google-login-btn" />
+              />
             </button>
           </div>
         </form>
