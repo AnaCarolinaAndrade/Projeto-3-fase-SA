@@ -1,0 +1,15 @@
+.container-moderador {
+    background-color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.card-moderador {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    width: 500px;
+    border: 1px solid black;
+    padding: 10px;
+}

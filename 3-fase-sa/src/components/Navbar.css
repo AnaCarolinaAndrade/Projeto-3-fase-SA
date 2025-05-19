@@ -1,21 +1,19 @@
 .navbar {
     width: 100%;
-    height: 70px;
+    height: 60px;
     background-color: #0F0F0F;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 0 40px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-bottom-width: 1px;
     border-bottom-color: white;
     border-bottom-style: outset;
 }
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: 100;
-    color: #ffffff;
+.toggle-btn {
+    cursor: pointer;
 }
 
 .search-container {
@@ -38,6 +36,7 @@
 
 .buttons-container {
     display: flex;
+    height: auto;
     gap: 30px;
 }
 
@@ -71,4 +70,20 @@
 .signup:hover {
     background-color: #ffffff;
     color: black;
+}
+
+.foto-perfil-nav {
+    border: 1px solid white;
+    padding: 7px;
+    border-radius: 50px;
+}
+
+.links-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.link-perfil {
+    border-radius: 50px;
 }

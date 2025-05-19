@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import "./Login.css";
+import GitHubLogin from "../components/GithubLogin";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -13,7 +14,6 @@ function Login() {
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
   };
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,6 +37,17 @@ function Login() {
     }
   };
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+
+    if (token) {
+      localStorage.setItem('session_token', token);
+      navigate('/home'); // ou onde quiser redirecionar após login
+    } else {
+      navigate('/login');
+    }
+  }, []);
 
 
 
@@ -109,7 +120,7 @@ function Login() {
                 >
                   {mostrarSenha ? <FaRegEye size={25} /> : <FaRegEyeSlash size={25} />}
                 </button>
-              </div>  
+              </div>
             </div>
           </div>
           <button type="button" className="btn-rec-senha">Esqueceu sua senha?</button>
@@ -125,15 +136,13 @@ function Login() {
             <GoogleLogin
               onSuccess={onSuccess}
               onError={onFailure}
-              text="signin_with"
-              size="large"
-              shape="rectangular"
-              theme="outline"
-              id="google-login-btn"
             />
             <button type="button" className="social-login-btn">
               <img src="./img/github.png" alt="GitHub" className="social-icon" />
-              Continuar com GitHub
+              <GitHubLogin
+                onSuccess={onSuccess}
+                onError={onFailure}
+              />
             </button>
           </div>
         </form>

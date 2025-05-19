@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(0deg, #2337a7cb 1%, #0F1111 80%);
-    color: #ffffff;
+
 }
 
 .login-left {
@@ -137,14 +137,14 @@
     color: black;
     outline: none;
     margin-right: 8px;
-    
+
 }
 
 .input-wrapper input {
     width: 100%;
     padding: 10px;
     border-radius: 4px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-size: 16px;
 }
 

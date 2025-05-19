@@ -7,6 +7,7 @@ import Chat from '../pages/Chat.jsx';
 import Configs from '../pages/Configs.jsx';
 import Projetos from '../pages/Projetos.jsx';
 import Ranking from "../pages/Ranking.jsx";
+import Moderador from "../pages/Moderador.jsx";
 
 const router = createBrowserRouter([
 
@@ -17,8 +18,8 @@ const router = createBrowserRouter([
     { path: "/chat", element: <Chat /> },
     { path: "/configs", element: <Configs /> },
     { path: "/projetos", element: <Projetos /> },
-    { path: "/ranking", element: <Ranking /> }
-
+    { path: "/ranking", element: <Ranking /> },
+    { path: "/moderador", element: <Moderador /> }
 
 ])
 

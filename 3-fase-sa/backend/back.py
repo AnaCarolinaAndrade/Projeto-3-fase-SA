@@ -1,16 +1,18 @@
-# === IMPORTAÇÕES ===
-import os # Biblioteca padrão para interagir com o sistema operacional (ex: ler variáveis de ambiente, caminhos, etc.)
-import uuid # Gera identificadores únicos (UUIDs), útil para tokens, IDs de sessões, etc.
-import bcrypt # Biblioteca para criptografar e verificar senhas de forma segura
-import datetime # Manipulação de datas e horas (ex: gerar timestamps, datas de expiração)
-from dotenv import load_dotenv # Carrega variáveis de ambiente do arquivo .env
-from flask import Flask, request, jsonify # Framework principal do backend (Flask): cria rotas, lida com requisições/respostas
-from flask_cors import CORS # Liberação de requisições entre domínios (CORS), necessário para frontend se comunicar com backend em outro domínio/porta
-from flask_socketio import SocketIO, emit # Comunicação em tempo real com WebSocket (usado em chats, notificações ao vivo, etc.)
-from pymongo import MongoClient # Conexão com banco de dados MongoDB
-from bson.objectid import ObjectId # Permite trabalhar com IDs do MongoDB (ObjectId) de forma adequada no Python
-from google.oauth2 import id_token # Verifica e decodifica tokens de autenticação do Google (ex: login com Google)
-from google.auth.transport import requests # Transporta requisições para validação de tokens com os servidores do Google
+import os 
+import uuid 
+import bcrypt 
+import datetime 
+from dotenv import load_dotenv
+from flask import Flask, request, jsonify, redirect
+from flask_cors import CORS 
+from flask_socketio import SocketIO, emit
+from pymongo import MongoClient
+from bson.objectid import ObjectId
+from google.oauth2 import id_token
+from google.auth.transport import requests
+import requests as external_requests
+import requests as pyrequests
+import base64
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -22,6 +24,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
+GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
 
 # === CONEXÃO COM O BANCO DE DADOS ===
 try:
@@ -71,7 +75,6 @@ def criar_usuario():
     nome = data.get('nome')
     email = data.get('email')
     senha = data.get('senha')
-
 
     ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
@@ -147,6 +150,7 @@ def login():
 # === LOGIN COM GOOGLE ===
 @app.route('/api/google-login', methods=['POST'])
 def google_login():
+    
     data = request.get_json()
     token = data.get('token')
 
@@ -215,6 +219,148 @@ def google_login():
         return jsonify({'error': f'Token de ID do Google inválido: {e}'}), 401
     except Exception as e:
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
+    
+    
+# === LOGIN COM O GITHUB ===
+
+@app.route("/api/github/callback", methods=['POST'])
+def github_login():
+    data = request.get_json()
+    access_token = data.get('token')
+
+    if not access_token:
+        return jsonify({'error': 'Token de acesso do GitHub não fornecido'}), 400
+
+    try:
+        # Obter dados do usuário a partir do token do GitHub
+        github_api_url = "https://api.github.com/user"
+        headers = {'Authorization': f'token {access_token}'}
+        response = external_requests.get(github_api_url, headers=headers)
+
+        if response.status_code != 200:
+            return jsonify({'error': 'Falha ao obter dados do usuário do GitHub'}), 401
+
+        github_user = response.json()
+        github_id = github_user.get('id')
+        email = github_user.get('email') or f'{github_id}@github.com'  # fallback se e-mail for privado
+        nome = github_user.get('name') or github_user.get('login')
+        profile_pic = github_user.get('avatar_url')
+        username = github_user.get('login')
+
+        if not github_id:
+            return jsonify({'error': 'Resposta do GitHub inválida: ID ausente'}), 400
+
+        usuario_existente = usuarios_collection.find_one({'github_id': github_id})
+        session_token = gerar_token_de_sessao()
+
+        if usuario_existente:
+            usuarios_collection.update_one(
+                {'github_id': github_id},
+                {'$set': {'email': email, 'nome': nome, 'profile_pic': profile_pic, 'username': username}}
+            )
+            user_id = usuario_existente['_id']
+        else:
+            novo_usuario = {
+                'github_id': github_id,
+                'email': email,
+                'nome': nome,
+                'username': username,
+                'profile_pic': profile_pic,
+                'created_at': datetime.datetime.now()
+            }
+            result = usuarios_collection.insert_one(novo_usuario)
+            user_id = result.inserted_id
+
+        sessions_collection.insert_one({
+            'user_id': str(user_id),
+            'session_token': session_token,
+            'created_at': datetime.datetime.now()
+        })
+
+        return jsonify({
+            'success': True,
+            'message': 'Login com GitHub bem-sucedido',
+            'session_token': session_token,
+            'user': {
+                'id': str(user_id),
+                'github_id': github_id,
+                'email': email,
+                'nome': nome,
+                'username': username,
+                'profile_pic': profile_pic
+            }
+        }), 200
+
+    except Exception as e:
+        return jsonify({'error': f'Erro ao processar login com GitHub: {e}'}), 500
+    
+    
+@app.route("/auth/github/callback")
+def github_callback():
+    code = request.args.get('code')
+    if not code:
+        return jsonify({'error': 'Código de autorização não fornecido'}), 400
+
+    # Troca o código pelo access_token
+    token_response = requests.post(
+        "https://github.com/login/oauth/access_token",
+        headers={'Accept': 'application/json'},
+        data={
+            'client_id': GITHUB_CLIENT_ID,
+            'client_secret': GITHUB_CLIENT_SECRET,
+            'code': code
+        }
+    )
+
+    token_json = token_response.json()
+    access_token = token_json.get('access_token')
+
+    if not access_token:
+        return jsonify({'error': 'Não foi possível obter o access_token'}), 400
+
+    # Pega dados do usuário no GitHub
+    user_response = requests.get(
+        "https://api.github.com/user",
+        headers={'Authorization': f'token {access_token}'}
+    )
+
+    github_user = user_response.json()
+    github_id = github_user.get('id')
+    nome = github_user.get('name') or github_user.get('login')
+    email = github_user.get('email') or f"{github_user.get('login')}@users.noreply.github.com"
+    profile_pic = github_user.get('avatar_url')
+
+    if not github_id:
+        return jsonify({'error': 'Erro ao obter dados do usuário GitHub'}), 500
+
+    # Verifica se já existe
+    usuario_existente = usuarios_collection.find_one({'github_id': github_id})
+    if usuario_existente:
+        user_id = usuario_existente['_id']
+        usuarios_collection.update_one(
+            {'_id': user_id},
+            {'$set': {'nome': nome, 'email': email, 'profile_pic': profile_pic}}
+        )
+    else:
+        result = usuarios_collection.insert_one({
+            'github_id': github_id,
+            'nome': nome,
+            'email': email,
+            'profile_pic': profile_pic,
+            'created_at': datetime.datetime.now()
+        })
+        user_id = result.inserted_id
+
+    session_token = gerar_token_de_sessao()
+    sessions_collection.insert_one({
+        'user_id': str(user_id),
+        'session_token': session_token,
+        'created_at': datetime.datetime.now()
+    })
+
+    # Redireciona para o frontend com o token
+    redirect_url = f"http://localhost:3000/github-success?token={session_token}"
+    return redirect(redirect_url)
 
 # === ROTAS DE PERFIL ===
 @app.route('/api/user/me', methods=['GET'])
@@ -257,6 +403,34 @@ def update_user():
         except Exception as e:
             return jsonify({'error': f'Erro ao atualizar o usuário: {e}'}), 500
     return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
+
+@app.route('/api/user/profile-picture', methods=['PUT'])
+def salvar_foto_perfil():
+    user, error, status_code = verificar_token()
+    print("Usuário autenticado?", user)
+    if error:
+        print("Erro na verificação do token:", error)
+        return jsonify(error), status_code
+
+    data = request.get_json()
+    print("Payload recebido:", data)
+    imagem_base64 = data.get('imagem')
+
+    if not imagem_base64:
+        print("Imagem não fornecida.")
+        return jsonify({'error': 'Imagem não fornecida'}), 400
+
+    try:
+        usuarios_collection.update_one(
+            {'_id': user['_id']},
+            {'$set': {'profile_pic': imagem_base64}}
+        )
+        print("Imagem atualizada com sucesso no Mongo.")
+        return jsonify({'message': 'Imagem de perfil atualizada com sucesso!'}), 200
+    except Exception as e:
+        print("Erro ao atualizar imagem:", e)
+        return jsonify({'error': f'Erro ao salvar imagem: {e}'}), 500
+
 
 # === EXECUTAR APLICAÇÃO ===
 if __name__ == '__main__':

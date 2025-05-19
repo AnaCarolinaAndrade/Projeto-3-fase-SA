@@ -10,7 +10,7 @@
 .container-chat {
     display: flex;
     flex-direction: column;
-    height: 75%;
+    height: 85%;
     width: 75%;
     background-color: #f3f4f6;
     border-radius: 13px;
@@ -33,6 +33,7 @@
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -61,8 +62,16 @@
 
 .message-area p.you {
     background-color: #4f46e5;
+    border-radius: 18px 0px 18px 18px;
     color: white;
     align-self: flex-end;
+}
+
+.message-area {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.3s ease-in-out;
 }
 
 .message-input {
@@ -70,7 +79,7 @@
     justify-content: center;
     align-items: center;
     padding: 12px;
-    background-color: white;
+    background-color: rgb(222, 222, 222);
     gap: 48px;
     border-radius: 0 0 10px 10px;
 }
@@ -94,4 +103,21 @@
     border-radius: 90px;
     border: none;
     cursor: pointer;
+}
+
+.mudar-fundo {
+    height: 60px;
+}
+
+.container-mudar-fundo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.config-mudar-fundo {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }

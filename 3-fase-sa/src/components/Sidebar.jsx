@@ -17,13 +17,6 @@ function Sidebar() {
 
   return (
     <>
-      <button className="btn-menu" onClick={() => setIsOpen(!isOpen)()}>
-        <img
-          src="./img/logo_pequena.png"
-          alt="Menu"
-          style={{ width: '80px', height: '72px', cursor: 'pointer', }}
-        />
-      </button>
 
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
 
@@ -39,6 +32,7 @@ function Sidebar() {
           <Link to={'/cadastro'} className="icon-text"><FaGear color="white" fontSize={15} />Cadastro</Link>
           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Projetos</Link>
           <Link to={'/ranking'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Ranking</Link>
+          <Link to={'/moderador'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Moderador</Link>
 
 
 
