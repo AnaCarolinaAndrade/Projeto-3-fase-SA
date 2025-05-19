@@ -7,7 +7,8 @@ const fundos = [
     "/wallpapers/fundo2.jpg",
     "/wallpapers/fundo1.jpg",
     "/wallpapers/fundo3.jpg",
-    "/wallpapers/fundo4.jpg"
+    "/wallpapers/fundo4.jpg",
+    "/wallpapers/fundo5.gif"
 ]
 
 const Chat = () => {
