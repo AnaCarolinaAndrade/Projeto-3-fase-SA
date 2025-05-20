@@ -7,7 +7,6 @@ import { IoMapOutline } from "react-icons/io5";
 
 function Configs() {
 
-  const [selectedImage, setSelectedImage] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const fileInputRef = useRef(null); // Referência para o input do tipo file
   const [usuario, setUsuario] = useState(null);

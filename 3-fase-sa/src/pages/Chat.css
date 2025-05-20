@@ -46,7 +46,7 @@
 .message-area::-webkit-scrollbar-thumb {
     background-color: #ffffff;
     border-radius: 8px;
-    border: 2px solid #000000;
+    border: 1px solid #000000;
 }
 
 .message-area p {
@@ -79,7 +79,7 @@
     justify-content: center;
     align-items: center;
     padding: 12px;
-    background-color: rgb(222, 222, 222);
+    background-color: rgb(255, 255, 255);
     gap: 48px;
     border-radius: 0 0 10px 10px;
 }

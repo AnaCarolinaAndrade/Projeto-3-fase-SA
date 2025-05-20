@@ -19,25 +19,21 @@ function Sidebar() {
     <>
 
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
-
         <nav className="sidebar">
           <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
             <IoCloseOutline color="white" fontSize={30} />
           </button>
 
-          <Link to={'/'} class="icon-text "><HiMiniHome color="white" fontSize={20} />Home</Link>
-          <Link to={'/chat'} class="icon-text "><GoBellFill color="white" fontSize={20} />chat</Link>
-          <Link to={'/login'} class="icon-text "><IoLogIn color="white" fontSize={20} />Login</Link>
-          <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={15} />Configurações</Link>
-          <Link to={'/cadastro'} className="icon-text"><FaGear color="white" fontSize={15} />Cadastro</Link>
-          <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Projetos</Link>
-          <Link to={'/ranking'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Ranking</Link>
-          <Link to={'/moderador'} className="icon-text"><LuChartSpline color="white" fontSize={15} />Moderador</Link>
-
-
+          <Link to={'/'} class="icon-text "><HiMiniHome color="white" fontSize={20} /><span className="link-text">Home </span></Link>
+          <Link to={'/chat'} class="icon-text "><GoBellFill color="white" fontSize={20} /><span className="link-text"> chat</span></Link>
+          <Link to={'/login'} class="icon-text "><IoLogIn color="white" fontSize={20} /><span className="link-text">Login </span> </Link>
+          <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={15} /><span className="link-text"> Configurações</span></Link>
+          <Link to={'/cadastro'} className="icon-text"><FaGear color="white" fontSize={15} /> <span className="link-text"> Cadastro </span> </Link>
+          <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={15} /> <span className="link-text"> Projetos </span> </Link>
+          <Link to={'/ranking'} className="icon-text"><LuChartSpline color="white" fontSize={15} /> <span className="link-text"> Ranking</span> </Link>
+          <Link to={'/moderador'} className="icon-text"><LuChartSpline color="white" fontSize={15} /><span className="link-text"> Moderador </span></Link>
 
         </nav>
-
       </div>
     </>
   );
