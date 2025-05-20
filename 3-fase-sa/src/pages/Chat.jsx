@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import './Chat.css';
+import Sidebar  from "../components/Sidebar";
 
 const fundos = [
     "/wallpapers/fundo2.jpg",
     "/wallpapers/fundo1.jpg",
     "/wallpapers/fundo3.jpg",
-    "/wallpapers/fundo4.jpg"
+    "/wallpapers/fundo4.jpg",
+    "/wallpapers/fundo5.gif",
+    "/wallpapers/fundo6.gif",
 ]
 
 const Chat = () => {
@@ -25,7 +28,7 @@ const Chat = () => {
         });
 
         socketRef.current.on("connect", () => {
-            setSocketId(socketRef.current.id); // pega seu próprio ID
+            setSocketId(socketRef.current.id);
         });
 
         socketRef.current.on("message", (msg) => {
@@ -59,6 +62,7 @@ const Chat = () => {
 
     return (
         <div className="chat-container">
+            <Sidebar />
             <div className="container-chat">
                 <nav className="topo-chat"></nav>
 

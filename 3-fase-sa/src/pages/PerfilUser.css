@@ -1,3 +1,10 @@
+.profile-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
 .profile {
   font-size: 15px;
   margin: 90px;

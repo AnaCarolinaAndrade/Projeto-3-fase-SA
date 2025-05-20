@@ -1,4 +1,3 @@
-# === IMPORTAÇÕES ===
 import os 
 import uuid 
 import bcrypt 
@@ -14,7 +13,6 @@ from google.auth.transport import requests
 import requests as external_requests
 import requests as pyrequests
 import base64
-
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
