@@ -11,7 +11,6 @@ from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
 import requests as external_requests
-import requests as pyrequests
 import base64
 
 # === CONFIGURAÇÃO INICIAL ===
