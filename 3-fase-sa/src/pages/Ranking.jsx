@@ -1,6 +1,6 @@
 
 import './Ranking.css'
-import Sidebar from'../components/Sidebar.jsx'
+import Sidebar from '../components/Sidebar.jsx'
 
 const projetos = [
     { nome: "Equipe MyWord", destaque: true },
