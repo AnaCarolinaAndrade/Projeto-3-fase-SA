@@ -93,30 +93,12 @@ body {
   filter: blur(48px);
 }
 
-.posts-container {
-  color: #fff;
-  background-color: #3b3b3b;
-  font-size: 20px;
-  height: 50px;
-  width: 200px;
-  border-radius: 8px;
-}
-
 .buttons-landig {
   margin-top: 40px;
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.projetos-container {
-  color: #fff;
-  background-color: #3b3b3b;
-  font-size: 20px;
-  height: 50px;
-  width: 200px;
-  border-radius: 8px;
 }
 
 .posts-container:hover {
@@ -132,4 +114,8 @@ body {
 
 input {
   background-color: #fff;
+}
+
+.botoes-projetos {
+  
 }

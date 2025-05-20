@@ -31,8 +31,8 @@ function Home() {
           </div>
 
           <div className='buttons-landig'>
-            <button className='projetos-container'>Acessar Projetos</button>
-            <button className='posts-container'>Acessar Posts</button>
+            <button className='botoes-projetos'>Acessar Projetos</button>
+            <button>Acessar Posts</button>
           </div>
 
         </div>
