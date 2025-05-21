@@ -28,11 +28,30 @@
   margin-left: 20%;
 }
 
+.img-contatos,
+.img-whatsapp,
+.img-email,
+.img-instagram{
+  height: 20px;
+  width: 20px;
+  margin-right: 6px;
+  margin-top: 5px;
+}
+
+
 .container-menu {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-right: -0.9%;
+}
+
+.img-menu,
+.img-chat,
+.img-posts{
+ height: 20px;
+ width: 20px;
+ margin-right: 5px;
 }
 
 .container-localizacao {
