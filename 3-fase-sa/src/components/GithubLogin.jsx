@@ -21,7 +21,6 @@ export default function GitHubLogin() {
       })
         .then(res => res.json())
         .then(async ({ token }) => {
-          // Agora autentica no backend com o token do GitHub
           const res = await fetch(`${BACKEND_URL}/api/github/callback`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

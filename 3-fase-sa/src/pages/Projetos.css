@@ -1,75 +1,73 @@
-/* Container principal com Sidebar e conteúdo */
 .container-projetos {
     display: flex;
     min-height: 100vh;
     background-color: #f8f8f8;
+    font-family: sans-serif;
 }
 
-
-/* Área onde aparecem os projetos */
-.projetos-container {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-}
-
-/* Estilização do título */
-.projetos-title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #111;
-}
-
-/* Scroll de projetos */
-.projetos-scroll {
+.sidebar {
+    width: 80px;
+    background-color: #111;
+    color: white;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-}
-
-/* Cada item de projeto */
-.projeto-item {
-    background: white;
-    padding: 1rem;
-    display: flex;
     align-items: center;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding-top: 1rem;
+    gap: 2rem;
 }
 
-.projeto-logo, .projeto-placeholder {
-    width: 50px;
-    height: 50px;
-    margin-right: 1rem;
-    border-radius: 8px;
-    background-color: #ccc;
+.sidebar-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.projeto-info {
+.sidebar-icon:hover {
+    opacity: 0.8;
+}
+
+.projetos-container {
     flex: 1;
+    padding: 2rem 4rem;
+    overflow-y: auto;
+    background-color: #fff;
 }
 
-.projeto-nome {
-    font-size: 1.2rem;
-    font-weight: bold;
+.projetos-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
 }
 
-.projeto-descricao {
-    font-size: 0.9rem;
-    color: #666;
+.projetos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: center;
 }
 
-.projeto-bar {
-    width: 100px;
-    height: 6px;
-    background-color: #eee;
-    border-radius: 3px;
-    margin-left: 1rem;
+.projeto-card {
+    width: 200px;
+    background-color: #ddd;
+    height: 120px;
+    border: 1px solid #999;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
 }
 
-.projeto-fill {
-    height: 100%;
-    background-color: #4caf50;
-    border-radius: 3px;
+.projeto-com-descricao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.projeto-card-texto {
+    font-size: 0.6rem;
+    color: #333;
+    padding: 0.5rem;
+    max-width: 200px;
+    text-align: justify;
 }

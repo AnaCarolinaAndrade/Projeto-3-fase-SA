@@ -11,26 +11,23 @@ const projetos = [
 
 export default function Projetos() {
     return (
-        <div className='container-projetos'>
+        <div className="container-projetos">
             <Sidebar />
             <div className="projetos-container">
-                <h2 className="projetos-title">Projetos em Destaque</h2>
-                <div className="projetos-scroll">
+                <h1 className="projetos-title">Pesquise por projetos</h1>
+
+                <div className="projetos-grid">
                     {projetos.map((projeto, index) => (
-                        <div key={index} className="projeto-item">
-                            {projeto.destaque ? (
-                                <img src="./img/projeto-destaque.png" alt="Logo" className="projeto-logo" />
-                            ) : (
-                                <div className="projeto-placeholder" />
-                            )}
-                            <div className="projeto-info">
-                                <h3 className="projeto-nome">{projeto.nome}</h3>
-                                <p className="projeto-descricao">{projeto.descricao}</p>
+                        projeto.destaque ? (
+                            <div key={index} className="projeto-com-descricao">
+                                <div className="projeto-card"></div>
+                                <div className="projeto-card-texto">
+                                    {projeto.descricao}
+                                </div>
                             </div>
-                            <div className="projeto-bar">
-                                <div className="projeto-fill" style={{ width: `${90 - index * 10}%` }} />
-                            </div>
-                        </div>
+                        ) : (
+                            <div key={index} className="projeto-card"></div>
+                        )
                     ))}
                 </div>
             </div>
