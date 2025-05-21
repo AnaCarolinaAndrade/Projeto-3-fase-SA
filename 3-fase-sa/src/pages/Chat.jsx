@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import './Chat.css';
-import Sidebar  from "../components/Sidebar";
+import Sidebar from "../components/Sidebar";
 
 const fundos = [
     "/wallpapers/fundo2.jpg",
@@ -11,67 +11,90 @@ const fundos = [
     "/wallpapers/fundo4.jpg",
     "/wallpapers/fundo5.gif",
     "/wallpapers/fundo6.gif",
-]
+];
+
+const socket = io("http://localhost:5000", {
+    transports: ["websocket"]
+});
 
 const Chat = () => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const socketRef = useRef(null);
     const [background, setBackground] = useState(fundos[0]);
-    const [socketId, setSocketId] = useState(null);
-
-
+    const [userId, setUserId] = useState("");       // ID do usuário logado
+    const [recipientId, setRecipientId] = useState(""); // ID do destinatário
 
     useEffect(() => {
-        socketRef.current = io("http://localhost:5000", {
-            transports: ["websocket"],
+        socket.on("connect", () => {
+            console.log("Conectado:", socket.id);
         });
 
-        socketRef.current.on("connect", () => {
-            setSocketId(socketRef.current.id);
+        // Receber mensagens privadas
+        socket.on("private_message", (data) => {
+            setMessages((prev) => [...prev, {
+                text: data.message,
+                senderId: data.sender_id
+            }]);
         });
-
-        socketRef.current.on("message", (msg) => {
-            setMessages((prevMessages) => [...prevMessages, msg]);
-        });
-
 
         return () => {
-            socketRef.current.disconnect();
+            socket.disconnect();
         };
     }, []);
 
     const sendMessage = () => {
-        if (message.trim() !== "") {
+        if (!message.trim() || !userId || !recipientId) return;
 
-            const msgData = {
-                text: message,
-                senderId: socketRef.current.id
-            };
+        const msgData = {
+            sender_id: userId,
+            receiver_id: recipientId,
+            message
+        };
 
-            socketRef.current.emit("message", msgData);
-            setMessage("");
-        }
+        // Emitir mensagem privada
+        socket.emit("register", { user_id: userId }); // Garante que esteja registrado
+        socket.emit("private_message", msgData);
+
+        // Exibir a própria mensagem
+        setMessages((prev) => [...prev, { text: message, senderId: userId }]);
+        setMessage("");
     };
 
     const handleKeyDown = (e) => {
-        if (e.key === "Enter") {
-            sendMessage();
-        }
+        if (e.key === "Enter") sendMessage();
     };
 
     return (
         <div className="chat-container">
             <Sidebar />
             <div className="container-chat">
-                <nav className="topo-chat"></nav>
+                <nav className="topo-chat">
+                    <div className="user-inputs">
+                        <input
+                            type="text"
+                            placeholder="Seu ID (userId)"
+                            value={userId}
+                            onChange={(e) => setUserId(e.target.value)}
+                            className="id-input"
+                        />
+                        <input
+                            type="text"
+                            placeholder="ID do Destinatário"
+                            value={recipientId}
+                            onChange={(e) => setRecipientId(e.target.value)}
+                            className="id-input"
+                        />
+                    </div>
+                </nav>
 
-                <div className="message-area"
-                    style={{ backgroundImage: `url(${background})` }}>
+                <div
+                    className="message-area"
+                    style={{ backgroundImage: `url(${background})` }}
+                >
                     {messages.map((msg, index) => (
                         <p
                             key={index}
-                            className={msg.senderId && socketId && msg.senderId === socketId ? "you" : ""}
+                            className={msg.senderId === userId ? "you" : ""}
                         >
                             {msg.text}
                         </p>
@@ -86,7 +109,9 @@ const Chat = () => {
                         onKeyDown={handleKeyDown}
                         placeholder="Digite sua mensagem..."
                     />
-                    <button onClick={sendMessage}><IoPaperPlaneOutline color="black" size={30} /></button>
+                    <button onClick={sendMessage}>
+                        <IoPaperPlaneOutline color="black" size={30} />
+                    </button>
                 </div>
             </div>
 
@@ -102,7 +127,6 @@ const Chat = () => {
                     ))}
                 </div>
             </div>
-
         </div>
     );
 };
