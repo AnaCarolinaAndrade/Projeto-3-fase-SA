@@ -429,6 +429,64 @@ def salvar_foto_perfil():
     except Exception as e:
         print("Erro ao atualizar imagem:", e)
         return jsonify({'error': f'Erro ao salvar imagem: {e}'}), 500
+    
+    
+# === SOCKET.IO ====
+
+# Conexões ativas por user_id
+user_sid_map = {}
+
+@socketio.on('connect')
+def handle_connect():
+    print('Novo cliente conectado:', request.sid)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    disconnected_user = None
+    for uid, sid in user_sid_map.items():
+        if sid == request.sid:
+            disconnected_user = uid
+            break
+    if disconnected_user:
+        del user_sid_map[disconnected_user]
+        print(f"Usuário {disconnected_user} desconectado.")
+
+@socketio.on('register')
+def handle_register(data):
+    user_id = data.get('user_id')
+    if user_id:
+        user_sid_map[user_id] = request.sid
+        print(f"Usuário {user_id} registrado com SID {request.sid}")
+
+@socketio.on('private_message')
+def handle_private_message(data):
+    sender_id = data.get('sender_id')
+    receiver_id = data.get('receiver_id')
+    message = data.get('message')
+
+    if not sender_id or not receiver_id or not message:
+        return emit('error', {'error': 'Dados incompletos na mensagem.'})
+
+    print(f"Mensagem de {sender_id} para {receiver_id}: {message}")
+
+    # Envia a mensagem de volta ao remetente (útil para confirmar envio)
+    emit('private_message', {
+        'sender_id': sender_id,
+        'receiver_id': receiver_id,
+        'message': message,
+        'me': True
+    }, room=request.sid)
+
+    # Envia a mensagem ao destinatário se ele estiver conectado
+    receiver_sid = user_sid_map.get(receiver_id)
+    if receiver_sid:
+        emit('private_message', {
+            'sender_id': sender_id,
+            'receiver_id': receiver_id,
+            'message': message,
+            'me': False
+        }, room=receiver_sid)
+
 
 
 # === EXECUTAR APLICAÇÃO ===
