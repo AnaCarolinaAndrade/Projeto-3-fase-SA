@@ -101,14 +101,9 @@ body {
   justify-content: center;
 }
 
-.posts-container:hover {
-  background-color: #202020;
-  transition: 0.3s;
-}
-
-.projetos-container:hover {
-  background-color: #202020;
-  transition: 0.3s;
+.botoes-projetos:hover {
+  background-color: #161616;
+  transition: 0.4s;
 }
 
 
@@ -117,5 +112,9 @@ input {
 }
 
 .botoes-projetos {
-  
+  background-color: #202020;
+  padding: 15px;
+  color: #fff;
+  font-size: 15px;
+  border-radius: 10px;
 }

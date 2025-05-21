@@ -32,7 +32,7 @@ function Home() {
 
           <div className='buttons-landig'>
             <button className='botoes-projetos'>Acessar Projetos</button>
-            <button>Acessar Posts</button>
+            <button className='botoes-projetos'> Acessar Posts</button>
           </div>
 
         </div>
