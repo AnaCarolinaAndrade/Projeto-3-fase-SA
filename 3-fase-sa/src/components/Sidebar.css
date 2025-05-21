@@ -33,13 +33,13 @@
 
 .sidebar {
     margin-top: 60px;
+    gap: 30px;
     display: flex;
     align-items: start;
     flex-direction: column;
 }
 
 .sidebar a {
-    margin-top: 20px;
     display: flex;
     align-items: center;
     text-decoration: none;
