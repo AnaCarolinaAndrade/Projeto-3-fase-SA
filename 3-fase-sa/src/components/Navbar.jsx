@@ -8,10 +8,9 @@ function Navbar() {
     <>
       <div className='container-navbar'>
         <nav class="navbar">
-          <button className="btn-menu">
+          <button>
             <img
               src="./img/logo_pequena.png"
-              alt=""
               style={{
                 width: '80px',
                 height: '50px',

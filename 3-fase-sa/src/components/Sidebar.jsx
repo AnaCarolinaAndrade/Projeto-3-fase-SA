@@ -35,7 +35,7 @@ function Sidebar() {
 
         </nav>
       </div>
-      </>
+    </>
   );
 }
 

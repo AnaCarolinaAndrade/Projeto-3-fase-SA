@@ -66,65 +66,70 @@ const Chat = () => {
 
     return (
         <div className="chat-container">
-            <Sidebar />
-            <div className="container-chat">
-                <nav className="topo-chat">
-                    <div className="user-inputs">
-                        <input
-                            type="text"
-                            placeholder="Seu ID (userId)"
-                            value={userId}
-                            onChange={(e) => setUserId(e.target.value)}
-                            className="id-input"
-                        />
-                        <input
-                            type="text"
-                            placeholder="ID do Destinatário"
-                            value={recipientId}
-                            onChange={(e) => setRecipientId(e.target.value)}
-                            className="id-input"
-                        />
-                    </div>
-                </nav>
-
-                <div
-                    className="message-area"
-                    style={{ backgroundImage: `url(${background})` }}
-                >
-                    {messages.map((msg, index) => (
-                        <p
-                            key={index}
-                            className={msg.senderId === userId ? "you" : ""}
-                        >
-                            {msg.text}
-                        </p>
-                    ))}
-                </div>
-
-                <div className="message-input">
-                    <input
-                        type="text"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        placeholder="Digite sua mensagem..."
-                    />
-                    <button onClick={sendMessage}>
-                        <IoPaperPlaneOutline color="black" size={30} />
-                    </button>
-                </div>
+            <div>
+                <Sidebar />
             </div>
+            <div className="tudo-container-chat">
+                <div className="container-chat">
 
-            <div className="container-mudar-fundo">
-                <div className="config-mudar-fundo">
-                    {fundos.map((wall, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setBackground(wall)}
-                        >
-                            <img src={wall} alt={`wallpaper ${index}`} className="mudar-fundo" />
+                    <nav className="topo-chat">
+                        <div className="user-inputs">
+                            <input
+                                type="text"
+                                placeholder="Seu ID (userId)"
+                                value={userId}
+                                onChange={(e) => setUserId(e.target.value)}
+                                className="id-input"
+                            />
+                            <input
+                                type="text"
+                                placeholder="ID do Destinatário"
+                                value={recipientId}
+                                onChange={(e) => setRecipientId(e.target.value)}
+                                className="id-input"
+                            />
+                        </div>
+                    </nav>
+
+                    <div
+                        className="message-area"
+                        style={{ backgroundImage: `url(${background})` }}
+                    >
+                        {messages.map((msg, index) => (
+                            <p
+                                key={index}
+                                className={msg.senderId === userId ? "you" : ""}
+                            >
+                                {msg.text}
+                            </p>
+                        ))}
+                    </div>
+
+                    <div className="message-input">
+                        <input
+                            type="text"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            placeholder="Digite sua mensagem..."
+                        />
+                        <button onClick={sendMessage}>
+                            <IoPaperPlaneOutline color="black" size={30} />
                         </button>
-                    ))}
+                    </div>
+                </div>
+
+                <div className="container-mudar-fundo">
+                    <div className="config-mudar-fundo">
+                        {fundos.map((wall, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setBackground(wall)}
+                            >
+                                <img src={wall} alt={`wallpaper ${index}`} className="mudar-fundo" />
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
