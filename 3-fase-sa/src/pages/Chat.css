@@ -131,3 +131,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.container-config-nav-chat {
+    padding: 10px;
+}

@@ -23,7 +23,7 @@ const Chat = () => {
     const [background, setBackground] = useState(fundos[0]);
     const [userId, setUserId] = useState("");
     const [recipientId, setRecipientId] = useState("");
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         socket.on("connect", () => {
@@ -93,7 +93,7 @@ const Chat = () => {
 
                         <div className={`container-config-nav-chat ${isOpen ? "show" : ""}`}>
                             <button className="btn-config-chat" onClick={() => setIsOpen(!isOpen)()}>
-                                <FaGear color="white" fontSize={15} />
+                                <FaGear color="white" fontSize={20} />
                             </button>
                         </div>
                     </nav>
@@ -126,17 +126,15 @@ const Chat = () => {
                     </div>
                 </div>
 
-                <div className="container-mudar-fundo">
-                    <div className="config-mudar-fundo">
-                        {fundos.map((wall, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setBackground(wall)}
-                            >
-                                <img src={wall} alt={`wallpaper ${index}`} className="mudar-fundo" />
-                            </button>
-                        ))}
-                    </div>
+                <div className="config-mudar-fundo">
+                    {fundos.map((wall, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setBackground(wall)}
+                        >
+                            <img src={wall} alt={`wallpaper ${index}`} className="mudar-fundo" />
+                        </button>
+                    ))}
                 </div>
             </div>
         </div>
