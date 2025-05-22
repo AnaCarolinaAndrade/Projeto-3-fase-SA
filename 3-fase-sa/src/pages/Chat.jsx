@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import './Chat.css';
 import Sidebar from "../components/Sidebar";
-
+import { FaGear } from "react-icons/fa6"
 const fundos = [
     "/wallpapers/fundo2.jpg",
     "/wallpapers/fundo1.jpg",
@@ -21,15 +21,16 @@ const Chat = () => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [background, setBackground] = useState(fundos[0]);
-    const [userId, setUserId] = useState("");       // ID do usuário logado
-    const [recipientId, setRecipientId] = useState(""); // ID do destinatário
+    const [userId, setUserId] = useState("");
+    const [recipientId, setRecipientId] = useState("");
+    const [isOpen, setIsOpen] = useState(true)
 
     useEffect(() => {
         socket.on("connect", () => {
             console.log("Conectado:", socket.id);
         });
 
-        // Receber mensagens privadas
+
         socket.on("private_message", (data) => {
             setMessages((prev) => [...prev, {
                 text: data.message,
@@ -52,7 +53,7 @@ const Chat = () => {
         };
 
         // Emitir mensagem privada
-        socket.emit("register", { user_id: userId }); // Garante que esteja registrado
+        socket.emit("register", { user_id: userId });
         socket.emit("private_message", msgData);
 
         // Exibir a própria mensagem
@@ -88,6 +89,12 @@ const Chat = () => {
                                 onChange={(e) => setRecipientId(e.target.value)}
                                 className="id-input"
                             />
+                        </div>
+
+                        <div className={`container-config-nav-chat ${isOpen ? "show" : ""}`}>
+                            <button className="btn-config-chat" onClick={() => setIsOpen(!isOpen)()}>
+                                <FaGear color="white" fontSize={15} />
+                            </button>
                         </div>
                     </nav>
 

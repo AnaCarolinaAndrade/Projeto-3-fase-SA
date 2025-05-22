@@ -5,8 +5,6 @@ import { GoBellFill } from "react-icons/go";
 import { IoLogIn } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
 import { LuChartSpline } from "react-icons/lu";
-
-
 import { FaGear } from "react-icons/fa6";
 
 import "./Sidebar.css";
