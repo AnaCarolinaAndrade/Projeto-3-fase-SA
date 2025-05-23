@@ -37,9 +37,6 @@ function Configs() {
       reader.onloadend = () => {
         const base64Image = reader.result;
         setPreviewImage(base64Image);
-
-        // Salva automaticamente ao selecionar a imagem
-        salvarImagemNoBanco(base64Image);
       };
       reader.readAsDataURL(file);
     }
@@ -47,8 +44,8 @@ function Configs() {
 
   const salvarAlteracoes = async () => {
   try {
-    const response = await axios.put(
-      'http://localhost:5000/api/user/profile-picture',
+    const res = await axios.put(
+      'http://localhost:5000/api/usuarios',
       { imagem: previewImage },
       {
         headers: {
@@ -88,9 +85,9 @@ function Configs() {
         <div className="profile-card">
           <div className="profile-image" onClick={handleClickProfileImage}>
             {previewImage || usuario.profile_pic ? (
-              <img src={previewImage || usuario.profile_pic} alt="Preview" />
+              <img src={previewImage || usuario.profile_pic} alt="foto de perfil" />
             ) : (
-              <BsPersonCircle size={150} color="#ccc" />
+              <BsPersonCircle size={150} color="#000" />
             )}
 
           </div>

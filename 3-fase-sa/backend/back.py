@@ -11,6 +11,7 @@ from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
 import requests as external_requests
+from werkzeug.security import generate_password_hash
 import base64
 
 # === CONFIGURAÇÃO INICIAL ===
@@ -78,7 +79,14 @@ def criar_usuario():
     ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
 
-    novo_usuario = {'id': proximo_id, 'nome': nome, 'email': email, 'senha': senha}
+    novo_usuario = { 
+                    
+            'id': proximo_id, 
+            'nome': nome, 
+            'email': email, 
+            'senha': senha
+            
+}
     usuarios_collection.insert_one(novo_usuario)
     return jsonify(novo_usuario), 201
 
@@ -87,11 +95,12 @@ def atualizar_usuario(user_id):
     data = request.get_json()
     nome = data.get('nome')
     email = data.get('email')
-
+    imagem = data.get('imagem')
+    
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios para atualização.'}), 400
 
-    resultado = usuarios_collection.update_one({'id': user_id}, {'$set': {'nome': nome, 'email': email}})
+    resultado = usuarios_collection.update_one({'id': user_id}, {'$set': {'nome': nome, 'email': email, 'imagem': imagem}})
     if resultado.modified_count > 0:
         usuario_atualizado = usuarios_collection.find_one({'id': user_id}, {'_id': 0})
         return jsonify(usuario_atualizado)
