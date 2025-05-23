@@ -139,8 +139,14 @@ button {
 }
 
 .container-sidebar:not(.show) .link-text {
-    opacity: 0; 
+    opacity: 0;
     max-width: 0;
+
+}
+
+.container-sidebar:not(.show) .icon-text{
+    padding: 0;
+    background-color: transparent;
 }
 
 @media (max-width: 768px) {
