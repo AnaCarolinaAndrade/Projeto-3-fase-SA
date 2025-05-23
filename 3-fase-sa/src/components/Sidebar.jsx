@@ -6,9 +6,7 @@ import { IoLogIn } from "react-icons/io5";
 import { IoCloseOutline } from "react-icons/io5";
 import { LuChartSpline } from "react-icons/lu";
 import { FaGear } from "react-icons/fa6";
-
 import "./Sidebar.css";
-
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
