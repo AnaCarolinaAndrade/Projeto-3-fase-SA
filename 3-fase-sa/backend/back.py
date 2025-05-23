@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
 import requests as external_requests
-from werkzeug.security import generate_password_hash
+from werkzeug.utils import secure_filename
 import base64
 
 # === CONFIGURAÇÃO INICIAL ===
@@ -26,6 +26,8 @@ DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
 GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 # === CONEXÃO COM O BANCO DE DADOS ===
 try:
@@ -95,12 +97,11 @@ def atualizar_usuario(user_id):
     data = request.get_json()
     nome = data.get('nome')
     email = data.get('email')
-    imagem = data.get('imagem')
     
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios para atualização.'}), 400
 
-    resultado = usuarios_collection.update_one({'id': user_id}, {'$set': {'nome': nome, 'email': email, 'imagem': imagem}})
+    resultado = usuarios_collection.update_one({'id': user_id}, {'$set': {'nome': nome, 'email': email}})
     if resultado.modified_count > 0:
         usuario_atualizado = usuarios_collection.find_one({'id': user_id}, {'_id': 0})
         return jsonify(usuario_atualizado)
@@ -496,6 +497,35 @@ def handle_private_message(data):
             'me': False
         }, room=receiver_sid)
 
+# === MUDAR FOTO DE PERIFL === 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/api/usuarios/atualizar-imagem', methods=['PUT'])
+def atualizar_imagem():
+    token = request.form.get('token')
+    imagem = request.files.get('imagem')
+
+    if not token or not imagem:
+        return jsonify({'erro': 'Token e imagem são obrigatórios'}), 400
+
+    usuario = verificar_token(token)  # função que decodifica o token
+    if not usuario:
+        return jsonify({'erro': 'Token inválido'}), 401
+
+    if not allowed_file(imagem.filename):
+        return jsonify({'erro': 'Formato de imagem inválido'}), 400
+
+    filename = secure_filename(imagem.filename)
+    caminho = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    imagem.save(caminho)
+
+    usuarios_collection.update_one(
+        {'_id': ObjectId(usuario['_id'])},
+        {'$set': {'imagem': caminho}}
+    )
+
+    return jsonify({'mensagem': 'Imagem atualizada com sucesso'})
 
 
 # === EXECUTAR APLICAÇÃO ===

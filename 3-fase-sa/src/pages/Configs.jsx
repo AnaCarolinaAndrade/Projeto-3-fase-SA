@@ -39,7 +39,7 @@ function Configs() {
         setPreviewImage(base64Image);
       };
       reader.readAsDataURL(file);
-    }
+    } 
   };
 
   const salvarAlteracoes = async () => {
