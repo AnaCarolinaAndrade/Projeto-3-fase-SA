@@ -12,7 +12,6 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 import requests as external_requests
 from werkzeug.utils import secure_filename
-import base64
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
