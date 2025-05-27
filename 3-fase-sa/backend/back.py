@@ -82,7 +82,6 @@ def criar_usuario():
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
 
     novo_usuario = { 
-                    
             'id': proximo_id, 
             'nome': nome, 
             'email': email, 
