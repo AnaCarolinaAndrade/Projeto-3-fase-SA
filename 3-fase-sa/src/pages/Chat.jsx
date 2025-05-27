@@ -4,6 +4,7 @@ import { IoPaperPlaneOutline } from "react-icons/io5";
 import './Chat.css';
 import Sidebar from "../components/Sidebar";
 import { FaGear } from "react-icons/fa6"
+
 const fundos = [
     "/wallpapers/fundo2.jpg",
     "/wallpapers/fundo1.jpg",
@@ -74,23 +75,6 @@ const Chat = () => {
                 <div className="container-chat">
 
                     <nav className="topo-chat">
-                        <div className="user-inputs">
-                            <input
-                                type="text"
-                                placeholder="Seu ID (userId)"
-                                value={userId}
-                                onChange={(e) => setUserId(e.target.value)}
-                                className="id-input"
-                            />
-                            <input
-                                type="text"
-                                placeholder="ID do Destinatário"
-                                value={recipientId}
-                                onChange={(e) => setRecipientId(e.target.value)}
-                                className="id-input"
-                            />
-                        </div>
-
                         <div className={`container-config-nav-chat ${isOpen ? "show" : ""}`}>
                             <button className="btn-config-chat" onClick={() => setIsOpen(!isOpen)()}>
                                 <FaGear color="white" fontSize={20} />

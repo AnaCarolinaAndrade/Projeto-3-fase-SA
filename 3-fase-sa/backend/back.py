@@ -12,7 +12,6 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 import requests as external_requests
 from werkzeug.utils import secure_filename
-import base64
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -120,9 +119,6 @@ def login():
     email = data.get('email')
     senha = data.get('senha')
 
-    if not email or not senha:
-        return jsonify({'error': 'Email e senha são obrigatórios'}), 400
-
     usuario = usuarios_collection.find_one({'email': email})
 
     if not usuario:
@@ -176,7 +172,6 @@ def google_login():
         profile_pic = idinfo.get('picture')
         given_name = idinfo.get('given_name')
         family_name = idinfo.get('family_name')
-        locale = idinfo.get('locale')
 
         usuario_existente = usuarios_collection.find_one({'google_id': google_user_id})
         session_token = gerar_token_de_sessao()
@@ -194,8 +189,6 @@ def google_login():
                 'nome': name,
                 'profile_pic': profile_pic,
                 'given_name': given_name,
-                'family_name': family_name,
-                'locale': locale,
                 'created_at': datetime.datetime.now()
             }
             result = usuarios_collection.insert_one(novo_usuario)
@@ -218,8 +211,6 @@ def google_login():
                 'nome': name,
                 'profile_pic': profile_pic,
                 'given_name': given_name,
-                'family_name': family_name,
-                'locale': locale
             }
         }), 200
 
@@ -255,9 +246,6 @@ def github_login():
         profile_pic = github_user.get('avatar_url')
         username = github_user.get('login')
 
-        if not github_id:
-            return jsonify({'error': 'Resposta do GitHub inválida: ID ausente'}), 400
-
         usuario_existente = usuarios_collection.find_one({'github_id': github_id})
         session_token = gerar_token_de_sessao()
 
@@ -290,12 +278,12 @@ def github_login():
             'message': 'Login com GitHub bem-sucedido',
             'session_token': session_token,
             'user': {
-                'id': str(user_id),
                 'github_id': github_id,
                 'email': email,
                 'nome': nome,
                 'username': username,
-                'profile_pic': profile_pic
+                'profile_pic': profile_pic,
+                'created_at': datetime.datetime.now()
             }
         }), 200
 
