@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
 import requests as external_requests
-import base64
+from werkzeug.utils import secure_filename
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -25,6 +25,8 @@ DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
 GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 # === CONEXÃO COM O BANCO DE DADOS ===
 try:
@@ -78,7 +80,14 @@ def criar_usuario():
     ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
     proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
 
-    novo_usuario = {'id': proximo_id, 'nome': nome, 'email': email, 'senha': senha}
+    novo_usuario = { 
+                    
+            'id': proximo_id, 
+            'nome': nome, 
+            'email': email, 
+            'senha': senha
+            
+}
     usuarios_collection.insert_one(novo_usuario)
     return jsonify(novo_usuario), 201
 
@@ -87,7 +96,7 @@ def atualizar_usuario(user_id):
     data = request.get_json()
     nome = data.get('nome')
     email = data.get('email')
-
+    
     if not nome or not email:
         return jsonify({'erro': 'Nome e email são obrigatórios para atualização.'}), 400
 
@@ -110,9 +119,6 @@ def login():
     data = request.get_json()
     email = data.get('email')
     senha = data.get('senha')
-
-    if not email or not senha:
-        return jsonify({'error': 'Email e senha são obrigatórios'}), 400
 
     usuario = usuarios_collection.find_one({'email': email})
 
@@ -167,7 +173,6 @@ def google_login():
         profile_pic = idinfo.get('picture')
         given_name = idinfo.get('given_name')
         family_name = idinfo.get('family_name')
-        locale = idinfo.get('locale')
 
         usuario_existente = usuarios_collection.find_one({'google_id': google_user_id})
         session_token = gerar_token_de_sessao()
@@ -185,8 +190,6 @@ def google_login():
                 'nome': name,
                 'profile_pic': profile_pic,
                 'given_name': given_name,
-                'family_name': family_name,
-                'locale': locale,
                 'created_at': datetime.datetime.now()
             }
             result = usuarios_collection.insert_one(novo_usuario)
@@ -209,8 +212,6 @@ def google_login():
                 'nome': name,
                 'profile_pic': profile_pic,
                 'given_name': given_name,
-                'family_name': family_name,
-                'locale': locale
             }
         }), 200
 
@@ -246,9 +247,6 @@ def github_login():
         profile_pic = github_user.get('avatar_url')
         username = github_user.get('login')
 
-        if not github_id:
-            return jsonify({'error': 'Resposta do GitHub inválida: ID ausente'}), 400
-
         usuario_existente = usuarios_collection.find_one({'github_id': github_id})
         session_token = gerar_token_de_sessao()
 
@@ -281,12 +279,12 @@ def github_login():
             'message': 'Login com GitHub bem-sucedido',
             'session_token': session_token,
             'user': {
-                'id': str(user_id),
                 'github_id': github_id,
                 'email': email,
                 'nome': nome,
                 'username': username,
-                'profile_pic': profile_pic
+                'profile_pic': profile_pic,
+                'created_at': datetime.datetime.now()
             }
         }), 200
 
@@ -487,6 +485,35 @@ def handle_private_message(data):
             'me': False
         }, room=receiver_sid)
 
+# === MUDAR FOTO DE PERIFL === 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/api/usuarios/atualizar-imagem', methods=['PUT'])
+def atualizar_imagem():
+    token = request.form.get('token')
+    imagem = request.files.get('imagem')
+
+    if not token or not imagem:
+        return jsonify({'erro': 'Token e imagem são obrigatórios'}), 400
+
+    usuario = verificar_token(token)  # função que decodifica o token
+    if not usuario:
+        return jsonify({'erro': 'Token inválido'}), 401
+
+    if not allowed_file(imagem.filename):
+        return jsonify({'erro': 'Formato de imagem inválido'}), 400
+
+    filename = secure_filename(imagem.filename)
+    caminho = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    imagem.save(caminho)
+
+    usuarios_collection.update_one(
+        {'_id': ObjectId(usuario['_id'])},
+        {'$set': {'imagem': caminho}}
+    )
+
+    return jsonify({'mensagem': 'Imagem atualizada com sucesso'})
 
 
 # === EXECUTAR APLICAÇÃO ===

@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import { IoPaperPlaneOutline } from "react-icons/io5";
 import './Chat.css';
 import Sidebar from "../components/Sidebar";
+import { FaGear } from "react-icons/fa6"
 
 const fundos = [
     "/wallpapers/fundo2.jpg",
@@ -21,15 +22,16 @@ const Chat = () => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [background, setBackground] = useState(fundos[0]);
-    const [userId, setUserId] = useState("");       // ID do usuário logado
-    const [recipientId, setRecipientId] = useState(""); // ID do destinatário
+    const [userId, setUserId] = useState("");
+    const [recipientId, setRecipientId] = useState("");
+    const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
         socket.on("connect", () => {
             console.log("Conectado:", socket.id);
         });
 
-        // Receber mensagens privadas
+
         socket.on("private_message", (data) => {
             setMessages((prev) => [...prev, {
                 text: data.message,
@@ -52,7 +54,7 @@ const Chat = () => {
         };
 
         // Emitir mensagem privada
-        socket.emit("register", { user_id: userId }); // Garante que esteja registrado
+        socket.emit("register", { user_id: userId });
         socket.emit("private_message", msgData);
 
         // Exibir a própria mensagem
@@ -66,56 +68,48 @@ const Chat = () => {
 
     return (
         <div className="chat-container">
-            <Sidebar />
-            <div className="container-chat">
-                <nav className="topo-chat">
-                    <div className="user-inputs">
-                        <input
-                            type="text"
-                            placeholder="Seu ID (userId)"
-                            value={userId}
-                            onChange={(e) => setUserId(e.target.value)}
-                            className="id-input"
-                        />
-                        <input
-                            type="text"
-                            placeholder="ID do Destinatário"
-                            value={recipientId}
-                            onChange={(e) => setRecipientId(e.target.value)}
-                            className="id-input"
-                        />
-                    </div>
-                </nav>
-
-                <div
-                    className="message-area"
-                    style={{ backgroundImage: `url(${background})` }}
-                >
-                    {messages.map((msg, index) => (
-                        <p
-                            key={index}
-                            className={msg.senderId === userId ? "you" : ""}
-                        >
-                            {msg.text}
-                        </p>
-                    ))}
-                </div>
-
-                <div className="message-input">
-                    <input
-                        type="text"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        placeholder="Digite sua mensagem..."
-                    />
-                    <button onClick={sendMessage}>
-                        <IoPaperPlaneOutline color="black" size={30} />
-                    </button>
-                </div>
+            <div>
+                <Sidebar />
             </div>
+            <div className="tudo-container-chat">
+                <div className="container-chat">
 
-            <div className="container-mudar-fundo">
+                    <nav className="topo-chat">
+                        <div className={`container-config-nav-chat ${isOpen ? "show" : ""}`}>
+                            <button className="btn-config-chat" onClick={() => setIsOpen(!isOpen)()}>
+                                <FaGear color="white" fontSize={20} />
+                            </button>
+                        </div>
+                    </nav>
+
+                    <div
+                        className="message-area"
+                        style={{ backgroundImage: `url(${background})` }}
+                    >
+                        {messages.map((msg, index) => (
+                            <p
+                                key={index}
+                                className={msg.senderId === userId ? "you" : ""}
+                            >
+                                {msg.text}
+                            </p>
+                        ))}
+                    </div>
+
+                    <div className="message-input">
+                        <input
+                            type="text"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            placeholder="Digite sua mensagem..."
+                        />
+                        <button onClick={sendMessage}>
+                            <IoPaperPlaneOutline color="black" size={30} />
+                        </button>
+                    </div>
+                </div>
+
                 <div className="config-mudar-fundo">
                     {fundos.map((wall, index) => (
                         <button

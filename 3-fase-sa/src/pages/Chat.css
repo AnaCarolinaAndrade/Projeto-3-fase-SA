@@ -2,19 +2,25 @@
     background-color: #fff;
     width: 100vw;
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
+
 
 .container-chat {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     height: 85%;
     width: 75%;
     background-color: #f3f4f6;
     border-radius: 13px;
     box-shadow: 0px 0px 40px #0000005e;
+}
+
+.tudo-container-chat {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .topo-chat {
@@ -27,6 +33,10 @@
     font-weight: bold;
     font-size: 18px;
     border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 
 .message-area {
@@ -109,15 +119,19 @@
     height: 60px;
 }
 
-.container-mudar-fundo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
 .config-mudar-fundo {
     display: flex;
     flex-direction: column;
+    gap: 10px;
     padding: 20px;
+}
+
+.btn-config-chat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-config-nav-chat {
+    padding: 10px;
 }
