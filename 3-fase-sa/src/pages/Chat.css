@@ -128,7 +128,6 @@
 }
 
 .btn-config-chat {
-    background-color: #007bff;
     color: white;
     padding: 10px 16px;
     border: none;
@@ -138,18 +137,13 @@
     transition: background-color 0.3s ease;
 }
 
-.btn-config-chat:hover {
-    background-color: #0056b3;
-}
 
 .config-box {
-    margin-top: 16px;
-    z-index: 104;
-    padding: 16px;
+
     background-color: #f1f1f1;
     border: 1px solid #ccc;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 .config-title {
