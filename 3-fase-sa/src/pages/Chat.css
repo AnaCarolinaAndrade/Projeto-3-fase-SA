@@ -25,6 +25,10 @@
 }
 
 .topo-chat {
+    position: relative;
+    /* ou remova se estiver como 'fixed' */
+    z-index: 10;
+    /* ajuste se necessário */
     height: 60px;
     background-color: #0f0f0f;
     color: white;
@@ -138,12 +142,17 @@
 }
 
 
-.config-box {
-
+.config-box-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
     background-color: #f1f1f1;
     border: 1px solid #ccc;
     border-radius: 8px;
-
+    padding: 20px;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-width: 220px;
 }
 
 .config-title {
@@ -157,4 +166,8 @@
 
 .config-container-chat {
     padding: 16px;
+}
+
+.config-box h2 {
+    color: #000000;
 }

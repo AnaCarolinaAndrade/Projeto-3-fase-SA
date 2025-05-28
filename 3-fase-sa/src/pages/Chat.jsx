@@ -84,7 +84,7 @@ const Chat = () => {
                             </button>
 
                             {mostrarConfig && (
-                                <div className="config-box">
+                                <div className="config-box-dropdown">
                                     <h2 className="config-title">Aba de Configurações</h2>
                                     <p>Aqui vão as opções ou preferências do usuário.</p>
                                 </div>
