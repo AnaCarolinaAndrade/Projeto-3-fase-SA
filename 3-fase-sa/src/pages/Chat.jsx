@@ -24,7 +24,12 @@ const Chat = () => {
     const [background, setBackground] = useState(fundos[0]);
     const [userId, setUserId] = useState("");
     const [recipientId, setRecipientId] = useState("");
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+    const [mostrarConfig, setMostrarConfig] = useState(false)
+
+    const toggleConfig = () => {
+        setMostrarConfig(!mostrarConfig);
+    };
 
     useEffect(() => {
         socket.on("connect", () => {
@@ -53,11 +58,9 @@ const Chat = () => {
             message
         };
 
-        // Emitir mensagem privada
         socket.emit("register", { user_id: userId });
         socket.emit("private_message", msgData);
 
-        // Exibir a própria mensagem
         setMessages((prev) => [...prev, { text: message, senderId: userId }]);
         setMessage("");
     };
@@ -75,10 +78,17 @@ const Chat = () => {
                 <div className="container-chat">
 
                     <nav className="topo-chat">
-                        <div className={`container-config-nav-chat ${isOpen ? "show" : ""}`}>
-                            <button className="btn-config-chat" onClick={() => setIsOpen(!isOpen)()}>
+                        <div className="config-container-chat">
+                            <button className="btn-config-chat" onClick={toggleConfig}>
                                 <FaGear color="white" fontSize={20} />
                             </button>
+
+                            {mostrarConfig && (
+                                <div className="config-box">
+                                    <h2 className="config-title">Aba de Configurações</h2>
+                                    <p>Aqui vão as opções ou preferências do usuário.</p>
+                                </div>
+                            )}
                         </div>
                     </nav>
 
