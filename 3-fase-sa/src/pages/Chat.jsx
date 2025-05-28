@@ -24,11 +24,13 @@ const Chat = () => {
     const [background, setBackground] = useState(fundos[0]);
     const [userId, setUserId] = useState("");
     const [recipientId, setRecipientId] = useState("");
-    const [isOpen, setIsOpen] = useState(false);
     const [mostrarConfig, setMostrarConfig] = useState(false)
+    const [girando, setGirando] = useState(false);
 
     const toggleConfig = () => {
         setMostrarConfig(!mostrarConfig);
+        setGirando(true);
+        setTimeout(() => setGirando(false), 300)
     };
 
     useEffect(() => {
@@ -80,7 +82,11 @@ const Chat = () => {
                     <nav className="topo-chat">
                         <div className="config-container-chat">
                             <button className="btn-config-chat" onClick={toggleConfig}>
-                                <FaGear color="white" fontSize={20} />
+                                <FaGear
+                                    color="white"
+                                    fontSize={20}
+                                    className={girando ? "rotate" : ""}
+                                />
                             </button>
 
                             {mostrarConfig && (
