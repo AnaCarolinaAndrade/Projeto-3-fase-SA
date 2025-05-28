@@ -94,9 +94,9 @@ const Chat = () => {
 
                             {mostrarConfig && (
                                 <div className="config-box-dropdown">
-                                    <button><FaRegTrashCan /> Apagar Conversa</button>
-                                    <button><MdOutlineBlock />Bloquear</button>
-                                    <button><IoFlagOutline />Denunciar</button>
+                                    <button><FaRegTrashCan size={15}/> Apagar Conversa</button>
+                                    <button><MdOutlineBlock size={15}/>Bloquear</button>
+                                    <button><IoFlagOutline size={15}/>Denunciar</button>
                                 </div>
                             )}
                         </div>
