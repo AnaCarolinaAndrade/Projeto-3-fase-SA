@@ -140,17 +140,21 @@
 
 
 .config-box-dropdown {
-    color: #000000;
+    background-color: #000000;
     position: absolute;
-    top: 110%;
+    top: 75px;
+    margin-right: 20px;
     right: 0;
     background-color: #f1f1f1;
-    border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
     z-index: 100;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.415);
     min-width: 220px;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .config-title {

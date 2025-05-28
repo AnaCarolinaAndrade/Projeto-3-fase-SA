@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import { IoPaperPlaneOutline } from "react-icons/io5";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { MdOutlineBlock } from "react-icons/md";
+import { IoFlagOutline } from "react-icons/io5";
 import './Chat.css';
 import Sidebar from "../components/Sidebar";
 import { FaGear } from "react-icons/fa6"
@@ -91,8 +94,9 @@ const Chat = () => {
 
                             {mostrarConfig && (
                                 <div className="config-box-dropdown">
-                                    <h2 className="config-title">Aba de Configurações</h2>
-                                    <p>Aqui vão as opções ou preferências do usuário.</p>
+                                    <button><FaRegTrashCan /> Apagar Conversa</button>
+                                    <button><MdOutlineBlock />Bloquear</button>
+                                    <button><IoFlagOutline />Denunciar</button>
                                 </div>
                             )}
                         </div>
