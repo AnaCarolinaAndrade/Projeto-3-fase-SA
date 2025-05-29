@@ -13,7 +13,7 @@ const fundos = [
     "/wallpapers/fundo1.jpg",
     "/wallpapers/fundo3.jpg",
     "/wallpapers/fundo4.jpg",
-    "/wallpapers/fundo5.gif",
+    "/wallpapers/fundo5.png",
     "/wallpapers/fundo6.gif",
 ];
 
@@ -35,6 +35,12 @@ const Chat = () => {
         setGirando(true);
         setTimeout(() => setGirando(false), 300)
     };
+
+    useEffect(() => {
+        setUserId("user123");
+        setRecipientId("user456");
+    }, []);
+
 
     useEffect(() => {
         socket.on("connect", () => {
@@ -66,8 +72,9 @@ const Chat = () => {
         socket.emit("register", { user_id: userId });
         socket.emit("private_message", msgData);
 
-        setMessages((prev) => [...prev, { text: message, senderId: userId }]);
         setMessage("");
+
+        console.log("Enviando:", { message, userId, recipientId });
     };
 
     const handleKeyDown = (e) => {
@@ -94,9 +101,9 @@ const Chat = () => {
 
                             {mostrarConfig && (
                                 <div className="config-box-dropdown">
-                                    <button><FaRegTrashCan size={15}/> Apagar Conversa</button>
-                                    <button><MdOutlineBlock size={15}/>Bloquear</button>
-                                    <button><IoFlagOutline size={15}/>Denunciar</button>
+                                    <button><FaRegTrashCan size={15} /> Apagar Conversa</button>
+                                    <button><MdOutlineBlock size={15} />Bloquear</button>
+                                    <button><IoFlagOutline size={15} />Denunciar</button>
                                 </div>
                             )}
                         </div>

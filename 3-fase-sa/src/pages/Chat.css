@@ -142,8 +142,8 @@
 
 
 .config-box-dropdown {
+    border: 1px solid white;
     background-color: #0f0f0f;
-    color: #ff0000;
     position: absolute;
     top: 75px;
     margin-right: 20px;
