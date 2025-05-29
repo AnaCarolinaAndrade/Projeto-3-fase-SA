@@ -21,8 +21,8 @@ function Sidebar() {
             <IoCloseOutline color="white" fontSize={30} />
           </button>
 
-          <Link to={'/'} class="icon-text "><HiMiniHome color="white" fontSize={18} /><span className="link-text">Home </span></Link>
-          <Link to={'/chat'} class="icon-text "><GoBellFill color="white" fontSize={18} /><span className="link-text"> chat</span></Link>
+          <Link to={'/'} className="icon-text "><HiMiniHome color="white" fontSize={18} /><span className="link-text">Home </span></Link>
+          <Link to={'/chat'} className="icon-text "><GoBellFill color="white" fontSize={18} /><span className="link-text"> chat</span></Link>
           <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={16} /><span className="link-text"> Configurações</span></Link>
           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={18} /> <span className="link-text"> Projetos </span> </Link>
           <Link to={'/ranking'} className="icon-text"><GiLaurelsTrophy color="white" fontSize={18} /><span className="link-text"> Ranking</span> </Link>
