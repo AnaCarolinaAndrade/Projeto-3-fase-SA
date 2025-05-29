@@ -15,21 +15,24 @@ export default function Projetos() {
     <>
       <Sidebar />
       <div className="projetos-container-humano">
-        <h1 className="titulo-projetos">Meus Projetos</h1>
+        <div className='container-projetos'>
+          <h1 className="titulo-projetos">Meus Projetos</h1>
 
-        <div className="lista-projetos">
-          {projetos.map((projeto, index) => (
-            <div className="card-projeto" key={index}>
-              <div className="projeto-logo-humano">
-                {projeto.destaque ? '🔥' : '📄'}
+          <div className="lista-projetos">
+            {projetos.map((projeto, index) => (
+              <div className="card-projeto" key={index}>
+                <div className="projeto-logo-humano">
+                  {projeto.destaque ? '🔥' : '📄'}
+                </div>
+                <div className="texto-projeto">
+                  <strong>{projeto.nome}</strong>
+                  <p>{projeto.descricao}</p>
+                </div>
               </div>
-              <div className="texto-projeto">
-                <strong>{projeto.nome}</strong>
-                <p>{projeto.descricao}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
       </div>
     </>
   );

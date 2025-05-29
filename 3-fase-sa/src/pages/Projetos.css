@@ -1,51 +1,56 @@
 .projetos-container-humano {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    margin-left: 250px; /* ajuste conforme sua sidebar */
-    background-color: #f4f4f4;
-    min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .titulo-projetos {
-    font-size: 24px;
-    margin-bottom: 1rem;
-    color: #222;
-  }
-  
-  .lista-projetos {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .card-projeto {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    transition: transform 0.2s ease;
-  }
-  
-  .card-projeto:hover {
-    transform: scale(1.01);
-  }
-  
-  .projeto-logo-humano {
-    font-size: 30px;
-    margin-right: 1rem;
-  }
-  
-  .texto-projeto strong {
-    font-size: 18px;
-    color: #111;
-  }
-  
-  .texto-projeto p {
-    font-size: 14px;
-    color: #555;
-    margin-top: 5px;
-  }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container-projetos {
+  width: 1000px;
+}
+
+
+.titulo-projetos {
+  font-size: 24px;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.lista-projetos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card-projeto {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.card-projeto:hover {
+  transform: scale(1.01);
+}
+
+.projeto-logo-humano {
+  font-size: 30px;
+  margin-right: 1rem;
+}
+
+.texto-projeto strong {
+  font-size: 18px;
+  color: #111;
+}
+
+.texto-projeto p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
+}
