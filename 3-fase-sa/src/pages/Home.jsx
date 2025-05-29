@@ -3,7 +3,6 @@ import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 import './Home.css'
 import Footer from '../components/Footer';
-import { div } from 'framer-motion/client';
 
 
 function Home() {
@@ -34,6 +33,8 @@ function Home() {
             <button className='botoes-projetos'>Acessar Projetos</button>
             <button className='botoes-projetos'> Acessar Posts</button>
           </div>
+
+          
 
         </div>
 
