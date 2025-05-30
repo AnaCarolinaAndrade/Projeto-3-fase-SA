@@ -9,7 +9,6 @@ export default function Moderador() {
                     Moderador
                 </div>
             </div>
-
         </div>
     )
 }

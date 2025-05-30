@@ -2,6 +2,7 @@ import os
 import uuid
 import bcrypt 
 import datetime 
+import requests as external_requests   
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS 
@@ -10,7 +11,6 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
-import requests as external_requests
 from werkzeug.utils import secure_filename
 
 # === CONFIGURAÇÃO INICIAL ===
@@ -298,7 +298,7 @@ def github_callback():
         return jsonify({'error': 'Código de autorização não fornecido'}), 400
 
     # Troca o código pelo access_token
-    token_response = requests.post(
+    token_response = external_requests.post(
         "https://github.com/login/oauth/access_token",
         headers={'Accept': 'application/json'},
         data={
@@ -315,7 +315,7 @@ def github_callback():
         return jsonify({'error': 'Não foi possível obter o access_token'}), 400
 
     # Pega dados do usuário no GitHub
-    user_response = requests.get(
+    user_response = external_requests.post(
         "https://api.github.com/user",
         headers={'Authorization': f'token {access_token}'}
     )
