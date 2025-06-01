@@ -198,8 +198,7 @@ def google_login():
         name = idinfo.get('name')
         profile_pic = idinfo.get('picture')
         given_name = idinfo.get('given_name')
-        family_name = idinfo.get('family_name')
-
+        
         usuario_existente = usuarios_collection.find_one({'google_id': google_user_id})
         session_token = gerar_token_de_sessao()
 

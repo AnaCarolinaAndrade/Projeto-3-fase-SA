@@ -18,40 +18,40 @@ function Configs() {
 
       <div className="profile-container">
         <div className='profile'>
-            <div className="profile-card">
-              <div className="profile-image">
-                {previewImage ? (
-                  <img src={previewImage} alt="Preview" />
-                ) : (
-                  <BsPersonCircle size={150} color="#ccc" />
-                )}
+          <div className="profile-card">
+            <div className="profile-image">
+              {previewImage ? (
+                <img src={previewImage} alt="Preview" />
+              ) : (
+                <BsPersonCircle size={150} color="#ccc" />
+              )}
 
-              </div>
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: 'none' }}
-                ref={fileInputRef}
-              />
-
-              <h1>{usuario}</h1>
-              <div className="info">
-                <BsGenderFemale />
-                masculino
-              </div>
-              <div className="info">
-                <IoMapOutline />
-                florianópolis
-              </div>
-              <div className='info-profile'>
-
-              </div>
             </div>
+            <input
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              ref={fileInputRef}
+            />
 
+            <h1>{usuario}</h1>
+            <div className="info">
+              <BsGenderFemale />
+              masculino
+            </div>
+            <div className="info">
+              <IoMapOutline />
+              florianópolis
+            </div>
+            <div className='info-profile'>
+
+            </div>
           </div>
+
         </div>
-      </>
-      )
+      </div>
+    </>
+  )
 }
 
-      export default Configs;
+export default Configs;
