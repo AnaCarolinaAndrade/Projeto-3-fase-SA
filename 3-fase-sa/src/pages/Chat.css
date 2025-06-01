@@ -177,16 +177,16 @@
 .config-box-dropdown button {
     color: #ffffff;
     background-color: #0f0f0f;
-    padding: 5px;
+    padding: 8px;    
+    border-radius: 5px;
     transition: 0.3s ease;
 }
 
 .config-box-dropdown button:hover {
     color: #ffffff;
     cursor: pointer;
-    padding: 8px;
-    background-color: #4f46e5;
-    border-radius: 5px;
+
+    border: 1px solid white;
 }
 
 .config-title {
@@ -203,6 +203,8 @@
     right: 0;
     position: absolute;
 }
+
+
 
 @keyframes spin {
     from {
