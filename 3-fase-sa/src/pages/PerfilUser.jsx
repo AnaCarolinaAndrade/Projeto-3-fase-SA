@@ -8,7 +8,7 @@ import { IoMapOutline } from "react-icons/io5";
 function Configs() {
 
   const [usuarios, setUsuarios] = useState([]);
-  const fileInputRef = useRef(null); // Referência para o input do tipo file
+  const fileInputRef = useRef(null);
   const [usuario, setUsuario] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
@@ -42,6 +42,9 @@ function Configs() {
               <div className="info">
                 <IoMapOutline />
                 florianópolis
+              </div>
+              <div className='info-profile'>
+
               </div>
             </div>
 
