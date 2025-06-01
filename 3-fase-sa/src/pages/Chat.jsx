@@ -51,7 +51,7 @@ const Chat = () => {
         socket.on("private_message", (data) => {
             setMessages((prev) => [...prev, {
                 text: data.message,
-                senderId: data.sender_id
+                senderId: data.sender_id,
             }]);
         });
 
@@ -63,14 +63,24 @@ const Chat = () => {
     const sendMessage = () => {
         if (!message.trim() || !userId || !recipientId) return;
 
+        const now = new Date();
+        const hora = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
         const msgData = {
             sender_id: userId,
             receiver_id: recipientId,
-            message
+            message,
+            hora
         };
 
         socket.emit("register", { user_id: userId });
         socket.emit("private_message", msgData);
+
+        setMessages((prev) => [...prev, {
+            text: message,
+            senderId: userId,
+            hora
+        }]);
 
         setMessage("");
 
