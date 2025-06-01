@@ -4,10 +4,10 @@ import PerfilUser from '../pages/PerfilUser.jsx';
 import Cadastro from '../pages/Cadastro.jsx';
 import Login from '../pages/Login.jsx';
 import Chat from '../pages/Chat.jsx';
-import Configs from '../pages/Configs.jsx';
+import Configs from '../pages/Configs.jsx'; 
 import Projetos from '../pages/Projetos.jsx';
 import Ranking from "../pages/Ranking.jsx";
-import GithubSuccess from './pages/GithubSuccess';
+import GithubSuccess from '../components/GithubSuccess.jsx';
 
 const router = createBrowserRouter([
 
@@ -19,8 +19,7 @@ const router = createBrowserRouter([
     { path: "/configs", element: <Configs /> },
     { path: "/projetos", element: <Projetos /> },
     { path: "/ranking", element: <Ranking /> },
-    { path: "/github-success", element: <GithubSuccess /> }
-
+    { path: "/GithubCuccess", element: <GithubSuccess /> }
 
 ])
 

@@ -39,28 +39,29 @@ function Configs() {
         setPreviewImage(base64Image);
       };
       reader.readAsDataURL(file);
-    } 
+    }
   };
 
   const salvarAlteracoes = async () => {
-  try {
-    const res = await axios.put(
-      'http://localhost:5000/api/usuarios',
-      { imagem: previewImage },
-      {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
-          'Content-Type': 'application/json'
+    try {
+      const res = await axios.put(
+        'http://localhost:5000/api/usuarios',
+        { imagem: previewImage },
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
+            'Content-Type': 'application/json'
+          },
+            withCredentials: true // <=== ESSENCIAL
         }
-      }
-    );
-    alert('Imagem salva com sucesso!');
-  } catch (error) {
-    const responseText = await error.response?.text();
-    console.error("Erro detalhado:", responseText);
-    alert("Erro ao salvar imagem: " + responseText);
-  }
-};
+      );
+      alert('Imagem salva com sucesso!');
+    } catch (error) {
+      const responseText = await error.response?.text();
+      console.error("Erro detalhado:", responseText);
+      alert("Erro ao salvar imagem: " + responseText);
+    }
+  };
 
 
   const handleClickProfileImage = () => {
@@ -108,7 +109,7 @@ function Configs() {
           </div>
 
           <div className="actions">
-            <button className="save-btn"  onClick={salvarAlteracoes}>Salvar Alterações</button>
+            <button className="save-btn" onClick={salvarAlteracoes}>Salvar Alterações</button>
             <button className="delete-btn" onClick={deletarUsuario}>Excluir Conta</button>
           </div>
         </div>

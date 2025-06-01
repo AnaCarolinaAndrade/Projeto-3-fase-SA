@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS 
 from flask_socketio import SocketIO, emit
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from google.oauth2 import id_token
@@ -17,7 +18,7 @@ from werkzeug.utils import secure_filename
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 MONGO_URI = os.getenv("MONGO_URI")
@@ -63,13 +64,39 @@ def handle_message(msg):
     emit('message', msg, broadcast=True)
 
 # === ROTAS DE USUÁRIOS ===
-@app.route('/api/usuarios', methods=['GET'])
-def get_usuarios():
-    usuarios_data = list(usuarios_collection.find({}, {'_id': 0}))
-    for usuario in usuarios_data:
-        usuario.pop('senha', None)
-    return jsonify(usuarios_data)
+@app.route('/api/usuarios', methods=['GET', 'PUT'])
+@jwt_required()
 
+def get_usuarios():
+    if request.method == 'GET':
+        usuarios_data = list(usuarios_collection.find({}, {'_id': 0}))
+        for usuario in usuarios_data:
+            usuario.pop('senha', None)
+        return jsonify(usuarios_data)
+
+    elif request.method == 'PUT':
+        user_id = get_jwt_identity()
+        try:
+            user_id = ObjectId(user_id)
+        except:
+            return jsonify({"error": "ID de usuário inválido"}), 400
+
+        data = request.get_json()
+        imagem_base64 = data.get('imagem')
+
+        if not imagem_base64:
+            return jsonify({"error": "Imagem não fornecida"}), 400
+
+        result = usuarios_collection.update_one(
+            {"_id": user_id},
+            {"$set": {"profile_pic": imagem_base64}}
+        )
+
+        if result.modified_count == 1:
+            return jsonify({"message": "Imagem atualizada com sucesso"}), 200
+        else:
+            return jsonify({"message": "Nenhuma modificação feita"}), 200
+        
 @app.route('/api/usuarios', methods=['POST'])
 def criar_usuario():
     data = request.get_json()
