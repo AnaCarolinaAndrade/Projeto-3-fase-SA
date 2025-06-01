@@ -65,6 +65,10 @@
 }
 
 .message-area p {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
     box-shadow: 5px 5px #0f0f0f61;
     background-color: #e5e7eb;
     padding: 15px 12px;
@@ -118,6 +122,17 @@
     border-radius: 90px;
     border: none;
     cursor: pointer;
+}
+
+.mensagem-texto {
+    flex: 1;
+}
+
+.mensagem-hora {
+    font-size: 0.75rem;
+    color: #ccc;
+    margin-left: 10px;
+    white-space: nowrap;
 }
 
 .mudar-fundo {

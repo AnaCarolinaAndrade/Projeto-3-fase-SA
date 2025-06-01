@@ -128,7 +128,10 @@ const Chat = () => {
                                 key={index}
                                 className={msg.senderId === userId ? "you" : ""}
                             >
-                                {msg.text}
+                                <span className="mensagem-texto">{msg.text}</span>
+                                {msg.hora && (
+                                    <span className="mensagem-hora">{msg.hora}</span>
+                                )}
                             </p>
                         ))}
                     </div>
