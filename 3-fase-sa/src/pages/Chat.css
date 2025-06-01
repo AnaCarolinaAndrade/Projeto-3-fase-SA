@@ -175,11 +175,13 @@
 }
 
 .config-box-dropdown button {
+    display: flex;
     color: #ffffff;
     background-color: #0f0f0f;
     padding: 8px;    
     border-radius: 5px;
     transition: 0.3s ease;
+    gap: 10px;
 }
 
 .config-box-dropdown button:hover {
