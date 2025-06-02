@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 
 function Navbar() {
+
+  const [buscar, setBuscar] = useState("")
   return (
     <>
       <div className='container-navbar'>
@@ -20,7 +22,7 @@ function Navbar() {
           </button>
 
           <div class="search-container">
-            <input type="text" placeholder="Pesquisar por..." />
+            <Busca buscar={buscar} setBuscar={setBuscar} />
           </div>
 
           <div class="buttons-container">

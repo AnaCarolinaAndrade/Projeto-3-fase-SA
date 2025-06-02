@@ -4,8 +4,8 @@ import Navbar from '../components/Navbar';
 import './Home.css'
 import Footer from '../components/Footer';
 
-
 function Home() {
+
   return (
     <div>       
       <Navbar />
