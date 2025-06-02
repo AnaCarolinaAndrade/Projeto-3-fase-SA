@@ -92,16 +92,6 @@
     width: 150px;
 }
 
-.barra {
-    height: 16px;
-    width: 50%;
-    border-radius: 8px;
-    margin: 10px auto;
-    background-image: linear-gradient(to right, #bada55 0, #bada55 50%, gray 50%);
-    background-size: 202% 100%;
-    background-position: 99% 0;
-    animation: anima 9s ease-in-out infinite;
-}
 
 @keyframes anima {
     0% {

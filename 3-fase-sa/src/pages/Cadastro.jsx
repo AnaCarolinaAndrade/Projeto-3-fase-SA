@@ -84,7 +84,6 @@ export default function Cadastro() {
   return (
     <div className="container-form-cadastro">
       <div className='container-cadastro'>
-        <div class="barra"></div>
         <div className="form-wrapper">
           <div className="form-container">
             <form onSubmit={criarUsuario} className='form-cadastro'>
