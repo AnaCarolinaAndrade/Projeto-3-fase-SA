@@ -1,10 +1,11 @@
+
+
 function Busca({buscar, setBuscar}) {
   return (
-    <div className="buscar">
-        <h2>pesquisar</h2>
+    <div className="container-busca">
         <input type="text" value={buscar} onChange={(e) => setBuscar(e.target.value)} placeholder="Digite para pesquisar..." />
     </div>
   ) 
 }
 
-export default Busca  
+export default Busca

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import './Navbar.css'
 import { Link } from 'react-router-dom';
+import Busca from "../components/Busca.jsx"
 
 
 function Navbar() {
 
   const [buscar, setBuscar] = useState("")
+
   return (
     <>
       <div className='container-navbar'>
