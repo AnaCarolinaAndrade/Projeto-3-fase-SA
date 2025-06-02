@@ -1,4 +1,4 @@
-
+import './Busca.css'
 
 function Busca({buscar, setBuscar}) {
   return (
