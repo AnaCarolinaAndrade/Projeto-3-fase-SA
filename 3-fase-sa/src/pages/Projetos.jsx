@@ -26,7 +26,7 @@ export default function Projetos() {
           </div>
 
           <div className="lista-projetos">
-            {projetos.map((projeto, index) => (
+            {projetos.map((projeto, index) => ( 
               <div className="card-projeto" key={index}>
                 <div className="projeto-logo-humano">
                   {projeto.destaque ? '🔥' : '📄'}
