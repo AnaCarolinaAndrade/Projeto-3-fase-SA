@@ -1,7 +1,7 @@
-import React from 'react';
 import './Projetos.css';
 import Sidebar from '../components/Sidebar';
-import Busca from '../components/Busca'
+import Busca from '../components/Busca.jsx'
+import { useState } from 'react';
 
 const projetos = [
   { nome: "App de Finanças", descricao: "Controle de gastos pessoais", destaque: true },
@@ -14,7 +14,7 @@ const projetos = [
 
 export default function Projetos() {
 
-  const [busca, setBuscar] = useState("")
+  const [buscar, setBuscar] = useState("")
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function Projetos() {
       <div className="projetos-container-humano">
         <div className='container-projetos'>
           <div>
-            <Busca busca={busca} setBuscar={setBuscar} />
+           <Busca buscar={buscar} setBuscar={setBuscar} />
           </div>
 
           <div className="lista-projetos">
