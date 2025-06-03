@@ -1,6 +1,7 @@
 import React from 'react';
 import './Projetos.css';
 import Sidebar from '../components/Sidebar';
+import Busca from '../components/Busca'
 
 const projetos = [
   { nome: "App de Finanças", descricao: "Controle de gastos pessoais", destaque: true },
@@ -10,13 +11,19 @@ const projetos = [
   { nome: "API Clima", descricao: "Consumo de API externa" },
 ];
 
+
 export default function Projetos() {
+
+  const [busca, setBuscar] = useState("")
+
   return (
     <>
       <Sidebar />
       <div className="projetos-container-humano">
         <div className='container-projetos'>
-          <h1 className="titulo-projetos">Meus Projetos</h1>
+          <div>
+            <Busca busca={busca} setBuscar={setBuscar} />
+          </div>
 
           <div className="lista-projetos">
             {projetos.map((projeto, index) => (
