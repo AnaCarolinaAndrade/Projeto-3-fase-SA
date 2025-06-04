@@ -1,7 +1,9 @@
 import './Projetos.css';
+import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Busca from '../components/Busca.jsx'
-import { useState } from 'react';
+import Filter from '../components/Filter.jsx'
+
 
 const projetos = [
   { nome: "App de Finanças", descricao: "Controle de gastos pessoais", destaque: true },
@@ -14,32 +16,89 @@ const projetos = [
 
 export default function Projetos() {
 
-  const [buscar, setBuscar] = useState("")
+  const [lista, setLista] = useState([
+    {
+      id: 1,
+      text: "Criar funcionalidade X no Sistema",
+      categoria: "Trabalho",
+      completo: false,
+    },
+    {
+      id: 2,
+      text: "Ir para a escola",
+      categoria: "Pessoal",
+      completo: false,
+    },
+    {
+      id: 3,
+      text: "Estudar Back-end",
+      categoria: "Estudo",
+      completo: false,
+    },
+  ])
+
+  const [buscar, setBuscar] = useState("");
+
+  const [filter, setFilter] = useState("All");
+  const [sort, setSort] = useState("Asc")
+
+  const addLista = (text, categoria) => {
+    const novaLista = [...lista, {
+      id: Math.floor(Math.random() * 10000),
+      text,
+      categoria,
+      completo: false,
+    },
+    ];
+    setLista(novaLista)
+  };
+
+  const removerLista = (id) => {
+    const novaLista = [...lista]
+    const filtrarLista = novaLista.filter(lista => lista.id !== id ? lista : null);
+    setLista(filtrarLista)
+  }
+
+  const completarTarefa = (id) => {
+    const novaLista = [...lista]
+    novaLista.map((lista) => lista.id === id ? lista.completo = !lista.completo : lista)
+    setLista(novaLista)
+  }
+
 
   return (
     <>
-      <Sidebar />
-      <div className="projetos-container-humano">
-        <div className='container-projetos'>
-          <div>
-           <Busca buscar={buscar} setBuscar={setBuscar} />
-          </div>
-
-          <div className="lista-projetos">
-            {projetos.map((projeto, index) => ( 
-              <div className="card-projeto" key={index}>
-                <div className="projeto-logo-humano">
-                  {projeto.destaque ? '🔥' : '📄'}
-                </div>
-                <div className="texto-projeto">
-                  <strong>{projeto.nome}</strong>
-                  <p>{projeto.descricao}</p>
-                </div>
-              </div>
+      <div className='app'>
+        <h1>lista de tarefas</h1>
+        <Busca buscar={buscar} setBuscar={setBuscar} />
+        <div className='separador'></div>
+        <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
+        <div className='lista-tarefas'>
+          {lista
+            .filter((lista) =>
+              filter === "All"
+                ? true
+                : filter === "Completed"
+                  ? lista.completo
+                  : !lista.completo
+            )
+            .filter((lista) =>
+              lista.text.toLowerCase().includes(buscar.toLowerCase())
+            )
+            .sort((a, b) =>
+              sort === "Asc"
+                ? a.text.localeCompare(b.text)
+                : b.text.localeCompare(a.text)
+            )
+            .map((lista) => (
+              <Lista key={lista.id}
+                lista={lista}
+                removerLista={removerLista}
+                completarTarefa={completarTarefa} />
             ))}
-          </div>
         </div>
-
+        <div className='separador'></div>
+        <ListaForm addLista={addLista} />
       </div>
     </>
   );
