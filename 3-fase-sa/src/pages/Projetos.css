@@ -1,56 +1,88 @@
-.projetos-container-humano {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: #f4f4f4;
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-}
-
 .container-projetos {
-  width: 1000px;
+  background-color: #ffffff;
+  height: 100vh;
 }
 
-
-.titulo-projetos {
-  font-size: 24px;
-  margin-bottom: 1rem;
-  color: #222;
+.projetos {
+  background-color: transparent;
+  color: #cecece;
+  max-width: 600px;
+  margin: 0 auto 300px;
+  padding: 20px 30px;
 }
 
-.lista-projetos {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+h1 {
+  text-align: center;
+  color: #000000;
 }
 
-.card-projeto {
-  background-color: white;
+h2 {
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+p {
+  margin: 10px 0;
+  color: #000;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+.lista-tarefas {
+  padding-bottom: 1.5rem;
+}
+
+input,
+select {
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 3px;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 1rem;
+  width: 100%;
+}
+
+.completar {
+  background-color: #83eb63;
+  color: #000;
+}
+
+.excluir {
+  background-color: #e23124;
+}
+
+.separador {
+  padding-bottom: 0px;
+  border: 1px solid #ffffff;
+}
+
+.Lista {
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  transition: transform 0.2s ease;
+  color: rgb(0, 0, 0);
 }
 
-.card-projeto:hover {
-  transform: scale(1.01);
+.content p {
+  color: #000;
 }
 
-.projeto-logo-humano {
-  font-size: 30px;
-  margin-right: 1rem;
+.filter-option {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
 }
 
-.texto-projeto strong {
-  font-size: 18px;
-  color: #111;
+.filter-option div {
+  flex: 1 1 0;
 }
 
-.texto-projeto p {
-  font-size: 14px;
-  color: #555;
-  margin-top: 5px;
+p {
+  color: #fff;
 }

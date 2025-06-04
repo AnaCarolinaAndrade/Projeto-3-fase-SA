@@ -1,0 +1,24 @@
+.btn-lista {
+  margin-right: 10px;
+  background-color: #2cd032;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.3;
+}
+
+.btn-lista:hover {
+  opacity: 1;
+}
+
+.completar {
+  background-color: #83eb63;
+  color: #000;
+}
+
+.excluir {
+  background-color: #e23124;
+}

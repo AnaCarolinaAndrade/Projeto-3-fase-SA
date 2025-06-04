@@ -1,3 +1,5 @@
+import './Lista.css'
+
 function Lista({ lista, removerLista, completarTarefa }) {
   return (
     <div className='Lista' style={{textDecoration: lista.completo ? "line-through" : ""}}>
@@ -9,8 +11,8 @@ function Lista({ lista, removerLista, completarTarefa }) {
       </div>
 
       <div>
-        <button className='completar' onClick={() => completarTarefa(lista.id)}>completar</button>
-        <button className='excluir' onClick={() => removerLista(lista.id)}>x</button>
+        <button className='completar btn-lista' onClick={() => completarTarefa(lista.id)}>completar</button>
+        <button className='excluir btn-lista' onClick={() => removerLista(lista.id)}>x</button>
       </div>
     </div>
   )
