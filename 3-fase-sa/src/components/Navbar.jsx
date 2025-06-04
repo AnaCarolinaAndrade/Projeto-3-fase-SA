@@ -24,7 +24,7 @@ function Navbar() {
           </button>
 
           <div class="search-container">
-            <Busca buscar={buscar} setBuscar={setBuscar} />
+            <input type="text" placeholder="Digite algo..."/>
           </div>
 
           <div class="buttons-container">
