@@ -3,6 +3,8 @@ import { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Busca from '../components/Busca.jsx'
 import Filter from '../components/Filter.jsx'
+import Lista from '../components/Lista.jsx'
+
 
 
 const projetos = [
