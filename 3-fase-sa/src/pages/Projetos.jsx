@@ -17,7 +17,7 @@ const projetos = [
 
 export default function Projetos() {
 
-  const [lista, setLista] = useState([
+  const [lista] = useState([
     {
       id: 1,
       text: "Arrumar um namorado pra Ana",
@@ -38,28 +38,6 @@ export default function Projetos() {
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("Asc")
 
-  const addLista = (text, categoria) => {
-    const novaLista = [...lista, {
-      id: Math.floor(Math.random() * 10000),
-      text,
-      categoria,
-      completo: false,
-    },
-    ];
-    setLista(novaLista)
-  };
-
-  const removerLista = (id) => {
-    const novaLista = [...lista]
-    const filtrarLista = novaLista.filter(lista => lista.id !== id ? lista : null);
-    setLista(filtrarLista)
-  }
-
-  const completarTarefa = (id) => {
-    const novaLista = [...lista]
-    novaLista.map((lista) => lista.id === id ? lista.completo = !lista.completo : lista)
-    setLista(novaLista)
-  }
 
   return (
     <>
@@ -90,8 +68,7 @@ export default function Projetos() {
               .map((lista) => (
                 <Lista key={lista.id}
                   lista={lista}
-                  removerLista={removerLista}
-                  completarTarefa={completarTarefa} />
+                />
               ))}
           </div>
         </div>

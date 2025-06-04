@@ -38,6 +38,7 @@ input {
 
 .lista-tarefas {
   padding-bottom: 1.5rem;
+  width: 400px;
 }
 
 input,
@@ -59,6 +60,15 @@ select {
   justify-content: space-between;
   align-items: center;
   color: rgb(0, 0, 0);
+  padding: 15px;
+  transition: 0.3s;
+}
+
+.Lista:hover {
+  padding: 17px;
+  margin-left: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.599);
+  border-radius: 10px;
 }
 
 .content p {
