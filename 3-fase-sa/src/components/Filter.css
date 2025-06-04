@@ -1,3 +1,7 @@
+.filtro {
+    margin-bottom: 30px;
+}
+
 .container-btns-filter {
     display: flex;
     gap: 20px;

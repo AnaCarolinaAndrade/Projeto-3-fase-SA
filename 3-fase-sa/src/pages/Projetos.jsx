@@ -4,7 +4,6 @@ import Sidebar from '../components/Sidebar';
 import Busca from '../components/Busca.jsx'
 import Filter from '../components/Filter.jsx'
 import Lista from '../components/Lista.jsx'
-import ListaForm from '../components/ListaForm.jsx'
 
 
 const projetos = [
@@ -21,13 +20,13 @@ export default function Projetos() {
   const [lista, setLista] = useState([
     {
       id: 1,
-      text: "Criar funcionalidade X no Sistema",
-      categoria: "Trabalho",
+      text: "Arrumar um namorado pra Ana",
+      categoria: "Pessoal",
       completo: false,
     },
     {
       id: 2,
-      text: "Ir para a escola",
+      text: "Criar o back da aba projetos",
       categoria: "Pessoal",
       completo: false,
     },
@@ -99,8 +98,6 @@ export default function Projetos() {
                   completarTarefa={completarTarefa} />
               ))}
           </div>
-          <div className='separador'></div>
-          <ListaForm addLista={addLista} />
         </div>
       </div>
 
