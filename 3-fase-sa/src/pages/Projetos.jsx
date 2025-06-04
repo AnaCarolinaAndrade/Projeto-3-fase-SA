@@ -69,10 +69,11 @@ export default function Projetos() {
   return (
     <>
       <div className='container-projetos'>
-        <Sidebar />
+        <div>
+          <Sidebar />
+        </div>
         <div className='projetos'>
           <Busca buscar={buscar} setBuscar={setBuscar} />
-          <div className='separador'></div>
           <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
           <div className='lista-tarefas'>
             {lista
