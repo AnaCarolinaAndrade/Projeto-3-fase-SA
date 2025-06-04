@@ -5,10 +5,11 @@ import { BsGenderFemale, BsPersonCircle } from 'react-icons/bs';
 import { IoMapOutline } from "react-icons/io5";
 
 
-function Configs() {
 
-  const [usuarios, setUsuarios] = useState([]);
+function Configs() {
+  
   const fileInputRef = useRef(null);
+  const [usuarios, setUsuarios] = useState([]);
   const [usuario, setUsuario] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 

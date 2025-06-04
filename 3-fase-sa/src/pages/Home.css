@@ -6,9 +6,13 @@
 }
 
 body {
-  background-color: #0f0f0f;
+  background-color: #ffffff;
   align-items: center;
   overflow-x: hidden;
+}
+
+.container-home-home{
+  background-color:   #0F0F0F;
 }
 
 .Home-container {
