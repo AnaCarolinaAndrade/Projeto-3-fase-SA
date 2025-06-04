@@ -48,25 +48,12 @@ select {
   width: 100%;
 }
 
-.completar {
-  background-color: #83eb63;
-  color: #000;
-}
-
-.excluir {
-  background-color: #e23124;
-}
-
-.separador {
-  padding-bottom: 0px;
-  border: 1px solid #ffffff;
-}
 
 .Lista {
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.281);
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;

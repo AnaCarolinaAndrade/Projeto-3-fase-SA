@@ -21,20 +21,15 @@ export default function Projetos() {
     {
       id: 1,
       text: "Arrumar um namorado pra Ana",
-      categoria: "Pessoal",
-      completo: false,
     },
     {
       id: 2,
       text: "Criar o back da aba projetos",
-      categoria: "Pessoal",
-      completo: false,
+
     },
     {
       id: 3,
       text: "Estudar Back-end",
-      categoria: "Estudo",
-      completo: false,
     },
   ])
 
