@@ -13,12 +13,3 @@
 .btn-lista:hover {
   opacity: 1;
 }
-
-.completar {
-  background-color: #83eb63;
-  color: #000;
-}
-
-.excluir {
-  background-color: #e23124;
-}

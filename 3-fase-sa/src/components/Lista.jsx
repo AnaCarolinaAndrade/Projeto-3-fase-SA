@@ -9,11 +9,6 @@ function Lista({ lista, removerLista, completarTarefa }) {
           ({lista.categoria})
         </p>
       </div>
-
-      <div>
-        <button className='completar btn-lista' onClick={() => completarTarefa(lista.id)}>completar</button>
-        <button className='excluir btn-lista' onClick={() => removerLista(lista.id)}>x</button>
-      </div>
     </div>
   )
 }

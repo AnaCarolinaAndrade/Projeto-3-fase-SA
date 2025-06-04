@@ -66,13 +66,12 @@ export default function Projetos() {
     novaLista.map((lista) => lista.id === id ? lista.completo = !lista.completo : lista)
     setLista(novaLista)
   }
-  
+
   return (
     <>
       <div className='container-projetos'>
         <Sidebar />
         <div className='projetos'>
-          <h1>lista de tarefas</h1>
           <Busca buscar={buscar} setBuscar={setBuscar} />
           <div className='separador'></div>
           <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
