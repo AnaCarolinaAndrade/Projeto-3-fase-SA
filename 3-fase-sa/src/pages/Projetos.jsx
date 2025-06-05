@@ -20,7 +20,7 @@ export default function Projetos() {
   const [lista] = useState([
     {
       id: 1,
-      text: "Arrumar um namorado pra Ana",
+      text: "Criar a aba de criação de projetos",
     },
     {
       id: 2,

@@ -60,8 +60,7 @@ select {
 }
 
 .Lista:hover {
-  padding: 17px;
-  margin-left: 10px;
+  padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.599);
   border-radius: 10px;
 }

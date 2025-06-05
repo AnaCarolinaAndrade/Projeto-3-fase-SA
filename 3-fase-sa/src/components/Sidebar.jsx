@@ -11,14 +11,27 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
+  const [girando, setGirando] = useState(false)
+
+  const girar = () => {
+    setGirando(true);
+    setTimeout(() => setGirando(false), 300)
+  };
 
   return (
     <>
 
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
         <nav className="sidebar">
-          <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()}>
-            <IoCloseOutline color="white" fontSize={30} />
+          <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()} >
+            <button onClick={girar}>
+              <IoCloseOutline
+                color="white"
+                fontSize={30}
+                className={girando ? "rotate" : ""}
+              />
+            </button>
+
           </button>
 
           <Link to={'/'} className="icon-text "><HiMiniHome color="white" fontSize={18} /><span className="link-text">Home </span></Link>
