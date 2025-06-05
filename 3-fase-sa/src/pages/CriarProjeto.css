@@ -1,11 +1,114 @@
-.container-criacao {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
+.application-main {
+  padding: 1rem;
+  font-family: Arial, sans-serif;
 }
 
-.criar-projeto {
-    border: 1px solid black;
-    padding: 10px;
+.container-md {
+  max-width: 720px;
+  margin: 0 auto;
+}
 
+.px-3 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.px-md-4 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.px-lg-5 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+.my-6 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.f2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-suggestion {
+  margin-bottom: 1.25rem;
+}
+
+.form-suggestion button {
+  margin-top: 0.5rem;
+  background: #e1e4e8;
+  border: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-radio {
+  margin-bottom: 1rem;
+}
+
+.form-radio input {
+  margin-right: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #2da44e;
+  color: white;
+  border: none;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
