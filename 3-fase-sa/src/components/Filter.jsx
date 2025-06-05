@@ -9,6 +9,9 @@ const Filter = ({ filter, setFilter, setSort }) => {
                         <option value="All">Todas</option>
                         <option value="Completed">Completas</option>
                         <option value="Incompleted">Incompletas</option>
+                        <option value="api">API's</option>
+                        <option value="sites">sites</option>
+                        <option value="back">banco de dados</option>
                     </select>
                 </div>
                 <div className='container-btns-filter'>

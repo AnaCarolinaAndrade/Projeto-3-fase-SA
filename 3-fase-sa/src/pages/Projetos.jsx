@@ -5,16 +5,6 @@ import Busca from '../components/Busca.jsx'
 import Filter from '../components/Filter.jsx'
 import Lista from '../components/Lista.jsx'
 
-
-const projetos = [
-  { nome: "App de Finanças", descricao: "Controle de gastos pessoais", destaque: true },
-  { nome: "Plataforma de Cursos", descricao: "Educação online para devs" },
-  { nome: "Chat em Tempo Real", descricao: "Socket.IO com autenticação" },
-  { nome: "Dashboard Vendas", descricao: "Gráficos com dados reais" },
-  { nome: "API Clima", descricao: "Consumo de API externa" },
-];
-
-
 export default function Projetos() {
 
   const [lista] = useState([
