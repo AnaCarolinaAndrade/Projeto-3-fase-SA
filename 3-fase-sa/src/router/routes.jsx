@@ -8,6 +8,7 @@ import Configs from '../pages/Configs.jsx';
 import Projetos from '../pages/Projetos.jsx';
 import Ranking from "../pages/Ranking.jsx";
 import GithubSuccess from '../components/GithubSuccess.jsx';
+import CriarProjeto from "../pages/CriarProjeto.jsx";
 
 const router = createBrowserRouter([
 
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
     { path: "/configs", element: <Configs /> },
     { path: "/projetos", element: <Projetos /> },
     { path: "/ranking", element: <Ranking /> },
-    { path: "/GithubCuccess", element: <GithubSuccess /> }
+    { path: "/GithubCuccess", element: <GithubSuccess /> },
+    { path: "/criarProjeto", element: <CriarProjeto /> },
 
 ])
 

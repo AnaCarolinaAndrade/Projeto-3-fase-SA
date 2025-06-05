@@ -6,6 +6,7 @@ import { IoCloseOutline } from "react-icons/io5";
 import { LuChartSpline } from "react-icons/lu";
 import { FaGear } from "react-icons/fa6";
 import { GiLaurelsTrophy } from "react-icons/gi";
+import { CgAddR } from "react-icons/cg";
 
 import "./Sidebar.css";
 
@@ -39,6 +40,7 @@ function Sidebar() {
           <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={16} /><span className="link-text"> Configurações</span></Link>
           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={18} /> <span className="link-text"> Projetos </span> </Link>
           <Link to={'/ranking'} className="icon-text"><GiLaurelsTrophy color="white" fontSize={18} /><span className="link-text"> Ranking</span> </Link>
+          <Link to={'/criarProjeto'} className="icon-text"><CgAddR color="white" fontSize={18} /><span className="link-text">Criar</span> </Link>
 
         </nav>
       </div>
