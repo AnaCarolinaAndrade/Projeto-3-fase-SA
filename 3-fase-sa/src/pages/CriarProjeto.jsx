@@ -1,13 +1,22 @@
+import { useState } from 'react';
 import './CriarProjeto.css';
 
 export default function CriarProjeto() {
+
+  const [nomeAleatorio] = useState([
+    "byte-verse", "neural-forge", "cloud-spark",
+    "pixel-core", "data-pulse", "code-lattice",
+    "quantum-frame", "task-ship", "api-matrix",
+    "stack-glow", "dexes", "fly-circular"
+  ])
+
   return (
     <div className="application-main">
       <main>
         <div className="container">
           <h1 className="title">Criar um novo projeto</h1>
           <hr className="divider" />
-          
+
           <form noValidate>
             <fieldset>
               <legend className="sr-only">Repository owner and name</legend>
@@ -20,19 +29,17 @@ export default function CriarProjeto() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="repo-name">Repository name <span>*</span></label>
+                <label htmlFor="repo-name">Nome do projeto <span>*</span></label>
                 <input
                   type="text"
-                  id="repo-name"
-                  name="repo-name"
-                  placeholder="e.g. my-project"
+                  placeholder="meu projeto"
                   required
                 />
               </div>
 
               <div className="form-suggestion">
-                <p>Great repository names are short and memorable. Need inspiration?</p>
-                <button type="button">automatic-eureka</button>
+                <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração?</p>
+                <button type="button">Gerar nome</button>
               </div>
             </fieldset>
 
