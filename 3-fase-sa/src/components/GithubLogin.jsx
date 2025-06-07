@@ -1,7 +1,7 @@
 import React from 'react';
 
 const GITHUB_CLIENT_ID = 'Ov23li6xDVAOYbQH7Qd5';
-const REDIRECT_URI = 'http://localhost:5000/github/callback'; // seu backend já trata esse callback
+const REDIRECT_URI = 'http://localhost:5000/github/callback'; 
 
 export default function GitHubLogin() {
   const loginWithGitHub = () => {
@@ -12,8 +12,7 @@ export default function GitHubLogin() {
   return (
     <div>
       <button onClick={loginWithGitHub}>
-        <h2>Login com GitHub</h2>
-        Entrar com GitHub
+        <h2>Fazer login com o GitHub</h2>
       </button>
     </div>
   );

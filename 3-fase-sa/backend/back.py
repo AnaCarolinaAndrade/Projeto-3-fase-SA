@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS 
 from flask_socketio import SocketIO, emit
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from google.oauth2 import id_token
@@ -20,6 +20,9 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 socketio = SocketIO(app, cors_allowed_origins="*")
+app.config['JWT_SECRET_KEY'] = 'sua_chave_secreta' 
+app.config['JWT_TOKEN_LOCATION'] = ['headers']  
+jwt = JWTManager(app)
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
