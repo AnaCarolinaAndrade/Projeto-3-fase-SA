@@ -83,8 +83,6 @@ const Chat = () => {
         }]);
 
         setMessage("");
-
-        console.log("Enviando:", { message, userId, recipientId });
     };
 
     const handleKeyDown = (e) => {

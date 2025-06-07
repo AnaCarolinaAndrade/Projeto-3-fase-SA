@@ -128,7 +128,7 @@ function Login() {
           <button type="submit" className="login-btn" onClick={handleLogin}>
             Log in
           </button>
-          <div className="divider">
+          <div className="divisor">
             <span></span> ou <span></span>
           </div>
 

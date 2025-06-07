@@ -6,7 +6,6 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(0deg, #2337a7cb 1%, #0F1111 80%);
-
 }
 
 .login-left {
@@ -46,6 +45,7 @@
 
 .login-box {
     padding: 30px;
+    gap: 10px;
     border-radius: 10px;
     text-align: center;
     width: 100%;
@@ -72,16 +72,16 @@
     background-color: #007acc;
 }
 
-.divider {
+.divisor {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
     color: white;
     font-size: 0.875rem;
+    margin: 15px 0;
 }
 
-.divider span {
+.divisor span {
     flex: 1;
     height: 1px;
     background: white;
@@ -92,7 +92,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 15px;
 }
 
 .social-login-btn {
