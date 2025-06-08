@@ -12,11 +12,16 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
-  const [girando, setGirando] = useState(false)
+  const [rodar, setRodar] = useState(false);
+  const [girado, setGirado] = useState(false);
 
   const girar = () => {
-    setGirando(true);
-    setTimeout(() => setGirando(false), 300)
+    setRodar(true);
+
+    setTimeout(() => {
+      setRodar(false);
+      setGirado(!girado);
+    }, 300)
   };
 
   return (
@@ -24,14 +29,25 @@ function Sidebar() {
 
       <div className={`container-sidebar ${isOpen ? "show" : ""}`}>
         <nav className="sidebar">
-          <button className="toggle-btn" onClick={() => setIsOpen(!isOpen)()} >
-            <button onClick={girar}>
-              <IoCloseOutline
-                color="white"
-                fontSize={30}
-                className={girando ? "rotate" : ""}
-              />
-            </button>
+          <button
+            className="toggle-btn"
+            onClick={() => {
+              setIsOpen(!isOpen),
+                girar();
+            }} >
+            <IoCloseOutline
+              color="white"
+              fontSize={30}
+              className={
+                rodar
+                  ? girado
+                    ? "rotacao-reversa"
+                    : "rotacao"
+                  : girado
+                    ? "fixado"
+                    : ""
+              }
+            />
 
           </button>
 

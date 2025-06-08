@@ -144,25 +144,40 @@ button {
 
 }
 
-.container-sidebar:not(.show) .icon-text{
+.container-sidebar:not(.show) .icon-text {
     padding: 0;
     background-color: transparent;
 }
 
 
-@keyframes spin {
+@keyframes girar {
     from {
         transform: rotate(0deg);
     }
 
     to {
-        transform: rotate(120deg);
+        transform: rotate(-45deg);
     }
 }
 
-.rotate {
-    animation: spin 0.3s ease-in-out;
+@keyframes girarDeVolta {
+    from {
+        transform: rotate(90deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
 }
+
+.rotacao {
+    animation: girar 0.3s ease-in-out forwards;
+}
+
+.rotacao-reversa {
+    animation: girarDeVolta 0.3s ease-in-out forwards;
+}
+
 
 @media (max-width: 768px) {
     .container-sidebar {
