@@ -166,7 +166,7 @@ button {
     }
 
     to {
-        transform: rotate(0deg);
+        transform: rotate(45deg);
     }
 }
 
@@ -174,7 +174,7 @@ button {
     animation: girar 0.3s ease-in-out forwards;
 }
 
-.rotacao-reversa {
+.fixado {
     animation: girarDeVolta 0.3s ease-in-out forwards;
 }
 
