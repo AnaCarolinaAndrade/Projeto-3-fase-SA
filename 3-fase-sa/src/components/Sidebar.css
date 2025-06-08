@@ -156,13 +156,13 @@ button {
     }
 
     to {
-        transform: rotate(-45deg);
+        transform: rotate(45deg);
     }
 }
 
 @keyframes girarDeVolta {
     from {
-        transform: rotate(90deg);
+        transform: rotate(45deg);
     }
 
     to {
