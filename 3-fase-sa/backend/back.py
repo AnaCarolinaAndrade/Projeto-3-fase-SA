@@ -120,6 +120,26 @@ def criar_usuario():
     usuarios_collection.insert_one(novo_usuario)
     return jsonify(novo_usuario), 201
 
+@app.route('api/projetos', methods=['POST'])
+def criar_projeto():
+    data = request.get_json()
+    nome = data.get('nome')
+    descricao = data.get('descricao')
+    imagem = data.get('imagem')
+
+    ultimo_projeto = projetos_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
+    proximo_id = ultimo_projeto['id'] + 1 if ultimo_projeto else 1
+
+    novo_projeto = {
+        'id': proximo_id,
+        'nome': nome,
+        'descricao': descricao,
+        'imagem': imagem
+    }
+
+    projetos_collection.insert_one(novo_projeto)
+    return jsonify(novo_projeto), 201
+
 @app.route('/api/usuarios/<int:user_id>', methods=['PUT'])
 def atualizar_usuario(user_id):
     data = request.get_json()
@@ -542,6 +562,9 @@ def atualizar_imagem():
     )
 
     return jsonify({'mensagem': 'Imagem atualizada com sucesso'})
+
+
+
 
 
 # === EXECUTAR APLICAÇÃO ===

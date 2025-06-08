@@ -160,7 +160,7 @@ button {
     }
 }
 
-@keyframes girarDeVolta {
+@keyframes fixar {
     from {
         transform: rotate(45deg);
     }
@@ -170,8 +170,22 @@ button {
     }
 }
 
+@keyframes girarDeVolta {
+    from {
+        transform: rotate(45deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
+}
+
 .rotacao {
     animation: girar 0.3s ease-in-out forwards;
+}
+
+.rotacao-reversa {
+    animation: fixar 0.3s ease-in-out forwards;
 }
 
 .fixado {

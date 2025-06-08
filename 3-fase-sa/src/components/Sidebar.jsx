@@ -41,10 +41,10 @@ function Sidebar() {
               className={
                 rodar
                   ? girado
-                    ? "rotacao-reversa"
+                    ? "fixado"
                     : "rotacao"
                   : girado
-                    ? "fixado"
+                    ? "rotacao-reversa"
                     : ""
               }
             />
