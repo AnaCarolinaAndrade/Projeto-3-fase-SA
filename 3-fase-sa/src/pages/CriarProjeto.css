@@ -62,7 +62,6 @@ form {
 
 .form-group label {
   font-weight: 600;
-  margin-bottom: 4px;
 }
 
 .form-group input,
@@ -104,7 +103,6 @@ form {
   background-color: #f3f4f6;
 }
 
-/* Visibilidade (radio) */
 fieldset {
   border: none;
   padding: 0;
@@ -131,9 +129,8 @@ fieldset {
   margin-top: 4px;
 }
 
-/* Botão principal */
 .btn-primary {
-  background-color: #2da44e;
+  background-color: #2B6ADE;
   color: white;
   padding: 8px 16px;
   font-size: 14px;
@@ -144,11 +141,10 @@ fieldset {
 }
 
 .btn-primary:hover {
-  background-color: #218639;
+  background-color: #1D2F96;
 }
 
-/* Acessibilidade (sr-only) */
-.sr-only {
+  .sr-only {
   position: absolute;
   width: 1px;
   height: 1px;

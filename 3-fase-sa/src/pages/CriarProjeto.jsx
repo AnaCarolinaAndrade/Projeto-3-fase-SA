@@ -16,7 +16,15 @@ export default function CriarProjeto() {
     "OrbitPlay", "CodeDrip", "SynthByte", "NanoDash",
     "Refactron", "LogiCrate", "BugHunter3000", "SnackBarJS", "ToastyStack",
     "MonkeyPatchers", "DuckDeploy", "LazyLoader", "Hacktrix",
-    "404Land", "ChocoByte", "NullPointer Café"
+    "404Land", "ChocoByte", "NullPointer Café",
+    "CodeTrackr", "BugSquash", "DevSync", "ByteVault",
+    "TaskForge", "PixelPilot", "GitGuard", "ScriptSphere",
+    "CloudNest", "LogiChain", "BitCanvas", "StackFlow",
+    "PingPanel", "TestBench", "DataDock", "CodeCrate",
+    "DevNest", "NodePulse", "PromptBase", "QueryZen",
+    "BuildHive", "AppSmithy", "JsonJuggler", "DevMate",
+    "CodeTide", "PushCraft", "SnipShelf", "LoopLab",
+    "BranchBoost", "RefactorX"
   ])
 
   const criarProjeto = async (e) => {
@@ -43,13 +51,6 @@ export default function CriarProjeto() {
           <form noValidate>
             <fieldset>
               <legend className="sr-only">Informações do projeto</legend>
-
-              <div className="form-group">
-                <label htmlFor="propietario">Propietario <span>*</span></label>
-                <select id="propietario" name="propietario">
-                  <option value="L7noxy">L7noxy</option>
-                </select>
-              </div>
 
               <div className="form-group">
                 <label htmlFor="repo-name">Nome do projeto <span>*</span></label>
@@ -79,7 +80,7 @@ export default function CriarProjeto() {
               />
             </div>
 
-            <button type="submit" className="btn-primary">Create repository</button>
+            <button type="submit" className="btn-primary" onClick={criarProjeto}>Ciar Projeto</button>
           </form>
         </div>
       </main>
