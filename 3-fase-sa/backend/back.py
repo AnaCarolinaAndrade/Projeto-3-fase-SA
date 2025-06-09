@@ -37,6 +37,7 @@ try:
     client = MongoClient(MONGO_URI)
     db = client[DATABASE_NAME]
     usuarios_collection = db["usuarios"]
+    projetos_collection = db['projetos']
     sessions_collection = db["sessions"]
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
@@ -120,7 +121,7 @@ def criar_usuario():
     usuarios_collection.insert_one(novo_usuario)
     return jsonify(novo_usuario), 201
 
-@app.route('api/projetos', methods=['POST'])
+@app.route('/api/projetos', methods=['POST'])
 def criar_projeto():
     data = request.get_json()
     nome = data.get('nome')
