@@ -27,6 +27,7 @@
   color: #0969da;
   text-decoration: none;
 }
+
 .subtitle a:hover {
   text-decoration: underline;
 }
@@ -85,7 +86,8 @@ form {
 .form-suggestion p {
   margin-bottom: 4px;
   font-size: 13px;
-  color: #57606a;
+  color: #fafafa;
+  background-color: #0F0F0F;
 }
 
 .form-suggestion button {

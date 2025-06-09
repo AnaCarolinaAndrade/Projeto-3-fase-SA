@@ -3,12 +3,35 @@ import './CriarProjeto.css';
 
 export default function CriarProjeto() {
 
+  const [nomeProjeto, setNomeProjeto] = useState('');
+
   const [nomeAleatorio] = useState([
     "byte-verse", "neural-forge", "cloud-spark",
     "pixel-core", "data-pulse", "code-lattice",
     "quantum-frame", "task-ship", "api-matrix",
-    "stack-glow", "dexes", "fly-circular"
+    "stack-glow", "Dexes", "fly-circular", "CodeSync",
+    "DataForge", "APIverse", "StackBoard", "BitFlow", "SecureNest",
+    "DevOpsy", "AuthPilot", "PixelAdmin", "NetScope",
+    "ZenBlocks", "NeuroCanvas", "EchoForm", "QuantumQuery",
+    "OrbitPlay", "CodeDrip", "SynthByte", "NanoDash",
+    "Refactron", "LogiCrate", "BugHunter3000", "SnackBarJS", "ToastyStack",
+    "MonkeyPatchers", "DuckDeploy", "LazyLoader", "Hacktrix",
+    "404Land", "ChocoByte", "NullPointer Café"
   ])
+
+  const criarProjeto = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:5000/api/projetos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+    } catch (error) {
+      console.error("Erro ao criar projeto:", error);
+    }
+  }
 
   return (
     <div className="application-main">
@@ -19,11 +42,11 @@ export default function CriarProjeto() {
 
           <form noValidate>
             <fieldset>
-              <legend className="sr-only">Repository owner and name</legend>
+              <legend className="sr-only">Informações do projeto</legend>
 
               <div className="form-group">
-                <label htmlFor="owner">Owner <span>*</span></label>
-                <select id="owner" name="owner">
+                <label htmlFor="propietario">Propietario <span>*</span></label>
+                <select id="propietario" name="propietario">
                   <option value="L7noxy">L7noxy</option>
                 </select>
               </div>
@@ -39,7 +62,10 @@ export default function CriarProjeto() {
 
               <div className="form-suggestion">
                 <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração?</p>
-                <button type="button">Gerar nome</button>
+                <button type="button" onClick={() => setNomeProjeto(nomeAleatorio[Math.floor(Math.random() * nomeAleatorio.length)])}>Gerar nome</button>
+                <div>
+                  <p>{nomeAleatorio[Math.floor(Math.random() * nomeAleatorio.length)]}</p>
+                </div>
               </div>
             </fieldset>
 
@@ -49,7 +75,7 @@ export default function CriarProjeto() {
                 type="text"
                 id="description"
                 name="description"
-                placeholder="A short description of your project"
+                placeholder="Uma breve descrição do seu projeto"
               />
             </div>
 
