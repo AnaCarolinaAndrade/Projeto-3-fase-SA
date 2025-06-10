@@ -123,3 +123,60 @@ input {
   border-radius: 10px;
   text-decoration: none;
 }
+
+
+
+.container-neuralMid{
+  margin-top: 28%;
+}
+
+.container-deepVision{
+  margin-top: 6%;
+}
+
+.container-smartPredict{
+  margin-top: 6%;
+}
+
+.container-codeForge{
+  margin-top: 6%;
+}
+
+.container-neuralMid h4, 
+.container-deepVision h4,
+.container-smartPredict h4,
+.container-codeForge h4{
+ color: #F6F6F6;
+}
+
+.container-neuralMid h2, 
+.container-deepVision h2,
+.container-smartPredict h2,
+.container-codeForge h2{
+ color: #F6F6F6;
+}
+
+.container-neuralMid p, 
+.container-deepVision p,
+.container-smartPredict p,
+.container-codeForge p{
+ color: #F6F6F6;
+ background-color: transparent;
+}
+
+.container-neuralMid button, 
+.container-deepVision button,
+.container-smartPredict button,
+.container-codeForge button{
+ color: #0F0F0F;
+ background-color: #13B6F6 ;
+}
+
+.container-neuralMid, 
+.container-deepVision,
+.container-smartPredict,
+.container-codeForge{
+ background-color: #202020;
+}
+
+
