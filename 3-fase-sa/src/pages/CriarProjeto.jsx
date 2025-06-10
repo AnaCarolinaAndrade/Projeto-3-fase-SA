@@ -83,7 +83,7 @@ export default function CriarProjeto() {
                   maxLength={25}
                   required
                 />
-              </div>
+              </div> 
 
               <div className="form-suggestion">
                 <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração?</p>

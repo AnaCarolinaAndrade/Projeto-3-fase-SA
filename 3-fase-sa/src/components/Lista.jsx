@@ -4,8 +4,9 @@ import './Lista.css'
 function Lista({ lista }) {
   return (
     <div className='Lista'>
+      <h2>{lista.titulo}</h2>
       <div className='content'>
-        <p>{lista.text}</p>
+        <p>{lista.descricao}</p>
       </div>
     </div>
   )

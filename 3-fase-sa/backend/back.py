@@ -144,8 +144,18 @@ def criar_projeto():
 
 @app.route('/api/projetos', methods=['GET'])
 def get_projetos():
-    return jsonify({ "projetos": projetos })
+    projetos_cursor = projetos_collection.find({})
 
+    projetos_lista = []
+    for projeto in projetos_cursor:
+        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
+        if 'text' not in proj_dict:
+            proj_dict['text'] = proj_dict.get('descricao', '')
+        if 'completo' not in proj_dict:
+            proj_dict['completo'] = False
+        projetos_lista.append(proj_dict)
+    
+    return jsonify({ "projetos": projetos_lista })
 
 @app.route('/api/usuarios/<int:user_id>', methods=['PUT'])
 def atualizar_usuario(user_id):

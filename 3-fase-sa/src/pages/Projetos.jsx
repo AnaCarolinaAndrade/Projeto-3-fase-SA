@@ -45,13 +45,13 @@ export default function Projetos() {
                     : !item.completo
               )
               .filter((item) =>
-                item.text.toLowerCase().includes(buscar.toLowerCase()) ||
+                item.descricao.toLowerCase().includes(buscar.toLowerCase()) ||
                 item.nomeProjeto.toLowerCase().includes(buscar.toLowerCase())
               )
               .sort((a, b) =>
                 sort === "Asc"
-                  ? (a.text || a.nomeProjeto).localeCompare(b.text || b.nomeProjeto)
-                  : (b.text || b.nomeProjeto).localeCompare(a.text || a.nomeProjeto)
+                  ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
+                  : (b.nomeProjeto || '').localeCompare((a.nomeProjeto || ''))
               )
               .map((item) => (
                 <Lista key={item.id}
