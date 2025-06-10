@@ -23,6 +23,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 app.config['JWT_SECRET_KEY'] = 'sua_chave_secreta' 
 app.config['JWT_TOKEN_LOCATION'] = ['headers']  
 jwt = JWTManager(app)
+projetos = []
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -140,6 +141,11 @@ def criar_projeto():
 
     projetos_collection.insert_one(novo_projeto)
     return jsonify(novo_projeto), 201
+
+@app.route('/api/projetos', methods=['GET'])
+def get_projetos():
+    return jsonify({ "projetos": projetos })
+
 
 @app.route('/api/usuarios/<int:user_id>', methods=['PUT'])
 def atualizar_usuario(user_id):

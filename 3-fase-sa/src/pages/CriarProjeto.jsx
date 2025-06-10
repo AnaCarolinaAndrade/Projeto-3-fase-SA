@@ -51,9 +51,9 @@ export default function CriarProjeto() {
       setImagem('');
 
       if (data.success) {
-        navigate('/');
+        navigate('/projetos');
       } else {
-        alert(data.error || "Login falhou.");
+        alert(data.error || "A criação do projeto falhou.");
       }
     }
 
@@ -95,7 +95,7 @@ export default function CriarProjeto() {
                     const nome = nomeAleatorio[Math.floor(Math.random() * nomeAleatorio.length)];
                     setNomeSugerido(nome);
                   }}
-                > 
+                >
                   Gerar nome
                 </button>
                 <div>

@@ -1,5 +1,6 @@
 import './Lista.css'
 
+
 function Lista({ lista }) {
   return (
     <div className='Lista'>
