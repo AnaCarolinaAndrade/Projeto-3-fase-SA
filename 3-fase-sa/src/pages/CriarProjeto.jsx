@@ -56,10 +56,6 @@ export default function CriarProjeto() {
         alert(data.error || "A criação do projeto falhou.");
       }
     }
-
-    catch (error) {
-      console.error("Erro ao criar projeto", error);
-    }
   }
 
   return (
