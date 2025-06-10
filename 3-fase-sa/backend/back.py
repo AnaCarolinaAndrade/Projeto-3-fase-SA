@@ -124,7 +124,7 @@ def criar_usuario():
 @app.route('/api/projetos', methods=['POST'])
 def criar_projeto():
     data = request.get_json()
-    nome = data.get('nome')
+    nomeProjeto = data.get('nomeProjeto')
     descricao = data.get('descricao')
     imagem = data.get('imagem')
 
@@ -133,7 +133,7 @@ def criar_projeto():
 
     novo_projeto = {
         'id': proximo_id,
-        'nome': nome,
+        'nomeProjeto': nomeProjeto,
         'descricao': descricao,
         'imagem': imagem
     }
