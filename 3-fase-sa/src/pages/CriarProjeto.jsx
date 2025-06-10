@@ -52,9 +52,11 @@ export default function CriarProjeto() {
 
       if (data.success) {
         navigate('/projetos');
-      } else {
-        alert(data.error || "A criação do projeto falhou.");
       }
+    }
+
+    catch (error) {
+      console.error("Erro ao criar projeto", error);
     }
   }
 
