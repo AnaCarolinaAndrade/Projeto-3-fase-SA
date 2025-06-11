@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import Busca from '../components/Busca.jsx'
 import Filter from '../components/Filter.jsx'
 import Lista from '../components/Lista.jsx'
+import { jwtDecode } from 'jwt-decode';
 
 export default function Projetos() {
 
@@ -11,6 +12,27 @@ export default function Projetos() {
   const [buscar, setBuscar] = useState("");
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("Asc")
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken'); // Pega o token
+    if (token) {
+      setIsLoggedIn(true);
+      try {
+        const decodedToken = jwtDecode(token);
+        setCurrentUserId(decodedToken.sub);
+      } catch (error) {
+        console.error("Erro ao decodificar token:", error);
+        localStorage.removeItem('authToken');
+        setIsLoggedIn(false);
+        setCurrentUserId(null);
+      }
+    } else {
+      setIsLoggedIn(false);
+      // setCurrentUserId(null);
+    }
+  }, []);
 
   useEffect(() => {
     const carregarProjetos = async () => {
@@ -26,6 +48,7 @@ export default function Projetos() {
     carregarProjetos();
   }, []);
 
+
   return (
     <>
       <div className='container-projetos'>
@@ -37,26 +60,35 @@ export default function Projetos() {
           <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
           <div className='lista-tarefas'>
             {lista
+              .filter((item) => {
+                switch (filter) {
+                  case "All":
+                    return true; // Exibe todos
+                  case "Completed":
+                    return item.completo === true;
+                  case "Incompleted":
+                    return item.completo === false;
+                  case "api":
+                  case "sites":
+                  case "back":
+                    return (item.categoria || '').toLowerCase() === filter.toLowerCase();
+                  default:
+                    return true;
+                }
+              })
               .filter((item) =>
-                filter === "All"
-                  ? true
-                  : filter === "Completed"
-                    ? item.completo
-                    : !item.completo
-              )
-              .filter((item) =>
-                item.descricao.toLowerCase().includes(buscar.toLowerCase()) ||
-                item.nomeProjeto.toLowerCase().includes(buscar.toLowerCase())
-              )
+            item.descricao.toLowerCase().includes(buscar.toLowerCase()) ||
+            item.nomeProjeto.toLowerCase().includes(buscar.toLowerCase())
+            )
               .sort((a, b) =>
-                sort === "Asc"
-                  ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
-                  : (b.nomeProjeto || '').localeCompare((a.nomeProjeto || ''))
-              )
+            sort === "Asc"
+            ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
+            : (b.nomeProjeto || '').localeCompare((a.nomeProjeto || ''))
+            )
               .map((item) => (
-                <Lista key={item.id}
-                  lista={item}
-                />
+            <Lista key={item.id}
+              lista={item}
+            />
               ))}
           </div>
         </div>

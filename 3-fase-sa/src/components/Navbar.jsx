@@ -28,7 +28,7 @@ function Navbar() {
 
     window.addEventListener('storage', handleStorageChange);
 
-    return () => {
+    return () => {  
       window.removeEventListener('storage', handleStorageChange);
     };
 

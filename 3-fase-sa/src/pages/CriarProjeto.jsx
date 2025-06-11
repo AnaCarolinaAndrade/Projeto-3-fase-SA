@@ -102,6 +102,17 @@ export default function CriarProjeto() {
               </div>
             </fieldset>
 
+            <div className='form-group'>
+              <label htmlFor="image">Imagem de capa</label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                onChange={(e) => setImagem(e.target.files[0])}
+              />
+            </div>
+
             <div className="form-group">
               <label htmlFor="description">descrição</label>
               <input
