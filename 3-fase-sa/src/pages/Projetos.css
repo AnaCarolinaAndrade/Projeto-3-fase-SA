@@ -52,7 +52,6 @@ select {
   margin-bottom: 20px;
   border-radius: 5px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   color: rgb(0, 0, 0);
   padding: 15px;
