@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import './Navbar.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Importe useNavigate para redirecionar no logout
 
 
 function Navbar() {
-
-  // 1. Adicione o estado para controlar se o usuário está logado
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  // 2. Use useEffect para verificar o status de login quando o componente é montado
   useEffect(() => {
-    // Esta é a mesma lógica que usamos no Projetos.jsx
-    // Altere 'authToken' para o nome real do seu token no localStorage, se for diferente
     const token = localStorage.getItem('authToken');
     if (token) {
-      // Se um token existe, assumimos que o usuário está logado
-      // Em uma aplicação real, você faria uma validação no backend aqui
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
@@ -23,16 +17,22 @@ function Navbar() {
 
     const handleStorageChange = () => {
       const updatedToken = localStorage.getItem('authToken');
-      setIsLoggedIn(!!updatedToken); // Converte para booleano
+      setIsLoggedIn(!!updatedToken);
     };
 
     window.addEventListener('storage', handleStorageChange);
 
-    return () => {  
+    return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
 
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    setIsLoggedIn(false); 
+    navigate('/login');
+  };
 
   return (
     <>
@@ -46,22 +46,32 @@ function Navbar() {
                 height: '50px',
                 cursor: 'pointer',
               }}
+              alt="Logo" // Sempre bom adicionar alt text para imagens
             />
           </button>
 
-          <div class="search-container">
+          <div className="search-container">
             <input type="text" placeholder="Digite algo..." />
           </div>
 
-          <div class="buttons-container">
-            <div className="links-nav">
-              <Link to={'./login'} class="btn login">Login</Link>
-              <Link to={'./cadastro'} class="btn signup">Cadastro</Link>
-            </div>
+          <div className="buttons-container">
+         
+            {!isLoggedIn && (
+              <div className="links-nav">
+                <Link to={'./login'} className="btn login">Login</Link>
+                <Link to={'./cadastro'} className="btn signup">Cadastro</Link>
+              </div>
+            )}
 
-            <Link to={'/perfil'} className="link-perfil">
-              <img src="./img/perfil.png" className='foto-perfil-nav' />
-            </Link>
+            {isLoggedIn && (
+              <>
+                <Link to={'/perfil'} className="link-perfil">
+                  <img src="./img/perfil.png" className='foto-perfil-nav' alt="Foto de Perfil" />
+                </Link>
+                <button onClick={handleLogout} className="btn logout">Sair</button>
+              </>
+            )}
+
 
           </div>
         </nav>
@@ -70,4 +80,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+export default Navbar;

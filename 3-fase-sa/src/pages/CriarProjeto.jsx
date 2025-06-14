@@ -63,7 +63,7 @@ export default function CriarProjeto() {
   return (
     <div className="application-main">
       <main>
-        <div className="container">
+        <div className="container-criar-projeto ">
           <h1 className="title">Criar um novo projeto</h1>
           <hr className="divider" />
 
@@ -71,7 +71,7 @@ export default function CriarProjeto() {
             <fieldset>
               <legend className="sr-only">Informações do projeto</legend>
 
-              <div className="form-group">
+              <div className="formulario-projeto">
                 <label htmlFor="repo-name">Nome do projeto <span>(maximo de 20 caracteres)</span></label>
                 <input
                   type="text"
@@ -102,7 +102,7 @@ export default function CriarProjeto() {
               </div>
             </fieldset>
 
-            <div className='form-group'>
+            <div className='formulario-projeto'>
               <label htmlFor="image">Imagem de capa</label>
               <input
                 type="file"
@@ -113,7 +113,7 @@ export default function CriarProjeto() {
               />
             </div>
 
-            <div className="form-group">
+            <div className="formulario-projeto">
               <label htmlFor="description">descrição</label>
               <input
                 type="text"

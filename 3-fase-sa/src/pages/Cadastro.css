@@ -91,22 +91,3 @@
     height: 30px;
     width: 150px;
 }
-
-
-@keyframes anima {
-    0% {
-        background-position: 99% 0;
-    }
-
-    16.66% {
-        background-position: 99% 0;
-    }
-
-    83.34% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 0 0;
-    }
-}

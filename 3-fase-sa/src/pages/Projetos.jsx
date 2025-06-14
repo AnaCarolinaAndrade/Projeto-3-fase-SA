@@ -63,7 +63,7 @@ export default function Projetos() {
               .filter((item) => {
                 switch (filter) {
                   case "All":
-                    return true; // Exibe todos
+                    return true;
                   case "Completed":
                     return item.completo === true;
                   case "Incompleted":
