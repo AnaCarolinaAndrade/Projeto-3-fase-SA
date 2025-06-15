@@ -48,7 +48,7 @@
 }
 
 /* Formulário */
-form {
+.form-criar-projeto {
   display: flex;
   flex-direction: column;
   gap: 24px;

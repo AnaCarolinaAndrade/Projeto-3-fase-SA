@@ -16,12 +16,12 @@ export default function CriarProjeto() {
     "byte-verse", "neural-forge", "cloud-spark",
     "pixel-core", "data-pulse", "code-lattice",
     "quantum-frame", "task-ship", "api-matrix",
-    "stack-glow", "Dexes", "fly-circular", "CodeSync",
-    "DataForge", "APIverse", "StackBoard", "BitFlow", "SecureNest",
+    "stack-glow", "CodeSync", "SecureNest","ToastyStack",
+    "DataForge", "APIverse", "StackBoard", "BitFlow", 
     "DevOpsy", "AuthPilot", "PixelAdmin", "NetScope",
     "ZenBlocks", "NeuroCanvas", "EchoForm", "QuantumQuery",
     "OrbitPlay", "CodeDrip", "SynthByte", "NanoDash",
-    "Refactron", "LogiCrate", "BugHunter3000", "SnackBarJS", "ToastyStack",
+    "Refactron", "LogiCrate", "BugHunter3000", "SnackBarJS", 
     "MonkeyPatchers", "DuckDeploy", "LazyLoader", "Hacktrix",
     "404Land", "ChocoByte", "NullPointer Café",
     "CodeTrackr", "BugSquash", "DevSync", "ByteVault",
@@ -67,7 +67,7 @@ export default function CriarProjeto() {
           <h1 className="title">Criar um novo projeto</h1>
           <hr className="divider" />
 
-          <form noValidate onSubmit={criarProjeto}>
+          <form noValidate onSubmit={criarProjeto} className='form-criar-projeto'>
             <fieldset>
               <legend className="sr-only">Informações do projeto</legend>
 
