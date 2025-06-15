@@ -137,13 +137,12 @@ function Login() {
               onSuccess={onSuccess}
               onError={onFailure}
             />
-            <button type="button" className="social-login-btn">
-              <img src="./img/github.png" alt="GitHub" className="social-icon" />
-              <GitHubLogin
-                onSuccess={onSuccess}
-                onError={onFailure}
-              />
-            </button>
+
+            <img src="./img/github.png" alt="GitHub" className="social-icon" />
+            <GitHubLogin
+              onSuccess={onSuccess}
+              onError={onFailure}
+            />
           </div>
         </form>
       </div>

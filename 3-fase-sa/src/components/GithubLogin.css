@@ -1,0 +1,8 @@
+.github-button {
+    background-color: rgb(255, 145, 0);
+}
+
+.github-login {
+    display: flex;
+    justify-content: center;
+}
