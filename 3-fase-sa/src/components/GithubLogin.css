@@ -9,6 +9,7 @@
     padding: 8.5px 15px;
     transition: background 0.2s ease;
     outline: none;
+    width: 100%;
 }
 
 .git-btn-content {
