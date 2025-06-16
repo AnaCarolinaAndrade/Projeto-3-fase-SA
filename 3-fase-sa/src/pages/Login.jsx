@@ -138,7 +138,6 @@ function Login() {
               onError={onFailure}
             />
 
-            <img src="./img/github.png" alt="GitHub" className="social-icon" />
             <GitHubLogin
               onSuccess={onSuccess}
               onError={onFailure}

@@ -1,8 +1,58 @@
-.github-button {
-    background-color: rgb(255, 145, 0);
+.git-login-btn {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 8.5px 15px;
+    transition: background 0.2s ease;
+    outline: none;
 }
 
-.github-login {
+.git-btn-content {
+    display: -webkit-box;
+    display: -webkit-flex;
     display: flex;
-    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    justify-content: space-between;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.git-icon-wrapper {
+    width: 24px;
+    height: 24px;
+}
+
+.git-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.git-text {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    font-family: "Google Sans", arial, sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    color: #fff;
+    font-size: 14.5px;
+}
+
+.sr-only {
+    position: absolute;
+    left: -9999px;
+}
+
+.git-icon path {
+    fill: #ffffff;
 }
