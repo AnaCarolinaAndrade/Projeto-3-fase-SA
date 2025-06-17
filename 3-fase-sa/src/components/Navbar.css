@@ -1,6 +1,6 @@
 .navbar {
     width: 100%;
-    height: 60px;
+    height: 50px;
     background-color: #0F0F0F;
     display: flex;
     align-items: center;
@@ -21,7 +21,6 @@
     margin: 0 30px;
     display: flex;
     justify-content: center;
-
 }
 
 .search-container input {
