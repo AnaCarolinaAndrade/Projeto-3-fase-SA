@@ -17,6 +17,19 @@
   height: 100vh;
 }
 
+.card-projetos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid red;
+  border-radius: 10px;
+  width: 850px;
+  padding: 15px;
+  background-color: #f3f3f3;
+
+}
+
 h2 {
   margin-bottom: 10px;
   color: #000000;
@@ -25,10 +38,6 @@ h2 {
 p {
   margin: 10px 0;
   color: #000;
-}
-
-input {
-  box-sizing: border-box;
 }
 
 .lista-tarefas {

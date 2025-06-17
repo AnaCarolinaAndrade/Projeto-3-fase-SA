@@ -16,7 +16,7 @@ export default function Projetos() {
 
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken'); // Pega o token
+    const token = localStorage.getItem('authToken');
     if (token) {
       setIsLoggedIn(true);
       try {
@@ -30,7 +30,6 @@ export default function Projetos() {
       }
     } else {
       setIsLoggedIn(false);
-      // setCurrentUserId(null);
     }
   }, []);
 
@@ -56,40 +55,43 @@ export default function Projetos() {
           <Sidebar />
         </div>
         <div className='projetos'>
-          <Busca buscar={buscar} setBuscar={setBuscar} />
-          <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
-          <div className='lista-tarefas'>
-            {lista
-              .filter((item) => {
-                switch (filter) {
-                  case "All":
-                    return true;
-                  case "Completed":
-                    return item.completo === true;
-                  case "Incompleted":
-                    return item.completo === false;
-                  case "api":
-                  case "sites":
-                  case "back":
-                    return (item.categoria || '').toLowerCase() === filter.toLowerCase();
-                  default:
-                    return true;
-                }
-              })
-              .filter((item) =>
-            item.descricao.toLowerCase().includes(buscar.toLowerCase()) ||
-            item.nomeProjeto.toLowerCase().includes(buscar.toLowerCase())
-            )
-              .sort((a, b) =>
-            sort === "Asc"
-            ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
-            : (b.nomeProjeto || '').localeCompare((a.nomeProjeto || ''))
-            )
-              .map((item) => (
-            <Lista key={item.id}
-              lista={item}
-            />
-              ))}
+          <div className='card-projetos'>
+            <Busca buscar={buscar} setBuscar={setBuscar} />
+            <Filter filter={filter} setFilter={setFilter} setSort={setSort} />
+            <div className='lista-tarefas'>
+              {lista
+                .filter((item) => {
+                  switch (filter) {
+                    case "All":
+                      return true;
+                    case "Completed":
+                      return item.completo === true;
+                    case "Incompleted":
+                      return item.completo === false;
+                    case "api":
+                    case "sites":
+                    case "back":
+                      return (item.categoria || '').toLowerCase() === filter.toLowerCase();
+                    default:
+                      return true;
+                  }
+                })
+                .filter((item) =>
+                  item.descricao.toLowerCase().includes(buscar.toLowerCase()) ||
+                  item.nomeProjeto.toLowerCase().includes(buscar.toLowerCase())
+                )
+                .sort((a, b) =>
+                  sort === "Asc"
+                    ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
+                    : (b.nomeProjeto || '').localeCompare((a.nomeProjeto || ''))
+                )
+                .map((item) => (
+                  <Lista key={item.id}
+                    lista={item}
+                  />
+                ))}
+            </div>
+
           </div>
         </div>
       </div>
