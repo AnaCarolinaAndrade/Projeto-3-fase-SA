@@ -25,7 +25,7 @@
 
 .search-container input {
     width: 50%;
-    padding: 8px 15px;
+    padding: 5px 15px;
     border: 1px solid #ccc;
     border-radius: 25px;
     outline: none;
@@ -53,6 +53,7 @@
     background-color: transparent;
     border: 2px solid #ffffff;
     color: #ffffff;
+    font-size: 15px;
 }
 
 .login:hover {
@@ -64,6 +65,7 @@
     background-color: transparent;
     border: 2px solid #fff;
     color: white;
+    font-size: 15px;
 }
 
 .signup:hover {

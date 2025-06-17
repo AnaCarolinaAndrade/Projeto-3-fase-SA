@@ -136,6 +136,7 @@ button {
     overflow: hidden;
     white-space: nowrap;
     transition: opacity 0.4s ease, max-width 0.4s ease;
+    font-size: 15px
 }
 
 .container-sidebar:not(.show) .link-text {
