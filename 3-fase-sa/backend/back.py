@@ -11,7 +11,7 @@ from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from werkzeug.utils import secure_filename
-from flask import Flask, request, jsonify, redirect, url_for, send_from_directory
+from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity, decode_token
 
 # === CONFIGURAÇÃO INICIAL ===
@@ -27,13 +27,21 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 # --- Configuração do JWT ---
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY", "sua_chave_secreta_padrao_muito_longa_e_segura")
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
+app.secret_key = os.urandom(24) 
 jwt = JWTManager(app)
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
 GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
-GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET") # Ainda necessário se você usar o fluxo de callback no backend
+GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
+
+#URLs do GitHub para OAuth
+GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
+GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token"
+GITHUB_USER_API = "https://api.github.com/user"
+YOUR_FRONTEND_URL= "http://localhost:5000"
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -223,10 +231,64 @@ def github_login():
         print(f"Erro no login com GitHub: {e}")
         return jsonify({'error': f'Erro ao processar login com GitHub: {e}'}), 500
 
-# Removido o fluxo de callback do GitHub baseado em redirecionamento, use o fluxo API-based acima
-# @app.route("/auth/github/callback")
-# def github_callback():
-#    ... (código removido) ...
+@app.route("/github/callback")
+def github_callback():
+    code = request.args.get('code') # Pega o código de autorização da URL
+
+    if not code:
+        return "Erro: Código de autorização não recebido.", 400
+
+    # 1. Trocar o código de autorização por um access_token
+    token_params = {
+        'client_id': GITHUB_CLIENT_ID,
+        'client_secret': GITHUB_CLIENT_SECRET,
+        'code': code,
+        'redirect_uri': url_for('github_callback', _external=True), # Deve ser o mesmo URI usado na requisição inicial
+    }
+    headers = {'Accept': 'application/json'} # Pedir resposta JSON
+
+    try:
+        response = requests.post(GITHUB_TOKEN_URL, params=token_params, headers=headers)
+        response.raise_for_status() # Levanta exceção para erros HTTP
+        token_data = response.json()
+        access_token = token_data.get('access_token')
+
+        if not access_token:
+            return jsonify({"error": "Falha ao obter access token", "details": token_data}), 400
+
+        # 2. Usar o access_token para obter informações do usuário
+        user_headers = {
+            'Authorization': f'Bearer {access_token}',
+            'Accept': 'application/json',
+        }
+        user_response = requests.get(GITHUB_USER_API, headers=user_headers)
+        user_response.raise_for_status()
+        user_info = user_response.json()
+
+        # --- AQUI COMEÇA A LÓGICA DE AUTENTICAÇÃO DA SUA APLICAÇÃO ---
+        # Por exemplo:
+        # - Verificar se o usuário já existe no seu banco de dados
+        # - Se não existir, criar um novo registro para ele
+        # - Criar uma sessão para o usuário ou gerar um JWT
+        
+        # Exemplo simples de armazenamento na sessão do Flask
+        session['github_access_token'] = access_token
+        session['user_id'] = user_info.get('id')
+        session['username'] = user_info.get('login')
+        session['avatar_url'] = user_info.get('avatar_url')
+
+        print(f"Usuário autenticado: {user_info.get('login')} (ID: {user_info.get('id')})")
+        
+        # Redirecionar para o frontend, passando informações ou um token
+        # Você pode passar um token JWT na URL ou apenas redirecionar e deixar o frontend verificar a sessão/cookie
+        return redirect(f"{YOUR_FRONTEND_URL}/dashboard?status=success&username={user_info.get('login')}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Erro na requisição HTTP: {e}")
+        return jsonify({"error": "Erro na comunicação com o GitHub", "details": str(e)}), 500
+    except Exception as e:
+        print(f"Erro inesperado: {e}")
+        return jsonify({"error": "Ocorreu um erro interno", "details": str(e)}), 500
 
 
 # Rota de Criação de Usuário (agora com hashing de senha)

@@ -5,7 +5,7 @@ import "./GithubLogin.css";
 export default function GitHubLogin() {
 
   const GITHUB_CLIENT_ID = 'Ov23li6xDVAOYbQH7Qd5';
-  const REDIRECT_URI = 'http://localhost:5000/api/usuarios/';
+  const REDIRECT_URI = 'http://localhost:5000/github/callback'; // Esta é a URL do seu backend
   const loginWithGitHub = () => {
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=user`;
     window.location.href = githubAuthUrl;
