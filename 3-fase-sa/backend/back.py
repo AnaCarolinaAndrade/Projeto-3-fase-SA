@@ -27,7 +27,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 # --- Configuração do JWT ---
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY", "sua_chave_secreta_padrao_muito_longa_e_segura")
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
-app.secret_key = os.urandom(24) 
 jwt = JWTManager(app)
 
 MONGO_URI = os.getenv("MONGO_URI")
@@ -54,8 +53,7 @@ try:
     db = client[DATABASE_NAME]
     usuarios_collection = db["usuarios"]
     projetos_collection = db['projetos']
-    # Removido sessions_collection pois JWT será usado exclusivamente
-    print("Conexão com MongoDB estabelecida com sucesso!")
+    usuarios_google_collection = db['usuarios_google']
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
     exit()
@@ -111,10 +109,10 @@ def google_login():
         profile_pic = idinfo.get('picture')
         given_name = idinfo.get('given_name')
 
-        usuario_existente = usuarios_collection.find_one({'google_id': google_user_id})
+        usuario_existente = usuarios_google_collection.find_one({'google_id': google_user_id})
 
         if usuario_existente:
-            usuarios_collection.update_one(
+            usuarios_google_collection.update_one(
                 {'google_id': google_user_id},
                 {'$set': {'email': email, 'nome': name, 'profile_pic': profile_pic}}
             )
@@ -128,7 +126,7 @@ def google_login():
                 'given_name': given_name,
                 'created_at': datetime.datetime.now()
             }
-            result = usuarios_collection.insert_one(novo_usuario)
+            result = usuarios_google_collection.insert_one(novo_usuario)
             user_id = result.inserted_id
 
         access_token = create_access_token(identity=str(user_id))
@@ -596,4 +594,4 @@ def upload_profile_picture():
 
 # === EXECUTAR APLICAÇÃO ===
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', port=5000, allow_unsafe_werkzeug=True)
+    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
