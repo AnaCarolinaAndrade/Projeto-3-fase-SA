@@ -147,6 +147,7 @@ input {
 .container-smartPredict h4,
 .container-codeForge h4{
  color: #F6F6F6;
+ text-align: center;
 }
 
 .container-neuralMid h2, 
@@ -154,6 +155,7 @@ input {
 .container-smartPredict h2,
 .container-codeForge h2{
  color: #F6F6F6;
+ text-align: center;
 }
 
 .container-neuralMid p, 
@@ -162,14 +164,30 @@ input {
 .container-codeForge p{
  color: #F6F6F6;
  background-color: transparent;
+text-align: center;
 }
 
 .container-neuralMid button, 
 .container-deepVision button,
 .container-smartPredict button,
 .container-codeForge button{
- color: #0F0F0F;
+ color: #F6F6F6;
  background-color: #13B6F6 ;
+ font-weight: bold;
+ border-radius: 8px;
+ height: 30px;
+ width: 110px;
+ justify-content: center;
+ align-items: center;
+}
+
+.container-neuralMid button:hover, 
+.container-deepVision button:hover,
+.container-smartPredict button:hover,
+.container-codeForge button:hover{
+ color: #F6F6F6;
+ background-color: #0777a3 ;
+ transition: 5ms;
 }
 
 .container-neuralMid, 
@@ -177,6 +195,20 @@ input {
 .container-smartPredict,
 .container-codeForge{
  background-color: #202020;
+ justify-content: center;
+ align-items: center;
+ height: 270px;
+ width: 550px;
+ border-radius: 10px;
+}
+
+.container-neuralMid:hover, 
+.container-deepVision:hover,
+.container-smartPredict:hover,
+.container-codeForge:hover{
+ background-color: #161616;
+ transition: 0.4;
+
 }
 
 

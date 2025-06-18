@@ -39,8 +39,8 @@ function Home() {
               <div className='container-neuralMid'>
                <h2>NeuralMind</h2>
                <h4>"IA com intuição humana"</h4>
-               <p>Um sistema de inteligência artificial que simula intuições humanas com base em memória contextual e emocional.
-               Ideal para líderes tomarem decisões ambíguas em momentos críticos — como se tivessem um conselheiro hiperinteligente, mas empático.</p>
+               <p>Um sistema de inteligência artificial que simula intuições humanas com base em memória contextual e emocional. <br/>
+               Ideal para líderes tomarem decisões ambíguas em momentos críticos <br/> — como se tivessem um conselheiro hiperinteligente, mas empático.</p>
                <p>Caso de uso: CEOs, médicos, diplomatas</p>
                <button>Acessar</button>
               </div>
