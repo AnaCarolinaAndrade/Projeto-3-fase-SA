@@ -1,6 +1,5 @@
 import React, { useState, useEffect, } from 'react';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import axios from 'axios';
 import "./Cadastro.css";
 
 export default function Cadastro() {
