@@ -1,4 +1,5 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Certo
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import "./Cadastro.css";
 
@@ -8,6 +9,7 @@ export default function Cadastro() {
   const [senha, setSenha] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);

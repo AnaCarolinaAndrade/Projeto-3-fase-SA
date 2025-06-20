@@ -21,7 +21,7 @@ function Configs() {
           },
         });
         const data = await response.json();
-        setUsuario(data);
+        setUsuario(data.usuario);
       } catch (error) {
         console.error('Erro ao buscar usuário:', error);
       }
@@ -53,7 +53,6 @@ function Configs() {
   });
 };
 
-
   const handleClickProfileImage = () => {
     fileInputRef.current.click();
   };
@@ -61,7 +60,7 @@ function Configs() {
   const deletarUsuario = async () => {
     try {
       await axios.delete(`http://localhost:5000/api/usuarios/${usuario.id}`);
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('Erro ao deletar conta:', error);
     }
