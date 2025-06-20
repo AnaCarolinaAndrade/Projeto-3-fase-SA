@@ -296,6 +296,7 @@ def criar_usuario():
     nome = data.get('nome')
     email = data.get('email')
     senha = data.get('senha')
+    dataNascimento = data.get('dataNascimento')
 
     if not nome or not email or not senha:
         return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
@@ -309,6 +310,7 @@ def criar_usuario():
         'nome': nome,
         'email': email,
         'senha': hashed_password.decode('utf-8'),
+        'dataNascimento': dataNascimento,
         'created_at': datetime.datetime.now(),
         'profile_pic': None
     }

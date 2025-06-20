@@ -33,10 +33,10 @@ export default function Cadastro() {
       if (data.success) {
         navigate('/');
       } else {
-        alert(data.error || "Login falhou.");
+        alert(data.error || "O cadaastro falhou.");
       }
     } catch (error) {
-      console.error("Erro no login tradicional:", error);
+      console.error("Erro no cadastro:", error);
     }
   };
 
@@ -108,11 +108,6 @@ export default function Cadastro() {
                   onChange={e => setNome(e.target.value)}
                   required
                 />
-              </div>
-
-              <div className="form-group">
-                <label>Gênero</label>
-                <input placeholder="Digite seu gênero" />
               </div>
 
               <div className="form-group">
