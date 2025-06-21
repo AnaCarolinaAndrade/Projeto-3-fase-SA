@@ -142,26 +142,35 @@ export default function CriarProjeto() {
 
             <div className='formulario-projeto'>
               <div>
-                <label htmlFor="image">Imagem de capa</label>
+                <label htmlFor="ipt-image" className="upload-label">
+                  Imagem de capa
+                </label>
               </div>
+              <div className='container-image'>
+                <input
+                  type="file"
+                  id="ipt-image"
+                  name="image"
+                  onChange={handleImageChange}
+                  className="hidden-input"
+                  accept="image/*"
+                />
 
-              <input
-                type="file"
-                id="image"
-                name="image"
-                onChange={handleImageChange}
-              />
-
-              {imagemPreviewUrl && (
-                <div>
-                  <h3>Pré-visualização da Imagem:</h3>
-                  <img
-                    src={imagemPreviewUrl}
-                    alt="Pré-visualização da Imagem"
-                    style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }} // Estilo básico para o preview
-                  />
-                </div>
-              )}
+                {imagemPreviewUrl ? (
+                  <div className="image-preview-wrapper">
+                    <img
+                      src={imagemPreviewUrl}
+                      alt="Pré-visualização da Imagem"
+                      className='image-preview-full'
+                    />
+                  </div>
+                ) 
+                : (
+                  <div className="image-preview-wrapper">
+                    Coloque uma imagem
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="formulario-projeto">
