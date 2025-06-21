@@ -91,8 +91,8 @@ function Navbar() {
         <div className='container-popUp'onClick={() => setModalOpen(false)}>
           <div className='container-popUp-alinhamento'onClick={e => e.stopPropagation()}>
             <h2>Qual área você deseja cadastrar?</h2>
-            <button onClick={goToInvestidor}>Cadastro Investidor</button>
-            <button onClick={goToProfissional}>Cadastro Profissional</button>
+            <button className='button-investidor' onClick={goToInvestidor}>Cadastro Investidor</button>
+            <button className='button-profissional' onClick={goToProfissional}>Cadastro Profissional</button>
             <button className="button-x" onClick={() => setModalOpen(false)}>x</button>
           </div>
       </div>
