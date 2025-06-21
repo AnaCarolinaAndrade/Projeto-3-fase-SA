@@ -152,7 +152,7 @@ def google_login():
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
 
 
-# === LOGIN COM O GITHUB (API-BASED) ===
+# === LOGIN COM O GITHUB ===
 @app.route("/api/github-login", methods=['POST'])
 def github_login():
     data = request.get_json()
@@ -236,7 +236,7 @@ def github_callback():
     if not code:
         return "Erro: Código de autorização não recebido.", 400
 
-    # 1. Trocar o código de autorização por um access_token
+    # 1. Usar o código de autorização para obter o access_token
     token_params = {
         'client_id': GITHUB_CLIENT_ID,
         'client_secret': GITHUB_CLIENT_SECRET,
@@ -263,13 +263,9 @@ def github_callback():
         user_response.raise_for_status()
         user_info = user_response.json()
 
-        # --- AQUI COMEÇA A LÓGICA DE AUTENTICAÇÃO DA SUA APLICAÇÃO ---
-        # Por exemplo:
-        # - Verificar se o usuário já existe no seu banco de dados
-        # - Se não existir, criar um novo registro para ele
-        # - Criar uma sessão para o usuário ou gerar um JWT
+        if not user_info:
+            return jsonify({"error": "Falha ao obter informações do usuário", "details": user_response.text}), 400
         
-        # Exemplo simples de armazenamento na sessão do Flask
         session['github_access_token'] = access_token
         session['user_id'] = user_info.get('id')
         session['username'] = user_info.get('login')

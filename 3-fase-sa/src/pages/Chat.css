@@ -208,8 +208,12 @@
     display: flex;
     justify-content: space-between;
     width: 190px;
-    border: 1px solid red;
     height: 50px;
+}
+
+.foto-user-chat span {
+    display: flex;
+    align-items: center;
 }
 
 

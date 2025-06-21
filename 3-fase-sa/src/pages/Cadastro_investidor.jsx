@@ -11,7 +11,6 @@ function Cadastro_investidor() {
       <label>Confirmar Senha</label><input></input>
       <label>Genero (opcional)</label><input></input>
       <button>Confirmar Cadastro</button>
-
     </div>
   )
 }
