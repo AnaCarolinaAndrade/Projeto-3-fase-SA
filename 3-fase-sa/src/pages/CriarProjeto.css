@@ -163,3 +163,12 @@ fieldset {
   white-space: nowrap;
   border: 0;
 }
+
+#image {
+
+
+  width: 500px;
+  height: 200px;
+  object-fit: cover;
+
+}

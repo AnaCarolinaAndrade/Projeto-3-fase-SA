@@ -10,7 +10,10 @@ export default function CriarProjeto() {
   const [nomeProjeto, setNomeProjeto] = useState('');
   const [descricao, setDescricao] = useState('');
   const [imagem, setImagem] = useState('');
+  const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
+
+
 
   const [nomeAleatorio] = useState([
     "byte-verse", "neural-forge", "cloud-spark",
@@ -39,11 +42,21 @@ export default function CriarProjeto() {
   const criarProjeto = async (e) => {
     e.preventDefault();
 
+    if (!token) {
+      console.error("Token não encontrado. Faça login.");
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("nomeProjeto", nomeProjeto);
+    formData.append("descricao", descricao);
+    formData.append("imagem", imagem);
+
     try {
       const response = await fetch('http://localhost:5000/api/projetos', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
@@ -68,6 +81,22 @@ export default function CriarProjeto() {
       console.error("Erro ao criar projeto", error);
     }
   }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagem(file); // Salva o objeto File original
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagemPreviewUrl(reader.result); // Define a URL para o preview
+      };
+      reader.readAsDataURL(file); // Lê o arquivo como uma URL de dados
+    } else {
+      setImagem(null);
+      setImagemPreviewUrl(null);
+    }
+  };
 
   return (
     <div className="application-main">
@@ -112,14 +141,27 @@ export default function CriarProjeto() {
             </fieldset>
 
             <div className='formulario-projeto'>
-              <label htmlFor="image">Imagem de capa</label>
+              <div>
+                <label htmlFor="image">Imagem de capa</label>
+              </div>
+
               <input
                 type="file"
                 id="image"
                 name="image"
-                accept="image/*"
-                onChange={(e) => setImagem(e.target.files[0])}
+                onChange={handleImageChange}
               />
+
+              {imagemPreviewUrl && (
+                <div>
+                  <h3>Pré-visualização da Imagem:</h3>
+                  <img
+                    src={imagemPreviewUrl}
+                    alt="Pré-visualização da Imagem"
+                    style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }} // Estilo básico para o preview
+                  />
+                </div>
+              )}
             </div>
 
             <div className="formulario-projeto">
