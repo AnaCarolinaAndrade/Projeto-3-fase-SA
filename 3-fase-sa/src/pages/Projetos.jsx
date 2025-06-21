@@ -45,7 +45,7 @@ useEffect(() => {
 
       if (response.status === 401) {
         console.error("Usuário não autorizado. Token inválido ou ausente.");
-        return;
+        return; 
       }
 
       const data = await response.json();

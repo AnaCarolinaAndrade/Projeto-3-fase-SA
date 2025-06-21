@@ -22,7 +22,12 @@ export default function Cadastro() {
       const response = await fetch('http://localhost:5000/api/usuarios', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, senha, nome, dataNascimento }),
+        body: JSON.stringify({
+          email,
+          senha,
+          nome,
+          dataNascimento
+        }),
       });
 
       const data = await response.json();
@@ -34,8 +39,6 @@ export default function Cadastro() {
 
       if (data.success) {
         navigate('/');
-      } else {
-        alert(data.error || "O cadaastro falhou.");
       }
     } catch (error) {
       console.error("Erro no cadastro:", error);

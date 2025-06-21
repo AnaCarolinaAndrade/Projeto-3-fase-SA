@@ -16,12 +16,12 @@ export default function CriarProjeto() {
     "byte-verse", "neural-forge", "cloud-spark",
     "pixel-core", "data-pulse", "code-lattice",
     "quantum-frame", "task-ship", "api-matrix",
-    "stack-glow", "CodeSync", "SecureNest","ToastyStack",
-    "DataForge", "APIverse", "StackBoard", "BitFlow", 
+    "stack-glow", "CodeSync", "SecureNest", "ToastyStack",
+    "DataForge", "APIverse", "StackBoard", "BitFlow",
     "DevOpsy", "AuthPilot", "PixelAdmin", "NetScope",
     "ZenBlocks", "NeuroCanvas", "EchoForm", "QuantumQuery",
     "OrbitPlay", "CodeDrip", "SynthByte", "NanoDash",
-    "Refactron", "LogiCrate", "BugHunter3000", "SnackBarJS", 
+    "Refactron", "LogiCrate", "BugHunter3000", "SnackBarJS",
     "MonkeyPatchers", "DuckDeploy", "LazyLoader", "Hacktrix",
     "404Land", "ChocoByte", "NullPointer Café",
     "CodeTrackr", "BugSquash", "DevSync", "ByteVault",
@@ -34,14 +34,23 @@ export default function CriarProjeto() {
     "BranchBoost", "RefactorX"
   ])
 
+  const token = localStorage.getItem('token');
+
   const criarProjeto = async (e) => {
     e.preventDefault();
 
     try {
       const response = await fetch('http://localhost:5000/api/projetos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nomeProjeto, descricao, imagem }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          nomeProjeto,
+          descricao,
+          imagem
+        }),
       });
 
       const data = await response.json();
@@ -83,7 +92,7 @@ export default function CriarProjeto() {
                   maxLength={25}
                   required
                 />
-              </div> 
+              </div>
 
               <div className="form-suggestion">
                 <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração?</p>
