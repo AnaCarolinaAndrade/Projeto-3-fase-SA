@@ -16,7 +16,7 @@ export default function Projetos() {
 
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
       try {
@@ -33,19 +33,31 @@ export default function Projetos() {
     }
   }, []);
 
-  useEffect(() => {
-    const carregarProjetos = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/projetos');
-        const data = await response.json();
-        setLista(data.projetos || []);
-      } catch (error) {
-        console.error("Erro ao buscar projetos:", error);
-      }
-    };
+useEffect(() => {
+  const carregarProjetos = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:5000/api/projetos', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-    carregarProjetos();
-  }, []);
+      if (response.status === 401) {
+        console.error("Usuário não autorizado. Token inválido ou ausente.");
+        return;
+      }
+
+      const data = await response.json();
+      setLista(data.projetos || []);
+    } catch (error) {
+      console.error("Erro ao buscar projetos:", error);
+    }
+  };
+
+  carregarProjetos();
+}, []);
+
 
 
   return (
@@ -85,7 +97,7 @@ export default function Projetos() {
                     ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
                     : (b.nomeProjeto || '').localeCompare((a.nomeProjeto || ''))
                 )
-                .map((item) => (
+                .map((item) => ( 
                   <Lista key={item.id}
                     lista={item}
                   />

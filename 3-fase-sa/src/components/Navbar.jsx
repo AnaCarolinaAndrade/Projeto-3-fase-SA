@@ -93,7 +93,7 @@ function Navbar() {
             <h2>Qual área você deseja cadastrar?</h2>
             <button onClick={goToInvestidor}>Cadastro Investidor</button>
             <button onClick={goToProfissional}>Cadastro Profissional</button>
-            <button className="button-x" onClick={() => setModalOpen(false)}>×</button>
+            <button className="button-x" onClick={() => setModalOpen(false)}>x</button>
           </div>
       </div>
       )}
