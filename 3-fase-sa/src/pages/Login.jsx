@@ -43,7 +43,7 @@ function Login() {
 
     if (token) {
       localStorage.setItem('session_token', token);
-      navigate('/home'); // ou onde quiser redirecionar após login
+      navigate('/');
     } else {
       navigate('/login');
     }

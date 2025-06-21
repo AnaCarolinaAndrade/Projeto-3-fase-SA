@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ Certo
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { IoIosArrowRoundBack } from "react-icons/io";
 import "./Cadastro.css";
+import Voltar from '../components/Voltar';
 
 export default function Cadastro() {
   const [nome, setNome] = useState('');
@@ -87,6 +89,11 @@ export default function Cadastro() {
 
   return (
     <div className="container-form-cadastro">
+      <div className='voltar-container'>
+        <Link to={"/"}> <Voltar color="white" /></Link>
+      </div>
+
+
       <div className='container-cadastro'>
         <div className="form-wrapper">
           <div className="form-container">
@@ -155,6 +162,7 @@ export default function Cadastro() {
                     type={mostrarSenha ? 'text' : 'password'}
                   />
                 </div>
+
               </div>
 
               <button type="submit" className='enviar-formulario'>Enviar Formulário</button>
