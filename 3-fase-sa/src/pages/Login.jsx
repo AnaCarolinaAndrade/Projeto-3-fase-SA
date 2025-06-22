@@ -4,6 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 import GitHubLogin from "../components/GithubLogin";
+import Voltar from "../components/Voltar";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -86,6 +87,7 @@ function Login() {
 
   return (
     <div className="login-container">
+    <Voltar />
       <div className="login-right">
         <form className="login-box">
           <div className="container-input">
