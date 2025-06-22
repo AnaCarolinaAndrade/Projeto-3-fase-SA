@@ -1,0 +1,26 @@
+.container-pessoas-chat {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: #ffffff;
+}
+
+.container-pessoas {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+.alinhamento-pessoas {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid #000000;
+    background-color: #f3f4f6;
+    border-radius: 10px;
+    width: 850px;
+    padding: 15px;
+}
