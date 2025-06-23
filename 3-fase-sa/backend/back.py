@@ -318,8 +318,8 @@ def criar_usuario():
 @jwt_required()
 def get_usuarios():
     usuarios_data = []
-    for usuario in usuarios_collection.find({}, {'senha': 0}): # Exclui senha
-        usuario['_id'] = str(usuario['_id']) # Converte ObjectId para string
+    for usuario in usuarios_collection.find({}, {'senha': 0}):
+        usuario['_id'] = str(usuario['_id']) 
         usuarios_data.append(usuario)
     return jsonify(usuarios_data)
 
@@ -328,7 +328,7 @@ def get_usuarios():
 @jwt_required()
 def get_current_user():
     user_id = get_jwt_identity()
-    user = usuarios_collection.find_one({'_id': ObjectId(user_id)}, {'senha': 0}) # Exclui senha
+    user = usuarios_collection.find_one({'_id': ObjectId(user_id)}, {'senha': 0})
     if user:
         user['_id'] = str(user['_id'])
         return jsonify(user), 200
