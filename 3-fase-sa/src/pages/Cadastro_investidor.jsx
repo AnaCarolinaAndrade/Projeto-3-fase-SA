@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 import './Cadastro_investidor.css'
 import { info } from 'autoprefixer';
-import { response } from 'express';
 
 function Cadastro_investidor() {
   const [cadastro, setCadastro] = useState({
