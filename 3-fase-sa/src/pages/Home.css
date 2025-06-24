@@ -11,8 +11,8 @@ body {
   overflow-x: hidden;
 }
 
-.container-home-home{
-  background-color:   #0F0F0F;
+.container-home-home {
+  background-color: #0F0F0F;
 }
 
 .Home-container {
@@ -126,89 +126,87 @@ input {
 
 
 
-.container-neuralMid{
+.container-neuralMid {
   margin-top: 28%;
 }
 
-.container-deepVision{
+.container-deepVision {
   margin-top: 6%;
 }
 
-.container-smartPredict{
+.container-smartPredict {
   margin-top: 6%;
 }
 
-.container-codeForge{
+.container-codeForge {
   margin-top: 6%;
 }
 
-.container-neuralMid h4, 
+.container-neuralMid h4,
 .container-deepVision h4,
 .container-smartPredict h4,
-.container-codeForge h4{
- color: #F6F6F6;
- text-align: center;
+.container-codeForge h4 {
+  color: #F6F6F6;
+  text-align: center;
 }
 
-.container-neuralMid h2, 
+.container-neuralMid h2,
 .container-deepVision h2,
 .container-smartPredict h2,
-.container-codeForge h2{
- color: #F6F6F6;
- text-align: center;
+.container-codeForge h2 {
+  color: #F6F6F6;
+  text-align: center;
 }
 
-.container-neuralMid p, 
+.container-neuralMid p,
 .container-deepVision p,
 .container-smartPredict p,
-.container-codeForge p{
- color: #F6F6F6;
- background-color: transparent;
-text-align: center;
+.container-codeForge p {
+  color: #F6F6F6;
+  background-color: transparent;
+  text-align: center;
 }
 
-.container-neuralMid button, 
+.container-neuralMid button,
 .container-deepVision button,
 .container-smartPredict button,
-.container-codeForge button{
- color: #F6F6F6;
- background-color: #13B6F6 ;
- font-weight: bold;
- border-radius: 8px;
- height: 30px;
- width: 110px;
- justify-content: center;
- align-items: center;
+.container-codeForge button {
+  color: #F6F6F6;
+  background-color: #13B6F6;
+  font-weight: bold;
+  border-radius: 8px;
+  height: 30px;
+  width: 110px;
+  justify-content: center;
+  align-items: center;
 }
 
-.container-neuralMid button:hover, 
+.container-neuralMid button:hover,
 .container-deepVision button:hover,
 .container-smartPredict button:hover,
-.container-codeForge button:hover{
- color: #F6F6F6;
- background-color: #0777a3 ;
- transition: 5ms;
+.container-codeForge button:hover {
+  color: #F6F6F6;
+  background-color: #0777a3;
+  transition: 5ms;
 }
 
-.container-neuralMid, 
+.container-neuralMid,
 .container-deepVision,
 .container-smartPredict,
-.container-codeForge{
- background-color: #202020;
- justify-content: center;
- align-items: center;
- height: 270px;
- width: 550px;
- border-radius: 10px;
+.container-codeForge {
+  background-color: #202020;
+  justify-content: center;
+  align-items: center;
+  height: 270px;
+  width: 550px;
+  border-radius: 10px;
 }
 
-.container-neuralMid:hover, 
+.container-neuralMid:hover,
 .container-deepVision:hover,
 .container-smartPredict:hover,
-.container-codeForge:hover{
- background-color: #161616;
- transition: 0.4;
+.container-codeForge:hover {
+  background-color: #161616;
+  transition: 0.4;
 
 }
-
-
