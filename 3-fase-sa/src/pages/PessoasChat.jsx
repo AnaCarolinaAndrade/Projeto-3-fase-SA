@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function PessoasChat() {
 
-    const [usuarios, setUsuarios] = useState([]);
+    const [usuarios, setUsuarios] = useState([ 'marcos' ]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -20,16 +20,14 @@ export default function PessoasChat() {
                 setUsuarios(data);
             } catch (err) {
                 setError('Erro ao buscar usuários: ' + err.message);
-            } finally {
-                setLoading(false); 
             }
         };
 
-        fetchUsuarios(); 
+        fetchUsuarios();
     }, []);
 
     if (error) {
-        return console.log("Erro:", {error});
+        return console.log("Erro:", { error });
     }
 
     if (usuarios.length === 0) {
@@ -45,15 +43,11 @@ export default function PessoasChat() {
                 <div className='alinhamento-pessoas'>
                     <ul className="usuarios-list">
                         {usuarios.map(usuario => (
-                            // 🚨 IMPORTANTE: Use uma 'key' única para cada item da lista.
-                            // Isso ajuda o React a otimizar a renderização.
-                            // 'usuario._id' ou 'usuario.id' são comuns se vierem do seu banco de dados.
                             <li key={usuario._id || usuario.id} className="usuario-item">
                                 <h3>{usuario.nome}</h3>
                                 <p>Email: {usuario.email}</p>
-                                <p>Documento: {usuario.documento}</p>
+                                <p>descrição: {usuario.descricao}</p>
                                 {usuario.genero && <p>Gênero: {usuario.genero}</p>}
-                                {/* Adicione mais informações do usuário conforme necessário */}
                             </li>
                         ))}
                     </ul>

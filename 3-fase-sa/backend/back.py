@@ -12,7 +12,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from werkzeug.utils import secure_filename
 from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
-from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity, decode_token
+from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -25,9 +25,10 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # --- Configuração do JWT ---
-app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY", "sua_chave_secreta_padrao_muito_longa_e_segura")
+app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
+
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -324,7 +325,7 @@ def get_usuarios():
     return jsonify(usuarios_data)
 
 # Rota para obter detalhes do usuário logado
-@app.route('/api/user/me', methods=['GET'])
+@app.route('/api/usuarios', methods=['GET'])
 @jwt_required()
 def get_current_user():
     user_id = get_jwt_identity()
