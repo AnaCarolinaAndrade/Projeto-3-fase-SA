@@ -12,15 +12,12 @@ export default function Projetos() {
   const [buscar, setBuscar] = useState("");
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("Asc")
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
       try {
-        const decodedToken = jwtDecode(token);
         setCurrentUserId(decodedToken.sub);
       } catch (error) {
         console.error("Erro ao decodificar token:", error);
@@ -28,35 +25,33 @@ export default function Projetos() {
         setIsLoggedIn(false);
         setCurrentUserId(null);
       }
-    } else {
-      setIsLoggedIn(false);
     }
   }, []);
 
-useEffect(() => {
-  const carregarProjetos = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/projetos', {
-        headers: {
-          'Authorization': `Bearer ${token}`
+  useEffect(() => {
+    const carregarProjetos = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:5000/api/projetos', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 401) {
+          console.error("Usuário não autorizado. Token inválido ou ausente.");
+          return;
         }
-      });
 
-      if (response.status === 401) {
-        console.error("Usuário não autorizado. Token inválido ou ausente.");
-        return; 
+        const data = await response.json();
+        setLista(data.projetos || []);
+      } catch (error) {
+        console.error("Erro ao buscar projetos:", error);
       }
+    };
 
-      const data = await response.json();
-      setLista(data.projetos || []);
-    } catch (error) {
-      console.error("Erro ao buscar projetos:", error);
-    }
-  };
-
-  carregarProjetos();
-}, []);
+    carregarProjetos();
+  }, []);
 
 
 
@@ -88,16 +83,18 @@ useEffect(() => {
                       return true;
                   }
                 })
+
                 .filter((item) =>
                   item.descricao.toLowerCase().includes(buscar.toLowerCase()) ||
                   item.nomeProjeto.toLowerCase().includes(buscar.toLowerCase())
                 )
+
                 .sort((a, b) =>
                   sort === "Asc"
                     ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
                     : (b.nomeProjeto || '').localeCompare((a.nomeProjeto || ''))
                 )
-                .map((item) => ( 
+                .map((item) => (
                   <Lista key={item.id}
                     lista={item}
                   />

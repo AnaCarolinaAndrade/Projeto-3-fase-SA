@@ -63,10 +63,9 @@ function Cadastro_investidor() {
   }
 
   return (
-    <div className='container-cadastro-investidor'>
+    <div className='container-cadastro-investidor-cor'>
       <div className='container-cadastro-investidor-alinhamento'>
-        <img src='./img/logo.png' alt="Logo" className='logo' />
-        <h1 className='container-titulo'>Cadastrace como investidor</h1>
+      <img src='./img/logo_pequena.png' alt="Logo" className='logo' /><h1 className='container-titulo'>Cadastrace como investidor</h1>
 
         <div className='alinhamentos-wrapper' >
           <div className='alinhamento-esquerda'>
@@ -82,9 +81,9 @@ function Cadastro_investidor() {
           </div>
         </div>
 
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button className='container-button' type="submit" disabled={loading}>
-          {loading ? 'Cadastrando...' : 'Confirmar Cadastro'}Confirmar Cadastro</button>
+        {error && <p style={{ color: 'red', background: 'transparen'}}>{error}</p>}
+        <button className='container-button' type="submit" disabled={logado} onClick={handleSubmit}>
+          {logado ? 'Cadastrando...' : 'Confirmar Cadastro'}</button>
       </div>
 
     </div>
