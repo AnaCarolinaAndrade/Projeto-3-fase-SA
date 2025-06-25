@@ -12,8 +12,6 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from werkzeug.utils import secure_filename
 from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
-from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
-from flask_mongoengine import MongoEngine
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -24,11 +22,6 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
-
-# --- Configuração do JWT ---
-app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
-app.config['JWT_TOKEN_LOCATION'] = ['headers']
-jwt = JWTManager(app)
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -87,9 +80,6 @@ def login():
     if not bcrypt.checkpw(senha.encode('utf-8'), usuario['senha'].encode('utf-8')):
         return jsonify({'error': 'Email ou senha incorretos'}), 401
 
-    access_token = create_access_token(identity=str(usuario['_id']))
-    return jsonify(access_token=access_token, user_id=str(usuario['_id'])), 200
-
 
 # === LOGIN COM GOOGLE (API-BASED) ===
 @app.route('/api/google-login', methods=['POST'])
@@ -131,12 +121,10 @@ def google_login():
             result = usuarios_google_collection.insert_one(novo_usuario)
             user_id = result.inserted_id
 
-        access_token = create_access_token(identity=str(user_id))
 
         return jsonify({
             'success': True,
             'message': 'Login com Google bem-sucedido',
-            'access_token': access_token,
             'user': {
                 'id': str(user_id),
                 'google_id': google_user_id,
@@ -187,7 +175,6 @@ def criar_usuario():
     return jsonify({"message": "Usuário criado com sucesso", "id": str(result.inserted_id)}), 201
 
 @app.route('/api/usuarios', methods=['GET'])
-@jwt_required()
 def get_usuarios():
     usuarios_data = []
     for usuario in usuarios_collection.find({}, {'senha': 0}):
@@ -197,9 +184,7 @@ def get_usuarios():
 
 # Rota para atualizar informações do usuário logado (usando o _id do token)
 @app.route('/api/usuarios', methods=['PUT'])
-@jwt_required()
 def update_user():
-    user_id = get_jwt_identity()
     data = request.get_json()
     update_data = {}
 
@@ -210,10 +195,6 @@ def update_user():
     dataNascimento = data.get('dataNascimento')
     if dataNascimento is not None:
         update_data['dataNascimento'] = dataNascimento
-
-    confirmarSenha = data.get('confirmarSenha')
-    if confirmarSenha is not None:
-        update_data['confirmarSenha'] = confirmarSenha
 
     genero = data.get('genero')
     if genero is not None:
@@ -226,9 +207,9 @@ def update_user():
 
     if update_data:
         try:
-            result = usuarios_collection.update_one({'_id': ObjectId(user_id)}, {'$set': update_data})
+            result = usuarios_collection.update_one({'$set': update_data})
             if result.modified_count > 0:
-                updated_user = usuarios_collection.find_one({'_id': ObjectId(user_id)})
+                updated_user = usuarios_collection.find_one({'_id': 1})
                 if updated_user:
                     updated_user['_id'] = str(updated_user['_id'])
                     updated_user.pop('senha', None)
@@ -244,13 +225,11 @@ def update_user():
 
 # Rota para deletar o próprio usuário (protegida)
 @app.route('/api/usuarios', methods=['DELETE'])
-@jwt_required()
 def deletar_proprio_usuario():
-    user_id = get_jwt_identity()
     try:
-        resultado = usuarios_collection.delete_one({'_id': ObjectId(user_id)})
+        resultado = usuarios_collection.delete_one({'_id': [1]})
         if resultado.deleted_count > 0:
-            return jsonify({'mensagem': f'Usuário {user_id} deletado com sucesso.'}), 200
+            return jsonify({'mensagem': f'Usuário deletado com sucesso.'}), 200
         return jsonify({'erro': 'Usuário não encontrado'}), 404
     except Exception as e:
         print(f"Erro ao deletar usuário: {e}")
@@ -260,9 +239,7 @@ def deletar_proprio_usuario():
 # === ROTAS DE PROJETOS ===
 
 @app.route('/api/projetos', methods=['POST'])
-@jwt_required()
 def criar_projeto():
-    user_id = get_jwt_identity()
     data = request.get_json()
     nomeProjeto = data.get('nomeProjeto')
     descricao = data.get('descricao')
@@ -278,7 +255,6 @@ def criar_projeto():
         'imagem': imagem,
         'completo': False,
         'categoria': categoria,
-        'user_id': user_id,
         'created_at': datetime.datetime.now()
     }
 
@@ -293,11 +269,9 @@ def criar_projeto():
 
 
 @app.route('/api/projetos', methods=['GET'])
-@jwt_required()
 def get_projetos():
-    user_id = get_jwt_identity()
 
-    projetos_cursor = projetos_collection.find({'user_id': user_id}) # Busca apenas projetos do usuário logado
+    projetos_cursor = projetos_collection.find({}, {'_id': 1})
 
     projetos_lista = []
     for projeto in projetos_cursor:
@@ -315,14 +289,12 @@ def get_projetos():
 
 
 @app.route('/api/projetos/<string:projeto_id>', methods=['PUT']) # Usar string para ObjectId
-@jwt_required()
 def atualizar_projeto(projeto_id):
-    user_id = get_jwt_identity()
     data = request.get_json()
 
     try:
         # Busca o projeto pelo _id do MongoDB e verifica se pertence ao usuário
-        projeto_existente = projetos_collection.find_one({'_id': ObjectId(projeto_id), 'user_id': user_id})
+        projeto_existente = projetos_collection.find_one({'_id': ObjectId(projeto_id)})
 
         if not projeto_existente:
             return jsonify({'error': 'Projeto não encontrado ou você não tem permissão para editá-lo'}), 404
@@ -352,12 +324,10 @@ def atualizar_projeto(projeto_id):
         return jsonify({'error': f'ID de projeto inválido ou erro: {e}'}), 400
 
 @app.route('/api/projetos/<string:projeto_id>', methods=['DELETE']) # Usar string para ObjectId
-@jwt_required()
 def deletar_projeto(projeto_id):
-    user_id = get_jwt_identity()
     try:
         # Deleta o projeto pelo _id do MongoDB e verifica se pertence ao usuário logado
-        resultado = projetos_collection.delete_one({'_id': ObjectId(projeto_id), 'user_id': user_id})
+        resultado = projetos_collection.delete_one({'_id': ObjectId(projeto_id)})
         if resultado.deleted_count > 0:
             return jsonify({'mensagem': 'Projeto deletado com sucesso.'}), 200
         return jsonify({'erro': 'Projeto não encontrado ou você não tem permissão para deletá-lo'}), 404
