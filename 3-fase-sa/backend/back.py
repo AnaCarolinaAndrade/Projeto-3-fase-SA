@@ -48,6 +48,8 @@ try:
     usuarios_collection = db["usuarios"]
     projetos_collection = db['projetos']
     usuarios_google_collection = db['usuarios_google']
+    comentarios_collection = db['comentario']
+    
     
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
@@ -244,7 +246,7 @@ def criar_projeto():
     nomeProjeto = data.get('nomeProjeto')
     descricao = data.get('descricao')
     imagem = data.get('imagem')
-    categoria = data.get('categoria', 'outros')
+    categoria = data.get('categoria')
 
     if not nomeProjeto or not descricao:
         return jsonify({"error": "Nome e descrição do projeto são obrigatórios"}), 400
@@ -264,6 +266,29 @@ def criar_projeto():
         "projeto": {
             **{k: v for k, v in novo_projeto.items() if k != '_id'}, # Exclui _id temporariamente
             "id": str(result.inserted_id) # Retorna o _id do MongoDB como 'id'
+        }
+    }), 201
+    
+    
+@app.route('/api/usarios/comentarios/<string:projeto_id>', methods=['POST'])
+def criar_comentario(projeto_id):
+    data = request.get_json()
+    comentario = data.get('comentario')
+
+    if not comentario:
+        return jsonify({"error": "Comentario obrigatorio"}), 400
+
+    novo_comentario = {
+        'comentario': comentario,
+        'created_at': datetime.datetime.now()
+    }
+
+    result = comentarios_collection.insert_one(novo_comentario)
+    return jsonify({
+        "success": True,
+        "comentario": {
+            **{k: v for k, v in novo_comentario.items() if k != '_id'}, 
+            "id": str(result.inserted_id) 
         }
     }), 201
 
