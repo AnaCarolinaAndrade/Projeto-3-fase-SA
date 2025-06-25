@@ -53,15 +53,8 @@ export default function CriarProjeto() {
     "BioAccess", "AIPlanner", "SmartDocs"
   ])
 
-  const token = localStorage.getItem('token');
-
   const criarProjeto = async (e) => {
     e.preventDefault();
-
-    if (!token) {
-      console.error("Token não encontrado. Faça login.");
-      return;
-    }
 
     const formData = new FormData();
 
@@ -71,10 +64,8 @@ export default function CriarProjeto() {
 
     try {
       const response = await fetch('http://localhost:5000/api/projetos', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nomeProjeto,
           descricao,

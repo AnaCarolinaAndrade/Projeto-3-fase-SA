@@ -88,10 +88,12 @@ useEffect(() => {
                       return true;
                   }
                 })
+
                 .filter((item) =>
                   item.descricao.toLowerCase().includes(buscar.toLowerCase()) ||
                   item.nomeProjeto.toLowerCase().includes(buscar.toLowerCase())
                 )
+                
                 .sort((a, b) =>
                   sort === "Asc"
                     ? (a.nomeProjeto || '').localeCompare((b.nomeProjeto || ''))
