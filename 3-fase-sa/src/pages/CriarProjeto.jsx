@@ -16,41 +16,41 @@ export default function CriarProjeto() {
 
 
   const [nomeAleatorio] = useState([
-  "byte-verse",      "neural-forge",     "cloud-spark",     "pixel-core",       "data-pulse",
-  "code-lattice",    "quantum-frame",    "task-ship",       "api-matrix",       "stack-glow",
-  "CodeSync",        "SecureNest",       "ToastyStack",     "DataForge",        "APIverse",
-  "StackBoard",      "BitFlow",          "DevOpsy",         "AuthPilot",        "PixelAdmin",
-  "NetScope",        "ZenBlocks",        "NeuroCanvas",     "EchoForm",         "QuantumQuery",
-  "OrbitPlay",       "CodeDrip",         "SynthByte",       "NanoDash",         "Refactron",
-  "LogiCrate",       "BugHunter3000",    "SnackBarJS",      "MonkeyPatchers",   "DuckDeploy",
-  "LazyLoader",      "Hacktrix",         "404Land",         "ChocoByte",        "NullPointer Café",
-  "CodeTrackr",      "BugSquash",        "DevSync",         "ByteVault",        "TaskForge",
-  "PixelPilot",      "GitGuard",         "ScriptSphere",    "CloudNest",        "LogiChain",
-  "BitCanvas",       "StackFlow",        "PingPanel",       "TestBench",        "DataDock",
-  "CodeCrate",       "DevNest",          "NodePulse",       "PromptBase",       "QueryZen",
-  "BuildHive",       "AppSmithy",        "JsonJuggler",     "DevMate",          "CodeTide",
-  "PushCraft",       "SnipShelf",        "LoopLab",         "BranchBoost",      "RefactorX",
-  "TechBridge",      "CodeWave",         "SmartHive",       "DataPulse",        "NeuroLink",
-  "PixelForge",      "AutoBotX",         "SecureNet",       "CloudCraft",       "VisionAI",
-  "WebNova",         "GreenTech",        "CryptoCore",      "AI Assistant",     "NanoSecure",
-  "VoicePilot",      "BioCode",          "CyberNest",       "CodeSphere",       "DigitalTwins",
-  "SmartCityMap",    "IoT Watchdog",     "RoboHelper",      "SmartFit",         "VirtualDesk",
-  "TaskMaster AI",   "DeepTrack",        "ByteScan",        "MindMesh",         "SmartScanner",
-  "NetGuardian",     "EduCode",          "GameForge",       "MetaLink",         "BlockAuth",
-  "DriveSync",       "QuantumLeap",      "BotBuddy",        "AI Recruiter",     "AgroTechSys",
-  "WeatherNet",      "DroneControl",     "AutoDoc",         "CodeTutor",        "MedAI",
-  "EcoMonitor",      "HomeAI",           "SmartInventory",  "AI Recipes",       "NeuralChat",
-  "CryptoTrade",     "EventFlow",        "HoloMeet",        "AutoTrader",       "CodeWarden",
-  "StreamAI",        "SmartBudget",      "CyberEye",        "HackShield",       "RoboChef",
-  "AI Lawyer",       "SmartGarden",      "DeepVision",      "LangBot",          "AR Painter",
-  "BugTracker",      "AppSyncer",        "HealthMap",       "FitTrack",         "AI DJ",
-  "DevConnect",      "TaskAI",           "SimuVerse",       "CloudLock",        "TimeWizard",
-  "CodeClinic",      "NFT Vault",        "LiveCode",        "TrackFusion",      "SmartPark",
-  "CryptoWallet",    "IoTLogger",        "GamerTrack",      "MindFocus",        "Speechify",
-  "AutoDeploy",      "LinkAnalyzer",     "ZeroBug",         "SecureBox",        "JobMatchAI",
-  "MotionAI",        "EcoHome",          "SmartGridAI",     "E-LearnBoost",     "SmartAlerts",
-  "AICoder",         "MobileMate",       "StreamSync",      "DataGuardian",     "PayChain",
-  "BioAccess",       "AIPlanner",        "SmartDocs"
+    "byte-verse", "neural-forge", "cloud-spark", "pixel-core", "data-pulse",
+    "code-lattice", "quantum-frame", "task-ship", "api-matrix", "stack-glow",
+    "CodeSync", "SecureNest", "ToastyStack", "DataForge", "APIverse",
+    "StackBoard", "BitFlow", "DevOpsy", "AuthPilot", "PixelAdmin",
+    "NetScope", "ZenBlocks", "NeuroCanvas", "EchoForm", "QuantumQuery",
+    "OrbitPlay", "CodeDrip", "SynthByte", "NanoDash", "Refactron",
+    "LogiCrate", "BugHunter3000", "SnackBarJS", "MonkeyPatchers", "DuckDeploy",
+    "LazyLoader", "Hacktrix", "404Land", "ChocoByte", "NullPointer Café",
+    "CodeTrackr", "BugSquash", "DevSync", "ByteVault", "TaskForge",
+    "PixelPilot", "GitGuard", "ScriptSphere", "CloudNest", "LogiChain",
+    "BitCanvas", "StackFlow", "PingPanel", "TestBench", "DataDock",
+    "CodeCrate", "DevNest", "NodePulse", "PromptBase", "QueryZen",
+    "BuildHive", "AppSmithy", "JsonJuggler", "DevMate", "CodeTide",
+    "PushCraft", "SnipShelf", "LoopLab", "BranchBoost", "RefactorX",
+    "TechBridge", "CodeWave", "SmartHive", "DataPulse", "NeuroLink",
+    "PixelForge", "AutoBotX", "SecureNet", "CloudCraft", "VisionAI",
+    "WebNova", "GreenTech", "CryptoCore", "AI Assistant", "NanoSecure",
+    "VoicePilot", "BioCode", "CyberNest", "CodeSphere", "DigitalTwins",
+    "SmartCityMap", "IoT Watchdog", "RoboHelper", "SmartFit", "VirtualDesk",
+    "TaskMaster AI", "DeepTrack", "ByteScan", "MindMesh", "SmartScanner",
+    "NetGuardian", "EduCode", "GameForge", "MetaLink", "BlockAuth",
+    "DriveSync", "QuantumLeap", "BotBuddy", "AI Recruiter", "AgroTechSys",
+    "WeatherNet", "DroneControl", "AutoDoc", "CodeTutor", "MedAI",
+    "EcoMonitor", "HomeAI", "SmartInventory", "AI Recipes", "NeuralChat",
+    "CryptoTrade", "EventFlow", "HoloMeet", "AutoTrader", "CodeWarden",
+    "StreamAI", "SmartBudget", "CyberEye", "HackShield", "RoboChef",
+    "AI Lawyer", "SmartGarden", "DeepVision", "LangBot", "AR Painter",
+    "BugTracker", "AppSyncer", "HealthMap", "FitTrack", "AI DJ",
+    "DevConnect", "TaskAI", "SimuVerse", "CloudLock", "TimeWizard",
+    "CodeClinic", "NFT Vault", "LiveCode", "TrackFusion", "SmartPark",
+    "CryptoWallet", "IoTLogger", "GamerTrack", "MindFocus", "Speechify",
+    "AutoDeploy", "LinkAnalyzer", "ZeroBug", "SecureBox", "JobMatchAI",
+    "MotionAI", "EcoHome", "SmartGridAI", "E-LearnBoost", "SmartAlerts",
+    "AICoder", "MobileMate", "StreamSync", "DataGuardian", "PayChain",
+    "BioAccess", "AIPlanner", "SmartDocs"
   ])
 
   const token = localStorage.getItem('token');
@@ -101,13 +101,13 @@ export default function CriarProjeto() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImagem(file); // Salva o objeto File original
+      setImagem(file);
 
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagemPreviewUrl(reader.result); // Define a URL para o preview
+        setImagemPreviewUrl(reader.result);
       };
-      reader.readAsDataURL(file); // Lê o arquivo como uma URL de dados
+      reader.readAsDataURL(file);
     } else {
       setImagem(null);
       setImagemPreviewUrl(null);
@@ -180,12 +180,12 @@ export default function CriarProjeto() {
                       className='image-preview-full'
                     />
                   </div>
-                ) 
-                : (
-                  <div className="image-preview-wrapper">
-                    Coloque uma imagem
-                  </div>
-                )}
+                )
+                  : (
+                    <div className="image-preview-wrapper">
+                      Coloque uma imagem
+                    </div>
+                  )}
               </div>
             </div>
 

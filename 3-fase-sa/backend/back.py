@@ -13,6 +13,7 @@ from google.auth.transport import requests
 from werkzeug.utils import secure_filename
 from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
 from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
+from flask_mongoengine import MongoEngine
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -28,7 +29,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
-
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -55,6 +55,7 @@ try:
     usuarios_collection = db["usuarios"]
     projetos_collection = db['projetos']
     usuarios_google_collection = db['usuarios_google']
+    
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
     exit()
@@ -152,140 +153,6 @@ def google_login():
         print(f"Erro inesperado no login com Google: {e}")
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
 
-
-# === LOGIN COM O GITHUB ===
-@app.route("/api/github-login", methods=['POST'])
-def github_login():
-    data = request.get_json()
-    access_token = data.get('token')
-
-    if not access_token:
-        return jsonify({'error': 'Token de acesso do GitHub não fornecido'}), 400
-
-    try:
-        github_api_url = "https://api.github.com/user"
-        headers = {'Authorization': f'token {access_token}'}
-        response = external_requests.get(github_api_url, headers=headers)
-
-        if response.status_code != 200:
-            return jsonify({'error': f'Falha ao obter dados do usuário do GitHub: {response.text}'}), 401
-
-        github_user = response.json()
-        github_id = github_user.get('id')
-        email = github_user.get('email')
-        if not email:
-            emails_response = external_requests.get("https://api.github.com/user/emails", headers=headers)
-            if emails_response.status_code == 200:
-                for mail_data in emails_response.json():
-                    if mail_data.get('primary') and mail_data.get('verified') and not mail_data.get('visibility') == 'private':
-                        email = mail_data.get('email')
-                        break
-            if not email:
-                email = f'{github_user.get("login")}@users.noreply.github.com'
-
-        nome = github_user.get('name') or github_user.get('login')
-        profile_pic = github_user.get('avatar_url')
-        username = github_user.get('login')
-
-        if not github_id:
-            return jsonify({'error': 'Erro ao obter ID do usuário GitHub'}), 500
-
-        usuario_existente = usuarios_collection.find_one({'github_id': github_id})
-
-        if usuario_existente:
-            usuarios_collection.update_one(
-                {'github_id': github_id},
-                {'$set': {'email': email, 'nome': nome, 'profile_pic': profile_pic, 'username': username}}
-            )
-            user_id = usuario_existente['_id']
-        else:
-            novo_usuario = {
-                'github_id': github_id,
-                'email': email,
-                'nome': nome,
-                'username': username,
-                'profile_pic': profile_pic,
-                'created_at': datetime.datetime.now()
-            }
-            result = usuarios_collection.insert_one(novo_usuario)
-            user_id = result.inserted_id
-
-        access_token_jwt = create_access_token(identity=str(user_id))
-
-        return jsonify({
-            'success': True,
-            'message': 'Login com GitHub bem-sucedido',
-            'access_token': access_token_jwt,
-            'user': {
-                'id': str(user_id),
-                'github_id': github_id,
-                'email': email,
-                'nome': nome,
-                'username': username,
-                'profile_pic': profile_pic,
-            }
-        }), 200
-
-    except Exception as e:
-        print(f"Erro no login com GitHub: {e}")
-        return jsonify({'error': f'Erro ao processar login com GitHub: {e}'}), 500
-
-@app.route("/github/callback")
-def github_callback():
-    code = request.args.get('code') # Pega o código de autorização da URL
-
-    if not code:
-        return "Erro: Código de autorização não recebido.", 400
-
-    # 1. Usar o código de autorização para obter o access_token
-    token_params = {
-        'client_id': GITHUB_CLIENT_ID,
-        'client_secret': GITHUB_CLIENT_SECRET,
-        'code': code,
-        'redirect_uri': url_for('github_callback', _external=True), # Deve ser o mesmo URI usado na requisição inicial
-    }
-    headers = {'Accept': 'application/json'} # Pedir resposta JSON
-
-    try:
-        response = requests.post(GITHUB_TOKEN_URL, params=token_params, headers=headers)
-        response.raise_for_status() # Levanta exceção para erros HTTP
-        token_data = response.json()
-        access_token = token_data.get('access_token')
-
-        if not access_token:
-            return jsonify({"error": "Falha ao obter access token", "details": token_data}), 400
-
-        # 2. Usar o access_token para obter informações do usuário
-        user_headers = {
-            'Authorization': f'Bearer {access_token}',
-            'Accept': 'application/json',
-        }
-        user_response = requests.get(GITHUB_USER_API, headers=user_headers)
-        user_response.raise_for_status()
-        user_info = user_response.json()
-
-        if not user_info:
-            return jsonify({"error": "Falha ao obter informações do usuário", "details": user_response.text}), 400
-        
-        session['github_access_token'] = access_token
-        session['user_id'] = user_info.get('id')
-        session['username'] = user_info.get('login')
-        session['avatar_url'] = user_info.get('avatar_url')
-
-        print(f"Usuário autenticado: {user_info.get('login')} (ID: {user_info.get('id')})")
-        
-        # Redirecionar para o frontend, passando informações ou um token
-        # Você pode passar um token JWT na URL ou apenas redirecionar e deixar o frontend verificar a sessão/cookie
-        return redirect(f"{YOUR_FRONTEND_URL}/dashboard?status=success&username={user_info.get('login')}")
-
-    except requests.exceptions.RequestException as e:
-        print(f"Erro na requisição HTTP: {e}")
-        return jsonify({"error": "Erro na comunicação com o GitHub", "details": str(e)}), 500
-    except Exception as e:
-        print(f"Erro inesperado: {e}")
-        return jsonify({"error": "Ocorreu um erro interno", "details": str(e)}), 500
-
-
 # Rota de Criação de Usuário (agora com hashing de senha)
 @app.route('/api/usuarios', methods=['POST'])
 def criar_usuario():
@@ -294,6 +161,8 @@ def criar_usuario():
     email = data.get('email')
     senha = data.get('senha')
     dataNascimento = data.get('dataNascimento')
+    confirmarSenha = data.get('confirmarSenha')
+    genero = data.get('genero')
 
     if not nome or not email or not senha:
         return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
@@ -308,13 +177,15 @@ def criar_usuario():
         'email': email,
         'senha': hashed_password.decode('utf-8'),
         'dataNascimento': dataNascimento,
+        'confirmarSenha': confirmarSenha,
+        'genero': genero,
         'created_at': datetime.datetime.now(),
     }
+    
 
     result = usuarios_collection.insert_one(novo_usuario)
     return jsonify({"message": "Usuário criado com sucesso", "id": str(result.inserted_id)}), 201
 
-# Rota para obter todos os usuários (agora protegida)
 @app.route('/api/usuarios', methods=['GET'])
 @jwt_required()
 def get_usuarios():
@@ -324,19 +195,8 @@ def get_usuarios():
         usuarios_data.append(usuario)
     return jsonify(usuarios_data)
 
-# Rota para obter detalhes do usuário logado
-@app.route('/api/usuarios', methods=['GET'])
-@jwt_required()
-def get_current_user():
-    user_id = get_jwt_identity()
-    user = usuarios_collection.find_one({'_id': ObjectId(user_id)}, {'senha': 0})
-    if user:
-        user['_id'] = str(user['_id'])
-        return jsonify(user), 200
-    return jsonify({'error': 'Usuário não encontrado'}), 404
-
 # Rota para atualizar informações do usuário logado (usando o _id do token)
-@app.route('/api/user/update', methods=['PUT'])
+@app.route('/api/usuarios', methods=['PUT'])
 @jwt_required()
 def update_user():
     user_id = get_jwt_identity()
@@ -346,6 +206,18 @@ def update_user():
     nome = data.get('nome')
     if nome is not None:
         update_data['nome'] = nome
+        
+    dataNascimento = data.get('dataNascimento')
+    if dataNascimento is not None:
+        update_data['dataNascimento'] = dataNascimento
+
+    confirmarSenha = data.get('confirmarSenha')
+    if confirmarSenha is not None:
+        update_data['confirmarSenha'] = confirmarSenha
+
+    genero = data.get('genero')
+    if genero is not None:
+        update_data['genero'] = genero
 
     nova_senha = data.get('senha')
     if nova_senha is not None:
@@ -371,7 +243,7 @@ def update_user():
     return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
 # Rota para deletar o próprio usuário (protegida)
-@app.route('/api/user/delete', methods=['DELETE'])
+@app.route('/api/usuarios', methods=['DELETE'])
 @jwt_required()
 def deletar_proprio_usuario():
     user_id = get_jwt_identity()
