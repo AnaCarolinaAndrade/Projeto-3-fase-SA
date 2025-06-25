@@ -63,6 +63,10 @@
     border: 1px solid #ccc;
 }
 
+.form-group input:focus {
+    outline: none;
+}
+
 .ipt-senha-cadastro {
     display: flex;
     align-items: center;
@@ -92,21 +96,3 @@
     width: 150px;
 }
 
-
-@keyframes anima {
-    0% {
-        background-position: 99% 0;
-    }
-
-    16.66% {
-        background-position: 99% 0;
-    }
-
-    83.34% {
-        background-position: 0 0;
-    }
-
-    100% {
-        background-position: 0 0;
-    }
-}

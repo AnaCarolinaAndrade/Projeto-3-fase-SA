@@ -4,6 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 import GitHubLogin from "../components/GithubLogin";
+import Voltar from "../components/Voltar";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -43,7 +44,7 @@ function Login() {
 
     if (token) {
       localStorage.setItem('session_token', token);
-      navigate('/home'); // ou onde quiser redirecionar após login
+      navigate('/');
     } else {
       navigate('/login');
     }
@@ -86,6 +87,7 @@ function Login() {
 
   return (
     <div className="login-container">
+    <Voltar />
       <div className="login-right">
         <form className="login-box">
           <div className="container-input">
@@ -137,13 +139,11 @@ function Login() {
               onSuccess={onSuccess}
               onError={onFailure}
             />
-            <button type="button" className="social-login-btn">
-              <img src="./img/github.png" alt="GitHub" className="social-icon" />
-              <GitHubLogin
-                onSuccess={onSuccess}
-                onError={onFailure}
-              />
-            </button>
+
+            <GitHubLogin
+              onSuccess={onSuccess}
+              onError={onFailure}
+            />
           </div>
         </form>
       </div>

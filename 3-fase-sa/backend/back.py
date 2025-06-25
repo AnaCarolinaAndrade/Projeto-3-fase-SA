@@ -1,36 +1,45 @@
-import os 
+import os
 import uuid
-import bcrypt 
-import datetime 
-import requests as external_requests   
+import bcrypt
+import datetime
+import requests as external_requests
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify, redirect
-from flask_cors import CORS 
+from flask_cors import CORS
 from flask_socketio import SocketIO, emit
-from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from werkzeug.utils import secure_filename
+from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
 
 app = Flask(__name__)
+
+# Configuração CORS: Permite requests do seu frontend React
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
+
 socketio = SocketIO(app, cors_allowed_origins="*")
-app.config['JWT_SECRET_KEY'] = 'sua_chave_secreta' 
-app.config['JWT_TOKEN_LOCATION'] = ['headers']  
-jwt = JWTManager(app)
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
 GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
 GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+#URLs do GitHub para OAuth
+GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
+GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token"
+GITHUB_USER_API = "https://api.github.com/user"
+YOUR_FRONTEND_URL= "http://localhost:5000"
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
 # === CONEXÃO COM O BANCO DE DADOS ===
 try:
@@ -38,28 +47,17 @@ try:
     db = client[DATABASE_NAME]
     usuarios_collection = db["usuarios"]
     projetos_collection = db['projetos']
-    sessions_collection = db["sessions"]
+    usuarios_google_collection = db['usuarios_google']
+    comentarios_collection = db['comentario']
+    
+    
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
     exit()
 
 # === FUNÇÕES UTILITÁRIAS ===
-def gerar_token_de_sessao():
-    return str(uuid.uuid4())
-
-def verificar_token():
-    token = request.headers.get('Authorization')
-    if not token or not token.startswith('Bearer '):
-        return None, {'error': 'Token de autorização ausente ou inválido'}, 401
-    
-    session_token = token.split(' ')[1]
-    session_data = sessions_collection.find_one({'session_token': session_token})
-    
-    if session_data:
-        user_id = session_data['user_id']
-        user = usuarios_collection.find_one({'_id': ObjectId(user_id)})
-        return user, None, None
-    return None, {'error': 'Sessão inválida'}, 401
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # === SOCKET.IO ===
 @socketio.on('message')
@@ -67,103 +65,9 @@ def handle_message(msg):
     print('Mensagem recebida:', msg)
     emit('message', msg, broadcast=True)
 
-# === ROTAS DE USUÁRIOS ===
-@app.route('/api/usuarios', methods=['GET', 'PUT'])
-@jwt_required()
+# === ROTAS DE AUTENTICAÇÃO E USUÁRIOS ===
 
-def get_usuarios():
-    if request.method == 'GET':
-        usuarios_data = list(usuarios_collection.find({}, {'_id': 0}))
-        for usuario in usuarios_data:
-            usuario.pop('senha', None)
-        return jsonify(usuarios_data)
-
-    elif request.method == 'PUT':
-        user_id = get_jwt_identity()
-        try:
-            user_id = ObjectId(user_id)
-        except:
-            return jsonify({"error": "ID de usuário inválido"}), 400
-
-        data = request.get_json()
-        imagem_base64 = data.get('imagem')
-
-        if not imagem_base64:
-            return jsonify({"error": "Imagem não fornecida"}), 400
-
-        result = usuarios_collection.update_one(
-            {"_id": user_id},
-            {"$set": {"profile_pic": imagem_base64}}
-        )
-
-        if result.modified_count == 1:
-            return jsonify({"message": "Imagem atualizada com sucesso"}), 200
-        else:
-            return jsonify({"message": "Nenhuma modificação feita"}), 200
-        
-@app.route('/api/usuarios', methods=['POST'])
-def criar_usuario():
-    data = request.get_json()
-    nome = data.get('nome')
-    email = data.get('email')
-    senha = data.get('senha')
-
-    ultimo_usuario = usuarios_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
-    proximo_id = ultimo_usuario['id'] + 1 if ultimo_usuario else 1
-
-    novo_usuario = { 
-            'id': proximo_id, 
-            'nome': nome, 
-            'email': email, 
-            'senha': senha
-            
-}
-    usuarios_collection.insert_one(novo_usuario)
-    return jsonify(novo_usuario), 201
-
-@app.route('/api/projetos', methods=['POST'])
-def criar_projeto():
-    data = request.get_json()
-    nome = data.get('nome')
-    descricao = data.get('descricao')
-    imagem = data.get('imagem')
-
-    ultimo_projeto = projetos_collection.find_one({'id': {'$exists': True}}, sort=[('id', -1)])
-    proximo_id = ultimo_projeto['id'] + 1 if ultimo_projeto else 1
-
-    novo_projeto = {
-        'id': proximo_id,
-        'nome': nome,
-        'descricao': descricao,
-        'imagem': imagem
-    }
-
-    projetos_collection.insert_one(novo_projeto)
-    return jsonify(novo_projeto), 201
-
-@app.route('/api/usuarios/<int:user_id>', methods=['PUT'])
-def atualizar_usuario(user_id):
-    data = request.get_json()
-    nome = data.get('nome')
-    email = data.get('email')
-    
-    if not nome or not email:
-        return jsonify({'erro': 'Nome e email são obrigatórios para atualização.'}), 400
-
-    resultado = usuarios_collection.update_one({'id': user_id}, {'$set': {'nome': nome, 'email': email}})
-    if resultado.modified_count > 0:
-        usuario_atualizado = usuarios_collection.find_one({'id': user_id}, {'_id': 0})
-        return jsonify(usuario_atualizado)
-    return jsonify({'erro': 'Usuário não encontrado'}), 404
-
-@app.route('/api/usuarios/<int:user_id>', methods=['DELETE'])
-def deletar_usuario(user_id):
-    resultado = usuarios_collection.delete_one({'id': user_id})
-    if resultado.deleted_count > 0:
-        return jsonify({'mensagem': f'Usuário com ID {user_id} deletado com sucesso.'}), 200
-    return jsonify({'erro': 'Usuário não encontrado'}), 404
-
-# === LOGIN COM SENHA ===
+# Rota de Login (agora retorna JWT)
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -173,39 +77,15 @@ def login():
     usuario = usuarios_collection.find_one({'email': email})
 
     if not usuario:
-        senha_hash = bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt())
-        novo_usuario = {
-            'email': email,
-            'senha': senha_hash,
-            'created_at': datetime.datetime.now()
-        }
-        result = usuarios_collection.insert_one(novo_usuario)
-        user_id = result.inserted_id
-    else:
-        if not bcrypt.checkpw(senha.encode('utf-8'), usuario['senha']):
-            return jsonify({'error': 'Senha incorreta'}), 401
-        user_id = usuario['_id']
+        return jsonify({'error': 'Email ou senha incorretos'}), 401
 
-    session_token = gerar_token_de_sessao()
-    sessions_collection.insert_one({
-        'user_id': str(user_id),
-        'session_token': session_token,
-        'created_at': datetime.datetime.now()
-    })
+    if not bcrypt.checkpw(senha.encode('utf-8'), usuario['senha'].encode('utf-8')):
+        return jsonify({'error': 'Email ou senha incorretos'}), 401
 
-    return jsonify({
-        'success': True,
-        'session_token': session_token,
-        'user': {
-            'id': str(user_id),
-            'email': email
-        }
-    }), 200
 
-# === LOGIN COM GOOGLE ===
+# === LOGIN COM GOOGLE (API-BASED) ===
 @app.route('/api/google-login', methods=['POST'])
 def google_login():
-    
     data = request.get_json()
     token = data.get('token')
 
@@ -222,14 +102,13 @@ def google_login():
         name = idinfo.get('name')
         profile_pic = idinfo.get('picture')
         given_name = idinfo.get('given_name')
-        
-        usuario_existente = usuarios_collection.find_one({'google_id': google_user_id})
-        session_token = gerar_token_de_sessao()
+
+        usuario_existente = usuarios_google_collection.find_one({'google_id': google_user_id})
 
         if usuario_existente:
-            usuarios_collection.update_one(
+            usuarios_google_collection.update_one(
                 {'google_id': google_user_id},
-                {'$set': {'email': email, 'nome': name}}
+                {'$set': {'email': email, 'nome': name, 'profile_pic': profile_pic}}
             )
             user_id = usuario_existente['_id']
         else:
@@ -241,19 +120,13 @@ def google_login():
                 'given_name': given_name,
                 'created_at': datetime.datetime.now()
             }
-            result = usuarios_collection.insert_one(novo_usuario)
+            result = usuarios_google_collection.insert_one(novo_usuario)
             user_id = result.inserted_id
 
-        sessions_collection.insert_one({
-            'user_id': str(user_id),
-            'session_token': session_token,
-            'created_at': datetime.datetime.now()
-        })
 
         return jsonify({
             'success': True,
             'message': 'Login com Google bem-sucedido',
-            'session_token': session_token,
             'user': {
                 'id': str(user_id),
                 'google_id': google_user_id,
@@ -267,220 +140,233 @@ def google_login():
     except ValueError as e:
         return jsonify({'error': f'Token de ID do Google inválido: {e}'}), 401
     except Exception as e:
+        print(f"Erro inesperado no login com Google: {e}")
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
-    
-    
-# === LOGIN COM O GITHUB ===
 
-@app.route("/api/github/callback", methods=['POST'])
-def github_login():
+# Rota de Criação de Usuário (agora com hashing de senha)
+@app.route('/api/usuarios', methods=['POST'])
+def criar_usuario():
     data = request.get_json()
-    access_token = data.get('token')
+    nome = data.get('nome')
+    email = data.get('email')
+    senha = data.get('senha')
+    dataNascimento = data.get('dataNascimento')
+    confirmarSenha = data.get('confirmarSenha')
+    genero = data.get('genero')
 
-    if not access_token:
-        return jsonify({'error': 'Token de acesso do GitHub não fornecido'}), 400
+    if not nome or not email or not senha:
+        return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
 
-    try:
-        # Obter dados do usuário a partir do token do GitHub
-        github_api_url = "https://api.github.com/user"
-        headers = {'Authorization': f'token {access_token}'}
-        response = external_requests.get(github_api_url, headers=headers)
+    if usuarios_collection.find_one({'email': email}):
+        return jsonify({'error': 'Email já cadastrado'}), 409
 
-        if response.status_code != 200:
-            return jsonify({'error': 'Falha ao obter dados do usuário do GitHub'}), 401
+    hashed_password = bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt())
 
-        github_user = response.json()
-        github_id = github_user.get('id')
-        email = github_user.get('email') or f'{github_id}@github.com'  # fallback se e-mail for privado
-        nome = github_user.get('name') or github_user.get('login')
-        profile_pic = github_user.get('avatar_url')
-        username = github_user.get('login')
-
-        usuario_existente = usuarios_collection.find_one({'github_id': github_id})
-        session_token = gerar_token_de_sessao()
-
-        if usuario_existente:
-            usuarios_collection.update_one(
-                {'github_id': github_id},
-                {'$set': {'email': email, 'nome': nome, 'profile_pic': profile_pic, 'username': username}}
-            )
-            user_id = usuario_existente['_id']
-        else:
-            novo_usuario = {
-                'github_id': github_id,
-                'email': email,
-                'nome': nome,
-                'username': username,
-                'profile_pic': profile_pic,
-                'created_at': datetime.datetime.now()
-            }
-            result = usuarios_collection.insert_one(novo_usuario)
-            user_id = result.inserted_id
-
-        sessions_collection.insert_one({
-            'user_id': str(user_id),
-            'session_token': session_token,
-            'created_at': datetime.datetime.now()
-        })
-
-        return jsonify({
-            'success': True,
-            'message': 'Login com GitHub bem-sucedido',
-            'session_token': session_token,
-            'user': {
-                'github_id': github_id,
-                'email': email,
-                'nome': nome,
-                'username': username,
-                'profile_pic': profile_pic,
-                'created_at': datetime.datetime.now()
-            }
-        }), 200
-
-    except Exception as e:
-        return jsonify({'error': f'Erro ao processar login com GitHub: {e}'}), 500
+    novo_usuario = {
+        'nome': nome,
+        'email': email,
+        'senha': hashed_password.decode('utf-8'),
+        'dataNascimento': dataNascimento,
+        'confirmarSenha': confirmarSenha,
+        'genero': genero,
+        'created_at': datetime.datetime.now(),
+    }
     
-    
-@app.route("/auth/github/callback")
-def github_callback():
-    code = request.args.get('code')
-    if not code:
-        return jsonify({'error': 'Código de autorização não fornecido'}), 400
 
-    # Troca o código pelo access_token
-    token_response = external_requests.post(
-        "https://github.com/login/oauth/access_token",
-        headers={'Accept': 'application/json'},
-        data={
-            'client_id': GITHUB_CLIENT_ID,
-            'client_secret': GITHUB_CLIENT_SECRET,
-            'code': code
-        }
-    )
+    result = usuarios_collection.insert_one(novo_usuario)
+    return jsonify({"message": "Usuário criado com sucesso", "id": str(result.inserted_id)}), 201
 
-    token_json = token_response.json()
-    access_token = token_json.get('access_token')
+@app.route('/api/usuarios', methods=['GET'])
+def get_usuarios():
+    usuarios_data = []
+    for usuario in usuarios_collection.find({}, {'senha': 0}):
+        usuario['_id'] = str(usuario['_id']) 
+        usuarios_data.append(usuario)
+    return jsonify(usuarios_data)
 
-    if not access_token:
-        return jsonify({'error': 'Não foi possível obter o access_token'}), 400
-
-    # Pega dados do usuário no GitHub
-    user_response = external_requests.post(
-        "https://api.github.com/user",
-        headers={'Authorization': f'token {access_token}'}
-    )
-
-    github_user = user_response.json()
-    github_id = github_user.get('id')
-    nome = github_user.get('name') or github_user.get('login')
-    email = github_user.get('email') or f"{github_user.get('login')}@users.noreply.github.com"
-    profile_pic = github_user.get('avatar_url')
-
-    if not github_id:
-        return jsonify({'error': 'Erro ao obter dados do usuário GitHub'}), 500
-
-    # Verifica se já existe
-    usuario_existente = usuarios_collection.find_one({'github_id': github_id})
-    if usuario_existente:
-        user_id = usuario_existente['_id']
-        usuarios_collection.update_one(
-            {'_id': user_id},
-            {'$set': {'nome': nome, 'email': email, 'profile_pic': profile_pic}}
-        )
-    else:
-        result = usuarios_collection.insert_one({
-            'github_id': github_id,
-            'nome': nome,
-            'email': email,
-            'profile_pic': profile_pic,
-            'created_at': datetime.datetime.now()
-        })
-        user_id = result.inserted_id
-
-    session_token = gerar_token_de_sessao()
-    sessions_collection.insert_one({
-        'user_id': str(user_id),
-        'session_token': session_token,
-        'created_at': datetime.datetime.now()
-    })
-
-    # Redireciona para o frontend com o token
-    redirect_url = f"http://localhost:3000/github-success?token={session_token}"
-    return redirect(redirect_url)
-
-# === ROTAS DE PERFIL ===
-@app.route('/api/user/me', methods=['GET'])
-def get_me():
-    user, error, status_code = verificar_token()
-    if error:
-        return jsonify(error), status_code
-
-    return jsonify({
-        'id': str(user['_id']),
-        'nome': user.get('nome')
-    }), 200
-
-@app.route('/api/user/update', methods=['PUT'])
+# Rota para atualizar informações do usuário logado (usando o _id do token)
+@app.route('/api/usuarios', methods=['PUT'])
 def update_user():
-    user, error, status_code = verificar_token()
-    if error:
-        return jsonify(error), status_code
-
     data = request.get_json()
     update_data = {}
 
     nome = data.get('nome')
     if nome is not None:
         update_data['nome'] = nome
+        
+    dataNascimento = data.get('dataNascimento')
+    if dataNascimento is not None:
+        update_data['dataNascimento'] = dataNascimento
+
+    genero = data.get('genero')
+    if genero is not None:
+        update_data['genero'] = genero
+
+    nova_senha = data.get('senha')
+    if nova_senha is not None:
+        hashed_password = bcrypt.hashpw(nova_senha.encode('utf-8'), bcrypt.gensalt())
+        update_data['senha'] = hashed_password.decode('utf-8')
 
     if update_data:
         try:
-            result = usuarios_collection.update_one({'_id': user['_id']}, {'$set': update_data})
+            result = usuarios_collection.update_one({'$set': update_data})
             if result.modified_count > 0:
-                updated_user = usuarios_collection.find_one({'_id': user['_id']})
+                updated_user = usuarios_collection.find_one({'_id': 1})
+                if updated_user:
+                    updated_user['_id'] = str(updated_user['_id'])
+                    updated_user.pop('senha', None)
                 return jsonify({
                     'message': 'Informações atualizadas com sucesso!',
-                    'user': {
-                        'id': str(updated_user['_id']),
-                        'nome': updated_user.get('nome')
-                    }
+                    'user': updated_user
                 }), 200
             return jsonify({'message': 'Nenhuma informação foi alterada.'}), 200
         except Exception as e:
+            print(f"Erro ao atualizar o usuário: {e}")
             return jsonify({'error': f'Erro ao atualizar o usuário: {e}'}), 500
     return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
-@app.route('/api/user/profile-picture', methods=['PUT'])
-def salvar_foto_perfil():
-    user, error, status_code = verificar_token()
-    print("Usuário autenticado?", user)
-    if error:
-        print("Erro na verificação do token:", error)
-        return jsonify(error), status_code
+# Rota para deletar o próprio usuário (protegida)
+@app.route('/api/usuarios', methods=['DELETE'])
+def deletar_proprio_usuario():
+    try:
+        resultado = usuarios_collection.delete_one({'_id': [1]})
+        if resultado.deleted_count > 0:
+            return jsonify({'mensagem': f'Usuário deletado com sucesso.'}), 200
+        return jsonify({'erro': 'Usuário não encontrado'}), 404
+    except Exception as e:
+        print(f"Erro ao deletar usuário: {e}")
+        return jsonify({'erro': 'Erro interno ao deletar usuário'}), 500
 
+
+# === ROTAS DE PROJETOS ===
+
+@app.route('/api/projetos', methods=['POST'])
+def criar_projeto():
     data = request.get_json()
-    print("Payload recebido:", data)
-    imagem_base64 = data.get('imagem')
+    nomeProjeto = data.get('nomeProjeto')
+    descricao = data.get('descricao')
+    imagem = data.get('imagem')
+    categoria = data.get('categoria')
 
-    if not imagem_base64:
-        print("Imagem não fornecida.")
-        return jsonify({'error': 'Imagem não fornecida'}), 400
+    if not nomeProjeto or not descricao:
+        return jsonify({"error": "Nome e descrição do projeto são obrigatórios"}), 400
+
+    novo_projeto = {
+        'nomeProjeto': nomeProjeto,
+        'descricao': descricao,
+        'imagem': imagem,
+        'completo': False,
+        'categoria': categoria,
+        'created_at': datetime.datetime.now()
+    }
+
+    result = projetos_collection.insert_one(novo_projeto)
+    return jsonify({
+        "success": True,
+        "projeto": {
+            **{k: v for k, v in novo_projeto.items() if k != '_id'}, # Exclui _id temporariamente
+            "id": str(result.inserted_id) # Retorna o _id do MongoDB como 'id'
+        }
+    }), 201
+    
+    
+@app.route('/api/usarios/comentarios/<string:projeto_id>', methods=['POST'])
+def criar_comentario(projeto_id):
+    data = request.get_json()
+    comentario = data.get('comentario')
+
+    if not comentario:
+        return jsonify({"error": "Comentario obrigatorio"}), 400
+
+    novo_comentario = {
+        'comentario': comentario,
+        'created_at': datetime.datetime.now()
+    }
+
+    result = comentarios_collection.insert_one(novo_comentario)
+    return jsonify({
+        "success": True,
+        "comentario": {
+            **{k: v for k, v in novo_comentario.items() if k != '_id'}, 
+            "id": str(result.inserted_id) 
+        }
+    }), 201
+
+
+@app.route('/api/projetos', methods=['GET'])
+def get_projetos():
+
+    projetos_cursor = projetos_collection.find({}, {'_id': 1})
+
+    projetos_lista = []
+    for projeto in projetos_cursor:
+        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
+        proj_dict['id'] = str(projeto['_id'])
+
+        proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
+        proj_dict['descricao'] = proj_dict.get('descricao', '')
+        proj_dict['completo'] = proj_dict.get('completo', False)
+        proj_dict['categoria'] = proj_dict.get('categoria', 'outros')
+
+        projetos_lista.append(proj_dict)
+
+    return jsonify({ "projetos": projetos_lista })
+
+
+@app.route('/api/projetos/<string:projeto_id>', methods=['PUT']) # Usar string para ObjectId
+def atualizar_projeto(projeto_id):
+    data = request.get_json()
 
     try:
-        usuarios_collection.update_one(
-            {'_id': user['_id']},
-            {'$set': {'profile_pic': imagem_base64}}
-        )
-        print("Imagem atualizada com sucesso no Mongo.")
-        return jsonify({'message': 'Imagem de perfil atualizada com sucesso!'}), 200
-    except Exception as e:
-        print("Erro ao atualizar imagem:", e)
-        return jsonify({'error': f'Erro ao salvar imagem: {e}'}), 500
-    
-    
-# === SOCKET.IO ====
+        # Busca o projeto pelo _id do MongoDB e verifica se pertence ao usuário
+        projeto_existente = projetos_collection.find_one({'_id': ObjectId(projeto_id)})
 
-# Conexões ativas por user_id
+        if not projeto_existente:
+            return jsonify({'error': 'Projeto não encontrado ou você não tem permissão para editá-lo'}), 404
+
+        update_fields = {}
+        if 'nomeProjeto' in data:
+            update_fields['nomeProjeto'] = data['nomeProjeto']
+        if 'descricao' in data:
+            update_fields['descricao'] = data['descricao']
+        if 'imagem' in data:
+            update_fields['imagem'] = data['imagem']
+        if 'completo' in data:
+            update_fields['completo'] = data['completo']
+        if 'categoria' in data:
+            update_fields['categoria'] = data['categoria']
+
+        if update_fields:
+            result = projetos_collection.update_one(
+                {'_id': ObjectId(projeto_id)},
+                {'$set': update_fields}
+            )
+            if result.modified_count > 0:
+                return jsonify({'message': 'Projeto atualizado com sucesso!'}), 200
+            return jsonify({'message': 'Nenhuma alteração feita ou projeto não encontrado.'}), 200
+        return jsonify({'error': 'Nenhum dado para atualizar fornecido.'}), 400
+    except Exception as e:
+        return jsonify({'error': f'ID de projeto inválido ou erro: {e}'}), 400
+
+@app.route('/api/projetos/<string:projeto_id>', methods=['DELETE']) # Usar string para ObjectId
+def deletar_projeto(projeto_id):
+    try:
+        # Deleta o projeto pelo _id do MongoDB e verifica se pertence ao usuário logado
+        resultado = projetos_collection.delete_one({'_id': ObjectId(projeto_id)})
+        if resultado.deleted_count > 0:
+            return jsonify({'mensagem': 'Projeto deletado com sucesso.'}), 200
+        return jsonify({'erro': 'Projeto não encontrado ou você não tem permissão para deletá-lo'}), 404
+    except Exception as e:
+        return jsonify({'error': f'ID de projeto inválido ou erro: {e}'}), 400
+
+
+# === ROTA PARA SERVIR IMAGENS ESTÁTICAS ===
+@app.route('/static/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+
+# === SOCKET.IO ROTAS ====
 user_sid_map = {}
 
 @socketio.on('connect')
@@ -516,7 +402,6 @@ def handle_private_message(data):
 
     print(f"Mensagem de {sender_id} para {receiver_id}: {message}")
 
-    # Envia a mensagem de volta ao remetente (útil para confirmar envio)
     emit('private_message', {
         'sender_id': sender_id,
         'receiver_id': receiver_id,
@@ -524,7 +409,6 @@ def handle_private_message(data):
         'me': True
     }, room=request.sid)
 
-    # Envia a mensagem ao destinatário se ele estiver conectado
     receiver_sid = user_sid_map.get(receiver_id)
     if receiver_sid:
         emit('private_message', {
@@ -534,41 +418,6 @@ def handle_private_message(data):
             'me': False
         }, room=receiver_sid)
 
-# === MUDAR FOTO DE PERIFL === 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-@app.route('/api/usuarios/atualizar-imagem', methods=['PUT'])
-def atualizar_imagem():
-    token = request.form.get('token')
-    imagem = request.files.get('imagem')
-
-    if not token or not imagem:
-        return jsonify({'erro': 'Token e imagem são obrigatórios'}), 400
-
-    usuario = verificar_token(token)  # função que decodifica o token
-    if not usuario:
-        return jsonify({'erro': 'Token inválido'}), 401
-
-    if not allowed_file(imagem.filename):
-        return jsonify({'erro': 'Formato de imagem inválido'}), 400
-
-    filename = secure_filename(imagem.filename)
-    caminho = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    imagem.save(caminho)
-
-    usuarios_collection.update_one(
-        {'_id': ObjectId(usuario['_id'])},
-        {'$set': {'imagem': caminho}}
-    )
-
-    return jsonify({'mensagem': 'Imagem atualizada com sucesso'})
-
-
-
-
-
 # === EXECUTAR APLICAÇÃO ===
 if __name__ == '__main__':
-
-    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True, allow_unsafe_werkzeug=True)

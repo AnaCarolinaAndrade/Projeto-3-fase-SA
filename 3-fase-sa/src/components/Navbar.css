@@ -1,7 +1,7 @@
 .navbar {
     width: 100%;
-    height: 60px;
-    background-color: #0F0F0F;
+    height: 50px;
+    background-color: #000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,12 +21,11 @@
     margin: 0 30px;
     display: flex;
     justify-content: center;
-
 }
 
 .search-container input {
     width: 50%;
-    padding: 8px 15px;
+    padding: 5px 15px;
     border: 1px solid #ccc;
     border-radius: 25px;
     outline: none;
@@ -54,6 +53,7 @@
     background-color: transparent;
     border: 2px solid #ffffff;
     color: #ffffff;
+    font-size: 15px;
 }
 
 .login:hover {
@@ -65,6 +65,7 @@
     background-color: transparent;
     border: 2px solid #fff;
     color: white;
+    font-size: 15px;
 }
 
 .signup:hover {
@@ -86,4 +87,80 @@
 
 .link-perfil {
     border-radius: 50px;
+}
+
+.container-popUp{
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ z-index: 1000;
+ background-color: rgba(0,0,0,0.5);
+}
+
+.container-popUp-alinhamento{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  width: 500px;
+  text-align: center;
+  color: #0F0F0F;
+}
+
+.button-profissional{
+ flex-direction: row;
+ gap: 20px;
+ margin: 10px 5px;
+ padding: 10px 20px;
+ font-size: 16px;
+ cursor: pointer;
+ 
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background: #2B6ADE;
+  color: #F6F6F6;
+}
+
+.button-investidor{
+ flex-direction: row;
+ gap: 20px;
+ margin: 10px 5px;
+ padding: 10px 20px;
+ font-size: 16px;
+ cursor: pointer;
+
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  background: #13B6F6;
+  color: #F6F6F6;
+}
+
+.button-profissional:hover{
+ background-color: #11377d;
+ transition: 0.5s;
+}
+
+.button-investidor:hover{
+ background-color: #5bc6f0;
+ transition: 0.5s;
+}
+
+.button-x{
+ position: absolute;
+ top: 10px;
+ right: 15px;
+ background: transparent;
+ border: none;
+ font-size: 24px;
+ cursor: pointer;
 }
