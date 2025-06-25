@@ -56,12 +56,6 @@ export default function CriarProjeto() {
   const criarProjeto = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    formData.append("nomeProjeto", nomeProjeto);
-    formData.append("descricao", descricao);
-    formData.append("imagem", imagem);
-
     try {
       const response = await fetch('http://localhost:5000/api/projetos', {
         method: 'POST', 
@@ -159,6 +153,7 @@ export default function CriarProjeto() {
                   id="ipt-image"
                   name="image"
                   onChange={handleImageChange}
+                  value={imagem}
                   className="hidden-input"
                   accept="image/*"
                 />
@@ -185,7 +180,7 @@ export default function CriarProjeto() {
               <input
                 type="text"
                 id="description"
-                name="description"
+                name="description"  
                 placeholder="Uma breve descrição do seu projeto"
                 required
                 value={descricao}

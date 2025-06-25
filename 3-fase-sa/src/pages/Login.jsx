@@ -38,51 +38,6 @@ function Login() {
     }
   };
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const token = params.get('token');
-
-    if (token) {
-      localStorage.setItem('session_token', token);
-      navigate('/');
-    } else {
-      navigate('/login');
-    }
-  }, []);
-
-
-
-  const onSuccess = async (credentialResponse) => {
-    fetch('/api/user/me', {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
-      },
-    })
-    const idToken = credentialResponse.credential;
-    try {
-      const response = await fetch('http://localhost:5000/api/google-login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: idToken }),
-      });
-      const data = await response.json();
-      if (data.success) {
-        localStorage.setItem('sessionToken', data.sessionToken);
-        navigate('/');
-      } else {
-        console.error('Erro no login com Google (backend):', data.error);
-      }
-    } catch (error) {
-      console.error('Erro ao enviar token para o backend:', error);
-    }
-  };
-
-  const onFailure = (error) => {
-    console.error('Login com Google falhou:', error);
-  };
-
   const navigate = useNavigate();
 
   return (

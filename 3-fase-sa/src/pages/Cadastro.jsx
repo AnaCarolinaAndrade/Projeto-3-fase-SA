@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { IoIosArrowRoundBack } from "react-icons/io";
 import "./Cadastro.css";
 import Voltar from '../components/Voltar';
 
@@ -11,7 +10,7 @@ export default function Cadastro() {
   const [senha, setSenha] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const navigate = useNavigate();
+
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
@@ -87,6 +86,8 @@ export default function Cadastro() {
     }
   };
 
+  const navigate = useNavigate();
+  
   return (
     <div className="container-form-cadastro">
       <div className='voltar-container'>
