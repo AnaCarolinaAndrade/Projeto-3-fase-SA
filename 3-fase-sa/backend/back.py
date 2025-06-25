@@ -151,8 +151,6 @@ def criar_usuario():
     email = data.get('email')
     senha = data.get('senha')
     dataNascimento = data.get('dataNascimento')
-    confirmarSenha = data.get('confirmarSenha')
-    genero = data.get('genero')
 
     if not nome or not email or not senha:
         return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
@@ -167,8 +165,6 @@ def criar_usuario():
         'email': email,
         'senha': hashed_password.decode('utf-8'),
         'dataNascimento': dataNascimento,
-        'confirmarSenha': confirmarSenha,
-        'genero': genero,
         'created_at': datetime.datetime.now(),
     }
     
@@ -255,7 +251,6 @@ def criar_projeto():
         'nomeProjeto': nomeProjeto,
         'descricao': descricao,
         'imagem': imagem,
-        'completo': False,
         'categoria': categoria,
         'created_at': datetime.datetime.now()
     }

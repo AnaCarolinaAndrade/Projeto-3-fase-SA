@@ -4,7 +4,6 @@ import Sidebar from '../components/Sidebar';
 import Busca from '../components/Busca.jsx'
 import Filter from '../components/Filter.jsx'
 import Lista from '../components/Lista.jsx'
-import { jwtDecode } from 'jwt-decode';
 
 export default function Projetos() {
 
@@ -27,32 +26,6 @@ export default function Projetos() {
       }
     }
   }, []);
-
-  useEffect(() => {
-    const carregarProjetos = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/projetos', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-
-        if (response.status === 401) {
-          console.error("Usuário não autorizado. Token inválido ou ausente.");
-          return;
-        }
-
-        const data = await response.json();
-        setLista(data.projetos || []);
-      } catch (error) {
-        console.error("Erro ao buscar projetos:", error);
-      }
-    };
-
-    carregarProjetos();
-  }, []);
-
 
 
   return (
