@@ -11,9 +11,13 @@
   max-width: 768px;
   margin: 0 auto;
   background: #0F0F0F;
-  padding: 40px;
+  padding: 25px;
   border: 1px solid #d0d7de;
   border-radius: 6px;
+}
+
+.container-criar-projeto label {
+  color: #d8dee4;
 }
 
 .title {
@@ -89,7 +93,6 @@
   box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
 }
 
-/* Dica de nome automático */
 .form-suggestion p {
   margin-bottom: 4px;
   font-size: 13px;
@@ -146,6 +149,7 @@ fieldset {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+
 }
 
 .btn-primary:hover {
@@ -162,4 +166,56 @@ fieldset {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.upload-label {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+  background-color: #0056b3;
+}
+
+
+.container-image {
+  width: 100%;
+  height: 200px;
+  border: 3px dashed #007bff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  position: relative;
+}
+
+.image-preview-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.image-preview-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-fit: contain;
+  display: block;
 }

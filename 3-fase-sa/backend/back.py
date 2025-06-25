@@ -12,7 +12,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from werkzeug.utils import secure_filename
 from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
-from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity, decode_token
+from flask_jwt_extended import create_access_token, JWTManager, jwt_required, get_jwt_identity
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -25,9 +25,10 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # --- Configuração do JWT ---
-app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY", "sua_chave_secreta_padrao_muito_longa_e_segura")
+app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
 app.config['JWT_TOKEN_LOCATION'] = ['headers']
 jwt = JWTManager(app)
+
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -152,7 +153,7 @@ def google_login():
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
 
 
-# === LOGIN COM O GITHUB (API-BASED) ===
+# === LOGIN COM O GITHUB ===
 @app.route("/api/github-login", methods=['POST'])
 def github_login():
     data = request.get_json()
@@ -236,7 +237,7 @@ def github_callback():
     if not code:
         return "Erro: Código de autorização não recebido.", 400
 
-    # 1. Trocar o código de autorização por um access_token
+    # 1. Usar o código de autorização para obter o access_token
     token_params = {
         'client_id': GITHUB_CLIENT_ID,
         'client_secret': GITHUB_CLIENT_SECRET,
@@ -263,13 +264,9 @@ def github_callback():
         user_response.raise_for_status()
         user_info = user_response.json()
 
-        # --- AQUI COMEÇA A LÓGICA DE AUTENTICAÇÃO DA SUA APLICAÇÃO ---
-        # Por exemplo:
-        # - Verificar se o usuário já existe no seu banco de dados
-        # - Se não existir, criar um novo registro para ele
-        # - Criar uma sessão para o usuário ou gerar um JWT
+        if not user_info:
+            return jsonify({"error": "Falha ao obter informações do usuário", "details": user_response.text}), 400
         
-        # Exemplo simples de armazenamento na sessão do Flask
         session['github_access_token'] = access_token
         session['user_id'] = user_info.get('id')
         session['username'] = user_info.get('login')
@@ -296,6 +293,7 @@ def criar_usuario():
     nome = data.get('nome')
     email = data.get('email')
     senha = data.get('senha')
+    dataNascimento = data.get('dataNascimento')
 
     if not nome or not email or not senha:
         return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
@@ -309,8 +307,8 @@ def criar_usuario():
         'nome': nome,
         'email': email,
         'senha': hashed_password.decode('utf-8'),
+        'dataNascimento': dataNascimento,
         'created_at': datetime.datetime.now(),
-        'profile_pic': None
     }
 
     result = usuarios_collection.insert_one(novo_usuario)
@@ -321,17 +319,17 @@ def criar_usuario():
 @jwt_required()
 def get_usuarios():
     usuarios_data = []
-    for usuario in usuarios_collection.find({}, {'senha': 0}): # Exclui senha
-        usuario['_id'] = str(usuario['_id']) # Converte ObjectId para string
+    for usuario in usuarios_collection.find({}, {'senha': 0}):
+        usuario['_id'] = str(usuario['_id']) 
         usuarios_data.append(usuario)
     return jsonify(usuarios_data)
 
 # Rota para obter detalhes do usuário logado
-@app.route('/api/user/me', methods=['GET'])
+@app.route('/api/usuarios', methods=['GET'])
 @jwt_required()
 def get_current_user():
     user_id = get_jwt_identity()
-    user = usuarios_collection.find_one({'_id': ObjectId(user_id)}, {'senha': 0}) # Exclui senha
+    user = usuarios_collection.find_one({'_id': ObjectId(user_id)}, {'senha': 0})
     if user:
         user['_id'] = str(user['_id'])
         return jsonify(user), 200
@@ -361,7 +359,7 @@ def update_user():
                 updated_user = usuarios_collection.find_one({'_id': ObjectId(user_id)})
                 if updated_user:
                     updated_user['_id'] = str(updated_user['_id'])
-                    updated_user.pop('senha', None) # Não retorne a senha hashed
+                    updated_user.pop('senha', None)
                 return jsonify({
                     'message': 'Informações atualizadas com sucesso!',
                     'user': updated_user
@@ -431,17 +429,13 @@ def get_projetos():
 
     projetos_lista = []
     for projeto in projetos_cursor:
-        proj_dict = {k: v for k, v in projeto.items() if k != '_id'} # Remove _id original
-        proj_dict['id'] = str(projeto['_id']) # Adiciona o _id como 'id' string para o frontend
+        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
+        proj_dict['id'] = str(projeto['_id'])
 
         proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
         proj_dict['descricao'] = proj_dict.get('descricao', '')
         proj_dict['completo'] = proj_dict.get('completo', False)
         proj_dict['categoria'] = proj_dict.get('categoria', 'outros')
-
-        # Remove a linha que criava 'text' duplicado
-        # if 'text' not in proj_dict:
-        #    proj_dict['text'] = proj_dict.get('descricao', '')
 
         projetos_lista.append(proj_dict)
 
@@ -557,41 +551,6 @@ def handle_private_message(data):
             'me': False
         }, room=receiver_sid)
 
-
-# === ROTA DE UPLOAD DE IMAGEM DE PERFIL ===
-@app.route('/api/user/profile-picture-upload', methods=['PUT'])
-@jwt_required()
-def upload_profile_picture():
-    user_id = get_jwt_identity()
-
-    if 'imagem' not in request.files:
-        return jsonify({'error': 'Nenhum arquivo de imagem enviado'}), 400
-
-    imagem = request.files['imagem']
-
-    if imagem.filename == '':
-        return jsonify({'error': 'Nenhum arquivo de imagem selecionado'}), 400
-
-    if imagem and allowed_file(imagem.filename):
-        filename = secure_filename(imagem.filename)
-        unique_filename = f"{uuid.uuid4()}_{filename}"
-        caminho_salvar = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
-        imagem.save(caminho_salvar)
-
-        image_url = f"/{app.config['UPLOAD_FOLDER']}/{unique_filename}"
-
-        try:
-            usuarios_collection.update_one(
-                {'_id': ObjectId(user_id)},
-                {'$set': {'profile_pic': image_url}}
-            )
-            return jsonify({'message': 'Imagem de perfil atualizada com sucesso!', 'profile_pic_url': image_url}), 200
-        except Exception as e:
-            print(f"Erro ao atualizar imagem no DB: {e}")
-            return jsonify({'error': 'Erro ao salvar imagem no perfil'}), 500
-    else:
-        return jsonify({'error': 'Formato de arquivo não permitido'}), 400
-
 # === EXECUTAR APLICAÇÃO ===
 if __name__ == '__main__':
-    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
+    socketio.run(app, host="0.0.0.0", port=5000, debug=True, allow_unsafe_werkzeug=True)

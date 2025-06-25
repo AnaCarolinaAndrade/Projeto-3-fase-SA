@@ -13,6 +13,24 @@ function Configs() {
   const [usuario, setUsuario] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
+  useEffect(() => {
+     const fetchUsuario = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/usuarios', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
+          },
+        });
+        const data = await response.json();
+        setUsuario(data.usuario);
+      } catch (error) {
+        console.error('Erro ao buscar usuário:', error);
+      }
+    };
+
+    fetchUsuario();
+  }, []);
+
   return (
     <>
       <Sidebar />

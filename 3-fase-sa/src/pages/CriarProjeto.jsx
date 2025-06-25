@@ -10,38 +10,76 @@ export default function CriarProjeto() {
   const [nomeProjeto, setNomeProjeto] = useState('');
   const [descricao, setDescricao] = useState('');
   const [imagem, setImagem] = useState('');
+  const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
 
+
+
   const [nomeAleatorio] = useState([
-    "byte-verse", "neural-forge", "cloud-spark",
-    "pixel-core", "data-pulse", "code-lattice",
-    "quantum-frame", "task-ship", "api-matrix",
-    "stack-glow", "CodeSync", "SecureNest","ToastyStack",
-    "DataForge", "APIverse", "StackBoard", "BitFlow", 
-    "DevOpsy", "AuthPilot", "PixelAdmin", "NetScope",
-    "ZenBlocks", "NeuroCanvas", "EchoForm", "QuantumQuery",
-    "OrbitPlay", "CodeDrip", "SynthByte", "NanoDash",
-    "Refactron", "LogiCrate", "BugHunter3000", "SnackBarJS", 
-    "MonkeyPatchers", "DuckDeploy", "LazyLoader", "Hacktrix",
-    "404Land", "ChocoByte", "NullPointer Café",
-    "CodeTrackr", "BugSquash", "DevSync", "ByteVault",
-    "TaskForge", "PixelPilot", "GitGuard", "ScriptSphere",
-    "CloudNest", "LogiChain", "BitCanvas", "StackFlow",
-    "PingPanel", "TestBench", "DataDock", "CodeCrate",
-    "DevNest", "NodePulse", "PromptBase", "QueryZen",
-    "BuildHive", "AppSmithy", "JsonJuggler", "DevMate",
-    "CodeTide", "PushCraft", "SnipShelf", "LoopLab",
-    "BranchBoost", "RefactorX"
+  "byte-verse",      "neural-forge",     "cloud-spark",     "pixel-core",       "data-pulse",
+  "code-lattice",    "quantum-frame",    "task-ship",       "api-matrix",       "stack-glow",
+  "CodeSync",        "SecureNest",       "ToastyStack",     "DataForge",        "APIverse",
+  "StackBoard",      "BitFlow",          "DevOpsy",         "AuthPilot",        "PixelAdmin",
+  "NetScope",        "ZenBlocks",        "NeuroCanvas",     "EchoForm",         "QuantumQuery",
+  "OrbitPlay",       "CodeDrip",         "SynthByte",       "NanoDash",         "Refactron",
+  "LogiCrate",       "BugHunter3000",    "SnackBarJS",      "MonkeyPatchers",   "DuckDeploy",
+  "LazyLoader",      "Hacktrix",         "404Land",         "ChocoByte",        "NullPointer Café",
+  "CodeTrackr",      "BugSquash",        "DevSync",         "ByteVault",        "TaskForge",
+  "PixelPilot",      "GitGuard",         "ScriptSphere",    "CloudNest",        "LogiChain",
+  "BitCanvas",       "StackFlow",        "PingPanel",       "TestBench",        "DataDock",
+  "CodeCrate",       "DevNest",          "NodePulse",       "PromptBase",       "QueryZen",
+  "BuildHive",       "AppSmithy",        "JsonJuggler",     "DevMate",          "CodeTide",
+  "PushCraft",       "SnipShelf",        "LoopLab",         "BranchBoost",      "RefactorX",
+  "TechBridge",      "CodeWave",         "SmartHive",       "DataPulse",        "NeuroLink",
+  "PixelForge",      "AutoBotX",         "SecureNet",       "CloudCraft",       "VisionAI",
+  "WebNova",         "GreenTech",        "CryptoCore",      "AI Assistant",     "NanoSecure",
+  "VoicePilot",      "BioCode",          "CyberNest",       "CodeSphere",       "DigitalTwins",
+  "SmartCityMap",    "IoT Watchdog",     "RoboHelper",      "SmartFit",         "VirtualDesk",
+  "TaskMaster AI",   "DeepTrack",        "ByteScan",        "MindMesh",         "SmartScanner",
+  "NetGuardian",     "EduCode",          "GameForge",       "MetaLink",         "BlockAuth",
+  "DriveSync",       "QuantumLeap",      "BotBuddy",        "AI Recruiter",     "AgroTechSys",
+  "WeatherNet",      "DroneControl",     "AutoDoc",         "CodeTutor",        "MedAI",
+  "EcoMonitor",      "HomeAI",           "SmartInventory",  "AI Recipes",       "NeuralChat",
+  "CryptoTrade",     "EventFlow",        "HoloMeet",        "AutoTrader",       "CodeWarden",
+  "StreamAI",        "SmartBudget",      "CyberEye",        "HackShield",       "RoboChef",
+  "AI Lawyer",       "SmartGarden",      "DeepVision",      "LangBot",          "AR Painter",
+  "BugTracker",      "AppSyncer",        "HealthMap",       "FitTrack",         "AI DJ",
+  "DevConnect",      "TaskAI",           "SimuVerse",       "CloudLock",        "TimeWizard",
+  "CodeClinic",      "NFT Vault",        "LiveCode",        "TrackFusion",      "SmartPark",
+  "CryptoWallet",    "IoTLogger",        "GamerTrack",      "MindFocus",        "Speechify",
+  "AutoDeploy",      "LinkAnalyzer",     "ZeroBug",         "SecureBox",        "JobMatchAI",
+  "MotionAI",        "EcoHome",          "SmartGridAI",     "E-LearnBoost",     "SmartAlerts",
+  "AICoder",         "MobileMate",       "StreamSync",      "DataGuardian",     "PayChain",
+  "BioAccess",       "AIPlanner",        "SmartDocs"
   ])
+
+  const token = localStorage.getItem('token');
 
   const criarProjeto = async (e) => {
     e.preventDefault();
 
+    if (!token) {
+      console.error("Token não encontrado. Faça login.");
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("nomeProjeto", nomeProjeto);
+    formData.append("descricao", descricao);
+    formData.append("imagem", imagem);
+
     try {
       const response = await fetch('http://localhost:5000/api/projetos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nomeProjeto, descricao, imagem }),
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          nomeProjeto,
+          descricao,
+          imagem
+        }),
       });
 
       const data = await response.json();
@@ -59,6 +97,22 @@ export default function CriarProjeto() {
       console.error("Erro ao criar projeto", error);
     }
   }
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagem(file); // Salva o objeto File original
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagemPreviewUrl(reader.result); // Define a URL para o preview
+      };
+      reader.readAsDataURL(file); // Lê o arquivo como uma URL de dados
+    } else {
+      setImagem(null);
+      setImagemPreviewUrl(null);
+    }
+  };
 
   return (
     <div className="application-main">
@@ -83,7 +137,7 @@ export default function CriarProjeto() {
                   maxLength={25}
                   required
                 />
-              </div> 
+              </div>
 
               <div className="form-suggestion">
                 <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração?</p>
@@ -103,14 +157,36 @@ export default function CriarProjeto() {
             </fieldset>
 
             <div className='formulario-projeto'>
-              <label htmlFor="image">Imagem de capa</label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                onChange={(e) => setImagem(e.target.files[0])}
-              />
+              <div>
+                <label htmlFor="ipt-image" className="upload-label">
+                  Imagem de capa
+                </label>
+              </div>
+              <div className='container-image'>
+                <input
+                  type="file"
+                  id="ipt-image"
+                  name="image"
+                  onChange={handleImageChange}
+                  className="hidden-input"
+                  accept="image/*"
+                />
+
+                {imagemPreviewUrl ? (
+                  <div className="image-preview-wrapper">
+                    <img
+                      src={imagemPreviewUrl}
+                      alt="Pré-visualização da Imagem"
+                      className='image-preview-full'
+                    />
+                  </div>
+                ) 
+                : (
+                  <div className="image-preview-wrapper">
+                    Coloque uma imagem
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="formulario-projeto">
