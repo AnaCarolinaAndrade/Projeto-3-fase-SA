@@ -22,7 +22,6 @@ const router = createBrowserRouter([
     { path: "/chat", element: <Chat /> },
     { path: "/configs", element: <Configs /> },
     { path: "/projetos", element: <Projetos /> },
-    { path: "/GithubCuccess", element: <GithubSuccess /> },
     { path: "/criarProjeto", element: <CriarProjeto /> },
     { path: "/ProjetoEdicao", element: <ProjetoEdicao /> },
     { path: "/cadastro_investidor", element: <Cadastro_investidor /> },

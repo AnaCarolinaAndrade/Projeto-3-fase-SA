@@ -56,7 +56,6 @@ function Sidebar() {
           <Link to={'/criarProjeto'} className="icon-text"><CgAddR color="white" fontSize={18} /><span className="link-text">Criar Projeto</span> </Link>
           <Link to={'/ProjetosEdição'} className="icon-text"><CgAddR color="white" fontSize={18} /><span className="link-text">Editar projeto</span> </Link>
           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={18} /> <span className="link-text">Projetos </span> </Link>
-          <Link to={'/ranking'} className="icon-text"><GiLaurelsTrophy color="white" fontSize={18} /><span className="link-text">Ranking</span> </Link>
           <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={16} /><span className="link-text"> Configurações</span></Link>
 
         </nav>

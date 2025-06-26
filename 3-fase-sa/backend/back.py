@@ -109,9 +109,9 @@ def google_login():
                 'given_name': given_name,
                 'created_at': datetime.datetime.now()
             }
+
             result = usuarios_google_collection.insert_one(novo_usuario)
             user_id = result.inserted_id
-
 
         return jsonify({
             'success': True,
@@ -132,7 +132,6 @@ def google_login():
         print(f"Erro inesperado no login com Google: {e}")
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
     
-# Rota de Criação de Usuário (agora com hashing de senha)
 @app.route('/api/usuarios', methods=['POST'])
 def criar_usuario():
     data = request.get_json()

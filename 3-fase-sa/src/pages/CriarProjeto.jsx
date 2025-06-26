@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './CriarProjeto.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ export default function CriarProjeto() {
   const [imagem, setImagem] = useState('');
   const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
-
+  const fileInputRef = useRef();
 
 
   const [nomeAleatorio] = useState([
@@ -153,7 +153,7 @@ export default function CriarProjeto() {
                   id="ipt-image"
                   name="image"
                   onChange={handleImageChange}
-                  value={imagem}
+                  ref={fileInputRef}  
                   className="hidden-input"
                   accept="image/*"
                 />

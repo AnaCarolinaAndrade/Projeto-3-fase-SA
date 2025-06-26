@@ -65,12 +65,12 @@ function Cadastro_investidor() {
           <div className='alinhamento-esquerda'>
             <label>Nome da empresa/investidor</label><input type='text' id='nome' name='nome' value={cadastro.nome} onChange={handleChange} required></input>
             <label>CNPJ da empresa ou CPF do Investidor</label><input type='text' id='documento' name='documento' value={cadastro.documento} onChange={handleChange} required></input>
-            <label>Email</label><input type='email' id='email' name='documnto' value={cadastro.documento} onChange={handleChange} required></input>
+            <label>Email</label><input type='email' id='email' name='email' value={cadastro.email} onChange={handleChange} required></input>
           </div>
 
           <div className='alinhamento-direita'>
             <label>Senha</label><input type='password' id='senha' name='senha' value={cadastro.senha} onChange={handleChange} required></input>
-            <label>Confirmar Senha</label><input type='password' id='confirmarSenha' name='senha' value={cadastro.senha} onChange={handleChange} required></input>
+            <label>Confirmar Senha</label><input type='password' id='confirmarSenha' name='confirmarSenha' value={cadastro.confirmarSenha} onChange={handleChange} required></input>
             <label>Genero (opcional)</label><input type='text' id='genero' name='genero' value={cadastro.genero} onChange={handleChange}></input>
           </div>
         </div>
