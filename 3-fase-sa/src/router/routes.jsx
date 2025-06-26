@@ -9,6 +9,7 @@ import Configs from '../pages/Configs.jsx';
 import Projetos from '../pages/Projetos.jsx';
 import GithubSuccess from '../components/GithubSuccess.jsx';
 import CriarProjeto from "../pages/CriarProjeto.jsx";
+import ProjetoEdicao from '../pages/ProjetoEdicao.jsx'
 import Cadastro_investidor from "../pages/Cadastro_investidor.jsx";
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
     { path: "/projetos", element: <Projetos /> },
     { path: "/GithubCuccess", element: <GithubSuccess /> },
     { path: "/criarProjeto", element: <CriarProjeto /> },
+    { path: "/ProjetoEdicao", element: <ProjetoEdicao /> },
     { path: "/cadastro_investidor", element: <Cadastro_investidor /> },
 
 
