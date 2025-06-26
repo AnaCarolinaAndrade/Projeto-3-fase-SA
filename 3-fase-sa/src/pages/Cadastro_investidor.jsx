@@ -9,7 +9,6 @@ function Cadastro_investidor() {
     email: '',
     senha: '',
     confirmarSenha: '',
-    genero: ''
   })
 
   const [logado, setLogado] = useState(false)
@@ -41,7 +40,7 @@ function Cadastro_investidor() {
 
       if (response.ok) {
         alert(data.message || 'Cadastro realizado com sucesso!')
-        Navigate('/')
+       navigate('/')
 
       } else {
         const data = response.json();
@@ -59,7 +58,7 @@ function Cadastro_investidor() {
   return (
     <div className='container-cadastro-investidor-cor'>
       <div className='container-cadastro-investidor-alinhamento'>
-      <img src='./img/logo_pequena.png' alt="Logo" className='logo' /><h1 className='container-titulo'>Cadastrace como investidor</h1>
+      <img src='./img/logo_pequena.png' alt="Logo" className='logo' /><h1 className='container-titulo'>Cadastre-se como investidor</h1>
 
         <div className='alinhamentos-wrapper' >
           <div className='alinhamento-esquerda'>
@@ -71,7 +70,6 @@ function Cadastro_investidor() {
           <div className='alinhamento-direita'>
             <label>Senha</label><input type='password' id='senha' name='senha' value={cadastro.senha} onChange={handleChange} required></input>
             <label>Confirmar Senha</label><input type='password' id='confirmarSenha' name='confirmarSenha' value={cadastro.confirmarSenha} onChange={handleChange} required></input>
-            <label>Genero (opcional)</label><input type='text' id='genero' name='genero' value={cadastro.genero} onChange={handleChange}></input>
           </div>
         </div>
 

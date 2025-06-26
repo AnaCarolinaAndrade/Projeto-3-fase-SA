@@ -46,7 +46,7 @@ export default function PessoasChat() {
                             <li key={usuario._id || usuario.id} className="usuario-item">
                                 <h3>{usuario.nome}</h3>
                                 <p>Email: {usuario.email}</p>
-                                <p>descrição: {usuario.descricao}</p>
+
                                 {usuario.genero && <p>Gênero: {usuario.genero}</p>}
                             </li>
                         ))}
