@@ -11,8 +11,8 @@ body {
   overflow-x: hidden;
 }
 
-.container-home-home{
-  background-color:   #0F0F0F;
+.container-home-home {
+  background-color: #0F0F0F;
 }
 
 .Home-container {
@@ -26,6 +26,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 6%;
   width: 1100px;
 }
 
@@ -72,8 +73,8 @@ body {
   background-color: transparent;
   box-shadow: none;
   text-shadow:
-    0 0 5px rgba(255, 255, 255, 0.6),
-    0 0 10px rgba(255, 255, 255, 0.4);
+  0 0 5px rgba(255, 255, 255, 0.6),
+  0 0 10px rgba(255, 255, 255, 0.4);
 }
 
 .subtitle-home {
@@ -84,25 +85,25 @@ body {
 }
 
 .container-img {
-  height: auto;
+  margin-left: 20%;
 }
 
 .degrade-container {
   width: 450px;
   height: 400px;
   margin-top: 120px;
-  margin-left: 200px;
+  margin-left: 480px;
   border-radius: 50%;
   background-image: radial-gradient(circle at center, #40c9ff, rgba(139, 244, 252, 0.164));
   filter: blur(48px);
 }
 
 .buttons-landig {
-  margin-top: 40px;
+  margin-top: 25px;
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  justify-content: center;
+  margin-right: 60%;
 }
 
 .botoes-projetos:hover {
@@ -117,66 +118,10 @@ input {
 
 .botoes-projetos {
   background-color: #202020;
-  padding: 15px;
+  padding: 13px;
+  width: 210px;
   color: #fff;
   font-size: 15px;
   border-radius: 10px;
   text-decoration: none;
 }
-
-
-
-.container-neuralMid{
-  margin-top: 28%;
-}
-
-.container-deepVision{
-  margin-top: 6%;
-}
-
-.container-smartPredict{
-  margin-top: 6%;
-}
-
-.container-codeForge{
-  margin-top: 6%;
-}
-
-.container-neuralMid h4, 
-.container-deepVision h4,
-.container-smartPredict h4,
-.container-codeForge h4{
- color: #F6F6F6;
-}
-
-.container-neuralMid h2, 
-.container-deepVision h2,
-.container-smartPredict h2,
-.container-codeForge h2{
- color: #F6F6F6;
-}
-
-.container-neuralMid p, 
-.container-deepVision p,
-.container-smartPredict p,
-.container-codeForge p{
- color: #F6F6F6;
- background-color: transparent;
-}
-
-.container-neuralMid button, 
-.container-deepVision button,
-.container-smartPredict button,
-.container-codeForge button{
- color: #0F0F0F;
- background-color: #13B6F6 ;
-}
-
-.container-neuralMid, 
-.container-deepVision,
-.container-smartPredict,
-.container-codeForge{
- background-color: #202020;
-}
-
-

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Login.css";
 import GitHubLogin from "../components/GithubLogin";
+import Voltar from "../components/Voltar";
 
 function Login() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -43,7 +44,7 @@ function Login() {
 
     if (token) {
       localStorage.setItem('session_token', token);
-      navigate('/home'); // ou onde quiser redirecionar após login
+      navigate('/');
     } else {
       navigate('/login');
     }
@@ -86,6 +87,9 @@ function Login() {
 
   return (
     <div className="login-container">
+      <div className='voltar-container'>
+        <Link to={"/"}> <Voltar color="white" /></Link>
+      </div>
       <div className="login-right">
         <form className="login-box">
           <div className="container-input">

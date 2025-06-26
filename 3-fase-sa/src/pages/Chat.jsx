@@ -29,6 +29,7 @@ const Chat = () => {
     const [recipientId, setRecipientId] = useState("");
     const [mostrarConfig, setMostrarConfig] = useState(false)
     const [girando, setGirando] = useState(false);
+    const [usuario, setUsuario] = useState(null);
 
     const toggleConfig = () => {
         setMostrarConfig(!mostrarConfig);
@@ -98,7 +99,15 @@ const Chat = () => {
                 <div className="container-chat">
 
                     <nav className="topo-chat">
+                        <div className="foto-user-chat">
+                            <span>
+                                {usuario}
+                            </span>
+
+                            <img src="./img/foto-user.png" />
+                        </div>
                         <div className="config-container-chat">
+
                             <button className="btn-config-chat" onClick={toggleConfig}>
                                 <FaGear
                                     color="white"

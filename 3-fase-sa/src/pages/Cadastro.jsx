@@ -1,7 +1,8 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import axios from 'axios';
 import "./Cadastro.css";
+import Voltar from '../components/Voltar';
 
 export default function Cadastro() {
   const [nome, setNome] = useState('');
@@ -9,6 +10,7 @@ export default function Cadastro() {
   const [senha, setSenha] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
@@ -21,7 +23,12 @@ export default function Cadastro() {
       const response = await fetch('http://localhost:5000/api/usuarios', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, senha, nome, dataNascimento }),
+        body: JSON.stringify({
+          email,
+          senha,
+          nome,
+          dataNascimento
+        }),
       });
 
       const data = await response.json();
@@ -33,11 +40,9 @@ export default function Cadastro() {
 
       if (data.success) {
         navigate('/');
-      } else {
-        alert(data.error || "Login falhou.");
       }
     } catch (error) {
-      console.error("Erro no login tradicional:", error);
+      console.error("Erro no cadastro:", error);
     }
   };
 
@@ -81,8 +86,15 @@ export default function Cadastro() {
     }
   };
 
+  const navigate = useNavigate();
+  
   return (
     <div className="container-form-cadastro">
+      <div className='voltar-container'>
+        <Link to={"/"}> <Voltar color="white" /></Link>
+      </div>
+
+
       <div className='container-cadastro'>
         <div className="form-wrapper">
           <div className="form-container">
@@ -109,11 +121,6 @@ export default function Cadastro() {
                   onChange={e => setNome(e.target.value)}
                   required
                 />
-              </div>
-
-              <div className="form-group">
-                <label>Gênero</label>
-                <input placeholder="Digite seu gênero" />
               </div>
 
               <div className="form-group">
@@ -156,6 +163,7 @@ export default function Cadastro() {
                     type={mostrarSenha ? 'text' : 'password'}
                   />
                 </div>
+
               </div>
 
               <button type="submit" className='enviar-formulario'>Enviar Formulário</button>

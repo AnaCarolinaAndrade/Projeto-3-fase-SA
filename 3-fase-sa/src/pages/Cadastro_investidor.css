@@ -1,0 +1,104 @@
+.logo {
+  width: 80px;
+  height: 50px;
+ 
+}
+
+.container-cadastro-investidor-cor{
+ background-color: #0f0f0f;
+ width: 100vw;
+ height: 100vh;
+}
+
+.container-titulo {
+  color: #f6f6f6;
+  margin-bottom: 70px;
+}
+
+.container-cadastro-investidor-cor {
+  color: #0f0f0f;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom,
+      rgb(0, 0, 0) 70%,
+      /* transparente no topo */
+      #1f1f1f 99%,
+      /* azul ciano suave intermediário */
+      #1f1f1f  10%
+      /* azul ciano mais intenso embaixo */
+    );
+}
+
+.container-cadastro-investidor-alinhamento {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 850px;
+  box-sizing: border-box;
+  margin-bottom: 100px;
+}
+
+.container-cadastro-investidor-alinhamento label {
+  color: #f6f6f6;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: left;
+  display: block;
+}
+
+.container-cadastro-investidor-alinhamento input {
+  border: none;
+  border-radius: 5px;
+  width: 350px;
+  height: 30px;
+  background-color: #f6f6f6;
+  padding: 0 10px;
+  box-sizing: border-box;
+  box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4);
+  transition: box-shadow 0.3s ease;
+  outline: none;
+}
+
+.container-cadastro-investidor-alinhamento input:focus {
+  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.7);
+}
+
+.alinhamento-esquerda,
+.alinhamento-direita {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.container-cadastro-investidor-alinhamento>.alinhamento-esquerda,
+.container-cadastro-investidor-alinhamento>.alinhamento-direita {
+  width: 400px;
+}
+
+.alinhamentos-wrapper {
+  display: flex;
+  gap: 80px;
+  margin-bottom: 30px;
+}
+
+.container-button {
+  background-color: #32c3fc;
+  color: #f6f6f6;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  height: 35px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  margin-top: 27px;
+}
+
+.container-button:hover {
+  background-color: #6cd3fc;
+}

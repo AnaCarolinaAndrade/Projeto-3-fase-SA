@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'; // Importe useNavigate par
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -34,6 +35,16 @@ function Navbar() {
     navigate('/login');
   };
 
+  const goToInvestidor = () => {
+    setModalOpen(false);
+    navigate('/Cadastro_investidor');
+  };
+
+  const goToProfissional = () => {
+    setModalOpen(false);
+    navigate('/Cadastro');
+  };
+
   return (
     <>
       <div className='container-navbar'>
@@ -59,7 +70,7 @@ function Navbar() {
             {!isLoggedIn && (
               <div className="links-nav">
                 <Link to={'./login'} className="btn login">Login</Link>
-                <Link to={'./cadastro'} className="btn signup">Cadastro</Link>
+               <button onClick={() => setModalOpen(true)} className="btn signup">Cadastro</button>
               </div>
             )}
 
@@ -75,7 +86,17 @@ function Navbar() {
 
           </div>
         </nav>
+        </div>
+        {modalOpen && (
+        <div className='container-popUp'onClick={() => setModalOpen(false)}>
+          <div className='container-popUp-alinhamento'onClick={e => e.stopPropagation()}>
+            <h2>Qual área você deseja cadastrar?</h2>
+            <button className='button-investidor' onClick={goToInvestidor}>Cadastro Investidor</button>
+            <button className='button-profissional' onClick={goToProfissional}>Cadastro Profissional</button>
+            <button className="button-x" onClick={() => setModalOpen(false)}>x</button>
+          </div>
       </div>
+      )}
     </>
   )
 }

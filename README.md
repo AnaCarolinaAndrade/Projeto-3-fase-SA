@@ -19,8 +19,8 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
  **[RF 002]** - O sistema deve permitir que o usuário investidor realize seu cadastro perfeitamente.  
   *Descrição: Página de cadastro para novos investidores.*
 
- **[RF 003]** - O sistema deve permitir que o usuário faça login na sua conta a partir do Gmail e GitHub.  
-  *Descrição: Integração com a API de login do Google e GitHub.*
+ **[RF 003]** - O sistema deve permitir que o usuário faça login na sua conta a partir do Gmail.
+  *Descrição: Integração com a API de login do Google.*
 
  **[RF 004]** - O sistema deve permitir que o usuário modifique seu perfil dentro dos limites especificados.  
   *Descrição: Funcionalidades para editar foto, nome, biografia, entre outros.*
@@ -35,28 +35,19 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
   *Descrição: Chat simples para comunicação direta entre os usuários, podendo enviar videos, imagens e lincks.*
 
   **[RF 008]** - O sistema deve ter uma aba de pesquisa.  
-  *Descrição: Aba de pesquisa para projetos, ideias de projetos, e usuarios.*
+  *Descrição: Aba de pesquisa para projetos, ideias de projetos.*
 
- **[RF 009']** - O sistema deve ter uma função para divulgar os projetos feitos pelo profissional.  
-  *Descrição: No perfil do usuario profissional, teria os projetos que participou realizados.*
+ **[RF 009']** - O sistema deve ter uma função para mostrar os projetos feitos pelo profissional.  
+  *Descrição: No perfil do usuario profissional, teria os projetos que o usario criou.*
 
  **[RF 010]** - O sistema deve ter uma função de especificação do projeto que o usuário procura.  
   *Descrição: Questionários para recomendar projetos ou idias com base nas respostas.*
 
- **[RF 011]** - O sistema terá um rankeamento por projetos mais ativos na comunidade.  
-  *Descrição: Emblemas de bronze a ouro, no maxímo 10 projetos mais ativos na comunidade e sendo bem avaliados.*
+ **[RF 011]** - O sistema permitirá postagens na comunidade e no perfil do usuário.  
+  *Descrição: Postagens relacionadas a imagens e Links.*
 
- **[RF 012]** - O sistema permitirá postagens na comunidade e no perfil do usuário.  
-  *Descrição: Postagens relacionadas a trabalhos, videos, imagens e Links.*
-
- **[RF 013]** - O sistema deve realizar as funções de administrador.  
-  *Descrição: Exclusão de postagens e perfis em caso de denúncias.*
-
- **[RF 014]** - O sistema fornecerá a opção de denúncia.  
-  *Descrição: Funcionalidade para denunciar postagens e usuários.*
-
- **[RF 015]** - O sistema deve permitir feedbacks.  
-  *Descrição: Avaliação dos projetos e usuarios, com estrelas ou comentários.*
+ **[RF 012]** - O sistema deve permitir feedbacks.  
+  *Descrição: Avaliação dos projetos e usuarios, com comentários.*
 
 ## Protótipo das Telas de Login e Cadastro
 
@@ -77,8 +68,8 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 
 ## Colaboradores do Projeto e as funções que irão exercer
 
-| Integrantes da equipe | Requisitos Funcionais (RF)                        |
-|-----------------------|---------------------------------------------------|
-| Ana Carolina          | [RF 002], [RF 005], [RF 007], [RF 008], [RF 013]  |
-| Gabriel Castanhel     | [RF 001], [RF 003], [RF 004], [RF 012], [RF 014]  |
-| Pedro Henrique        | [RF 006], [RF 009], [RF 010], [RF 011], [RF 015]  |
+| Integrantes da equipe | Requisitos Funcionais (RF)                |
+|-----------------------|-------------------------------------------|
+| Ana Carolina          | [RF 002], [RF 005], [RF 007], [RF 008]    |
+| Gabriel Castanhel     | [RF 001], [RF 003], [RF 004], [RF 012]    |
+| Pedro Henrique        | [RF 006], [RF 009], [RF 010], [RF 011]    |
