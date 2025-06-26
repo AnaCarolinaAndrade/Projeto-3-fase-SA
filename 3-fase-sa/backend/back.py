@@ -33,7 +33,7 @@ MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
-GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET") # Ainda necessário se você usar o fluxo de callback no backend
+GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -46,7 +46,6 @@ try:
     db = client[DATABASE_NAME]
     usuarios_collection = db["usuarios"]
     projetos_collection = db['projetos']
-    # Removido sessions_collection pois JWT será usado exclusivamente
     print("Conexão com MongoDB estabelecida com sucesso!")
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
@@ -222,14 +221,6 @@ def github_login():
     except Exception as e:
         print(f"Erro no login com GitHub: {e}")
         return jsonify({'error': f'Erro ao processar login com GitHub: {e}'}), 500
-
-# Removido o fluxo de callback do GitHub baseado em redirecionamento, use o fluxo API-based acima
-# @app.route("/auth/github/callback")
-# def github_callback():
-#    ... (código removido) ...
-
-
-# Rota de Criação de Usuário (agora com hashing de senha)
 @app.route('/api/usuarios', methods=['POST'])
 def criar_usuario():
     data = request.get_json()
@@ -261,7 +252,7 @@ def criar_usuario():
 @jwt_required()
 def get_usuarios():
     usuarios_data = []
-    for usuario in usuarios_collection.find({}, {'senha': 0}): # Exclui senha
+    for usuario in usuarios_collection.find({}, {'senha': 0}): 
         usuario['_id'] = str(usuario['_id']) # Converte ObjectId para string
         usuarios_data.append(usuario)
     return jsonify(usuarios_data)
