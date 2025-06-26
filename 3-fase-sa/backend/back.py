@@ -15,7 +15,7 @@ from flask import Flask, request, jsonify, redirect, url_for, send_from_director
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
-
+ 
 app = Flask(__name__)
 
 # Configuração CORS: Permite requests do seu frontend React
@@ -26,15 +26,6 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
-
-GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
-GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
-
-#URLs do GitHub para OAuth
-GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
-GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token"
-GITHUB_USER_API = "https://api.github.com/user"
-YOUR_FRONTEND_URL= "http://localhost:5000"
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -49,8 +40,6 @@ try:
     projetos_collection = db['projetos']
     usuarios_google_collection = db['usuarios_google']
     comentarios_collection = db['comentario']
-    
-    
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
     exit()
@@ -142,7 +131,7 @@ def google_login():
     except Exception as e:
         print(f"Erro inesperado no login com Google: {e}")
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
-
+    
 # Rota de Criação de Usuário (agora com hashing de senha)
 @app.route('/api/usuarios', methods=['POST'])
 def criar_usuario():
@@ -151,8 +140,6 @@ def criar_usuario():
     email = data.get('email')
     senha = data.get('senha')
     dataNascimento = data.get('dataNascimento')
-    confirmarSenha = data.get('confirmarSenha')
-    genero = data.get('genero')
 
     if not nome or not email or not senha:
         return jsonify({'error': 'Nome, email e senha são obrigatórios'}), 400
@@ -167,8 +154,6 @@ def criar_usuario():
         'email': email,
         'senha': hashed_password.decode('utf-8'),
         'dataNascimento': dataNascimento,
-        'confirmarSenha': confirmarSenha,
-        'genero': genero,
         'created_at': datetime.datetime.now(),
     }
     
@@ -240,7 +225,7 @@ def deletar_proprio_usuario():
 
 # === ROTAS DE PROJETOS ===
 
-@app.route('/api/projetos', methods=['POST'])
+@app.route('/api/usuarios/projetos', methods=['POST'])
 def criar_projeto():
     data = request.get_json()
     nomeProjeto = data.get('nomeProjeto')
@@ -255,7 +240,6 @@ def criar_projeto():
         'nomeProjeto': nomeProjeto,
         'descricao': descricao,
         'imagem': imagem,
-        'completo': False,
         'categoria': categoria,
         'created_at': datetime.datetime.now()
     }
@@ -269,6 +253,24 @@ def criar_projeto():
         }
     }), 201
     
+    
+@app.route('/api/usuarios/projetos', methods=['GET'])
+def get_projetos():
+    projetos_cursor = projetos_collection.find({}, {'_id': 1})
+
+    projetos_lista = []
+    for projeto in projetos_cursor:
+        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
+        proj_dict['id'] = str(projeto['_id'])
+
+        proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
+        proj_dict['descricao'] = proj_dict.get('descricao', '')
+        proj_dict['completo'] = proj_dict.get('completo', False)
+        proj_dict['categoria'] = proj_dict.get('categoria', 'outros')
+
+        projetos_lista.append(proj_dict)
+
+    return jsonify({ "projetos": projetos_lista })
     
 @app.route('/api/usarios/comentarios/<string:projeto_id>', methods=['POST'])
 def criar_comentario(projeto_id):
@@ -293,24 +295,7 @@ def criar_comentario(projeto_id):
     }), 201
 
 
-@app.route('/api/projetos', methods=['GET'])
-def get_projetos():
 
-    projetos_cursor = projetos_collection.find({}, {'_id': 1})
-
-    projetos_lista = []
-    for projeto in projetos_cursor:
-        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
-        proj_dict['id'] = str(projeto['_id'])
-
-        proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
-        proj_dict['descricao'] = proj_dict.get('descricao', '')
-        proj_dict['completo'] = proj_dict.get('completo', False)
-        proj_dict['categoria'] = proj_dict.get('categoria', 'outros')
-
-        projetos_lista.append(proj_dict)
-
-    return jsonify({ "projetos": projetos_lista })
 
 
 @app.route('/api/projetos/<string:projeto_id>', methods=['PUT']) # Usar string para ObjectId

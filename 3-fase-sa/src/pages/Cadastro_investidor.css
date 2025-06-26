@@ -1,8 +1,13 @@
 .logo {
-  width: 160px;
-  height: 40px;
-  margin-right: 150%;
-  margin-bottom: 20px;
+  width: 80px;
+  height: 50px;
+ 
+}
+
+.container-cadastro-investidor-cor{
+ background-color: #0f0f0f;
+ width: 100vw;
+ height: 100vh;
 }
 
 .container-titulo {
@@ -10,18 +15,18 @@
   margin-bottom: 70px;
 }
 
-.container-cadastro-investidor {
+.container-cadastro-investidor-cor {
+  color: #0f0f0f;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0) 70%,
+      rgb(0, 0, 0) 70%,
       /* transparente no topo */
-      #13b6f638 99%,
+      #1f1f1f 99%,
       /* azul ciano suave intermediário */
-      rgba(8, 172, 217, 0.244) 100%
+      #1f1f1f  10%
       /* azul ciano mais intenso embaixo */
     );
 }
@@ -85,7 +90,7 @@
   color: #f6f6f6;
   border: none;
   border-radius: 5px;
-  width: 260px;
+  width: 300px;
   height: 35px;
   font-size: 16px;
   font-weight: bold;
@@ -95,5 +100,5 @@
 }
 
 .container-button:hover {
-  background-color: #0173a0;
+  background-color: #6cd3fc;
 }
