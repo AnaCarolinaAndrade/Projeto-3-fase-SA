@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Login.css";
 import GitHubLogin from "../components/GithubLogin";
 import Voltar from "../components/Voltar";
@@ -15,8 +15,6 @@ function Login() {
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
   };
-
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
