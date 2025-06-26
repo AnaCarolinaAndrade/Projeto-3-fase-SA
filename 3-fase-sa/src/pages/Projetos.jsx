@@ -4,7 +4,6 @@ import Sidebar from '../components/Sidebar';
 import Busca from '../components/Busca.jsx'
 import Filter from '../components/Filter.jsx'
 import Lista from '../components/Lista.jsx'
-import { jwtDecode } from 'jwt-decode';
 
 export default function Projetos() {
 
