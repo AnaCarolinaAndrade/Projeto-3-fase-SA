@@ -27,15 +27,6 @@ MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 
-GITHUB_CLIENT_ID = os.getenv("GITHUB_CLIENT_ID")
-GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
-
-#URLs do GitHub para OAuth
-GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
-GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token"
-GITHUB_USER_API = "https://api.github.com/user"
-YOUR_FRONTEND_URL= "http://localhost:5000"
-
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -49,8 +40,6 @@ try:
     projetos_collection = db['projetos']
     usuarios_google_collection = db['usuarios_google']
     comentarios_collection = db['comentario']
-    
-    
 except Exception as e:
     print(f"Erro ao conectar ao MongoDB: {e}")
     exit()
@@ -142,7 +131,7 @@ def google_login():
     except Exception as e:
         print(f"Erro inesperado no login com Google: {e}")
         return jsonify({'error': f'Erro inesperado: {e}'}), 500
-
+    
 # Rota de Criação de Usuário (agora com hashing de senha)
 @app.route('/api/usuarios', methods=['POST'])
 def criar_usuario():
