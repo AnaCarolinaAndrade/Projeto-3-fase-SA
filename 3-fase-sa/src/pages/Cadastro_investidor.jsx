@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
 import './Cadastro_investidor.css'
-import { info } from 'autoprefixer';
 
 function Cadastro_investidor() {
   const [cadastro, setCadastro] = useState({
@@ -16,41 +15,36 @@ function Cadastro_investidor() {
   const [logado, setLogado] = useState(false)
   const [error, setError] = useState(null)
 
-  const Navigate = useNavigate()
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
-    setCadastro({ ...info, [e.target.name]: e.target.value })
+    setCadastro({ ...cadastro, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLogado(true)
     setError(null)
 
-    if (info.senha !== info.confirmarSenha) {
+    if (cadastro.senha !== cadastro.confirmarSenha) {
       setError('As senhas devem ser iguais!')
       setLogado(false)
+      return;
     }
 
     try {
-      const response = /*await*/ fetch('', {
+      const response =  fetch('http://localhost:5000/api/investidor', {
         method: 'POST',
-        headers: { 'content-type': 'application/JSON' },
-        body: JSON.stringify({
-          nome: info.nome,
-          documento: info.documento,
-          email: info.email,
-          senha: info.senha,
-          confirmarSenha: info.confirmarSenha,
-          genero: info.genero
-        }),
-      });
+        headers: { 'Content-type': 'application/JSON' },
+        body: JSON.stringify( cadastro)
+      })
 
       if (response.ok) {
+        alert(data.message || 'Cadastro realizado com sucesso!')
         Navigate('/')
 
       } else {
-        const data = /*await*/ response.json();
+        const data = response.json();
         setError(data.message || 'Erro ao cadastrar. Tente novamente.')
       }
 
@@ -69,20 +63,20 @@ function Cadastro_investidor() {
 
         <div className='alinhamentos-wrapper' >
           <div className='alinhamento-esquerda'>
-            <label>Nome da empresa/investidor</label><input type='text' id='nome' name='nome' value={info.nome} onChange={handleChange} required></input>
-            <label>CNPJ da empresa ou CPF do Investidor</label><input type='text' id='documento' name='documento' value={info.documento} onChange={handleChange} required></input>
-            <label>Email</label><input type='email' id='email' name='documnto' value={info.documento} onChange={handleChange} required></input>
+            <label>Nome da empresa/investidor</label><input type='text' id='nome' name='nome' value={cadastro.nome} onChange={handleChange} required></input>
+            <label>CNPJ da empresa ou CPF do Investidor</label><input type='text' id='documento' name='documento' value={cadastro.documento} onChange={handleChange} required></input>
+            <label>Email</label><input type='email' id='email' name='documnto' value={cadastro.documento} onChange={handleChange} required></input>
           </div>
 
           <div className='alinhamento-direita'>
-            <label>Senha</label><input type='password' id='senha' name='senha' value={info.senha} onChange={handleChange} required></input>
-            <label>Confirmar Senha</label><input type='password' id='confirmarSenha' name='senha' value={info.senha} onChange={handleChange} required></input>
-            <label>Genero (opcional)</label><input type='text' id='genero' name='genero' value={info.genero} onChange={handleChange} required></input>
+            <label>Senha</label><input type='password' id='senha' name='senha' value={cadastro.senha} onChange={handleChange} required></input>
+            <label>Confirmar Senha</label><input type='password' id='confirmarSenha' name='senha' value={cadastro.senha} onChange={handleChange} required></input>
+            <label>Genero (opcional)</label><input type='text' id='genero' name='genero' value={cadastro.genero} onChange={handleChange}></input>
           </div>
         </div>
 
         {error && <p style={{ color: 'red', background: 'transparen'}}>{error}</p>}
-        <button className='container-button' type="submit" disabled={logado} onClick={handleSubmit}>
+        <button className='container-button' disabled={logado} onClick={handleSubmit}>
           {logado ? 'Cadastrando...' : 'Confirmar Cadastro'}</button>
       </div>
 
