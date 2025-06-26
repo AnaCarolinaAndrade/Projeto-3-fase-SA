@@ -236,7 +236,7 @@ def deletar_proprio_usuario():
 
 # === ROTAS DE PROJETOS ===
 
-@app.route('/api/projetos', methods=['POST'])
+@app.route('/api/usuarios/projetos', methods=['POST'])
 def criar_projeto():
     data = request.get_json()
     nomeProjeto = data.get('nomeProjeto')
@@ -265,6 +265,24 @@ def criar_projeto():
     }), 201
     
     
+@app.route('/api/usuarios/projetos', methods=['GET'])
+def get_projetos():
+    projetos_cursor = projetos_collection.find({}, {'_id': 1})
+
+    projetos_lista = []
+    for projeto in projetos_cursor:
+        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
+        proj_dict['id'] = str(projeto['_id'])
+
+        proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
+        proj_dict['descricao'] = proj_dict.get('descricao', '')
+        proj_dict['completo'] = proj_dict.get('completo', False)
+        proj_dict['categoria'] = proj_dict.get('categoria', 'outros')
+
+        projetos_lista.append(proj_dict)
+
+    return jsonify({ "projetos": projetos_lista })
+    
 @app.route('/api/usarios/comentarios/<string:projeto_id>', methods=['POST'])
 def criar_comentario(projeto_id):
     data = request.get_json()
@@ -288,24 +306,7 @@ def criar_comentario(projeto_id):
     }), 201
 
 
-@app.route('/api/projetos', methods=['GET'])
-def get_projetos():
 
-    projetos_cursor = projetos_collection.find({}, {'_id': 1})
-
-    projetos_lista = []
-    for projeto in projetos_cursor:
-        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
-        proj_dict['id'] = str(projeto['_id'])
-
-        proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
-        proj_dict['descricao'] = proj_dict.get('descricao', '')
-        proj_dict['completo'] = proj_dict.get('completo', False)
-        proj_dict['categoria'] = proj_dict.get('categoria', 'outros')
-
-        projetos_lista.append(proj_dict)
-
-    return jsonify({ "projetos": projetos_lista })
 
 
 @app.route('/api/projetos/<string:projeto_id>', methods=['PUT']) # Usar string para ObjectId

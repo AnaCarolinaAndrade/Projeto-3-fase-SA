@@ -57,7 +57,7 @@ export default function CriarProjeto() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/projetos', {
+      const response = await fetch('http://localhost:5000/api/usuarios/projetos', {
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
