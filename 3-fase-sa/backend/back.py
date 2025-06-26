@@ -15,7 +15,7 @@ from flask import Flask, request, jsonify, redirect, url_for, send_from_director
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
-
+ 
 app = Flask(__name__)
 
 # Configuração CORS: Permite requests do seu frontend React
