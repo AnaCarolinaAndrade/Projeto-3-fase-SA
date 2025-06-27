@@ -10,6 +10,7 @@ function Configs() {
   const [usuario, setUsuario] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
+  const [linkPessoal, setLinkPessoal] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,16 +43,16 @@ function Configs() {
     }
   };
 
- const salvarConfiguracoes = async () => {
-  await fetch('/api/user/update', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ nome, bio }),
-  });
-};
+  const salvarConfiguracoes = async () => {
+    await fetch('/api/user/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ nome, bio }),
+    });
+  };
 
   const handleClickProfileImage = () => {
     fileInputRef.current.click();
@@ -65,6 +66,12 @@ function Configs() {
       console.error('Erro ao deletar conta:', error);
     }
   };
+
+  const removerImagemPerfil = () => {
+    setPreviewImage(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
 
   if (!usuario) return <div className="loading">Carregando...</div>;
 
@@ -89,13 +96,46 @@ function Configs() {
             ref={fileInputRef}
           />
 
-          <h1>{usuario.nome}</h1>
-          <div className="info">
-            <BsGenderFemale /> {usuario.genero || 'Masculino'}
+          <div className="profile-image" onClick={() => fileInputRef.current.click()}>
+            {previewImage ? (
+              <img src={previewImage} alt="Foto de perfil" />
+            ) : (
+              <BsPersonCircle size={150} color="#ccc" />
+            )}
           </div>
-          <div className="info">
-            <IoMapOutline /> {usuario.localizacao || 'Florianópolis'}
-          </div>
+
+          <input
+            type="file"
+            accept="image/*"
+            style={{ display: 'none' }}
+            ref={fileInputRef}
+            onChange={handleProfileImageChange}
+          />
+
+          {previewImage && (
+            <button className="btn-remover" onClick={removerImagemPerfil}>
+              Remover imagem de perfil
+            </button>
+          )}
+
+          <h1>{usuario}</h1>
+          <div className="info"><BsGenderFemale /> masculino</div>
+          <div className="info"><IoMapOutline /> florianópolis</div>
+
+          <label>Colocar links de projetos e/ou sites</label>
+          <input
+            type="text"
+            placeholder="https://..."
+            value={linkPessoal}
+            onChange={(e) => setLinkPessoal(e.target.value)}
+          />
+          {linkPessoal && (
+            <p>
+              <a href={linkPessoal} target="_blank" rel="noopener noreferrer">
+                Ver meu link
+              </a>
+            </p>
+          )}
 
           <div className="actions">
             <button className="save-btn" onClick={salvarConfiguracoes}>Salvar Alterações</button>

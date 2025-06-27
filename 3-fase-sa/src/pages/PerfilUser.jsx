@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'; 
+import React, { useState, useRef, useEffect } from 'react';
 import './PerfilUser.css';
 import Sidebar from '../components/Sidebar';
 import { BsGenderFemale, BsPersonCircle } from 'react-icons/bs';
@@ -8,8 +8,36 @@ function Configs() {
   const fileInputRef = useRef(null);
   const [usuario, setUsuario] = useState("Nome do Usuário");
   const [previewImage, setPreviewImage] = useState(null);
-  const [linkPessoal, setLinkPessoal] = useState("");
-  const [imagemDestaque, setImagemDestaque] = useState(null);
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/usuarios', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
+          },
+          body: JSON.stringify({ nome, bio })
+        });
+        const data = await response.json();
+        setUsuario(data.usuario);
+      } catch (error) {
+        console.error('Erro ao buscar usuário:', error);
+      }
+    };
+
+    fetchUsuario();
+  }, []);
+
+  const salvarConfiguracoes = async () => {
+    await fetch('/api/user/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ nome, bio }),
+    });
+  };
 
   const handleProfileImageChange = (e) => {
     const file = e.target.files[0];
@@ -18,24 +46,8 @@ function Configs() {
     }
   };
 
-  const handleImagemDestaqueChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImagemDestaque(URL.createObjectURL(file));
-    }
-  };
-
-  const removerImagemPerfil = () => {
-    setPreviewImage(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  const removerImagemDestaque = () => {
-    setImagemDestaque(null);
-  };
-
   useEffect(() => {
-     const fetchUsuario = async () => {
+    const fetchUsuario = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/usuarios', {
           headers: {
@@ -74,47 +86,10 @@ function Configs() {
               onChange={handleProfileImageChange}
             />
 
-            {previewImage && (
-              <button className="btn-remover" onClick={removerImagemPerfil}>
-                Remover imagem de perfil
-              </button>
-            )}
-
             <h1>{usuario}</h1>
             <div className="info"><BsGenderFemale /> masculino</div>
             <div className="info"><IoMapOutline /> florianópolis</div>
 
-            <div className='info-profile'>
-              <label>Link pessoal ou portfólio:</label>
-              <input
-                type="text"
-                placeholder="https://..."
-                value={linkPessoal}
-                onChange={(e) => setLinkPessoal(e.target.value)}
-              />
-              {linkPessoal && (
-                <p>
-                  <a href={linkPessoal} target="_blank" rel="noopener noreferrer">
-                    Ver meu link
-                  </a>
-                </p>
-              )}
-
-              <label>Imagem de destaque:</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImagemDestaqueChange}
-              />
-              {imagemDestaque && (
-                <div>
-                  <img src={imagemDestaque} alt="Imagem destaque" className="imagem-destaque" />
-                  <button className="btn-remover" onClick={removerImagemDestaque}>
-                    Remover imagem de destaque
-                  </button>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </div>
