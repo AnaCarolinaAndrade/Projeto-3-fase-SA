@@ -33,6 +33,8 @@ export default function Projetos() {
     fetchProjetos();
   }, []);
 
+
+
   return (
     <>
       <div className='container-projetos'>
@@ -77,9 +79,6 @@ export default function Projetos() {
                     lista={item}
                   />
                 ))}
-                {projetos.length === 0 && (
-                  <p className='sem-projetos'>Nenhum projeto encontrado</p>
-                )}
             </div>
 
           </div>
