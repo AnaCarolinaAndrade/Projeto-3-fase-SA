@@ -11,22 +11,27 @@ export default function Projetos() {
   const [buscar, setBuscar] = useState("");
   const [filter, setFilter] = useState("All");
   const [sort, setSort] = useState("Asc")
+  const [projetos, setProjetos] = useState([]);
+
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
+    const fetchProjetos = async () => {
       try {
-        setCurrentUserId(decodedToken.sub);
-      } catch (error) {
-        console.error("Erro ao decodificar token:", error);
-        localStorage.removeItem('authToken');
-        setIsLoggedIn(false);
-        setCurrentUserId(null);
-      }
-    }
-  }, []);
+        const response = await fetch('http://localhost:5000/api/usuarios/projetos');
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setProjetos(data);
+      } catch (err) {
+        setError('Erro ao buscar projetos: ' + err.message);
+      }
+    };
+
+    fetchProjetos();
+  }, []);
 
   return (
     <>
@@ -72,6 +77,9 @@ export default function Projetos() {
                     lista={item}
                   />
                 ))}
+                {projetos.length === 0 && (
+                  <p className='sem-projetos'>Nenhum projeto encontrado</p>
+                )}
             </div>
 
           </div>

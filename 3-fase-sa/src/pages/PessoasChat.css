@@ -25,6 +25,46 @@
     padding: 15px;
 }
 
+.usuarios-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 800px;
+    margin: 10px;
+}
+
 .usuario-item {
+    width: 100%;
     background-color: #000000;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.usuario-item button {
+    color: #fff;
+    font-size: 15px;
+}
+
+.sem-usuarios {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 15px;
+    color: #ffffff;
+}
+
+.container-sem-usuarios {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #0f0f0f;
+}
+
+.no-users {
+    height: 500px;
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function PessoasChat() {
 
-    const [usuarios, setUsuarios] = useState([ 'marcos' ]);
+    const [usuarios, setUsuarios] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -31,7 +31,15 @@ export default function PessoasChat() {
     }
 
     if (usuarios.length === 0) {
-        return console.log("Nenhum usuário cadastrado ainda.");
+        return <div className='container-sem-usuarios'>
+
+            <div>
+                <p className='sem-usuarios'>Parece que não há nenhum usuário cadastrado no momento.</p>
+                <img src="./img/no-user2.png" className='no-users' />
+            </div>
+
+        </div>
+
     }
 
     return (
@@ -41,16 +49,16 @@ export default function PessoasChat() {
             </div>
             <div className='container-pessoas'>
                 <div className='alinhamento-pessoas'>
-                    <ul className="usuarios-list">
+                    <div className="usuarios-list">
                         {usuarios.map(usuario => (
-                            <li key={usuario._id || usuario.id} className="usuario-item">
-                                <h3>{usuario.nome}</h3>
-                                <p>Email: {usuario.email}</p>
+                            <div key={usuario._id || usuario.id} className="usuario-item">
+                                <button>{usuario.nome}</button>
+                                <p> {usuario.email}</p>
 
                                 {usuario.genero && <p>Gênero: {usuario.genero}</p>}
-                            </li>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>
