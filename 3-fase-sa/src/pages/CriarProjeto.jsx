@@ -54,6 +54,7 @@ export default function CriarProjeto() {
   ])
 
   const criarProjeto = async (e) => {
+    
     e.preventDefault();
 
     try {

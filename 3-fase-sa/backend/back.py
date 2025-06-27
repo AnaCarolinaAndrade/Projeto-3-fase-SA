@@ -230,7 +230,6 @@ def criar_projeto():
     nomeProjeto = data.get('nomeProjeto')
     descricao = data.get('descricao')
     imagem = data.get('imagem')
-    categoria = data.get('categoria')
 
     if not nomeProjeto or not descricao:
         return jsonify({"error": "Nome e descrição do projeto são obrigatórios"}), 400
@@ -239,7 +238,6 @@ def criar_projeto():
         'nomeProjeto': nomeProjeto,
         'descricao': descricao,
         'imagem': imagem,
-        'categoria': categoria,
         'created_at': datetime.datetime.now()
     }
 
@@ -264,13 +262,12 @@ def get_projetos():
 
         proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
         proj_dict['descricao'] = proj_dict.get('descricao', '')
-        proj_dict['completo'] = proj_dict.get('completo', False)
-        proj_dict['categoria'] = proj_dict.get('categoria', 'outros')
-
         projetos_lista.append(proj_dict)
 
     return jsonify({ "projetos": projetos_lista })
-    
+
+
+# === CRIAÇÃO DE COMENTARIOS ==== # 
 @app.route('/api/usarios/comentarios/<string:projeto_id>', methods=['POST'])
 def criar_comentario(projeto_id):
     data = request.get_json()
