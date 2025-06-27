@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'; 
+import React, { useState, useRef, useEffect } from 'react'; 
 import './PerfilUser.css';
 import Sidebar from '../components/Sidebar';
 import { BsGenderFemale, BsPersonCircle } from 'react-icons/bs';
