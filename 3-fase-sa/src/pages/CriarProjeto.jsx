@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import './CriarProjeto.css';
 import { useNavigate } from 'react-router-dom';
+import { TbReload } from "react-icons/tb";
 import Navbar from '../components/Navbar';
 
 
@@ -10,6 +11,7 @@ export default function CriarProjeto() {
 
   const [nomeProjeto, setNomeProjeto] = useState('');
   const [descricao, setDescricao] = useState('');
+  const [categoria, setCategoria] = useState('');
   const [imagem, setImagem] = useState('');
   const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
@@ -55,35 +57,38 @@ export default function CriarProjeto() {
   ])
 
   const criarProjeto = async (e) => {
-
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/usuarios/projetos', {
+      const formData = new FormData();
+      formData.append('nomeProjeto', nomeProjeto);
+      formData.append('descricao', descricao);
+      formData.append('categoria', categoria);
+      formData.append('imagem', imagem);
+
+      const response = await fetch('api/usuarios/projetos', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nomeProjeto,
-          descricao,
-          imagem
-        }),
+        body: formData
       });
 
       const data = await response.json();
 
       setNomeProjeto('');
       setDescricao('');
-      setImagem('');
+      setCategoria('')
+      setImagem(null);
+      setImagemPreviewUrl(null);
 
       if (data.success) {
         navigate('/projetos');
+      } else {
+        console.error('Erro ao criar projeto:', data);
       }
-    }
 
-    catch (error) {
-      console.error("Erro ao criar projeto", error);
+    } catch (error) {
+      console.error("Erro no cadastro de projetos:", error);
     }
-  }
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -130,20 +135,35 @@ export default function CriarProjeto() {
 
               <div className="form-suggestion">
                 <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração? que tal:
-                  
                   <span className='nome-sugerido'>{nomeSugerido}</span>
-
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const nome = nomeAleatorio[Math.floor(Math.random() * nomeAleatorio.length)];
+                      setNomeSugerido(nome);
+                    }}
+                  >
+                    <TbReload color='#fff' size={20} />
+                  </button>
                 </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const nome = nomeAleatorio[Math.floor(Math.random() * nomeAleatorio.length)];
-                    setNomeSugerido(nome);
-                  }}
-                >
-                  Gerar nome
-                </button>
+              </div>
 
+              <div className="formulario-projeto">
+                <label htmlFor="categoria">Categoria</label>
+                <select
+                  id="categoria"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                  required
+                >
+                  <option value=""></option>
+                  <option value="web">Web</option>
+                  <option value="mobile">Mobile</option>
+                  <option value="backend">Backend</option>
+                  <option value="ai">IA / Machine Learning</option>
+                  <option value="jogos">Jogos</option>
+                  <option value="outros">Outros</option>
+                </select>
               </div>
             </fieldset>
 

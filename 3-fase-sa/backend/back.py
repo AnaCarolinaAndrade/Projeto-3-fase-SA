@@ -1,8 +1,8 @@
 import os
-import uuid
+import base64
 import bcrypt
 import datetime
-import requests as external_requests
+import requests
 from dotenv import load_dotenv
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
@@ -10,8 +10,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 from google.oauth2 import id_token
 from google.auth.transport import requests
-from werkzeug.utils import secure_filename
-from flask import Flask, request, jsonify, redirect, url_for, send_from_directory, session
+from flask import Flask, request, jsonify, send_from_directory
 
 # === CONFIGURAÇÃO INICIAL ===
 load_dotenv()
@@ -226,10 +225,13 @@ def deletar_proprio_usuario():
 
 @app.route('/api/usuarios/projetos', methods=['POST'])
 def criar_projeto():
-    data = request.get_json()
-    nomeProjeto = data.get('nomeProjeto')
-    descricao = data.get('descricao')
-    imagem = data.get('imagem')
+    nomeProjeto = request.form.get('nomeProjeto')
+    descricao = request.form.get('descricao')
+    imagem_file = request.files.get('imagem')
+
+    imagem_base64 = ""
+    if imagem_file:
+        imagem_base64 = base64.b64encode(imagem_file.read()).decode('utf-8')
 
     if not nomeProjeto or not descricao:
         return jsonify({"error": "Nome e descrição do projeto são obrigatórios"}), 400
@@ -237,19 +239,19 @@ def criar_projeto():
     novo_projeto = {
         'nomeProjeto': nomeProjeto,
         'descricao': descricao,
-        'imagem': imagem,
+        'imagem': imagem_base64,
         'created_at': datetime.datetime.now()
     }
 
     result = projetos_collection.insert_one(novo_projeto)
+
     return jsonify({
         "success": True,
         "projeto": {
-            **{k: v for k, v in novo_projeto.items() if k != '_id'}, # Exclui _id temporariamente
-            "id": str(result.inserted_id) # Retorna o _id do MongoDB como 'id'
+            **{k: v for k, v in novo_projeto.items() if k != '_id'},
+            "id": str(result.inserted_id)
         }
     }), 201
-    
     
 @app.route('/api/usuarios/projetos', methods=['GET'])
 def get_projetos():

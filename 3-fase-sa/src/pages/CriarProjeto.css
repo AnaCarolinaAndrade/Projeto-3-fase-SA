@@ -30,8 +30,8 @@
   color: #fff;
 }
 
-.nome-sugerido{
-  color: #0056b3;
+.nome-sugerido {
+  color: #006fe5;
   margin-left: 5px;
 }
 
@@ -44,14 +44,6 @@
   text-decoration: underline;
 }
 
-/* Divisória */
-.divider {
-  border: none;
-  border-top: 1px solid #d8dee4;
-  margin: 24px 0;
-}
-
-/* Nota obrigatória */
 .required-note {
   font-size: 12px;
   font-style: italic;
@@ -59,14 +51,12 @@
   margin-bottom: 16px;
 }
 
-/* Formulário */
 .form-criar-projeto {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* Grupos de input */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -102,25 +92,17 @@
 }
 
 .form-suggestion p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 4px;
-  font-size: 13px;
+  font-size: 15px;
   color: #fafafa;
   background-color: #0F0F0F;
+  margin-top: 15px;
 }
 
-.form-suggestion button {
-  background-color: #f6f8fa;
-  border: 1px solid #d0d7de;
-  padding: 5px 12px;
-  font-size: 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #24292f;
-}
 
-.form-suggestion button:hover {
-  background-color: #f3f4f6;
-}
 
 fieldset {
   border: none;
@@ -226,4 +208,12 @@ fieldset {
   object-fit: cover;
   object-fit: contain;
   display: block;
+}
+
+#repo-name{
+  margin-top: 15px;
+}
+
+#description{
+  margin-top: 15px;
 }
