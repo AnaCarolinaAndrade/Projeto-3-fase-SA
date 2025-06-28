@@ -21,20 +21,28 @@ export default function Projetos() {
       <div>
         <Sidebar />
       </div>
-      {projetos.length === 0 && <p>Nenhum projeto encontrado.</p>}
-      <div className="lista-projetos">
-        {projetos.map(projeto => (
-          <div key={projeto.id} className="card-projeto">
-            {projeto.imagem && <img src={projeto.imagem} alt="Capa" />}
-            <div>
-              <hr className='divider-projeto' />
-              <h2>{projeto.nomeProjeto}</h2>
-              <p>{projeto.descricao}</p>
-              <span className="categoria-projeto">{projeto.categoria}</span>
-            </div>
+      <div className='container-cards-projetos'>
+        {projetos.length === 0 &&
+          <div className='container-sem-projetos'>
+            <p className='sem-projetos'>Nenhum projeto disponível no momento.</p>
+            <img src="./img/no-projects.png" className='img-sem-projetos' />
           </div>
-        ))}
+        }
+        <div className="lista-projetos">
+          {projetos.map(projeto => (
+            <div key={projeto.id} className="card-projeto">
+              {projeto.imagem && <img src={projeto.imagem} alt="Capa" />}
+              <div>
+                <div className='divider-projeto' />
+                <h2>{projeto.nomeProjeto}</h2>
+                <p>{projeto.descricao}</p>
+                <span className="categoria-projeto">{projeto.categoria}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
     </div>
   );
 }

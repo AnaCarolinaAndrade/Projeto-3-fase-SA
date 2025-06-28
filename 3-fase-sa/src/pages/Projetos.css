@@ -1,9 +1,14 @@
-/* Estilos gerais para o container principal */
 .container-projetos {
   display: flex;
   gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+}
+
+.container-cards-projetos {
+  gap: 20px;
+  width: 1000px;
   margin: 0 auto;
 }
 
@@ -16,6 +21,7 @@
 }
 
 .card-projeto {
+  border: 1.5px solid black;
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -32,7 +38,7 @@
 }
 
 .card-projeto:hover img {
-  filter: sepia(10);
+  filter: blur(5px);
   transition: 0.5s;
 }
 
@@ -62,8 +68,8 @@
 
 .card-projeto .categoria-projeto {
   display: inline-block;
-  background-color: #e0f2f7;
-  color: #2196f3;
+  background-color: #c9f3fe;
+  color: #0691ff;
   padding: 5px 12px;
   border-radius: 20px;
   font-size: 0.8em;
@@ -72,7 +78,7 @@
 }
 
 .divider-projeto {
-  height: 3px;
+  height: 1.5px;
   background-color: #000000;
   z-index: 1000;
 }
@@ -85,25 +91,21 @@
   margin-top: 50px;
 }
 
-@media (max-width: 768px) {
-  .container-projetos {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .lista-projetos {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
+.container-sem-projetos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: none;
 }
 
-@media (max-width: 480px) {
-  .lista-projetos {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
+.sem-projetos{
+  color: #000000;
+}
 
-  .card-projeto img {
-    height: 180px;
-  }
+.img-sem-projetos {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
 }

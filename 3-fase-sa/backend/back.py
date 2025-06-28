@@ -230,6 +230,7 @@ def deletar_proprio_usuario():
 def criar_projeto():
     nomeProjeto = request.form.get('nomeProjeto')
     descricao = request.form.get('descricao')
+    categoria = request.form.get('categoria')
     imagem = request.files.get('imagem')
 
     if not nomeProjeto or not descricao:
@@ -246,6 +247,7 @@ def criar_projeto():
         'nomeProjeto': nomeProjeto,
         'descricao': descricao,
         'imagem': imagem_url,
+        'categoria': categoria,
         'created_at': datetime.datetime.now()
     }
 
