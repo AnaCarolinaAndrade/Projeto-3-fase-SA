@@ -28,11 +28,12 @@ export default function Projetos() {
             <img src="./img/no-projects.png" className='img-sem-projetos' />
           </div>
         }
+        
         <div className="lista-projetos">
           {projetos.map(projeto => (
             <div key={projeto.id} className="card-projeto">
               {projeto.imagem && <img src={projeto.imagem} alt="Capa" />}
-              <div>
+              <div className='info-projeto'>
                 <div className='divider-projeto' />
                 <h2>{projeto.nomeProjeto}</h2>
                 <p>{projeto.descricao}</p>

@@ -84,7 +84,7 @@ export default function CriarProjeto() {
       setImagemPreviewUrl(null);
 
       if (data.success) {
-        navigate('/projetos');
+        navigate('/');
       } else {
         console.error('Erro ao criar projeto:', data);
       }

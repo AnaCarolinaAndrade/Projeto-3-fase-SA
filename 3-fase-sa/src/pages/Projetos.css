@@ -74,13 +74,24 @@
   border-radius: 20px;
   font-size: 0.8em;
   font-weight: bold;
+  width: 70px;
   margin-top: 10px;
+}
+
+.info-projeto {
+  background-color: #ffffff;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 .divider-projeto {
   height: 1.5px;
+  width: 100%;
   background-color: #000000;
-  z-index: 1000;
 }
 
 .container-projetos>p {
@@ -100,7 +111,7 @@
   overflow: none;
 }
 
-.sem-projetos{
+.sem-projetos {
   color: #000000;
 }
 
