@@ -20,10 +20,6 @@ function Configs() {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
           },
-          body: JSON.stringify({
-            nome,
-            email
-          })
         });
         const data = await response.json();
         setUsuario(data.usuario);
@@ -107,7 +103,7 @@ function Configs() {
               <BsPersonCircle size={150} color="#ccc" />
             )}
           </div>
-{/* 
+          {/* 
           <input
             type="file"
             accept="image/*"
@@ -122,26 +118,32 @@ function Configs() {
             </button>
           )}
 
-          <h1>{usuario.nome}</h1>
+          <h1>{usuario}</h1>
 
-          <label>Colocar links de projetos e/ou sites</label>
-          <input
-            type="text"
-            placeholder="https://..."
-            value={linkPessoal}
-            onChange={(e) => setLinkPessoal(e.target.value)}
-          />
-          {linkPessoal && (
-            <p>
-              <a href={linkPessoal} target="_blank" rel="noopener noreferrer">
-                Ver meu link
-              </a>
-            </p>
-          )}
+          <div className='container-infos-user-config'>
 
-          <div className="actions">
-            <button className="save-btn" onClick={salvarConfiguracoes}>Salvar Alterações</button>
-            <button className="delete-btn" onClick={deletarUsuario}>Excluir Conta</button>
+
+            <label className='label-configs'>Colocar links de projetos e/ou sites</label>
+
+            <input
+              type="text"
+              placeholder="https://..."
+              value={linkPessoal}
+              onChange={(e) => setLinkPessoal(e.target.value)}
+              className='ipt-config-link'
+            />
+            {linkPessoal && (
+              <p>
+                <a href={linkPessoal} target="_blank" rel="noopener noreferrer">
+                  Ver meu link
+                </a>
+              </p>
+            )}
+
+            <div className="actions">
+              <button className="save-btn" onClick={salvarConfiguracoes}>Salvar Alterações</button>
+              <button className="delete-btn" onClick={deletarUsuario}>Excluir Conta</button>
+            </div>
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@
   align-items: center;
   padding: 60px 20px;
   background: #f0f2f5;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .profile-card {
@@ -12,8 +12,24 @@
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  width: 350px;
+  width: 65%;
+  height: 100%;
   text-align: center;
+}
+
+.container-infos-user-config{
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.label-configs{
+  color: #555;
+  padding-bottom: 15px;
+}
+
+.ipt-config-link{
+  padding: 10px;
+  font-size: 15px;
 }
 
 .profile-image {
@@ -49,7 +65,7 @@ h1 {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .save-btn, .delete-btn {
@@ -78,6 +94,7 @@ h1 {
 .delete-btn:hover {
   background-color: #dc2626;
 }
+
 
 .loading {
   display: flex;

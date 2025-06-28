@@ -55,7 +55,7 @@ export default function PessoasChat() {
                         {usuarios.map(usuario => (
                             <div key={usuario._id || usuario.id} className="usuario-item">
                                 <button>{usuario.nome}</button>
-                                <p> {usuario.email}</p>
+                                <p> {usuario.descricao}</p>
 
                                 {usuario.genero && <p>Gênero: {usuario.genero}</p>}
                             </div>
