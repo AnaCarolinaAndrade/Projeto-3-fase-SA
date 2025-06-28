@@ -12,7 +12,7 @@ export default function CriarProjeto() {
   const [nomeProjeto, setNomeProjeto] = useState('');
   const [descricao, setDescricao] = useState('');
   const [categoria, setCategoria] = useState('');
-  const [imagem, setImagem] = useState('');
+  const [imagem, setImagem] = useState(null);
   const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
   const fileInputRef = useRef();
@@ -64,9 +64,13 @@ export default function CriarProjeto() {
       formData.append('nomeProjeto', nomeProjeto);
       formData.append('descricao', descricao);
       formData.append('categoria', categoria);
-      formData.append('imagem', imagem);
 
-      const response = await fetch('api/usuarios/projetos', {
+      if (imagem) {
+        formData.append('imagem', imagem);
+      }
+
+
+      const response = await fetch('/api/criar_projetos', {
         method: 'POST',
         body: formData
       });

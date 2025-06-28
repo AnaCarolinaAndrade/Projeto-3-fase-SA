@@ -8,6 +8,7 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+from werkzeug.utils import secure_filename
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from flask import Flask, request, jsonify, send_from_directory
@@ -16,6 +17,7 @@ from flask import Flask, request, jsonify, send_from_directory
 load_dotenv()
  
 app = Flask(__name__)
+
 
 # Configuração CORS: Permite requests do seu frontend React
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
@@ -46,6 +48,7 @@ except Exception as e:
 # === FUNÇÕES UTILITÁRIAS ===
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 # === SOCKET.IO ===
 @socketio.on('message')
@@ -223,37 +226,43 @@ def deletar_proprio_usuario():
 
 # === ROTAS DE PROJETOS ===
 
-@app.route('/api/usuarios/projetos', methods=['POST'])
+@app.route('/api/criar_projetos', methods=['POST'])
 def criar_projeto():
     nomeProjeto = request.form.get('nomeProjeto')
     descricao = request.form.get('descricao')
-    imagem_file = request.files.get('imagem')
-
-    imagem_base64 = ""
-    if imagem_file:
-        imagem_base64 = base64.b64encode(imagem_file.read()).decode('utf-8')
+    imagem = request.files.get('imagem')
 
     if not nomeProjeto or not descricao:
-        return jsonify({"error": "Nome e descrição do projeto são obrigatórios"}), 400
+        return jsonify({"success": False, "error": "Nome e descrição obrigatórios"}), 400
+
+    imagem_url = ""
+    if imagem:
+        filename = secure_filename(imagem.filename)
+        path = os.path.join("static/uploads", filename)
+        imagem.save(path)
+        imagem_url = f"/static/uploads/{filename}"
 
     novo_projeto = {
         'nomeProjeto': nomeProjeto,
         'descricao': descricao,
-        'imagem': imagem_base64,
+        'imagem': imagem_url,
         'created_at': datetime.datetime.now()
     }
 
     result = projetos_collection.insert_one(novo_projeto)
 
     return jsonify({
-        "success": True,
         "projeto": {
-            **{k: v for k, v in novo_projeto.items() if k != '_id'},
-            "id": str(result.inserted_id)
+            "id": str(result.inserted_id),
+            "nomeProjeto": nomeProjeto,
+            "descricao": descricao,
+            "imagem": imagem_url
         }
     }), 201
     
-@app.route('/api/usuarios/projetos', methods=['GET'])
+    
+    
+@app.route('/api/criar_projetos', methods=['GET'])
 def get_projetos():
     projetos_cursor = projetos_collection.find({}, {'_id': 1})
 
@@ -292,11 +301,7 @@ def criar_comentario(projeto_id):
         }
     }), 201
 
-
-
-
-
-@app.route('/api/projetos/<string:projeto_id>', methods=['PUT']) # Usar string para ObjectId
+@app.route('/api/criar_projetos/<string:projeto_id>', methods=['PUT']) # Usar string para ObjectId
 def atualizar_projeto(projeto_id):
     data = request.get_json()
 
