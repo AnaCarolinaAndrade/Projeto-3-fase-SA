@@ -54,6 +54,14 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 
 ### Instalações das bibliotecas do backend
 
+# Passo 1: 
+instalar o python: https://www.python.org/downloads/
+
+![Captura de tela 2025-06-28 114846](https://github.com/user-attachments/assets/cc11915a-699f-4c49-a4b6-ffe2302f451d)
+
+![Captura de tela 2025-06-28 115147](https://github.com/user-attachments/assets/b9cdfccd-f074-4063-a2a7-e4e202c7b824)
+
+
 ```bash
 pip install flask python-dotenv flask-cors flask-socketio pymongo bcrypt requests google-auth werkzeug
 ```
