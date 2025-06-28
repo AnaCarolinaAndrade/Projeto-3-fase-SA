@@ -28,7 +28,13 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 | **RF 010**  | O sistema deve ter uma função de especificação de projetos procurados.              | Questionários para recomendar projetos ou ideias com base nas respostas.                      |
 | **RF 011**  | O sistema permitirá postagens na comunidade e perfil.                               | Postagens relacionadas a imagens e links.                                                     |
 | **RF 012**  | O sistema deve permitir feedbacks.                                                  | Avaliação de projetos e usuários, com comentários.                                            |
+## Colaboradores do Projeto e as funções que irão exercer
 
+| Integrantes da equipe | Requisitos Funcionais (RF)                |
+|-----------------------|-------------------------------------------|
+| Ana Carolina          | [RF 002], [RF 005], [RF 007], [RF 008]    |
+| Gabriel Castanhel     | [RF 001], [RF 003], [RF 004], [RF 012]    |
+| Pedro Henrique        | [RF 006], [RF 009], [RF 010], [RF 011]    |
 ## Protótipo das Telas de Login e Cadastro
 
 ### Tela de Login
@@ -46,10 +52,4 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 ### Tela de Cadastro (Parte 3 - Seleção de softwares e Linguagens de programação)
 ![Cadastro 3](./3-fase-sa/public/img/Tela_cadastro_prossional_3.png)
 
-## Colaboradores do Projeto e as funções que irão exercer
 
-| Integrantes da equipe | Requisitos Funcionais (RF)                |
-|-----------------------|-------------------------------------------|
-| Ana Carolina          | [RF 002], [RF 005], [RF 007], [RF 008]    |
-| Gabriel Castanhel     | [RF 001], [RF 003], [RF 004], [RF 012]    |
-| Pedro Henrique        | [RF 006], [RF 009], [RF 010], [RF 011]    |
