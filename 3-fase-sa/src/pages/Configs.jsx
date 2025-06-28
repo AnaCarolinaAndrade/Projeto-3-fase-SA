@@ -20,6 +20,10 @@ function Configs() {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
           },
+          body: JSON.stringify({
+            nome,
+            email
+          })
         });
         const data = await response.json();
         setUsuario(data.usuario);
@@ -73,21 +77,21 @@ function Configs() {
   };
 
 
-  if (!usuario) return <div className="loading">Carregando...</div>;
+  // if (!usuario) return <div className="loading">Carregando...</div>;
 
   return (
     <>
       <Sidebar />
       <div className="configs-container">
         <div className="profile-card">
-          <div className="profile-image" onClick={handleClickProfileImage}>
+          {/* <div className="profile-image" onClick={handleClickProfileImage}>
             {previewImage || usuario.profile_pic ? (
               <img src={previewImage || usuario.profile_pic} alt="foto de perfil" />
             ) : (
               <BsPersonCircle size={150} color="#000" />
             )}
 
-          </div>
+          </div> */}
           <input
             type="file"
             accept="image/*"
@@ -103,14 +107,14 @@ function Configs() {
               <BsPersonCircle size={150} color="#ccc" />
             )}
           </div>
-
+{/* 
           <input
             type="file"
             accept="image/*"
             style={{ display: 'none' }}
             ref={fileInputRef}
             onChange={handleProfileImageChange}
-          />
+          /> */}
 
           {previewImage && (
             <button className="btn-remover" onClick={removerImagemPerfil}>
@@ -118,9 +122,7 @@ function Configs() {
             </button>
           )}
 
-          <h1>{usuario}</h1>
-          <div className="info"><BsGenderFemale /> masculino</div>
-          <div className="info"><IoMapOutline /> florianópolis</div>
+          <h1>{usuario.nome}</h1>
 
           <label>Colocar links de projetos e/ou sites</label>
           <input
