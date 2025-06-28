@@ -1,4 +1,3 @@
-/* Container central */
 .profile-container {
   display: flex;
   align-items: center;
@@ -7,7 +6,6 @@
   background-color: #1a1a1a;
 }
 
-/* Área principal do perfil */x
 .profile {
   font-size: 15px;
   margin: 90px;
@@ -16,7 +14,6 @@
   flex-direction: column;
 }
 
-/* Imagem de perfil */
 .profile img {
   height: 90px;
   width: 90px;
@@ -29,7 +26,6 @@
   margin-bottom: 10px;
 }
 
-/* Botão para trocar/remover imagem */
 .btn-remover {
   background-color: #ff4d4d;
   border: none;
@@ -46,7 +42,6 @@
   background-color: #e60000;
 }
 
-/* Informações */
 .info {
   display: flex;
   align-items: center;
@@ -56,7 +51,6 @@
   color: #ccc;
 }
 
-/* Nome */
 h1 {
   color: #fff;
   margin: 10px 0;
@@ -64,7 +58,6 @@ h1 {
   text-align: center;
 }
 
-/* Campo adicional */
 .info-profile {
   width: 100%;
   margin-top: 20px;
@@ -92,7 +85,6 @@ h1 {
   color: #eee;
 }
 
-/* Link */
 .info-profile p {
   background-color: #333;
   padding: 6px;
@@ -111,7 +103,6 @@ h1 {
   text-decoration: underline;
 }
 
-/* Imagem destaque */
 .imagem-destaque {
   max-width: 100%;
   height: auto;
@@ -120,7 +111,6 @@ h1 {
   border: 2px solid #444;
 }
 
-/* Botões fictícios (caso queira adicionar mais ações) */
 .salvar-usuario {
   margin-top: 10px;
   padding: 10px;

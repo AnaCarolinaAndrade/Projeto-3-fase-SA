@@ -211,7 +211,6 @@ def update_user():
             return jsonify({'error': f'Erro ao atualizar o usuário: {e}'}), 500
     return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
-# Rota para deletar o próprio usuário (protegida)
 @app.route('/api/usuarios', methods=['DELETE'])
 def deletar_proprio_usuario():
     try:
@@ -262,9 +261,7 @@ def criar_projeto():
         }
     }), 201
     
-    
-    
-@app.route('/api/projetos', methods=['GET'])
+@app.route('/api/criar_projetos', methods=['GET'])
 def listar_projetos():
     projetos = projetos_collection.find().sort("created_at", -1)
     lista = []

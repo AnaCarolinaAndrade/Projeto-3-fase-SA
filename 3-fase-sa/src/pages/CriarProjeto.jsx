@@ -124,7 +124,7 @@ export default function CriarProjeto() {
               <legend className="sr-only">Informações do projeto</legend>
 
               <div className="formulario-projeto">
-                <label htmlFor="repo-name">Nome do projeto <span>(maximo de 20 caracteres)</span></label>
+                <label htmlFor="repo-name">Nome do projeto <span>(maximo de 25 caracteres)</span></label>
                 <input
                   type="text"
                   placeholder="meu projeto"
@@ -160,19 +160,17 @@ export default function CriarProjeto() {
                   onChange={(e) => setCategoria(e.target.value)}
                   required
                 >
-                  <option value=""></option>
-                  <option value="web">Web</option>
-                  <option value="mobile">Mobile</option>
-                  <option value="backend">Backend</option>
-                  <option value="ai">IA / Machine Learning</option>
-                  <option value="jogos">Jogos</option>
-                  <option value="outros">Outros</option>
+                  <option value="Web">Web</option>
+                  <option value="Mobile">Mobile</option>
+                  <option value="Back-end">Back-end</option>
+                  <option value="Front-end">Front-end</option>
+                  <option value="IA / Machine Learning">IA / Machine Learning</option>
+                  <option value="Jogos">Jogos</option>
                 </select>
               </div>
             </fieldset>
 
             <div className='formulario-projeto'>
-
               <div className='container-image'>
                 <input
                   type="file"
@@ -205,7 +203,7 @@ export default function CriarProjeto() {
             </div>
 
             <div className="formulario-projeto">
-              <label htmlFor="description">descrição</label>
+              <label htmlFor="description">descrição (Máximo de 100 caracteres)</label>
               <input
                 type="text"
                 id="description"
@@ -214,6 +212,7 @@ export default function CriarProjeto() {
                 required
                 value={descricao}
                 onChange={(e) => setDescricao(e.target.value)}
+                maxLength={100}
               />
             </div>
 
