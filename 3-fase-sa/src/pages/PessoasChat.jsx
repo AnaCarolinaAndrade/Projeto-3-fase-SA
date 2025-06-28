@@ -35,7 +35,7 @@ export default function PessoasChat() {
 
             <div>
                 <p className='sem-usuarios'>Parece que não há nenhum usuário cadastrado no momento.</p>
-                <img src="./img/no-user2.png" className='no-users' />
+                <img src="./img/no-user2.png" className='no-users' />   
             </div>
 
         </div>

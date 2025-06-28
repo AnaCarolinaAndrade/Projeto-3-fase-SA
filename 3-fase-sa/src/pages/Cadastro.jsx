@@ -8,6 +8,7 @@ export default function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
@@ -37,6 +38,8 @@ export default function Cadastro() {
       setEmail('');
       setDataNascimento('');
       setSenha('');
+      setConfirmarSenha(false);
+      setMostrarSenha(false);
 
       if (data.success) {
         navigate('/');
@@ -70,6 +73,10 @@ export default function Cadastro() {
     }
   }, []);
 
+  if (senha !== confirmarSenha) {
+    return <label>As senhas devem ser iguais!</label>
+  }
+
   const enviarTokenParaBackend = async (token) => {
     try {
       const response = await fetch('http://localhost:5000/api/google-login', {
@@ -87,7 +94,7 @@ export default function Cadastro() {
   };
 
   const navigate = useNavigate();
-  
+
   return (
     <div className="container-form-cadastro">
       <div className='voltar-container'>
@@ -160,6 +167,8 @@ export default function Cadastro() {
                 <div className='ipt-senha-cadastro'>
                   <input
                     placeholder="Confirmar senha"
+                    value={confirmarSenha}
+                    onChange={e => setConfirmarSenha(e.target.value)}
                     type={mostrarSenha ? 'text' : 'password'}
                   />
                 </div>

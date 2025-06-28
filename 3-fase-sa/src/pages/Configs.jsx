@@ -3,7 +3,6 @@ import axios from 'axios';
 import './Configs.css';
 import Sidebar from '../components/Sidebar';
 import { BsGenderFemale, BsPersonCircle } from 'react-icons/bs';
-import { IoMapOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
 function Configs() {
