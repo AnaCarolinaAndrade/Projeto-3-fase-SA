@@ -52,4 +52,10 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 ### Tela de Cadastro (Parte 3 - Seleção de softwares e Linguagens de programação)
 ![Cadastro 3](./3-fase-sa/public/img/Tela_cadastro_prossional_3.png)
 
+### Instalações das bibliotecas do backend
+
+```bash
+pip install flask python-dotenv flask-cors flask-socketio pymongo bcrypt requests google-auth werkzeug
+```
+
 
