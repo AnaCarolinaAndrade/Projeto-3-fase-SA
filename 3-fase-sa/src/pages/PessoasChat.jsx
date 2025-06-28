@@ -42,6 +42,8 @@ export default function PessoasChat() {
 
     }
 
+    if (!usuarios) return <div className="loading">Carregando...</div>;
+
     return (
         <div className='container-pessoas-chat'>
             <div>

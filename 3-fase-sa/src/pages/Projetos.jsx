@@ -33,6 +33,7 @@ export default function Projetos() {
     fetchProjetos();
   }, []);
 
+
   return (
     <>
       <div className='container-projetos'>
