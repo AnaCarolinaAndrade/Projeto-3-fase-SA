@@ -262,20 +262,19 @@ def criar_projeto():
     
     
     
-@app.route('/api/criar_projetos', methods=['GET'])
-def get_projetos():
-    projetos_cursor = projetos_collection.find({}, {'_id': 1})
-
-    projetos_lista = []
-    for projeto in projetos_cursor:
-        proj_dict = {k: v for k, v in projeto.items() if k != '_id'}
-        proj_dict['id'] = str(projeto['_id'])
-
-        proj_dict['nomeProjeto'] = proj_dict.get('nomeProjeto', '')
-        proj_dict['descricao'] = proj_dict.get('descricao', '')
-        projetos_lista.append(proj_dict)
-
-    return jsonify({ "projetos": projetos_lista })
+@app.route('/api/projetos', methods=['GET'])
+def listar_projetos():
+    projetos = projetos_collection.find().sort("created_at", -1)
+    lista = []
+    for p in projetos:
+        lista.append({
+            "id": str(p["_id"]),
+            "nomeProjeto": p.get("nomeProjeto", ""),
+            "descricao": p.get("descricao", ""),
+            "imagem": p.get("imagem", ""),
+            "categoria": p.get("categoria", "")
+        })
+    return jsonify(lista), 200
 
 
 # === CRIAÇÃO DE COMENTARIOS ==== # 

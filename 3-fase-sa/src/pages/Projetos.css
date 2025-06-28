@@ -1,91 +1,31 @@
 .container-projetos {
-  background-color: #ffffff;
-  height: 100%;
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-
+  padding: 2rem;
 }
 
-.projetos {
-  color: #cecece;
-  margin-top: 20px;
+.lista-projetos {
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.card-projetos {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+.card-projeto {
+  background: #f0f0f0;
   border-radius: 10px;
-  width: 850px;
-  padding: 15px;
-  background-color: #f3f3f3;
-
+  padding: 1rem;
+  width: 300px;
 }
 
-h2 {
-  margin-bottom: 10px;
-  color: #000000;
-}
-
-p {
-  margin: 10px 0;
-  color: #000;
-}
-
-.lista-tarefas {
-  padding-bottom: 1.5rem;
-  width: 400px;
-}
-
-input,
-select {
-  padding: 5px;
-  border-radius: 3px;
-  border: 1px solid #ddd;
+.card-projeto img {
   width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
 }
 
-
-.Lista {
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.281);
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  color: rgb(0, 0, 0);
-  padding: 15px;
-  transition: 0.3s;
+.card-projeto h2 {
+  margin: 0;
 }
 
-.Lista:hover {
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.599);
-  border-radius: 10px;
-}
-
-.content p {
-  color: #000;
-}
-
-.filter-option {
-  display: flex;
-  justify-content: space-between;
-  gap: 3rem;
-}
-
-.filter-option div {
-  flex: 1 1 0;
-}
-
-p {
-  color: #fff;
+.categoria-projeto {
+  font-size: 0.8rem;
+  color: #555;
 }
