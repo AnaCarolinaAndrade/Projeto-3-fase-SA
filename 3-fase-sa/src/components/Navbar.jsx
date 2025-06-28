@@ -57,13 +57,9 @@ function Navbar() {
                 height: '50px',
                 cursor: 'pointer',
               }}
-              alt="Logo" // Sempre bom adicionar alt text para imagens
+              alt="Logo"
             />
           </button>
-
-          <div className="search-container">
-            <input type="text" placeholder="Digite algo..." />
-          </div>
 
           <div className="buttons-container">
          

@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import './CriarProjeto.css';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 
 export default function CriarProjeto() {
@@ -54,12 +55,12 @@ export default function CriarProjeto() {
   ])
 
   const criarProjeto = async (e) => {
-    
+
     e.preventDefault();
 
     try {
       const response = await fetch('http://localhost:5000/api/usuarios/projetos', {
-        method: 'POST', 
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nomeProjeto,
@@ -102,10 +103,12 @@ export default function CriarProjeto() {
 
   return (
     <div className="application-main">
-      <main>
+      <div>
+        <Navbar />
+      </div>
+      <main className='container-criar-projeto-main'>
         <div className="container-criar-projeto ">
           <h1 className="title">Criar um novo projeto</h1>
-          <hr className="divider" />
 
           <form noValidate onSubmit={criarProjeto} className='form-criar-projeto'>
             <fieldset>
@@ -126,7 +129,11 @@ export default function CriarProjeto() {
               </div>
 
               <div className="form-suggestion">
-                <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração?</p>
+                <p>Bons nomes de projetos são curtos e memoraveis. Precisa de uma inspiração? que tal:
+                  
+                  <span className='nome-sugerido'>{nomeSugerido}</span>
+
+                </p>
                 <button
                   type="button"
                   onClick={() => {
@@ -136,9 +143,7 @@ export default function CriarProjeto() {
                 >
                   Gerar nome
                 </button>
-                <div>
-                  {nomeSugerido && <p>{nomeSugerido.toUpperCase()}</p>}
-                </div>
+
               </div>
             </fieldset>
 
@@ -154,7 +159,7 @@ export default function CriarProjeto() {
                   id="ipt-image"
                   name="image"
                   onChange={handleImageChange}
-                  ref={fileInputRef}  
+                  ref={fileInputRef}
                   className="hidden-input"
                   accept="image/*"
                 />
@@ -181,7 +186,7 @@ export default function CriarProjeto() {
               <input
                 type="text"
                 id="description"
-                name="description"  
+                name="description"
                 placeholder="Uma breve descrição do seu projeto"
                 required
                 value={descricao}

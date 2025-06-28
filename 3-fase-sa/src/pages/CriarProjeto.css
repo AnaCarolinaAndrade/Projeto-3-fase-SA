@@ -1,6 +1,4 @@
 .application-main {
-  padding: 32px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   background-color: #0F0F0F;
   height: 100vh;
   color: #24292f;
@@ -10,10 +8,15 @@
   width: 100%;
   max-width: 768px;
   margin: 0 auto;
-  background: #0F0F0F;
   padding: 25px;
-  border: 1px solid #d0d7de;
   border-radius: 6px;
+}
+
+.container-criar-projeto-main {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container-criar-projeto label {
@@ -25,6 +28,11 @@
   font-weight: 600;
   margin-bottom: 8px;
   color: #fff;
+}
+
+.nome-sugerido{
+  color: #0056b3;
+  margin-left: 5px;
 }
 
 .subtitle a {
