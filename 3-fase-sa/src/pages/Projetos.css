@@ -1,31 +1,103 @@
+/* Estilos gerais para o container principal */
 .container-projetos {
-  padding: 2rem;
+    display: flex;
+    gap: 20px; 
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto; 
 }
 
 .lista-projetos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+    flex-grow: 1;
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 30px; 
+    padding: 10px;
 }
 
 .card-projeto {
-  background: #f0f0f0;
-  border-radius: 10px;
-  padding: 1rem;
-  width: 300px;
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 20px; 
+    transition: transform 0.2s ease-in-out; 
+}
+
+.card-projeto:hover {
+    transform: translateY(-5px); 
+}
+
+.card-projeto:hover img {
+    filter: blur(1px);
+    transition: 0.5s;
 }
 
 .card-projeto img {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
+    width: 100%; 
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 15px; 
 }
 
 .card-projeto h2 {
-  margin: 0;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+    padding: 0 15px; 
 }
 
-.categoria-projeto {
-  font-size: 0.8rem;
-  color: #555;
+.card-projeto p {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 15px;
+    flex-grow: 1;
+    padding: 0 15px;
+}
+
+.card-projeto .categoria-projeto {
+    display: inline-block;
+    background-color: #e0f2f7; 
+    color: #2196f3;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin-top: 10px; 
+}
+
+.container-projetos > p {
+    flex-grow: 1;
+    text-align: center;
+    color: #888;
+    font-size: 1.2em;
+    margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+    .container-projetos {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .lista-projetos {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lista-projetos {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+
+    .card-projeto img {
+        height: 180px;
+    }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
 import './Projetos.css';
 
 export default function Projetos() {
@@ -17,7 +18,9 @@ export default function Projetos() {
 
   return (
     <div className="container-projetos">
-      <h1>Projetos cadastrados</h1>
+      <div>
+        <Sidebar />
+      </div>
       {projetos.length === 0 && <p>Nenhum projeto encontrado.</p>}
       <div className="lista-projetos">
         {projetos.map(projeto => (
