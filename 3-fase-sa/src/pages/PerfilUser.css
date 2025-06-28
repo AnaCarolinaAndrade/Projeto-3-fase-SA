@@ -16,19 +16,6 @@
   flex-direction: column;
 }
 
-/* Cartão do perfil */
-.profile-card {
-  background-color: #2a2d32;
-  padding: 20px;
-  border-radius: 12px;
-  color: white;
-  width: 350px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 /* Imagem de perfil */
 .profile img {
   height: 90px;
