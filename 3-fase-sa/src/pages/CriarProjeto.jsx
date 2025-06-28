@@ -172,11 +172,7 @@ export default function CriarProjeto() {
             </fieldset>
 
             <div className='formulario-projeto'>
-              <div>
-                <label htmlFor="ipt-image" className="upload-label">
-                  Imagem de capa
-                </label>
-              </div>
+
               <div className='container-image'>
                 <input
                   type="file"
@@ -198,10 +194,13 @@ export default function CriarProjeto() {
                   </div>
                 )
                   : (
-                    <div className="image-preview-wrapper">
-                      Coloque uma imagem
-                    </div>
+                    <label id="ipt-image" className="image-preview-wrapper" htmlFor="ipt-image">
+                      Aperte para colocar uma imagem
+                    </label>
                   )}
+              </div>
+              <div>
+
               </div>
             </div>
 

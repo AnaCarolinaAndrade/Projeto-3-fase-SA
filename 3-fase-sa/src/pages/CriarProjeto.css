@@ -137,6 +137,7 @@ fieldset {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease
 
 }
 
@@ -164,7 +165,7 @@ fieldset {
   display: inline-block;
   padding: 10px 15px;
   margin-bottom: 10px;
-  background-color: #007bff;
+  background-color: #2B6ADE;
   color: white;
   border-radius: 5px;
   cursor: pointer;
@@ -174,7 +175,7 @@ fieldset {
 }
 
 .upload-label:hover {
-  background-color: #0056b3;
+  background-color: #1D2F96;
 }
 
 
@@ -208,11 +209,19 @@ fieldset {
   display: block;
 }
 
+#ipt-image{
+  color: #0F0F0F;
+}
+
 #repo-name{
   margin-top: 15px;
 }
 
 #description{
+  margin-top: 15px;
+}
+
+#categoria{
   margin-top: 15px;
 }
 
@@ -247,8 +256,4 @@ select {
 
 .filter-option div {
   flex: 1 1 0;
-}
-
-p {
-  color: #fff;
 }
