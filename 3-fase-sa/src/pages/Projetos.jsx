@@ -26,9 +26,12 @@ export default function Projetos() {
         {projetos.map(projeto => (
           <div key={projeto.id} className="card-projeto">
             {projeto.imagem && <img src={projeto.imagem} alt="Capa" />}
-            <h2>{projeto.nomeProjeto}</h2>
-            <p>{projeto.descricao}</p>
-            <span className="categoria-projeto">{projeto.categoria}</span>
+            <div>
+              <hr className='divider-projeto' />
+              <h2>{projeto.nomeProjeto}</h2>
+              <p>{projeto.descricao}</p>
+              <span className="categoria-projeto">{projeto.categoria}</span>
+            </div>
           </div>
         ))}
       </div>
