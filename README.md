@@ -14,12 +14,12 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 ### Requisitos Funcionais (RF)
 
 
-| **[RF 001]** - O sistema deve permitir que o usuário realize seu cadastro perfeitamente.  
-|  *Descrição: Página de cadastro para novos usuários.*
-|
-| **[RF 002]** - O sistema deve permitir que o usuário investidor realize seu cadastro perfeitamente.  
-|  *Descrição: Página de cadastro para novos investidores.*
-|
+| **[RF 001]** - O sistema deve permitir que o usuário realize seu cadastro perfeitamente                                |
+|  *Descrição: Página de cadastro para novos usuários.*                                                                  |
+|------------------------------------------------------------------------------------------------------------------------|
+| **[RF 002]** - O sistema deve permitir que o usuário investidor realize seu cadastro perfeitamente.                    |
+|  *Descrição: Página de cadastro para novos investidores.*                                                              |
+|------------------------------------------------------------------------------------------------------------------------|
 | **[RF 003]** - O sistema deve permitir que o usuário faça login na sua conta a partir do Gmail.
 |  *Descrição: Integração com a API de login do Google.*
 |
