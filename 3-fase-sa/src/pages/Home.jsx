@@ -16,7 +16,7 @@ function Home() {
 
           <div className='container-title-home'>
             <div className='text-content'>
-              <h1 className='title-home'>Descubra e Divulgue projetos <br /> Web, para o mundo todo <br /> com o DEXES</h1>
+              <h1 className='title-home'>Descubra e Divulgue projetos Web, para o mundo todo com o DEXES</h1>
               <h2 className='subtitle-home'>
                 Hub para desenvolvedores e criadores colaborarem em projetos web.
                 <br /> Conecte-se, compartilhe ideias e transforme-as em oportunidades - tudo em um só lugar.

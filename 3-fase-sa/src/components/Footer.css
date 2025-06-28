@@ -1,22 +1,23 @@
+.container-footer {
+  width: 100vw;
+}
+
 .container-footer-2 {
   padding: 40px 20px;
   display: flex;
-  justify-content: space-around;
+
   align-items: flex-start;
   font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   line-height: 34px;
 }
 
-.container-footer {
-  width: 100vw;
-}
-
 .footer-section {
   display: flex;
+  margin-left: 16%;
   flex-wrap: wrap;
   padding: 15px;
-  margin-top: 22%;
+  margin-top: 50%;
 
 }
 
@@ -24,14 +25,21 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 20%;
+  margin-left: 12%;
 }
 
 .container-menu {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: -0.9%;
+  margin-left: 3%;
+}
+
+.container-localizacao {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 6%;
 }
 
 .container-info-menu{ 
@@ -44,33 +52,9 @@
 }
 
 .alinhamento-2{
-  margin-left: 80px;
+  margin-left: 20px;
 }
 
-.container-menu li {
-  list-style-type: none;
-  padding: 5px 0;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  text-align: center;
-  color: #F6F6F6;
-}
-
-
-.img-menu,
-.img-chat,
-.img-posts{
- height: 20px;
- width: 20px;
- margin-right: 5px;
-}
-
-.container-localizacao {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
 
 .container-contatos h3,
 .container-menu h3,
@@ -83,7 +67,8 @@
 }
 
 .container-contatos li,
-.container-localizacao li {
+.container-menu li,
+.container-localizacao li{
   list-style-type: none;
   padding: 5px 0;
   font-weight: 400;
@@ -93,26 +78,27 @@
   color: #F6F6F6;
 }
 
-.line-2 {
+.line-1 {
   border-left: 0.8px solid #7a7a7a;
   height: 190px;
   margin: 0 20px;
 }
 
-.line-3 {
+.line-2 {
   border-left: 0.8px solid #7a7a7a;
-  margin: 0 190px;
+  height: 190px;
+  margin: 0 30px;
 }
 
-.line-4 {
+.line-3 {
   border-top: 0.8px solid #7a7a7a;
-  width: 80%;
-  margin-left: 10%;
+  width: 90%;
+  margin-right: 3%;
   margin-top: 20px;
 }
 
 .container-paragrafo {
-  margin-left: 40%;
+  margin-left: 30%;
   margin-top: 20px;
   background-color: transparent;
   color: #F6F6F6;
