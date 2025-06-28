@@ -12,7 +12,7 @@ function Footer() {
             <li>DexesProject@Gmail</li>
             <li>dexes_project</li>
           </div>
-          <div className='line-2'></div>
+          <div className='line-1'></div>
 
           <div className='container-menu'>
             <h3>Menu do site</h3>
@@ -21,10 +21,12 @@ function Footer() {
                 <li>Chat</li>
                 <li>Postagens</li>
                 <li>Perfil</li>
+                <li>Configurações</li>
+                <li>Profissionais</li>
               </div>
 
               <div className='alinhamento-2'>
-                <li>Ranking</li>
+                <li>Editar Projetos</li>
                 <li>Projetos</li>
                 <li>Criar Projetos</li>
                 <li>Feedback</li>
@@ -32,13 +34,13 @@ function Footer() {
 
             </div>
           </div>
-          <div className='line-3'></div>
+          <div className='line-2'></div>
 
           <div className='container-localizacao'>
             <h3>Localização</h3>
             <li>Florianópolis-SC, bairro coqueiros na rua santo antonio 137</li>
           </div>
-          <div className='line-4'></div>
+          <div className='line-3'></div>
           <p className='container-paragrafo'>copyright @2025 DEXES-Direitos reservados</p>
         </div>
       </footer>
