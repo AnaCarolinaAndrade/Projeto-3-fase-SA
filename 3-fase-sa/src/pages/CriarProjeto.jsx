@@ -15,6 +15,7 @@ export default function CriarProjeto() {
   const [imagem, setImagem] = useState(null);
   const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
+  const [verificacao, setVerificacao] = useState(false);
   const fileInputRef = useRef();
 
 
@@ -64,7 +65,6 @@ export default function CriarProjeto() {
       formData.append('nomeProjeto', nomeProjeto);
       formData.append('descricao', descricao);
       formData.append('categoria', categoria);
-
       if (imagem) {
         formData.append('imagem', imagem);
       }
