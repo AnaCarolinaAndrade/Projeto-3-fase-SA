@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import "./Cadastro.css";
-import Voltar from '../components/Voltar';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import './Cadastro.css'; // Mantenha seu CSS para estilos visuais
+import Voltar from '../components/Voltar'; // Seu componente Voltar
 
 export default function Cadastro() {
   const [nome, setNome] = useState('');
@@ -12,13 +12,72 @@ export default function Cadastro() {
   const [dataNascimento, setDataNascimento] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
+  // Estados para feedback e validação
+  const [erroEmail, setErroEmail] = useState('');
+  const [erroSenha, setErroSenha] = useState('');
+  const [erroConfirmarSenha, setErroConfirmarSenha] = useState('');
+  const [erroGeral, setErroGeral] = useState(''); 
+  const [cadastroSucesso, setCadastroSucesso] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
   };
 
+  // --- Funções de Validação de Input ---
+  const validarEmail = (email) => {
+    if (!email) {
+      return 'O email é obrigatório.';
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return 'Email inválido.';
+    }
+    return '';
+  };
+
+  const validarSenha = (senha) => {
+    if (!senha) {
+      return 'A senha é obrigatória.';
+    }
+    if (senha.length < 6) {
+      return 'A senha deve ter no mínimo 6 caracteres.';
+    }
+    return '';
+  };
+
+  const validarConfirmarSenha = (confirmarSenha, senha) => {
+    if (!confirmarSenha) {
+      return 'Confirme sua senha.';
+    }
+    if (confirmarSenha !== senha) {
+      return 'As senhas não coincidem.';
+    }
+    return '';
+  };
+
+  // --- Função principal de Criação de Usuário ---
   const criarUsuario = async (e) => {
     e.preventDefault();
+    setErroGeral(''); // Limpa erros anteriores
+    setCadastroSucesso(false); // Limpa feedback de sucesso anterior
+
+    // Validação frontend antes de enviar
+    const emailErro = validarEmail(email);
+    const senhaErro = validarSenha(senha);
+    const confirmarSenhaErro = validarConfirmarSenha(confirmarSenha, senha);
+
+    setErroEmail(emailErro);
+    setErroSenha(senhaErro);
+    setErroConfirmarSenha(confirmarSenhaErro);
+
+    if (emailErro || senhaErro || confirmarSenhaErro || !nome || !dataNascimento) {
+      setErroGeral('Por favor, preencha todos os campos e corrija os erros.');
+      return;
+    }
+
+    setLoading(true); // Inicia o estado de carregamento
 
     try {
       const response = await fetch('http://localhost:5000/api/usuarios', {
@@ -28,72 +87,40 @@ export default function Cadastro() {
           email,
           senha,
           nome,
-          dataNascimento
+          dataNascimento, // Certifique-se que seu backend espera este formato
         }),
       });
 
       const data = await response.json();
 
-      setNome('');
-      setEmail('');
-      setDataNascimento('');
-      setSenha('');
-      setConfirmarSenha(false);
-      setMostrarSenha(false);
+      if (response.ok) { // Verifique se a resposta HTTP é 2xx
+        setCadastroSucesso(true);
+        setErroGeral(''); // Limpa qualquer erro geral
+        // Opcional: Limpar campos após sucesso ou redirecionar
+        setNome('');
+        setEmail('');
+        setDataNascimento('');
+        setSenha('');
+        setConfirmarSenha(''); // Deve ser string vazia
+        setMostrarSenha(false); // Deve ser false
 
-      if (data.success) {
-        navigate('/');
+        // Redireciona após um pequeno atraso para o usuário ver a mensagem de sucesso
+        setTimeout(() => {
+          navigate('/login'); // Ou para a página inicial, ou para uma página de sucesso
+        }, 2000); // 2 segundos
+      } else {
+        // Se a resposta não for OK, mostre a mensagem de erro do backend
+        setErroGeral(data.message || 'Erro ao cadastrar. Tente novamente.');
+        setCadastroSucesso(false);
       }
     } catch (error) {
-      console.error("Erro no cadastro:", error);
+      console.error('Erro no cadastro:', error);
+      setErroGeral('Erro de conexão com o servidor. Tente novamente mais tarde.');
+      setCadastroSucesso(false);
+    } finally {
+      setLoading(false); // Finaliza o estado de carregamento
     }
   };
-
-
-  useEffect(() => {
-    function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response.credential);
-      enviarTokenParaBackend(response.credential);
-    }
-
-    window.onload = function () {
-      google.accounts.id.initialize({
-        callback: handleCredentialResponse
-      });
-
-      google.accounts.id.initialize({
-        client_id: process.env.GOOGLE_CLIENT_ID,
-        callback: handleCredentialResponse
-      });
-
-
-      google.accounts.id.renderButton(
-        document.getElementById("buttonDiv")
-      );
-    }
-  }, []);
-
-  if (senha !== confirmarSenha) {
-    return <label>As senhas devem ser iguais!</label>
-  }
-
-  const enviarTokenParaBackend = async (token) => {
-    try {
-      const response = await fetch('http://localhost:5000/api/google-login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ token })
-      });
-      const data = await response.json();
-      console.log('Resposta do backend:', data);
-    } catch (error) {
-      console.error('Erro ao enviar token para o backend:', error);
-    }
-  };
-
-  const navigate = useNavigate();
 
   return (
     <div className="container-form-cadastro">
@@ -101,29 +128,45 @@ export default function Cadastro() {
         <Link to={"/"}> <Voltar color="white" /></Link>
       </div>
 
-
       <div className='container-cadastro'>
         <div className="form-wrapper">
           <div className="form-container">
             <form onSubmit={criarUsuario} className='form-cadastro'>
+              <h2>Criar Nova Conta</h2> 
+
+              {cadastroSucesso && (
+                <p className="mensagem-sucesso">Cadastro realizado com sucesso! Redirecionando...</p>
+              )}
+              {erroGeral && (
+                <p className="mensagem-erro-geral">{erroGeral}</p>
+              )}
+
               <div className="form-group">
-                <label>Email</label>
+                <label htmlFor="email">Email</label>
                 <input
                   type="email"
+                  id="email"
                   name="email"
                   placeholder="Seu email"
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e => {
+                    setEmail(e.target.value);
+                    setErroEmail(validarEmail(e.target.value)); // Valida ao digitar
+                  }}
+                  onBlur={e => setErroEmail(validarEmail(e.target.value))} // Valida ao sair do campo
                   required
+                  className={erroEmail ? 'input-error' : ''}
                 />
+                {erroEmail && <p className="erro-mensagem">{erroEmail}</p>}
               </div>
 
               <div className="form-group">
-                <label>Nome completo</label>
+                <label htmlFor="nome">Nome completo</label>
                 <input
                   type="text"
+                  id="nome"
                   name="nome"
-                  placeholder="Nome"
+                  placeholder="Seu nome completo"
                   value={nome}
                   onChange={e => setNome(e.target.value)}
                   required
@@ -131,9 +174,10 @@ export default function Cadastro() {
               </div>
 
               <div className="form-group">
-                <label>Data de Nascimento</label>
+                <label htmlFor="dataNascimento">Data de Nascimento</label>
                 <input
                   type='date'
+                  id="dataNascimento"
                   name="dataNascimento"
                   value={dataNascimento}
                   onChange={e => setDataNascimento(e.target.value)}
@@ -142,15 +186,23 @@ export default function Cadastro() {
               </div>
 
               <div className="form-group">
-                <label>Senha</label>
+                <label htmlFor="senha">Senha</label>
                 <div className='ipt-senha-cadastro'>
                   <input
                     type={mostrarSenha ? "text" : "password"}
+                    id="senha"
                     name="senha"
-                    placeholder="Sua senha"
+                    placeholder="Crie sua senha"
                     value={senha}
-                    onChange={e => setSenha(e.target.value)}
+                    onChange={e => {
+                      setSenha(e.target.value);
+                      setErroSenha(validarSenha(e.target.value));
+                      // Valida confirmação de senha também se ela já foi digitada
+                      if (confirmarSenha) setErroConfirmarSenha(validarConfirmarSenha(confirmarSenha, e.target.value));
+                    }}
+                    onBlur={e => setErroSenha(validarSenha(e.target.value))}
                     required
+                    className={erroSenha ? 'input-error' : ''}
                   />
                   <button
                     type="button"
@@ -160,29 +212,43 @@ export default function Cadastro() {
                     {mostrarSenha ? <FaRegEye size={25} /> : <FaRegEyeSlash size={25} />}
                   </button>
                 </div>
+                {erroSenha && <p className="erro-mensagem">{erroSenha}</p>}
               </div>
 
               <div className="form-group">
-                <label>Confirmar Senha</label>
+                <label htmlFor="confirmarSenha">Confirmar Senha</label>
                 <div className='ipt-senha-cadastro'>
                   <input
-                    placeholder="Confirmar senha"
-                    value={confirmarSenha}
-                    onChange={e => setConfirmarSenha(e.target.value)}
                     type={mostrarSenha ? 'text' : 'password'}
+                    id="confirmarSenha"
+                    placeholder="Confirme sua senha"
+                    value={confirmarSenha}
+                    onChange={e => {
+                      setConfirmarSenha(e.target.value);
+                      setErroConfirmarSenha(validarConfirmarSenha(e.target.value, senha));
+                    }}
+                    onBlur={e => setErroConfirmarSenha(validarConfirmarSenha(e.target.value, senha))}
+                    required
+                    className={erroConfirmarSenha ? 'input-error' : ''}
                   />
                 </div>
-
+                {erroConfirmarSenha && <p className="erro-mensagem">{erroConfirmarSenha}</p>}
               </div>
 
-              <button type="submit" className='enviar-formulario'>Enviar Formulário</button>
-            </form>
+              <button type="submit" className='enviar-formulario' disabled={loading}>
+                {loading ? 'Cadastrando...' : 'Criar Conta'}
+              </button>
 
+              <div className="link-login">
+                Já tem uma conta? <Link to="/login">Faça Login</Link>
+              </div>
+
+              {/* Remover o Google Login/GitHub Login daqui */}
+              {/* <div id="buttonDiv"></div> */}
+            </form>
           </div>
         </div>
       </div>
     </div>
   );
 }
-
-

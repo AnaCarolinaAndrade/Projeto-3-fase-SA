@@ -47,7 +47,7 @@
 }
 
 .form-group label {
-    padding-top: 20px;
+    padding-top: 15px;
     padding-bottom: 10px;
     margin-left: 0;
     color: #ffffff;
@@ -96,3 +96,6 @@
     width: 150px;
 }
 
+.erro-mensagem {
+    color: #fc1e1ef1;
+}
