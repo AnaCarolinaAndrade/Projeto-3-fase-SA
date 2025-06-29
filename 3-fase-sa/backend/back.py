@@ -18,7 +18,6 @@ load_dotenv()
  
 app = Flask(__name__)
 
-
 # Configuração CORS: Permite requests do seu frontend React
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 

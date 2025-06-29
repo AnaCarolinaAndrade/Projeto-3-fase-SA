@@ -24,17 +24,20 @@
   border: 1.5px solid black;
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding-bottom: 20px;
-  transition: transform 0.2s ease-in-out;
+  padding-bottom: 20px;  
+  transition: 0.2s ease-in-out;
 }
 
 .card-projeto:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.337);
+
+
 }
 
 .card-projeto:hover img {
@@ -67,15 +70,16 @@
 }
 
 .card-projeto .categoria-projeto {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #c9f3fe;
   color: #0691ff;
   padding: 5px 12px;
   border-radius: 20px;
-  font-size: 0.8em;
+  font-size: 15px;
   font-weight: bold;
   width: 70px;
-  margin-top: 10px;
 }
 
 .info-projeto {

@@ -6,7 +6,7 @@ export default function Projetos() {
   const [projetos, setProjetos] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/projetos')
+    fetch('http://localhost:5000/api/criar_projetos')
       .then(res => res.json())
       .then(data => {
         setProjetos(data);

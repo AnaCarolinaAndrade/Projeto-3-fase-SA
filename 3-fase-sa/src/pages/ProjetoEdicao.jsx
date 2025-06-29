@@ -92,7 +92,7 @@ function ProjetoEdicao() {
   }
 
   if (error && !project.titulo) {
-    return <div className="container-projeto-edicao-cor"><p style={{ color: 'red' }}>{error}</p></div>;
+    return <div className="container-projeto-edicao-cor"><p style={{ color: '#000' }}>{error}</p></div>;
   }
 
   return (
