@@ -1,68 +1,78 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './PerfilUser.css';
 import Sidebar from '../components/Sidebar';
-import { BsGenderFemale, BsPersonCircle } from 'react-icons/bs';
-import { IoMapOutline } from "react-icons/io5";
+import { useParams } from 'react-router-dom';
 
 function Configs() {
-  const fileInputRef = useRef(null);
-  const [usuario, setUsuario] = useState("Nome do Usuário");
-  const [previewImage, setPreviewImage] = useState(null);
+  const { id } = useParams();
+  const [perfilUsuario, setPerfilUsuario] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUsuario = async () => {
+    const fetchPerfilUsuario = async () => {
+      if (!id) {
+        setError('ID do usuário não fornecido na URL.');
+        setLoading(false);
+        return;
+      }
+
       try {
-        const response = await fetch('http://localhost:5000/api/usuarios', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
-          },
-          body: JSON.stringify({ nome, bio })
+        // Obter o token de sessão (se necessário para autenticação)
+        const sessionToken = localStorage.getItem('sessionToken');
+        const headers = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
+
+        // Requisição ao seu backend para obter os detalhes do usuário específico
+        const response = await fetch(`http://localhost:5000/api/usuarios/${id}`, {
+          headers: headers,
         });
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('Perfil de usuário não encontrado.');
+          }
+          throw new Error(`Erro ao buscar perfil: ${response.status}`);
+        }
+
         const data = await response.json();
-        setUsuario(data.usuario);
-      } catch (error) {
-        console.error('Erro ao buscar usuário:', error);
+        setPerfilUsuario(data); // Assume que 'data' é o objeto do usuário
+        // Se o backend retorna { "usuario": { ... } }, então setPerfilUsuario(data.usuario);
+      } catch (err) {
+        setError('Erro ao buscar perfil: ' + err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchUsuario();
-  }, []);
+    fetchPerfilUsuario();
+  }, [id]); // Dependência no ID, para refazer a busca se o ID na URL mudar
 
-  const salvarConfiguracoes = async () => {
-    await fetch('/api/user/update', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ nome, bio }),
-    });
-  };
+  if (loading) {
+    return (
+      <>
+        <Sidebar />
+        <div className="profile-container">Carregando perfil...</div>
+      </>
+    );
+  }
 
-  const handleProfileImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreviewImage(URL.createObjectURL(file));
-    }
-  };
+  if (error) {
+    return (
+      <>
+        <Sidebar />
+        <div className="profile-container">Erro: {error}</div>
+      </>
+    );
+  }
 
-  useEffect(() => {
-    const fetchUsuario = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/usuarios', {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('sessionToken')}`,
-          },
-        });
-        const data = await response.json();
-        setUsuario(data.usuario);
-      } catch (error) {
-        console.error('Erro ao buscar usuário:', error);
-      }
-    };
-
-    fetchUsuario();
-  }, []);
+  if (!perfilUsuario) {
+    return (
+      <>
+        <Sidebar />
+        <div className="profile-container">Perfil não encontrado.</div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -70,26 +80,10 @@ function Configs() {
       <div className="profile-container">
         <div className='profile'>
           <div className="profile-card">
-            <div className="profile-image" onClick={() => fileInputRef.current.click()}>
-              {previewImage ? (
-                <img src={previewImage} alt="Foto de perfil" />
-              ) : (
-                <BsPersonCircle size={150} color="#ccc" />
-              )}
-            </div>
-
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: 'none' }}
-              ref={fileInputRef}
-              onChange={handleProfileImageChange}
-            />
-
-            <h1>{usuario}</h1>
-            <div className="info"><BsGenderFemale /> masculino</div>
-            <div className="info"><IoMapOutline /> florianópolis</div>
-
+            <h1><BsPersonCircle /> {perfilUsuario.nome || 'Nome do Usuário'}</h1>
+            <p><IoMapOutline /> {perfilUsuario.localizacao || 'Localização não informada'}</p>
+            <p><BsGenderFemale /> {perfilUsuario.genero || 'Gênero não informado'}</p>
+            <p>Bio: {perfilUsuario.bio || 'Sem bio.'}</p>
           </div>
         </div>
       </div>

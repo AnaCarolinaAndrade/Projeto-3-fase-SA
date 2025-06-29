@@ -7,6 +7,7 @@ import { LuChartSpline } from "react-icons/lu";
 import { FaGear } from "react-icons/fa6";
 import { GiLaurelsTrophy } from "react-icons/gi";
 import { CgAddR } from "react-icons/cg";
+import { FaUserAlt } from "react-icons/fa";
 
 import "./Sidebar.css";
 
@@ -14,6 +15,7 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [rodar, setRodar] = useState(false);
   const [girado, setGirado] = useState(false);
+  const userId = localStorage.getItem('userId')
 
   const girar = () => {
     setRodar(true);
@@ -57,6 +59,7 @@ function Sidebar() {
           <Link to={'/ProjetoEdicao'} className="icon-text"><CgAddR color="white" fontSize={18} /><span className="link-text">Editar projeto</span> </Link>
           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={18} /> <span className="link-text">Projetos </span> </Link>
           <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={16} /><span className="link-text"> Configurações</span></Link>
+          <Link to={`/perfil/${userId}`} className="icon-text"><FaUserAlt color="white" fontSize={18} /><span className="link-text">Perfil</span></Link>
 
         </nav>
       </div>

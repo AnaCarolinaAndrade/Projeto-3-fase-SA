@@ -210,6 +210,27 @@ def update_user():
             return jsonify({'error': f'Erro ao atualizar o usuário: {e}'}), 500
     return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
+
+@app.route('/api/usuarios/<string:user_id>', methods=['GET'])
+def get_usuario_by_id(user_id):
+    try:
+        obj_id = ObjectId(user_id)
+    except Exception:
+        return jsonify({"error": "ID de usuário inválido."}), 400
+
+    usuario = usuarios_collection.find_one({"_id": obj_id}, {"_id": 0})
+
+    if usuario:
+        return jsonify(usuario), 200
+    else:
+        return jsonify({"message": "Usuário não encontrado."}), 404
+
+
+@app.route('/api/usuarios', methods=['GET'])
+def get_all_usuarios(): 
+    usuarios = list(usuarios_collection.find({}, {"_id": 0}))
+    return jsonify(usuarios)
+
 @app.route('/api/usuarios', methods=['DELETE'])
 def deletar_proprio_usuario():
     try:
@@ -221,9 +242,7 @@ def deletar_proprio_usuario():
         print(f"Erro ao deletar usuário: {e}")
         return jsonify({'erro': 'Erro interno ao deletar usuário'}), 500
 
-
 # === ROTAS DE PROJETOS ===
-
 @app.route('/api/criar_projetos', methods=['POST'])
 def criar_projeto():
     nomeProjeto = request.form.get('nomeProjeto')
