@@ -3,7 +3,6 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GoogleLogin } from '@react-oauth/google';
 import { Link, useNavigate } from 'react-router-dom';
 import "./Login.css";
-import GitHubLogin from "../components/GithubLogin";
 import Voltar from "../components/Voltar";
 
 function Login() {
@@ -138,11 +137,6 @@ function Login() {
 
           <div className="container-btn">
             <GoogleLogin
-              onSuccess={onSuccess}
-              onError={onFailure}
-            />
-
-            <GitHubLogin
               onSuccess={onSuccess}
               onError={onFailure}
             />

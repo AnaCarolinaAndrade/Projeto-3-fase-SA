@@ -16,7 +16,7 @@ export default function Cadastro() {
   const [erroEmail, setErroEmail] = useState('');
   const [erroSenha, setErroSenha] = useState('');
   const [erroConfirmarSenha, setErroConfirmarSenha] = useState('');
-  const [erroGeral, setErroGeral] = useState(''); 
+  const [erroGeral, setErroGeral] = useState('');
   const [cadastroSucesso, setCadastroSucesso] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -104,12 +104,10 @@ export default function Cadastro() {
         setConfirmarSenha(''); // Deve ser string vazia
         setMostrarSenha(false); // Deve ser false
 
-        // Redireciona após um pequeno atraso para o usuário ver a mensagem de sucesso
         setTimeout(() => {
-          navigate('/login'); // Ou para a página inicial, ou para uma página de sucesso
-        }, 2000); // 2 segundos
+          navigate('/');
+        }, 4000);
       } else {
-        // Se a resposta não for OK, mostre a mensagem de erro do backend
         setErroGeral(data.message || 'Erro ao cadastrar. Tente novamente.');
         setCadastroSucesso(false);
       }
@@ -118,7 +116,7 @@ export default function Cadastro() {
       setErroGeral('Erro de conexão com o servidor. Tente novamente mais tarde.');
       setCadastroSucesso(false);
     } finally {
-      setLoading(false); // Finaliza o estado de carregamento
+      setLoading(false);
     }
   };
 
@@ -132,10 +130,13 @@ export default function Cadastro() {
         <div className="form-wrapper">
           <div className="form-container">
             <form onSubmit={criarUsuario} className='form-cadastro'>
-              <h2>Criar Nova Conta</h2> 
+              <h2>Criar Nova Conta</h2>
 
               {cadastroSucesso && (
-                <p className="mensagem-sucesso">Cadastro realizado com sucesso! Redirecionando...</p>
+                <div className='popup-mensagem-sucesso'>
+                  <p className="mensagem-sucesso">Cadastro realizado com sucesso! Redirecionando...</p>
+                </div>
+
               )}
               {erroGeral && (
                 <p className="mensagem-erro-geral">{erroGeral}</p>
@@ -197,7 +198,6 @@ export default function Cadastro() {
                     onChange={e => {
                       setSenha(e.target.value);
                       setErroSenha(validarSenha(e.target.value));
-                      // Valida confirmação de senha também se ela já foi digitada
                       if (confirmarSenha) setErroConfirmarSenha(validarConfirmarSenha(confirmarSenha, e.target.value));
                     }}
                     onBlur={e => setErroSenha(validarSenha(e.target.value))}

@@ -56,6 +56,10 @@
     justify-content: flex-start;
 }
 
+.popup-mensagem-sucesso{
+    background-color: white;
+}
+
 .form-group input {
     width: 100%;
     padding: 10px;
@@ -98,4 +102,13 @@
 
 .erro-mensagem {
     color: #fc1e1ef1;
+}
+
+.link-login {
+    color: #ffffff;
+
+}
+
+.link-login a {
+    color: #2f89ff;
 }
