@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Configs.css';
 import Sidebar from '../components/Sidebar';
-import { BsGenderFemale, BsPersonCircle } from 'react-icons/bs';
+import { BsPersonCircle } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
 function Configs() {
@@ -43,19 +43,19 @@ function Configs() {
   };
 
   const salvarConfiguracoes = async () => {
-    await fetch('/api/user/update', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ nome, bio }),
-    });
+    try {
+      await fetch('/api/usuario', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nome, bio }),
+      });
+    } catch (error) {
+      console.error('Erro ao salvar configurações:', error);
+    }
   };
 
-  const handleClickProfileImage = () => {
-    fileInputRef.current.click();
-  };
 
   const deletarUsuario = async () => {
     try {
@@ -71,22 +71,11 @@ function Configs() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-
-  // if (!usuario) return <div className="loading">Carregando...</div>;
-
   return (
     <>
       <Sidebar />
       <div className="configs-container">
-        <div className="profile-card">
-          {/* <div className="profile-image" onClick={handleClickProfileImage}>
-            {previewImage || usuario.profile_pic ? (
-              <img src={previewImage || usuario.profile_pic} alt="foto de perfil" />
-            ) : (
-              <BsPersonCircle size={150} color="#000" />
-            )}
-
-          </div> */}
+        <div className="profile-card-config">
           <input
             type="file"
             accept="image/*"
@@ -102,14 +91,7 @@ function Configs() {
               <BsPersonCircle size={150} color="#ccc" />
             )}
           </div>
-          {/* 
-          <input
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            ref={fileInputRef}
-            onChange={handleProfileImageChange}
-          /> */}
+
 
           {previewImage && (
             <button className="btn-remover" onClick={removerImagemPerfil}>
@@ -131,9 +113,10 @@ function Configs() {
               onChange={(e) => setLinkPessoal(e.target.value)}
               className='ipt-config-link'
             />
+
             {linkPessoal && (
-              <p>
-                <a href={linkPessoal} target="_blank" rel="noopener noreferrer">
+              <p className='p-config-link'>
+                <a href={linkPessoal} target="_blank" rel="noopener noreferrer" className='link-config-user'>
                   Ver meu link
                 </a>
               </p>

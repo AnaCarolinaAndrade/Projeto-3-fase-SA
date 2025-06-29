@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
-  background: #f0f2f5;
+  background: #dce4ee;
   height: 100vh;
+  font-size: 15px;
 }
 
-.profile-card {
+.profile-card-config {
   background: white;
   padding: 40px;
   border-radius: 20px;
@@ -16,17 +17,17 @@
   height: 100%;
 }
 
-.container-infos-user-config{
+.container-infos-user-config {
   border: 1px solid black;
   padding: 10px;
 }
 
-.label-configs{
+.label-configs {
   color: #555;
   padding-bottom: 15px;
 }
 
-.ipt-config-link{
+.ipt-config-link {
   padding: 10px;
   font-size: 15px;
 }
@@ -63,13 +64,13 @@ h1 {
 .actions {
   margin-top: 30px;
   display: flex;
-  flex-direction: column;
+  width: 400px;
   gap: 15px;
 }
 
 .save-btn, .delete-btn {
   padding: 12px;
-  font-size: 16px;
+  font-size: 15px;
   border: none;
   border-radius: 12px;
   cursor: pointer;
@@ -77,12 +78,12 @@ h1 {
 }
 
 .save-btn {
-  background-color: #4f46e5;
+  background-color: #27dc4e;
   color: white;
 }
 
 .save-btn:hover {
-  background-color: #4338ca;
+  background-color: #18ad38;
 }
 
 .delete-btn {
@@ -102,4 +103,9 @@ h1 {
   min-height: 100vh;
   font-size: 24px;
   color: #555;
+}
+
+.link-config-user {
+  text-decoration: none;
+  color: #3026ef;
 }

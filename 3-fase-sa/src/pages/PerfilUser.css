@@ -26,6 +26,15 @@
   margin-bottom: 10px;
 }
 
+.profile-card {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+
 .btn-remover {
   background-color: #ff4d4d;
   border: none;

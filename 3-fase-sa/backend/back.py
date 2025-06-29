@@ -170,7 +170,7 @@ def get_usuarios():
         usuarios_data.append(usuario)
     return jsonify(usuarios_data)
 
-# Rota para atualizar informações do usuário logado (usando o _id do token)
+
 @app.route('/api/usuarios', methods=['PUT'])
 def update_user():
     data = request.get_json()
