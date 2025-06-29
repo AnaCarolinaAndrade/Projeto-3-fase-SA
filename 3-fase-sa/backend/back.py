@@ -274,6 +274,24 @@ def listar_projetos():
         })
     return jsonify(lista), 200
 
+@app.route('/api/projetos/<string:id_projeto>', methods=['GET'])
+def get_projeto_by_id(id_projeto):
+    try:
+        # Tenta converter o ID para um ObjectId do MongoDB
+        obj_id = ObjectId(id_projeto)
+    except Exception:
+        # Se o ID não for um ObjectId válido, retorne 400 Bad Request
+        return jsonify({"error": "ID de projeto inválido."}), 400
+
+    # Busca o projeto pelo _id
+    projeto = projetos_collection.find_one({"_id": obj_id}, {"_id": 0}) # Exclui o _id da resposta para o frontend
+
+    if projeto:
+        return jsonify(projeto), 200
+    else:
+        # Se não encontrar o projeto, retorne 404 Not Found
+        return jsonify({"message": "Projeto não encontrado."}), 404
+
 
 # === CRIAÇÃO DE COMENTARIOS ==== # 
 @app.route('/api/usarios/comentarios/<string:projeto_id>', methods=['POST'])

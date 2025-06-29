@@ -1,0 +1,52 @@
+/* DetalhesProjeto.css ou um arquivo CSS global */
+
+.container-projeto-detalhes {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    min-height: 80vh; 
+    padding: 20px;
+    background-color: #f4f7f6; 
+    color: #333; 
+}
+
+.container-projeto-detalhes > div {
+    background-color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 800px;
+    width: 100%; 
+    text-align: center; 
+}
+
+.container-projeto-detalhes h1 {
+    font-size: 2.5em; 
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.container-projeto-detalhes p {
+    font-size: 1.1em; 
+    line-height: 1.6; 
+    margin-bottom: 15px;
+}
+
+.container-projeto-detalhes a {
+    color: #3498db;
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+.container-projeto-detalhes a:hover {
+    text-decoration: underline; 
+}
+
+.container-projeto-detalhes img {
+    max-width: 100%; 
+    height: auto;
+    border-radius: 8px; 
+    margin-top: 25px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
+}
