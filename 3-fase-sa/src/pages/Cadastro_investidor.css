@@ -1,4 +1,4 @@
-.logo {
+.logo-investidor{
   width: 80px;
   height: 50px;
  
@@ -25,9 +25,9 @@
       rgb(0, 0, 0) 70%,
       /* transparente no topo */
       #1f1f1f 99%,
-      /* azul ciano suave intermediário */
+      /* suave intermediário */
       #1f1f1f  10%
-      /* azul ciano mais intenso embaixo */
+      /* mais intenso embaixo */
     );
 }
 

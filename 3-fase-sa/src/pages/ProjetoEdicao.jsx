@@ -103,7 +103,8 @@ function ProjetoEdicao() {
 
         <form onSubmit={handleSubmit}>
           <div className='alinhamentos'>
-            <div className='alinhamento-esquerda'>
+            <h2 className='titiulo-edicao'>Ediçao de projeto</h2>
+            <div className='alinhamento-esquerda-edicao'>
               <label>URL da Imagem do Projeto</label>
               <input
                 type='text'
@@ -116,7 +117,7 @@ function ProjetoEdicao() {
               {project.imageUrl && (
                 <div className="project-image-preview">
                   <p>Pré-visualização da Imagem:</p>
-                  <img src={project.imageUrl} alt="Pré-visualização do Projeto" style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px', marginBottom: '15px' }} />
+                  <img src={project.imageUrl} alt="Pré-visualização do Projeto"/>
                 </div>
               )}
 
@@ -131,7 +132,7 @@ function ProjetoEdicao() {
               />
             </div>
 
-            <div className='alinhamento-direita'>
+            <div className='alinhamento-direita-edicao'>
               <label>Descrição do Projeto</label>
               <textarea
                 id='descricao'
@@ -145,7 +146,7 @@ function ProjetoEdicao() {
           </div>
 
           {error && <p style={{ color: 'red', background: 'transparent' }}>{error}</p>}
-          <button className='container-button' type="submit" disabled={saving}>
+          <button className='container-button-edicaoProjeto' type="submit" disabled={saving}>
             {saving ? 'Salvando...' : 'Salvar Alterações'}
           </button>
         </form>
