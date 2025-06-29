@@ -52,14 +52,22 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 ### Tela de Cadastro (Parte 3 - Seleção de softwares e Linguagens de programação)
 ![Cadastro 3](./3-fase-sa/public/img/Tela_cadastro_prossional_3.png)
 
-### Instalações das bibliotecas do backend
+### Instalações e configurações das bibliotecas do Python
+
+
+instale o python em: https://www.python.org/downloads/
 
 # Passo 1: 
-instalar o python: https://www.python.org/downloads/
 
 ![Captura de tela 2025-06-28 114846](https://github.com/user-attachments/assets/cc11915a-699f-4c49-a4b6-ffe2302f451d)
 
+# Passo 2:
 ![Captura de tela 2025-06-28 115147](https://github.com/user-attachments/assets/b9cdfccd-f074-4063-a2a7-e4e202c7b824)
+
+# Passo 3:
+Adicionar o python.exe ao PATH e depois clicar em baixar
+
+![Captura de tela 2025-06-28 212844](https://github.com/user-attachments/assets/15043e46-8c73-4602-8d56-608c337e276b)
 
 
 ```bash
