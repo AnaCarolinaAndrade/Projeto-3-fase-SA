@@ -1,14 +1,26 @@
 .container-projetos {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  align-items: center;
   height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
   width: 100vw;
-  margin: 0 auto;
+}
+
+.container-projetos-cards-projetos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100vw;
 }
 
 .container-cards-projetos {
-  gap: 20px;
-  width: 1000px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -18,82 +30,111 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
   padding: 10px;
+  justify-content: center;
 }
 
 .card-projeto {
-  border: 1.5px solid black;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  height: 250px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding-bottom: 20px;  
-  transition: 0.2s ease-in-out;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  background-color: #ffffff;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .card-projeto:hover {
-  transform: translateY(-9px);
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.337);
-  border: 0;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
-.card-projeto:hover img {
-  transition: 0.5s;
-}
-
-.card-projeto img {
+.card-projeto-imagem {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  transition: 0.5s;
+  display: block;
+  transition: transform 0.4s ease-in-out;
 }
 
-.card-projeto h2 {
-  font-size: 1.5em;
-  color: #333;
-  margin-bottom: 10px;
-  padding: 0 15px;
+.card-projeto:hover .card-projeto-imagem {
+  transform: scale(1.08);
 }
 
-.card-projeto p {
-  font-size: 0.95em;
-  color: #666;
-  margin-bottom: 15px;
-  flex-grow: 1;
-  padding: 0 15px;
-}
-
-.card-projeto .categoria-projeto {
+.info-projeto {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #ffffff;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  z-index: 2;
+}
+
+.card-projeto:hover .info-projeto {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-projeto-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  z-index: 1;
+}
+
+.card-projeto:hover .card-projeto-overlay {
+  opacity: 1;
+}
+
+.card-projeto-titulo {
+  font-size: 1.6em;
+  margin-bottom: 8px;
+  font-weight: bold;
+  line-height: 1.2;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+}
+
+.card-projeto-descricao {
+  font-size: 1em;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+}
+
+.categoria-projeto {
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   background-color: #c9f3fe;
   color: #0691ff;
   padding: 5px 12px;
   border-radius: 20px;
-  font-size: 15px;
+  font-size: 0.85em;
   font-weight: bold;
-  width: 70px;
-}
-
-.info-projeto {
-  background-color: #ffffff;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.divider-projeto {
-  height: 1.5px;
-  width: 100%;
-  background-color: #000000;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  z-index: 2;
 }
 
 .container-projetos>p {
@@ -110,15 +151,20 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  overflow: none;
+  text-align: center;
+  padding: 20px;
 }
 
 .sem-projetos {
   color: #000000;
+  font-size: 1.8em;
+  margin-bottom: 20px;
 }
 
 .img-sem-projetos {
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
   margin: 0 auto;
+  display: block;
 }

@@ -86,7 +86,7 @@ export default function CriarProjeto() {
       setImagemPreviewUrl(null);
 
       if (data.success) {
-        navigate('/');
+        navigate('/projetos');
       } else {
         console.error('Erro ao criar projeto:', data);
       }
@@ -114,12 +114,9 @@ export default function CriarProjeto() {
 
   return (
     <div className="application-main">
-      <div>
-        <Navbar />
-      </div>
       <main className='container-criar-projeto-main'>
         <div className="container-criar-projeto ">
-          <h1 className="title">Criar um novo projeto</h1>
+          <h1 className="title">Criar um novo projeto</h1> 
 
           <form noValidate onSubmit={criarProjeto} className='form-criar-projeto'>
             <fieldset>
