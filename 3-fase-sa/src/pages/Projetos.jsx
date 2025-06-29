@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import './Projetos.css';
+import { Link } from 'react-router-dom';
 
 export default function Projetos() {
   const [projetos, setProjetos] = useState([]);
@@ -31,7 +32,7 @@ export default function Projetos() {
         
         <div className="lista-projetos">
           {projetos.map(projeto => (
-            <div key={projeto.id} className="card-projeto">
+            <Link key={projeto.id} className="card-projeto" to={`/projetos/${projeto.id}`}>
               {projeto.imagem && <img src={projeto.imagem} alt="Capa" />}
               <div className='info-projeto'>
                 <div className='divider-projeto' />
@@ -39,7 +40,7 @@ export default function Projetos() {
                 <p>{projeto.descricao}</p>
                 <span className="categoria-projeto">{projeto.categoria}</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

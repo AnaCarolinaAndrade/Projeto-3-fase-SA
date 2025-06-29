@@ -10,6 +10,7 @@ import Projetos from '../pages/Projetos.jsx';
 import CriarProjeto from "../pages/CriarProjeto.jsx";
 import ProjetoEdicao from '../pages/ProjetoEdicao.jsx'
 import Cadastro_investidor from "../pages/Cadastro_investidor.jsx";
+import DetalhesProjeto from '../pages/DetalhesProjeto.jsx';
 
 const router = createBrowserRouter([
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     { path: "/criarProjeto", element: <CriarProjeto /> },
     { path: "/ProjetoEdicao", element: <ProjetoEdicao /> },
     { path: "/cadastro_investidor", element: <Cadastro_investidor /> },
-
+    { path: "/projetos/:id", element: <DetalhesProjeto /> }
 
 ])
 

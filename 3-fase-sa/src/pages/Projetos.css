@@ -34,14 +34,12 @@
 }
 
 .card-projeto:hover {
-  transform: translateY(-5px);
+  transform: translateY(-9px);
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.337);
-
-
+  border: 0;
 }
 
 .card-projeto:hover img {
-  filter: blur(5px);
   transition: 0.5s;
 }
 

@@ -3,6 +3,7 @@ import './CriarProjeto.css';
 import { useNavigate } from 'react-router-dom';
 import { TbReload } from "react-icons/tb";
 import Navbar from '../components/Navbar';
+import Voltar from '../components/Voltar';
 
 
 export default function CriarProjeto() {
@@ -16,6 +17,7 @@ export default function CriarProjeto() {
   const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
   const [verificacao, setVerificacao] = useState(false);
+    const [linkPessoal, setLinkPessoal] = useState("");
   const fileInputRef = useRef();
 
 
@@ -164,7 +166,7 @@ export default function CriarProjeto() {
                   <option value="Mobile">Mobile</option>
                   <option value="Back-end">Back-end</option>
                   <option value="Front-end">Front-end</option>
-                  <option value="IA / Machine Learning">IA / Machine Learning</option>
+                  <option value="IA">IA / Machine Learning</option>
                   <option value="Jogos">Jogos</option>
                 </select>
               </div>
@@ -180,6 +182,7 @@ export default function CriarProjeto() {
                   ref={fileInputRef}
                   className="hidden-input"
                   accept="image/*"
+                  required
                 />
 
                 {imagemPreviewUrl ? (
@@ -214,6 +217,26 @@ export default function CriarProjeto() {
                 onChange={(e) => setDescricao(e.target.value)}
                 maxLength={100}
               />
+            </div>
+
+            <div className='formulario-projeto'>
+              <label className='label-configs'>Coloque o link para o seu site</label>
+
+              <input
+                type="text"
+                placeholder="https://..."
+                value={linkPessoal}
+                onChange={(e) => setLinkPessoal(e.target.value)}
+                className='ipt-config-link'
+              />
+
+              {linkPessoal && (
+                <p className='p-config-link'>
+                  <a href={linkPessoal} target="_blank" rel="noopener noreferrer" className='link-config-user'>
+                    Ver meu link
+                  </a>
+                </p>
+              )}
             </div>
 
             <button type="submit" className="btn-primary">Criar Projeto</button>
