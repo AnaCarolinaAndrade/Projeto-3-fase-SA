@@ -1,9 +1,10 @@
-// backend-investidor/server.js
+// backend-investidor e projetoEdicao/server.js
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import connectDB from './back.js';
 import investidorRoutes from './routes/investidoresRoutes.js';
+import projetoEdicao from './routes/projetosEdicao.js';
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(cors()); 
 
 app.use('/api/investidores', investidorRoutes);
-app.use('/api/projetoEdicao', investidorRoutes);
+app.use('/api/projetoEdicao', projetoEdicao);
 
 app.get('/', (req, res) => {
     res.send('API está rodando...');

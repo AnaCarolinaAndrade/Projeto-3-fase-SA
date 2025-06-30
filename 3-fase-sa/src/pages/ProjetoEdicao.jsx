@@ -1,4 +1,3 @@
-// frontend/src/components/ProjetoEdicao/ProjetoEdicao.js
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProjetoEdicao.css';
@@ -8,7 +7,7 @@ function ProjetoEdicao() {
   const navigate = useNavigate();
 
   const [project, setProject] = useState({
-    titulo: '',
+    nomeProjeto: '',
     descricao: '',
     imageUrl: ''
   });
@@ -21,12 +20,12 @@ function ProjetoEdicao() {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`http://localhost:5000/api/projetoEdicao`);
+        const response = await fetch(`${'http://localhost:5000/api/projetosEdicao'}/${id}`);
         const data = await response.json();
 
         if (response.ok) {
           setProject({
-            titulo: data.titulo || '',
+            nomeProjeto: data.nomeProjeto || '',
             descricao: data.descricao || '',
             imageUrl: data.imageUrl || ''
           });
@@ -52,10 +51,11 @@ function ProjetoEdicao() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProject({
-      ...project,
+
+    setProject(prevProject => ({
+      ...prevProject,
       [name]: value
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -64,18 +64,23 @@ function ProjetoEdicao() {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/projetosEdicao`, {
+      const response = await fetch(`${'http://localhost:5000/api/projetosEdicao'}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(project),
+
+        body: JSON.stringify({
+        nomeProjeto: project.nomeProjeto,
+        descricao: project.descricao,
+        imageUrl: project.imageUrl
+        })
       });
 
       const data = await response.json();
 
       if (response.ok) {
         alert(data.message || 'Projeto atualizado com sucesso!');
-        navigate('/meus-projetos');
-      } else {
+        navigate('/Projetos');
+       }else {
         setError(data.message || 'Erro ao atualizar o projeto. Tente novamente.');
         console.error('Erro ao atualizar projeto:', data.message);
       }
@@ -87,12 +92,42 @@ function ProjetoEdicao() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!window.confirm('Tem certeza que deseja deletar este projeto?')) {
+      return;
+    }
+
+    setSaving(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${'http://localhost:5000/api/projetosEdicao'}/${id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert(data.message || 'Projeto excluído com sucesso!');
+        navigate('/Projetos');
+      } else {
+        setError(data.message || 'Erro ao deletar o projeto. Tente novamente.');
+        console.error('Erro ao deletar projeto:', data.message);
+      }
+    } catch (err) {
+      console.error('Erro na requisição para deletar projeto:', err);
+      setError('Erro de conexão ao deletar o projeto. Verifique sua rede.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading) {
     return <div className="container-projeto-edicao-cor"><p>Carregando dados do projeto...</p></div>;
   }
 
-  if (error && !project.titulo) {
-    return <div className="container-projeto-edicao-cor"><p style={{ color: '#000' }}>{error}</p></div>;
+  if (error && !project.nomeProjeto) {
+    return <div className="container-projeto-edicao-cor"><p style={{ color: '#f6f6f6' }}>{error}</p></div>;
   }
 
   return (
@@ -124,9 +159,9 @@ function ProjetoEdicao() {
               <label>Nome do Projeto</label>
               <input
                 type='text'
-                id='titulo'
-                name='titulo'
-                value={project.titulo}
+                id='nomeProjeto'
+                name='nomerojeto'
+                value={project.nomeProjeto}
                 onChange={handleChange}
                 required
               />
@@ -139,15 +174,18 @@ function ProjetoEdicao() {
                 name='descricao'
                 value={project.descricao}
                 onChange={handleChange}
-                required
-              ></textarea>
-              
+                required>
+              </textarea>
             </div>
           </div>
 
           {error && <p style={{ color: 'red', background: 'transparent' }}>{error}</p>}
           <button className='container-button-edicaoProjeto' type="submit" disabled={saving}>
             {saving ? 'Salvando...' : 'Salvar Alterações'}
+          </button>
+
+          <button className='container-button-edicaoProjeto delete-button' type="button" onClick={handleDelete} disabled={saving}>
+            {saving ? 'Deletando...' : 'Deletar Projeto'}
           </button>
         </form>
       </div>

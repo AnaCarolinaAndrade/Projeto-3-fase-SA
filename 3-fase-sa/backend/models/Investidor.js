@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const InvestorSchema = new mongoose.Schema({
+const InvestidorSchema = new mongoose.Schema({
     nome: {
         type: String,
         required: [true, 'Nome é obrigatório'],
@@ -26,11 +26,6 @@ const InvestorSchema = new mongoose.Schema({
         required: [true, 'Senha é obrigatória'],
         minlength: [6, 'A senha deve ter no mínimo 6 caracteres']
     },
-    genero: {
-        type: String,
-        enum: ['Masculino', 'Feminino', 'Outro', 'Prefiro não dizer', ''], 
-        default: '',
-    },
     dataCadastro: {
         type: Date,
         default: Date.now,
@@ -38,7 +33,7 @@ const InvestorSchema = new mongoose.Schema({
 });
 
 
-InvestorSchema.pre('save', async function(next) {
+InvestidorSchema.pre('save', async function(next) {
     if (!this.isModified('senha')) {
         return next();
     }
@@ -47,10 +42,10 @@ InvestorSchema.pre('save', async function(next) {
     next();
 });
 
-InvestorSchema.methods.matchPassword = async function(enteredPassword) {
+InvestidorSchema.methods.matchPassword = async function(enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.senha);
 };
 
-const Investor = mongoose.model('Investor', InvestorSchema);
+const Investidor = mongoose.model('Investidor', InvestidorSchema);
 
-export default Investor;
+export default Investidor;

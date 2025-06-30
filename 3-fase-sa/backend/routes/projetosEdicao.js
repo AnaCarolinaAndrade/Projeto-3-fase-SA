@@ -4,18 +4,18 @@ import Project from '../models/Project.js';
 
 const router = express.Router();
 
-// --- Rota 1: Criar um novo projeto ---
+// --- Rota 1: buscar um novo projeto ---
 router.post('/', async (req, res) => {
-    const { titulo, descricao, imageUrl } = req.body;
+    const { nomeProjeto, descricao, imageUrl } = req.body;
 
     // Validação
-    if (!titulo || !descricao) {
+    if (!nomeProjeto || !descricao) {
         return res.status(400).json({ message: 'Os campos obrigatórios (título e descrição) são necessários.' });
     }
 
     try {
         const newProject = await Project.create({
-            titulo,
+            nomeProjeto,
             descricao,
             imageUrl
         });
@@ -34,7 +34,6 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Erro no servidor ao criar projeto. Por favor, tente novamente mais tarde.' });
     }
 });
-
 
 // ---Obter um projeto por ID ---
 router.get('/:id', async (req, res) => {
@@ -56,7 +55,7 @@ router.get('/:id', async (req, res) => {
 
 // ---Atualizar um projeto existente ---
 router.put('/:id', async (req, res) => {
-    const { titulo, descricao, imageUrl } = req.body;
+    const { nomeProjeto, descricao, imageUrl } = req.body;
 
     try {
         const project = await Project.findById(req.params.id);
@@ -65,7 +64,7 @@ router.put('/:id', async (req, res) => {
             return res.status(404).json({ message: 'Projeto não encontrado para atualização.' });
         }
 
-        project.titulo = titulo !== undefined ? titulo : project.titulo;
+        project.nomeProjeto = nomeProjeto !== undefined ? nomeProjeto : project.nomeProjeto;
         project.descricao = descricao !== undefined ? descricao : project.descricao;
         project.imageUrl = imageUrl !== undefined ? imageUrl : project.imageUrl;
 
