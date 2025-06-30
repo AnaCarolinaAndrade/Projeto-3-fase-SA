@@ -5,7 +5,6 @@ import { FaUserFriends } from "react-icons/fa";
 import { IoCloseOutline } from "react-icons/io5";
 import { LuChartSpline } from "react-icons/lu";
 import { FaGear } from "react-icons/fa6";
-import { GiLaurelsTrophy } from "react-icons/gi";
 import { CgAddR } from "react-icons/cg";
 import { FaUserAlt } from "react-icons/fa";
 

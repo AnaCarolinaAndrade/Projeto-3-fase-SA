@@ -33,6 +33,8 @@
 }
 
 .profile-image {
+  display: contents;
+  border: 1px solid #4f46e5;
   margin-bottom: 20px;
   cursor: pointer;
 }
@@ -43,12 +45,6 @@
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #4f46e5;
-}
-
-h1 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 10px;
 }
 
 .info {
