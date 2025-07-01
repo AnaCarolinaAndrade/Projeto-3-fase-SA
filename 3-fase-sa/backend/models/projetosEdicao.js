@@ -1,6 +1,13 @@
 import mongoose from 'mongoose';
 
 const ProjectSchema = new mongoose.Schema({
+
+    profissional: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserProfissional',
+        required: true
+    },
+
     NomeProjeto: { 
         type: String,
         required: [true, 'O nome do projeto é obrigatório'],
@@ -22,6 +29,6 @@ const ProjectSchema = new mongoose.Schema({
     },
 });
 
-const Project = mongoose.model('Project', ProjectSchema);
+const projetoEdicao = mongoose.model('projetoEdicao', ProjectSchema);
 
-export default Project;
+export default projetoEdicao;

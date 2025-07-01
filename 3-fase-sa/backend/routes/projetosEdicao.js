@@ -1,6 +1,6 @@
 
 import express from 'express';
-import Project from '../models/Project.js';
+import Project from '../models/projetosEdicao.js';
 
 const router = express.Router();
 

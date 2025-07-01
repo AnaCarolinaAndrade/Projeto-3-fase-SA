@@ -32,13 +32,21 @@
 }
 
 .container-cadastro-investidor-alinhamento {
-  display: flex;
+ display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: center; /* Centraliza os itens filhos horizontalmente */
+  justify-content: center; /* Centraliza os itens filhos verticalmente (se houver espaço suficiente) */
   width: 850px;
   box-sizing: border-box;
   margin-bottom: 100px;
+}
+
+.alinhamentos-wrapper{
+  display: flex;
+  flex-direction: column; 
+  align-items: center;   
+  margin-bottom: 15px;   
+  width: 100%; 
 }
 
 .container-cadastro-investidor-alinhamento label {
@@ -46,8 +54,8 @@
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 5px;
+   width: 350px; /* Mesma largura do input para alinhamento consistente */
   text-align: left;
-  display: block;
 }
 
 .container-cadastro-investidor-alinhamento input {
@@ -61,6 +69,7 @@
   box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4);
   transition: box-shadow 0.3s ease;
   outline: none;
+  text-align: center;
 }
 
 .container-cadastro-investidor-alinhamento input:focus {
@@ -74,16 +83,6 @@
   gap: 15px;
 }
 
-.container-cadastro-investidor-alinhamento>.alinhamento-esquerda,
-.container-cadastro-investidor-alinhamento>.alinhamento-direita {
-  width: 400px;
-}
-
-.alinhamentos-wrapper {
-  display: flex;
-  gap: 80px;
-  margin-bottom: 30px;
-}
 
 .container-button {
   background-color: #32c3fc;

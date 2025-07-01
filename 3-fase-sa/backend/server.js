@@ -2,7 +2,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import connectDB from './back.js';
+import connectDB from './projectRoutes.js';
 import investidorRoutes from './routes/investidoresRoutes.js';
 import projetoEdicao from './routes/projetosEdicao.js';
 

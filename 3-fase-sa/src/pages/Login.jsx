@@ -33,6 +33,8 @@ function Login() {
 
       if (investidorResponse.ok) { // Login de investidor bem sucedido
         alert(investidorData.message || "Login de investidor realizado com sucesso!");
+        localStorage.setItem('userType', 'investidor'); // Tipo: investidor
+        localStorage.setItem('userId', investidorData.investor._id);
         navigate('/'); 
         return; 
       }
@@ -48,6 +50,8 @@ function Login() {
 
        if (usuarioResponse.ok) { // Login de usuário PROFISSIONAL BEM-SUCEDIDO
         alert(usuarioData.message || "Login de usuário realizado com sucesso!");
+        localStorage.setItem('userType', 'profissional'); // Tipo: profissional
+        localStorage.setItem('userId', profissionalData.user._id);
         navigate('/');
       } else {
         // Se ambos falharam, exibe a mensagem de erro da última tentativa
