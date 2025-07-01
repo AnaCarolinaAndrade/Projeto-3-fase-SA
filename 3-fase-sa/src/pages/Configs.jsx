@@ -15,10 +15,20 @@ function Configs() {
   const [imagemPerfil, setImagemPerfil] = useState(null); // Estado para a imagem de perfil a ser enviada
   const navigate = useNavigate();
 
-  useEffect(() => {
+ useEffect(() => {
     const fetchUsuario = async () => {
       try {
+        const userId = localStorage.getItem('userId'); // Supondo que você armazena o ID do usuário após o login/cadastro
+        if (!userId) {
+          console.warn("Nenhum ID de usuário encontrado. Redirecionando para login.");
+          navigate('/login'); // Ou para a tela de login
+          return;
+        }
 
+        // Requisição para buscar um usuário específico por ID
+        const response = await axios.get(`http://localhost:5000/api/usuarios/${userId}`);
+
+        // O backend agora deve retornar {"usuario": {...}}
         const fetchedUser = response.data?.usuario;
 
         if (fetchedUser) {
@@ -30,31 +40,23 @@ function Configs() {
         } else {
           console.error('Erro: Dados do usuário não encontrados na resposta da API:', response.data);
           // Opcional: setar um erro geral para mostrar na tela
-          // setErroGeral("Não foi possível carregar as informações do perfil.");
         }
-        // --- FIM DA CORREÇÃO ---
 
       } catch (error) {
         console.error('Erro ao buscar usuário:', error);
         if (error.response) {
-          // Erros de resposta do servidor (ex: 401, 404, 500)
-          console.error('Detalhes do erro do servidor:', error.response.data);
-          if (error.response.status === 401) {
-            alert('Sua sessão expirou ou não está autorizada. Por favor, faça login novamente.');
-            localStorage.removeItem('sessionToken'); // Limpa token inválido
-            navigate('/login');
-          } else {
-            // Outros erros de servidor
-            // setErroGeral("Erro ao carregar o perfil: " + (error.response.data.message || "Erro desconhecido."));
-          }
+            console.error('Detalhes do erro do servidor:', error.response.data);
+            if (error.response.status === 404) {
+                alert('Usuário não encontrado.');
+                localStorage.removeItem('userId');
+                navigate('/login');
+            } else if (error.response.status === 400) {
+                alert('ID de usuário inválido.');
+            }
         } else if (error.request) {
-          // A requisição foi feita mas não houve resposta (ex: servidor offline)
-          console.error('Erro de rede: Nenhuma resposta recebida do servidor.');
-          // setErroGeral("Erro de rede: O servidor pode estar offline. Tente novamente mais tarde.");
+            console.error('Erro de rede: Nenhuma resposta recebida do servidor.');
         } else {
-          // Algo aconteceu na configuração da requisição que disparou um Erro
-          console.error('Erro na configuração da requisição:', error.message);
-          // setErroGeral("Erro interno ao preparar a requisição.");
+            console.error('Erro na configuração da requisição:', error.message);
         }
       }
     };
