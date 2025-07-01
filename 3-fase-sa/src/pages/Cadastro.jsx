@@ -11,8 +11,6 @@ export default function Cadastro() {
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
-
-  // Estados para feedback e validação
   const [erroEmail, setErroEmail] = useState('');
   const [erroSenha, setErroSenha] = useState('');
   const [erroConfirmarSenha, setErroConfirmarSenha] = useState('');
@@ -26,7 +24,6 @@ export default function Cadastro() {
     setMostrarSenha(!mostrarSenha);
   };
 
-  // --- Funções de Validação de Input ---
   const validarEmail = (email) => {
     if (!email) {
       return 'O email é obrigatório.';

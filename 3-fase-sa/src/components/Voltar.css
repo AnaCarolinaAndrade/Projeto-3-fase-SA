@@ -1,14 +1,21 @@
 .voltar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1000;
     color: white;
-    display: block;
     border-radius: 50px;
 }
 
 .voltar-container svg {
     border: 50px;
     color: #ffffff;
+}
+
+.voltar-container span{
+    display: flex;
+    align-items: center;
 }

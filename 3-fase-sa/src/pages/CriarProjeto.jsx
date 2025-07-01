@@ -1,10 +1,9 @@
 import { useState, useRef } from 'react';
 import './CriarProjeto.css';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { TbReload } from "react-icons/tb";
-import Navbar from '../components/Navbar';
 import Voltar from '../components/Voltar';
-
 
 export default function CriarProjeto() {
 
@@ -17,7 +16,7 @@ export default function CriarProjeto() {
   const [imagemPreviewUrl, setImagemPreviewUrl] = useState(null);
   const [nomeSugerido, setNomeSugerido] = useState('');
   const [verificacao, setVerificacao] = useState(false);
-    const [linkPessoal, setLinkPessoal] = useState("");
+  const [linkPessoal, setLinkPessoal] = useState("");
   const fileInputRef = useRef();
 
 
@@ -114,9 +113,11 @@ export default function CriarProjeto() {
 
   return (
     <div className="application-main">
+      <Link to="/"><Voltar /></Link>
+
       <main className='container-criar-projeto-main'>
         <div className="container-criar-projeto ">
-          <h1 className="title">Criar um novo projeto</h1> 
+          <h1 className="title">Criar um novo projeto</h1>
 
           <form noValidate onSubmit={criarProjeto} className='form-criar-projeto'>
             <fieldset>
