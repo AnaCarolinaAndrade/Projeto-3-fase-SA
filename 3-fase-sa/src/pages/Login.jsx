@@ -23,7 +23,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginError(null);
-    setLoading(true); // Ativa o loading
+    setLoading(true);
 
     try {
       const usuarioResponse = await fetch('http://localhost:5000/api/login', { // Rota corrigida
@@ -34,19 +34,17 @@ function Login() {
 
       const usuarioData = await usuarioResponse.json();
 
-      if (usuarioResponse.ok) { // Login de usuário PROFISSIONAL BEM-SUCEDIDO
-        alert(usuarioData.message || "Login de usuário profissional realizado com sucesso!");
-        // Armazenar o token de sessão ou ID do usuário após o login
-        if (usuarioData.sessionToken) { // Se o backend Python retornar sessionToken (com JWT)
-            localStorage.setItem('sessionToken', usuarioData.sessionToken);
-            localStorage.setItem('userType', 'profissional'); // Indicar que é um profissional
-        } else if (usuarioData.id) { // Se o backend Python retornar apenas o ID do usuário logado
-            localStorage.setItem('userId', usuarioData.id);
-            localStorage.setItem('userType', 'profissional');
+      if (usuarioResponse.ok) {
+        const userId = localStorage.getItem('userId');
+        if (usuarioData.sessionToken) {
+          localStorage.setItem('sessionToken', usuarioData.sessionToken);
+          localStorage.setItem('userType', 'profissional');
+        } else if (usuarioData.id) {
+          localStorage.setItem('userId', usuarioData.id);
+          localStorage.setItem('userType', 'profissional');
         }
-        navigate('/'); // Redireciona para a página principal
+        navigate(`/perfil/${userId}`);
       } else {
-        // Se o login profissional falhou, exibe a mensagem de erro
         setLoginError(usuarioData.message || "Email ou senha inválidos.");
       }
 
@@ -79,11 +77,11 @@ function Login() {
       if (response.ok) { // Login com Google BEM-SUCEDIDO
         alert(data.message || 'Login com Google realizado com sucesso!');
         if (data.sessionToken) { // Se o backend de investidor retornar sessionToken
-            localStorage.setItem('sessionToken', data.sessionToken);
-            localStorage.setItem('userType', 'investidor'); // Indica que é um investidor, vindo do Google
+          localStorage.setItem('sessionToken', data.sessionToken);
+          localStorage.setItem('userType', 'investidor'); // Indica que é um investidor, vindo do Google
         } else if (data.id) { // Ou se retornar apenas o ID
-            localStorage.setItem('userId', data.id);
-            localStorage.setItem('userType', 'investidor');
+          localStorage.setItem('userId', data.id);
+          localStorage.setItem('userType', 'investidor');
         }
         navigate('/');
       } else {

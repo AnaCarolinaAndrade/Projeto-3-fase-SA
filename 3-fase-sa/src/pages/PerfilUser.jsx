@@ -7,6 +7,7 @@ import { IoMapOutline } from 'react-icons/io5'; // Exemplo para Ionicons v5, ins
 
 function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
   const { id } = useParams();
+  const cleanId = id ? id.trim() : null; // Adicione .trim() aqui
   const navigate = useNavigate(); // Hook para navegação
   const [perfilUsuario, setPerfilUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,15 +15,13 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
 
   useEffect(() => {
     const fetchPerfilUsuario = async () => {
-      if (!id) {
-        // Se o ID não estiver na URL, e for para ver o próprio perfil, redireciona
-        // Isso pode acontecer se o usuário tentar acessar /perfil/ sem um ID
-        const loggedInUserId = localStorage.getItem('userId'); // Ou sessionToken se usar JWT e o token tiver o ID
+      if (!cleanId) { // Use cleanId aqui
+        const loggedInUserId = localStorage.getItem('userId');
         if (loggedInUserId) {
-            navigate(`/perfil/${loggedInUserId}`); // Redireciona para o próprio perfil
-            return; // Interrompe a execução para evitar buscar sem ID
+          // Certifique-se de que o ID armazenado também está limpo ao redirecionar
+          navigate(`/perfil/${loggedInUserId.trim()}`);
+          return;
         }
-
         setError('ID do usuário não fornecido na URL ou usuário não logado.');
         setLoading(false);
         return;
@@ -33,13 +32,13 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
         const sessionToken = localStorage.getItem('sessionToken');
         const headers = {};
         if (sessionToken) {
-            headers['Authorization'] = `Bearer ${sessionToken}`;
+          headers['Authorization'] = `Bearer ${sessionToken}`;
         }
         // Se você estiver usando sessões Flask (cookies), não precisa enviar cabeçalho de Authorization
         // O navegador já envia os cookies automaticamente, mas você precisará de axios.defaults.withCredentials = true;
 
         // Requisição ao seu backend para obter os detalhes do usuário específico
-        const response = await fetch(`http://localhost:5000/api/usuarios/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/usuarios/${cleanId}`, {
           method: 'GET', // Adicionar o método para clareza, mesmo que seja o padrão
           headers: headers,
         });
@@ -50,13 +49,11 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
             throw new Error('Perfil de usuário não encontrado.');
           }
           if (response.status === 401 || response.status === 403) {
-            // Se for erro de autenticação/autorização, redirecionar para login
-            // Isso acontece se a rota do backend estiver protegida
             alert('Sua sessão expirou ou você não tem permissão para ver este perfil. Faça login novamente.');
-            localStorage.removeItem('sessionToken'); // Limpa token inválido
-            localStorage.removeItem('userId'); // Limpa ID inválido
-            localStorage.removeItem('userType'); // Limpa tipo de usuário
-            navigate('/login'); // Redireciona para a página de login
+            localStorage.removeItem('sessionToken'); 
+            localStorage.removeItem('userId'); 
+            localStorage.removeItem('userType'); 
+            navigate('/login');
             return; // Interrompe a execução
           }
           throw new Error(`Erro ao buscar perfil: ${response.status} - ${response.statusText}`);
@@ -66,12 +63,12 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
 
         // CORREÇÃO: Acessar a propriedade 'usuario' se o backend retornar {"usuario": {...}}
         if (data && data.usuario) {
-            setPerfilUsuario(data.usuario);
+          setPerfilUsuario(data.usuario);
         } else if (data) {
-            // Caso o backend retorne o objeto diretamente, sem o "usuario" encapsulado
-            setPerfilUsuario(data);
+          // Caso o backend retorne o objeto diretamente, sem o "usuario" encapsulado
+          setPerfilUsuario(data);
         } else {
-            throw new Error('Dados do perfil inválidos ou ausentes na resposta.');
+          throw new Error('Dados do perfil inválidos ou ausentes na resposta.');
         }
 
       } catch (err) {
@@ -83,7 +80,7 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
     };
 
     fetchPerfilUsuario();
-  }, [id, navigate]); // Adicionado 'navigate' às dependências
+  }, [cleanId, navigate]);
 
   if (loading) {
     return (
@@ -128,22 +125,21 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
             <h1>{perfilUsuario.nome || 'Nome do Usuário'}</h1>
             {/* Adicione campos que você espera do seu backend */}
             <p className="profile-detail">
-                {perfilUsuario.email && (<span>Email: {perfilUsuario.email}</span>)}
+              {perfilUsuario.email && (<span>Email: {perfilUsuario.email}</span>)}
             </p>
             <p className="profile-detail">
-                {/* Você pode ajustar ou adicionar a localização se tiver esse campo */}
-                {perfilUsuario.localizacao && (<><IoMapOutline /> {perfilUsuario.localizacao}</>)}
-                {!perfilUsuario.localizacao && 'Localização não informada'}
+              {perfilUsuario.localizacao && (<><IoMapOutline /> {perfilUsuario.localizacao}</>)}
+              {!perfilUsuario.localizacao && 'Localização não informada'}
             </p>
             <p className="profile-detail">
-                {perfilUsuario.genero && (<><BsGenderFemale /> {perfilUsuario.genero}</>)}
-                {!perfilUsuario.genero && 'Gênero não informado'}
+              {perfilUsuario.genero && (<><BsGenderFemale /> {perfilUsuario.genero}</>)}
+              {!perfilUsuario.genero && 'Gênero não informado'}
             </p>
             <p className="profile-detail">
-                Bio: {perfilUsuario.bio || 'Sem bio.'}
+              Bio: {perfilUsuario.bio || 'Sem bio.'}
             </p>
             <p className="profile-detail">
-                {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
+              {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
             </p>
           </div>
         </div>
