@@ -90,15 +90,13 @@ function Configs() {
             ) : (
               <BsPersonCircle className="profile-default-icon" size={100} />
             )}
-
+            <label>Nome</label>
             <input type="text" name="nome" value={formData.nome || ''} onChange={handleChange} />
-
+            <label htmlFor="">Email</label>
             <input type="email" name="email" value={formData.email || ''} onChange={handleChange} />
-
+            <label htmlFor="">Localização</label>
             <input type="text" name="localizacao" value={formData.localizacao || ''} onChange={handleChange} />
-
-            <input type="text" name="genero" value={formData.genero || ''} onChange={handleChange} />
-
+            <label htmlFor="">Informações do perfil</label>
             <textarea name="bio" value={formData.bio || ''} onChange={handleChange} />
 
             <button className="save-profile-btn" onClick={handleSave}>
