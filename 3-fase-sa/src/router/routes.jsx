@@ -22,6 +22,7 @@ const router = createBrowserRouter([
     { path: "/pessoas_chat", element: <PessoasChat /> },
     { path: "/chat", element: <Chat /> },
     { path: "/configs", element: <Configs /> },
+    { path: "/configs/:id", element: <Configs /> },
     { path: "/projetos", element: <Projetos /> },    
     { path: "/projetos/:id", element: <DetalhesProjeto /> },
     { path: "/criarProjeto", element: <CriarProjeto /> },

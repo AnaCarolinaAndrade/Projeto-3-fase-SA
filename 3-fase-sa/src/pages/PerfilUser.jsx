@@ -4,6 +4,8 @@ import Sidebar from '../components/Sidebar';
 import { useParams, useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { BsPersonCircle, BsGenderFemale } from 'react-icons/bs'; // Exemplo de importação de ícones
 import { IoMapOutline } from 'react-icons/io5'; // Exemplo para Ionicons v5, instale se não tiver
+import { FaPen } from "react-icons/fa6";
+
 
 function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
   const { id } = useParams();
@@ -50,9 +52,9 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
           }
           if (response.status === 401 || response.status === 403) {
             alert('Sua sessão expirou ou você não tem permissão para ver este perfil. Faça login novamente.');
-            localStorage.removeItem('sessionToken'); 
-            localStorage.removeItem('userId'); 
-            localStorage.removeItem('userType'); 
+            localStorage.removeItem('sessionToken');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userType');
             navigate('/login');
             return; // Interrompe a execução
           }
@@ -61,7 +63,6 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
 
         const data = await response.json();
 
-        // CORREÇÃO: Acessar a propriedade 'usuario' se o backend retornar {"usuario": {...}}
         if (data && data.usuario) {
           setPerfilUsuario(data.usuario);
         } else if (data) {
@@ -81,6 +82,17 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
 
     fetchPerfilUsuario();
   }, [cleanId, navigate]);
+
+  const handleEditProfileClick = () => {
+
+    const loggedInUserId = localStorage.getItem('userId');
+    if (loggedInUserId) {
+      navigate(`/configs/${loggedInUserId}`);
+    } else {
+      alert('ID do usuário não encontrado. Faça login para editar o perfil.');
+      navigate('/login');
+    }
+  };
 
   if (loading) {
     return (
@@ -115,15 +127,16 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
       <div className="profile-container">
         <div className='profile'>
           <div className="profile-card">
-            {/* Opcional: imagem de perfil */}
             {perfilUsuario.imagemPerfil ? (
               <img src={perfilUsuario.imagemPerfil} alt="Imagem de Perfil" className="profile-image" />
             ) : (
-              <BsPersonCircle className="profile-default-icon" size={100} /> // Ícone padrão se não houver imagem
+              <BsPersonCircle className="profile-default-icon" size={100} />
             )}
 
-            <h1>{perfilUsuario.nome || 'Nome do Usuário'}</h1>
-            {/* Adicione campos que você espera do seu backend */}
+            <h1>{perfilUsuario.nome || 'Nome do Usuário'}
+              <button className="edit-profile-btn" onClick={handleEditProfileClick}>
+                <FaPen size={15} />
+              </button></h1>
             <p className="profile-detail">
               {perfilUsuario.email && (<span>Email: {perfilUsuario.email}</span>)}
             </p>

@@ -85,9 +85,7 @@ def login_usuario():
     
     return jsonify({
         'message': 'Login bem-sucedido!',
-        'id': user_id_str # <-- Adicione o ID do usuário aqui
-        # Se você estiver usando JWT, pode adicionar o token aqui também, como no exemplo anterior:
-        # 'sessionToken': token,
+        'id': user_id_str
     }), 200
 
 
