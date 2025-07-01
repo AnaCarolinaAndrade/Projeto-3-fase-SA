@@ -17,6 +17,11 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
+.form-cadastro h2{
+    color: white;
+    margin-bottom: 20px;
+}
+
 .enviar-formulario {
     width: 100%;
     padding: 12px;
@@ -103,7 +108,7 @@
 .erro-mensagem {
     color: #fc1e1ef1;
 }
-
+ 
 .link-login {
     color: #ffffff;
 
