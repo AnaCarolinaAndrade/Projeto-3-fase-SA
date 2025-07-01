@@ -6,54 +6,72 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
 function Configs() {
-  const [usuario, setUsuario] = useState(null); // Vai armazenar o objeto completo do usuário
-  const [previewImage, setPreviewImage] = useState(null); // Para a pré-visualização da imagem
-  const fileInputRef = useRef(null); // Referência para o input de arquivo
-  const [linkPessoal, setLinkPessoal] = useState(""); // Estado para o link pessoal
-  const [nome, setNome] = useState(""); // Estado para o nome do usuário
-  const [bio, setBio] = useState(""); // Estado para a biografia do usuário
+  const [usuario, setUsuario] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const fileInputRef = useRef(null);
+  const [linkPessoal, setLinkPessoal] = useState("");
+  const [nome, setNome] = useState("");
+  const [bio, setBio] = useState("");
   const [imagemPerfil, setImagemPerfil] = useState(null); // Estado para a imagem de perfil a ser enviada
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsuario = async () => {
       try {
-        const token = localStorage.getItem('sessionToken');
-        const response = await axios.get('http://localhost:5000/api/usuarios', { // Usando axios para consistência
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        const fetchedUser = response.data.usuario;
-        setUsuario(fetchedUser); // Define o objeto usuário completo
-        setNome(fetchedUser.nome || ''); // Define o nome do usuário
-        setBio(fetchedUser.bio || ''); // Define a biografia do usuário
-        setLinkPessoal(fetchedUser.linkPessoal || ''); // Define o link pessoal
-        setPreviewImage(fetchedUser.imagemPerfil || null); // Define a imagem de perfil existente
+
+        const fetchedUser = response.data?.usuario;
+
+        if (fetchedUser) {
+          setUsuario(fetchedUser);
+          setNome(fetchedUser.nome || '');
+          setBio(fetchedUser.bio || '');
+          setLinkPessoal(fetchedUser.linkPessoal || '');
+          setPreviewImage(fetchedUser.imagemPerfil || null);
+        } else {
+          console.error('Erro: Dados do usuário não encontrados na resposta da API:', response.data);
+          // Opcional: setar um erro geral para mostrar na tela
+          // setErroGeral("Não foi possível carregar as informações do perfil.");
+        }
+        // --- FIM DA CORREÇÃO ---
 
       } catch (error) {
         console.error('Erro ao buscar usuário:', error);
-        // Redirecionar para login ou exibir mensagem de erro, se a sessão expirou
-        if (error.response && error.response.status === 401) {
-          navigate('/login'); // Exemplo: Redireciona para a tela de login
+        if (error.response) {
+          // Erros de resposta do servidor (ex: 401, 404, 500)
+          console.error('Detalhes do erro do servidor:', error.response.data);
+          if (error.response.status === 401) {
+            alert('Sua sessão expirou ou não está autorizada. Por favor, faça login novamente.');
+            localStorage.removeItem('sessionToken'); // Limpa token inválido
+            navigate('/login');
+          } else {
+            // Outros erros de servidor
+            // setErroGeral("Erro ao carregar o perfil: " + (error.response.data.message || "Erro desconhecido."));
+          }
+        } else if (error.request) {
+          // A requisição foi feita mas não houve resposta (ex: servidor offline)
+          console.error('Erro de rede: Nenhuma resposta recebida do servidor.');
+          // setErroGeral("Erro de rede: O servidor pode estar offline. Tente novamente mais tarde.");
+        } else {
+          // Algo aconteceu na configuração da requisição que disparou um Erro
+          console.error('Erro na configuração da requisição:', error.message);
+          // setErroGeral("Erro interno ao preparar a requisição.");
         }
       }
     };
 
     fetchUsuario();
-  }, [navigate]); // Adicione navigate como dependência para evitar warnings
+  }, [navigate]);
+
+  // ... (o restante do seu componente Configs permanece o mesmo) ...
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Cria uma URL para pré-visualização imediata
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result); // Atualiza a pré-visualização com a imagem base64
+        setPreviewImage(reader.result);
       };
       reader.readAsDataURL(file);
-
-      // Armazena o arquivo para ser enviado no salvamento
       setImagemPerfil(file);
     }
   };
@@ -64,26 +82,23 @@ function Configs() {
     formData.append('bio', bio);
     formData.append('linkPessoal', linkPessoal);
 
-    if (imagemPerfil) { // Se uma nova imagem foi selecionada
+    if (imagemPerfil) {
       formData.append('imagemPerfil', imagemPerfil);
     } else if (previewImage === null && usuario?.imagemPerfil) {
-      // Se a imagem foi removida (previewImage é null) e havia uma imagem anterior no usuário
       formData.append('removerImagemPerfil', 'true');
     }
 
     try {
       const token = localStorage.getItem('sessionToken');
-      const userId = usuario.id; // Assume que o ID do usuário está em 'usuario.id'
+      const userId = usuario.id;
 
       await axios.put(`http://localhost:5000/api/usuarios/${userId}`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data', // Importante para enviar arquivos
+          'Content-Type': 'multipart/form-data',
         },
       });
       alert('Configurações salvas com sucesso!');
-      // Opcional: Atualizar o estado do usuário com os novos dados após o salvamento
-      // Ou recarregar o usuário completo para ter certeza dos dados mais recentes
     } catch (error) {
       console.error('Erro ao salvar configurações:', error);
       alert('Erro ao salvar configurações. Tente novamente.');
@@ -94,14 +109,14 @@ function Configs() {
     if (window.confirm('Tem certeza que deseja excluir sua conta? Esta ação é irreversível.')) {
       try {
         const token = localStorage.getItem('sessionToken');
-        const userId = usuario.id; // Assume que o ID do usuário está em 'usuario.id'
+        const userId = usuario.id;
         await axios.delete(`http://localhost:5000/api/usuarios/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
         });
-        localStorage.removeItem('sessionToken'); // Limpa o token da sessão
-        navigate('/'); // Redireciona para a página inicial ou de login
+        localStorage.removeItem('sessionToken');
+        navigate('/');
         alert('Conta excluída com sucesso!');
       } catch (error) {
         console.error('Erro ao deletar conta:', error);
@@ -111,12 +126,11 @@ function Configs() {
   };
 
   const removerImagemPerfil = () => {
-    setPreviewImage(null); // Remove a pré-visualização
-    setImagemPerfil(null); // Limpa o arquivo selecionado
-    if (fileInputRef.current) fileInputRef.current.value = ""; // Limpa o input de arquivo
+    setPreviewImage(null);
+    setImagemPerfil(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  // Renderiza apenas quando as informações do usuário estiverem carregadas
   if (!usuario) {
     return (
       <>
@@ -155,7 +169,6 @@ function Configs() {
             </button>
           )}
 
-          {/* Exibe o nome do usuário carregado */}
           <h1>{nome || 'Nome do Usuário'}</h1>
 
           <div className='container-infos-user-config'>

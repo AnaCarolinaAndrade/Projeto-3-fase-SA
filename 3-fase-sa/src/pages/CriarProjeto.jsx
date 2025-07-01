@@ -229,7 +229,7 @@ export default function CriarProjeto() {
               />
 
               {linkPessoal && (
-                <p className='p-config-link'>
+                <p className='config-link-criar-projeto'>
                   <a href={linkPessoal} target="_blank" rel="noopener noreferrer" className='link-config-user'>
                     Ver meu link
                   </a>

@@ -5,7 +5,6 @@
   padding: 20px;
   background-color: #f0f2f5;
   min-height: 100vh;
-  margin-left: 250px;
 }
 
 .profile-card-config {
@@ -20,7 +19,6 @@
   margin-top: 50px;
 }
 
-/* Estilos da imagem de perfil (avatar) */
 .profile-image {
   width: 160px;
   height: 160px;
@@ -31,10 +29,8 @@
   align-items: center;
   margin: 0 auto 20px;
   overflow: hidden;
-  /* Garante que a imagem não vaze do círculo */
   cursor: pointer;
   border: 3px solid #007bff;
-  /* Borda para destaque */
   transition: transform 0.3s ease;
 }
 
@@ -46,11 +42,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Garante que a imagem cubra o espaço sem distorção */
   border-radius: 50%;
 }
 
-/* Estilos para o título (nome do usuário) */
 .profile-card-config h1 {
   font-size: 2.2em;
   color: #333;
@@ -58,10 +52,8 @@
   font-weight: 600;
 }
 
-/* Estilos para o botão de remover imagem */
 .btn-remover {
   background-color: #dc3545;
-  /* Vermelho para ações destrutivas */
   color: white;
   border: none;
   border-radius: 8px;
@@ -77,13 +69,11 @@
   transform: translateY(-2px);
 }
 
-/* Container para as informações do usuário e inputs */
 .container-infos-user-config {
   text-align: left;
   margin-top: 30px;
 }
 
-/* Estilos para os rótulos (labels) */
 .label-configs {
   display: block;
   font-size: 1.1em;
@@ -92,10 +82,8 @@
   font-weight: 500;
 }
 
-/* Estilos para os campos de input */
 .ipt-config-link {
-  width: calc(100% - 20px);
-  /* Ocupa quase 100% com padding */
+  width: 100%;
   padding: 12px 10px;
   margin-bottom: 20px;
   border: 1px solid #ccc;
@@ -115,10 +103,8 @@
   outline: none;
 }
 
-/* Estilos para o parágrafo do link visualizado */
 .p-config-link {
   margin-top: -10px;
-  /* Ajusta o espaçamento com o input */
   margin-bottom: 25px;
   font-size: 0.95em;
   color: #666;
@@ -136,20 +122,15 @@
   text-decoration: underline;
 }
 
-/* Container para os botões de ação */
 .actions {
   display: flex;
   justify-content: space-between;
-  /* Espaça os botões */
   gap: 15px;
-  /* Espaço entre os botões */
   margin-top: 30px;
 }
 
-/* Estilos para o botão de salvar */
 .save-btn {
   background-color: #28a745;
-  /* Verde para ações de sucesso */
   color: white;
   border: none;
   border-radius: 8px;
@@ -157,7 +138,6 @@
   font-size: 1.1em;
   cursor: pointer;
   flex-grow: 1;
-  /* Permite que o botão ocupe o espaço disponível */
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -166,10 +146,8 @@
   transform: translateY(-2px);
 }
 
-/* Estilos para o botão de deletar */
 .delete-btn {
   background-color: #dc3545;
-  /* Vermelho para ações destrutivas */
   color: white;
   border: none;
   border-radius: 8px;
@@ -177,79 +155,10 @@
   font-size: 1.1em;
   cursor: pointer;
   flex-grow: 1;
-  /* Permite que o botão ocupe o espaço disponível */
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .delete-btn:hover {
   background-color: #c82333;
   transform: translateY(-2px);
-}
-
-/* --- Media Queries para Responsividade --- */
-
-@media (max-width: 768px) {
-  .configs-container {
-    margin-left: 0;
-    /* Remove a margem da sidebar em telas menores */
-    padding: 15px;
-  }
-
-  .profile-card-config {
-    padding: 20px;
-    margin-top: 20px;
-  }
-
-  .profile-image {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 15px;
-  }
-
-  .profile-card-config h1 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-  }
-
-  .btn-remover {
-    padding: 8px 15px;
-    font-size: 0.9em;
-  }
-
-  .ipt-config-link {
-    padding: 10px;
-    font-size: 0.95em;
-  }
-
-  .actions {
-    flex-direction: column;
-    /* Empilha os botões em telas menores */
-    gap: 10px;
-  }
-
-  .save-btn,
-  .delete-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-  }
-}
-
-@media (max-width: 480px) {
-  .profile-card-config {
-    margin-top: 15px;
-    border-radius: 8px;
-  }
-
-  .profile-image {
-    width: 100px;
-    height: 100px;
-  }
-
-  .profile-card-config h1 {
-    font-size: 1.5em;
-  }
-
-  .label-configs {
-    font-size: 1em;
-  }
 }

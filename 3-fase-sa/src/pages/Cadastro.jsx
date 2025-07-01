@@ -92,12 +92,10 @@ export default function Cadastro() {
                 setCadastroSucesso(true);
                 setErroGeral('');
 
-                // *** NOVA LÓGICA AQUI: ARMAZENAR O TOKEN ***
                 if (data.sessionToken) {
                     localStorage.setItem('sessionToken', data.sessionToken);
-                    console.log('Session Token armazenado:', data.sessionToken); // Para depuração
+                    console.log('Session Token armazenado:', data.sessionToken);
                 }
-                // ********************************************
 
                 setNome('');
                 setEmail('');
@@ -107,7 +105,7 @@ export default function Cadastro() {
                 setMostrarSenha(false);
 
                 setTimeout(() => {
-                    navigate('/'); // Redireciona para a página principal após o cadastro
+                    navigate('/');
                 }, 4000);
             } else {
                 setErroGeral(data.message || 'Erro ao cadastrar. Tente novamente.');
