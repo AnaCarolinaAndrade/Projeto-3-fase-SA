@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './PerfilUser.css';
+import './Configs.css';
 import Sidebar from '../components/Sidebar';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BsPersonCircle, BsGenderFemale } from 'react-icons/bs';
-import { IoMapOutline } from 'react-icons/io5';
 import { FaPen, FaSave } from "react-icons/fa";
 
 function Configs() {

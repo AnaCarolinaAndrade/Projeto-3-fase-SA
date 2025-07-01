@@ -1,24 +1,24 @@
+/* Layout principal */
 .profile-container {
   padding: 40px 20px;
-  background-color: #f5f7fa;
+  background-color: #f0f2f5;
   min-height: 100vh;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.profile {
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-.profile-card {
-  background-color: white;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+.profile {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
+}
+
+.profile-card {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -31,17 +31,18 @@
   border-radius: 50%;
   object-fit: cover;
   align-self: center;
-  margin-bottom: 20px;
   color: #2B6ADE;
+  margin-bottom: 10px;
 }
 
 .profile-card input,
 .profile-card textarea {
   width: 100%;
-  padding: 12px;
+  padding: 12px 14px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
+  background-color: #fdfdfd;
   transition: border-color 0.2s ease;
 }
 
@@ -51,31 +52,34 @@
   border-color: #2B6ADE;
 }
 
+/* Textarea especial */
 .profile-card textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
 
+/* Botão de salvar */
 .save-profile-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 18px;
-  font-size: 16px;
-  font-weight: bold;
   background-color: #2B6ADE;
   color: white;
   border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .save-profile-btn:hover {
   background-color: #204ea5;
 }
 
+/* Responsividade */
 @media (max-width: 768px) {
   .profile-container {
     margin-left: 0;
@@ -83,7 +87,6 @@
   }
 
   .profile-card {
-    width: 100%;
     padding: 20px;
   }
 }

@@ -184,45 +184,100 @@ def get_usuarios():
         usuarios_data.append(usuario)
     return jsonify(usuarios_data)
 
+@app.route('/api/usuarios/<string:user_id>', methods=['PUT']) # Rota corrigida com '/' e parâmetro user_id
 
-@app.route('/api/usuarios', methods=['PUT'])
-def update_user():
-    data = request.get_json()
+def update_usuario(user_id, current_user_id):
+    try:
+        obj_id = ObjectId(user_id) # Converte o ID da URL para ObjectId
+    except Exception:
+        return jsonify({"error": "ID de usuário inválido."}), 400
+
+    # --- Autorização: Verifica se o ID da URL corresponde ao usuário logado ---
+    if str(obj_id) != current_user_id:
+        return jsonify({"message": "Você não tem permissão para editar este perfil."}), 403
+
+    # Use request.form para acessar dados de texto (vindos de FormData)
+    # Use request.files para acessar arquivos (vindas de FormData)
     update_data = {}
 
-    nome = data.get('nome')
+    nome = request.form.get('nome')
     if nome is not None:
         update_data['nome'] = nome
-        
-    dataNascimento = data.get('dataNascimento')
-    if dataNascimento is not None:
-        update_data['dataNascimento'] = dataNascimento
 
-    genero = data.get('genero')
+    # Os campos abaixo são baseados no seu frontend e na lógica anterior.
+    # Certifique-se de que o nome no request.form.get() corresponde ao 'name' do input HTML
+    email = request.form.get('email')
+    if email is not None:
+        update_data['email'] = email
+
+    localizacao = request.form.get('localizacao')
+    if localizacao is not None:
+        update_data['localizacao'] = localizacao
+
+    genero = request.form.get('genero')
     if genero is not None:
         update_data['genero'] = genero
 
-    nova_senha = data.get('senha')
-    if nova_senha is not None:
+    bio = request.form.get('bio')
+    if bio is not None:
+        update_data['bio'] = bio
+
+    link_pessoal = request.form.get('linkPessoal') # Note que usei 'linkPessoal' no frontend
+    if link_pessoal is not None:
+        update_data['linkPessoal'] = link_pessoal
+
+    # Lógica para Imagem de Perfil
+    if 'imagemPerfil' in request.files:
+        file = request.files['imagemPerfil']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+            unique_filename = f"{timestamp}_{user_id}_{filename}"
+            filepath = os.path.join(current_app.root_path, app.config['UPLOAD_FOLDER'], unique_filename)
+            file.save(filepath)
+            update_data['imagemPerfil'] = f'/static/uploads/{unique_filename}'
+
+            # Remover a imagem antiga, se existir
+            old_user = usuarios_collection.find_one({"_id": obj_id})
+            if old_user and old_user.get('imagemPerfil'):
+                old_filepath = os.path.join(current_app.root_path, old_user['imagemPerfil'].lstrip('/'))
+                if os.path.exists(old_filepath):
+                    os.remove(old_filepath)
+        else:
+            return jsonify({"message": "Tipo de arquivo de imagem não permitido."}), 400
+    elif request.form.get('removerImagemPerfil') == 'true': # Sinal enviado pelo frontend para remover
+        old_user = usuarios_collection.find_one({"_id": obj_id})
+        if old_user and old_user.get('imagemPerfil'):
+            old_filepath = os.path.join(current_app.root_path, old_user['imagemPerfil'].lstrip('/'))
+            if os.path.exists(old_filepath):
+                os.remove(old_filepath)
+        update_data['imagemPerfil'] = None # Define o campo como nulo no banco de dados
+
+    # Lógica para alterar senha (cuidado: pode ser um endpoint separado por segurança)
+    nova_senha = request.form.get('senha')
+    if nova_senha is not None and nova_senha != '': # Verifique se não está vazio
         hashed_password = bcrypt.hashpw(nova_senha.encode('utf-8'), bcrypt.gensalt())
         update_data['senha'] = hashed_password.decode('utf-8')
 
     if update_data:
         try:
-            result = usuarios_collection.update_one({'$set': update_data})
+            # Atualiza o documento específico pelo _id
+            result = usuarios_collection.update_one({'_id': obj_id}, {'$set': update_data})
+
             if result.modified_count > 0:
-                updated_user = usuarios_collection.find_one({'_id': 1})
+                # Busca o usuário atualizado para retornar os dados mais recentes
+                updated_user = usuarios_collection.find_one({'_id': obj_id}, {'senha': 0}) # Exclui a senha
                 if updated_user:
-                    updated_user['_id'] = str(updated_user['_id'])
-                    updated_user.pop('senha', None)
-                return jsonify({
-                    'message': 'Informações atualizadas com sucesso!',
-                    'user': updated_user
-                }), 200
-            return jsonify({'message': 'Nenhuma informação foi alterada.'}), 200
+                    updated_user['_id'] = str(updated_user['_id']) # Garante que o ID é string
+                    return jsonify({
+                        'message': 'Informações atualizadas com sucesso!',
+                        'usuario': updated_user # Retorne a chave 'usuario' para o frontend
+                    }), 200
+                return jsonify({'message': 'Usuário atualizado, mas não encontrado para retorno.'}), 200 # Fallback
+            return jsonify({'message': 'Nenhuma informação foi alterada ou usuário não encontrado.'}), 200
         except Exception as e:
             print(f"Erro ao atualizar o usuário: {e}")
-            return jsonify({'error': f'Erro ao atualizar o usuário: {e}'}), 500
+            return jsonify({'error': f'Erro interno do servidor ao atualizar o usuário: {e}'}), 500
     return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
 

@@ -26,29 +26,7 @@ function Login() {
     setLoading(true);
 
     try {
-<<<<<<< HEAD
-      //Caso o usuario tente fazer login como INVESTIDOR no backend Node.js
-      const investidorResponse = await fetch('http://localhost:5000/api/investidores/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, senha }),
-      });
-
-      const investidorData = await investidorResponse.json();
-
-      if (investidorResponse.ok) { // Login de investidor bem sucedido
-        alert(investidorData.message || "Login de investidor realizado com sucesso!");
-        localStorage.setItem('userType', 'investidor'); // Tipo: investidor
-        localStorage.setItem('userId', investidorData.investor._id);
-        navigate('/'); 
-        return; 
-      }
-
-      // **Caso o usuario faça login como PROFISSIONAL (no Backend em python)
-      const usuarioResponse = await fetch('http://localhost:5000/api/usuarios', {
-=======
       const usuarioResponse = await fetch('http://localhost:5000/api/login', { // Rota corrigida
->>>>>>> 457150ebb4cc60ed7b059a9744569e1d94ccf36e
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
@@ -56,13 +34,6 @@ function Login() {
 
       const usuarioData = await usuarioResponse.json();
 
-<<<<<<< HEAD
-       if (usuarioResponse.ok) { // Login de usuário PROFISSIONAL BEM-SUCEDIDO
-        alert(usuarioData.message || "Login de usuário realizado com sucesso!");
-        localStorage.setItem('userType', 'profissional'); // Tipo: profissional
-        localStorage.setItem('userId', profissionalData.user._id);
-        navigate('/');
-=======
       if (usuarioResponse.ok) {
         const userId = localStorage.getItem('userId');
         if (usuarioData.sessionToken) {
@@ -73,7 +44,6 @@ function Login() {
           localStorage.setItem('userType', 'profissional');
         }
         navigate(`/perfil/${userId}`);
->>>>>>> 457150ebb4cc60ed7b059a9744569e1d94ccf36e
       } else {
         setLoginError(usuarioData.message || "Email ou senha inválidos.");
       }
