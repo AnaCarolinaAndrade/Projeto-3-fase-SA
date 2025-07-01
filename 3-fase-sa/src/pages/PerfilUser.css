@@ -2,10 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
   min-height: 100vh;
   background-color: #f5f7fa;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .profile {
@@ -16,14 +14,13 @@
 
 .profile-card {
   background-color: #ffffff;
-  padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  max-width: 1500px;
   width: 100%;
 }
 
-.profile-card h1{
+.profile-card h1 {
   text-align: center;
 }
 
@@ -67,7 +64,15 @@
   text-decoration: underline;
 }
 
-.edit-profile-btn{
+.edit-profile-btn {
   color: #333;
   padding-left: 10px;
+}
+
+.profile-container-not-found {
+  color: #000000;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

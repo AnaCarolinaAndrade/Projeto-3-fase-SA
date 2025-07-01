@@ -1,5 +1,5 @@
 /* Layout principal */
-.profile-container {
+.profile-container-config {
   padding: 40px 20px;
   background-color: #f0f2f5;
   min-height: 100vh;
@@ -9,12 +9,12 @@
   align-items: flex-start;
 }
 
-.profile {
+.profile-config {
   width: 100%;
   max-width: 700px;
 }
 
-.profile-card {
+.profile-card-config {
   background-color: #fff;
   padding: 30px 40px;
   border-radius: 16px;
@@ -24,8 +24,8 @@
   gap: 20px;
 }
 
-.profile-image,
-.profile-default-icon {
+.profile-image-config,
+.profile-default-icon-config {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -35,8 +35,16 @@
   margin-bottom: 10px;
 }
 
-.profile-card input,
-.profile-card textarea {
+.profile-container-error {
+  font-size: 20px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card-config input,
+.profile-card-config textarea {
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
@@ -46,20 +54,20 @@
   transition: border-color 0.2s ease;
 }
 
-.profile-card input:focus,
-.profile-card textarea:focus {
+.profile-card-config input:focus,
+.profile-card-config textarea:focus {
   outline: none;
   border-color: #2B6ADE;
 }
 
 /* Textarea especial */
-.profile-card textarea {
+.profile-card-config textarea {
   resize: vertical;
   min-height: 100px;
 }
 
 /* Botão de salvar */
-.save-profile-btn {
+.save-profile-btn-config {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,25 +76,33 @@
   color: white;
   border: none;
   padding: 12px 20px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.save-profile-btn:hover {
+.save-profile-btn-config:hover {
   background-color: #204ea5;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  .profile-container {
-    margin-left: 0;
-    padding: 20px;
-  }
+.delete-account-btn-config {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #de2b2b;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-  .profile-card {
-    padding: 20px;
-  }
+.delete-account-btn-config:hover {
+  background-color: #c82333;
 }

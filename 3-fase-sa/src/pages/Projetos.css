@@ -45,7 +45,7 @@
   display: block;
   background-color: #ffffff;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
+} 
 
 .card-projeto:hover {
   transform: translateY(-8px);
@@ -94,7 +94,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0) 100%);
   opacity: 0;
   transition: opacity 0.4s ease-out;
   z-index: 1;
@@ -158,7 +158,7 @@
 
 .sem-projetos {
   color: #000000;
-  font-size: 1.8em;
+  font-size: 20px;
   margin-bottom: 20px;
 }
 

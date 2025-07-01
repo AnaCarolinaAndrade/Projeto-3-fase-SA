@@ -31,7 +31,6 @@ function Home() {
 
           <div className='buttons-landig'>
             <Link to={'./projetos'} className='botoes-projetos' >Acessar  Projetos</Link>
-            <button className='botoes-projetos'> Acessar Posts</button>
           </div>
         </div>
       </div>

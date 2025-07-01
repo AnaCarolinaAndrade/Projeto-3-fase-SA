@@ -15,15 +15,15 @@ import DetalhesProjeto from '../pages/DetalhesProjeto.jsx';
 const router = createBrowserRouter([
 
     { path: "/", element: <Home /> },
-    { path: "/perfil", element: <PerfilUser /> },
     { path: '/perfil/:id', element: <PerfilUser /> },
     { path: "/login", element: <Login /> },
     { path: "/cadastro", element: <Cadastro /> },
     { path: "/pessoas_chat", element: <PessoasChat /> },
+    { path: "/pessoas_chat/:id", element: <PessoasChat /> },
     { path: "/chat", element: <Chat /> },
     { path: "/configs", element: <Configs /> },
     { path: "/configs/:id", element: <Configs /> },
-    { path: "/projetos", element: <Projetos /> },    
+    { path: "/projetos", element: <Projetos /> },
     { path: "/projetos/:id", element: <DetalhesProjeto /> },
     { path: "/criarProjeto", element: <CriarProjeto /> },
     { path: "/ProjetoEdicao", element: <ProjetoEdicao /> },

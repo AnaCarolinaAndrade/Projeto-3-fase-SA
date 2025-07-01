@@ -144,10 +144,7 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
               {perfilUsuario.localizacao && (<><IoMapOutline /> {perfilUsuario.localizacao}</>)}
               {!perfilUsuario.localizacao && 'Localização não informada'}
             </p>
-            <p className="profile-detail">
-              {perfilUsuario.genero && (<><BsGenderFemale /> {perfilUsuario.genero}</>)}
-              {!perfilUsuario.genero && 'Gênero não informado'}
-            </p>
+            
             <p className="profile-detail">
               Bio: {perfilUsuario.bio || 'Sem bio.'}
             </p>

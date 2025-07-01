@@ -10,11 +10,11 @@ function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [loginError, setLoginError] = useState(null);
-  const [loading, setLoading] = useState(false); // Novo estado para loading
+  const [loading, setLoading] = useState(false); 
 
-  const GOOGLE_CLIENT_ID = "91133392300-39a07fv5lve18rc1765igad45gh5o1l.apps.googleusercontent.com"; // Seu ID de Cliente Google
+  const GOOGLE_CLIENT_ID = "91133392300-39a07fv5lve18rc1765igad45gh5o1l.apps.googleusercontent.com"; 
 
-  const navigate = useNavigate(); // Declaração correta de useNavigate
+  const navigate = useNavigate(); 
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
@@ -26,7 +26,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const usuarioResponse = await fetch('http://localhost:5000/api/login', { // Rota corrigida
+      const usuarioResponse = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, senha }),
@@ -74,12 +74,12 @@ function Login() {
       });
       const data = await response.json();
 
-      if (response.ok) { // Login com Google BEM-SUCEDIDO
+      if (response.ok) { 
         alert(data.message || 'Login com Google realizado com sucesso!');
         if (data.sessionToken) { // Se o backend de investidor retornar sessionToken
           localStorage.setItem('sessionToken', data.sessionToken);
-          localStorage.setItem('userType', 'investidor'); // Indica que é um investidor, vindo do Google
-        } else if (data.id) { // Ou se retornar apenas o ID
+          localStorage.setItem('userType', 'investidor'); 
+        } else if (data.id) {
           localStorage.setItem('userId', data.id);
           localStorage.setItem('userType', 'investidor');
         }
@@ -92,7 +92,7 @@ function Login() {
       console.error('Erro ao enviar token Google para o backend:', error);
       setLoginError('Erro de conexão ao tentar login com Google.');
     } finally {
-      setLoading(false); // Desativa o loading
+      setLoading(false);
     }
   };
 
@@ -101,24 +101,20 @@ function Login() {
     setLoginError('Login com Google não pôde ser concluído. Verifique sua conexão.');
   };
 
-  // --- useEffect para tokens na URL (ajustado para ser menos agressivo) ---
   useEffect(() => {
-    // Este useEffect é para lidar com tokens que venham na URL (ex: de um OAuth de terceiros).
-    // Se o seu fluxo não passa tokens na URL, você pode removê-lo.
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
-    const userType = params.get('userType'); // Se o backend puder indicar o tipo de usuário na URL
+    const userType = params.get('userType'); 
 
     if (token) {
       localStorage.setItem('sessionToken', token);
       if (userType) {
         localStorage.setItem('userType', userType);
       } else {
-        localStorage.setItem('userType', 'unknown'); // Ou defina um padrão se necessário
+        localStorage.setItem('userType', 'unknown');
       }
-      navigate('/'); // Redireciona para a página principal após obter o token
+      navigate('/');
     }
-    // Não inclua `else { navigate('/login'); }` aqui para evitar loops
   }, [navigate]);
 
 

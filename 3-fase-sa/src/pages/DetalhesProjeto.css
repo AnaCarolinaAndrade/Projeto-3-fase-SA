@@ -1,52 +1,83 @@
-/* DetalhesProjeto.css ou um arquivo CSS global */
-
 .container-projeto-detalhes {
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    height: 100vh; 
-    padding: 20px;
-    background-color: #f4f7f6; 
-    color: #333; 
-}
-
-.container-projeto-detalhes > div {
-    background-color: #ffffff; 
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    max-width: 800px;
-    width: 100%; 
-    text-align: center; 
+  max-width: 960px;
+  margin: 4rem auto;
+  padding: 2.5rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #2e2e2e;
+  animation: fadeIn 0.4s ease;
 }
 
 .container-projeto-detalhes h1 {
-    font-size: 2.5em; 
-    color: #2c3e50;
-    margin-bottom: 20px;
-    text-transform: capitalize;
+  font-size: 2.5rem;
+  color: #2B6ADE;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
 }
 
 .container-projeto-detalhes p {
-    font-size: 1.1em; 
-    line-height: 1.6; 
-    margin-bottom: 15px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-top: 1.2rem;
 }
 
+/* Link estilizado */
 .container-projeto-detalhes a {
-    color: #3498db;
-    text-decoration: none; 
-    font-weight: bold;
+  color: #2B6ADE;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .container-projeto-detalhes a:hover {
-    text-decoration: underline; 
+  color: #1e4cab;
+  text-decoration: underline;
 }
 
+/* Imagem destacada */
 .container-projeto-detalhes img {
-    max-width: 100%; 
-    height: auto;
-    border-radius: 8px; 
-    margin-top: 25px; 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); 
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+  margin: 2.5rem auto 0;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.container-projeto-detalhes img:hover {
+  transform: scale(1.01);
+}
+
+/* Animação opcional */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+  .container-projeto-detalhes {
+    padding: 1.5rem;
+  }
+
+  .container-projeto-detalhes h1 {
+    font-size: 2rem;
+  }
+
+  .container-projeto-detalhes p {
+    font-size: 1rem;
+  }
 }
