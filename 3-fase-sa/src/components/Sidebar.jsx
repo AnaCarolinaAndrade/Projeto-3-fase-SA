@@ -57,7 +57,7 @@ function Sidebar() {
           <Link to={'/criarProjeto'} className="icon-text"><CgAddR color="white" fontSize={18} /><span className="link-text">Criar Projeto</span> </Link>
           <Link to={'/ProjetoEdicao'} className="icon-text"><CgAddR color="white" fontSize={18} /><span className="link-text">Editar projeto</span> </Link>
           <Link to={'/projetos'} className="icon-text"><LuChartSpline color="white" fontSize={18} /> <span className="link-text">Projetos </span> </Link>
-          <Link to={'/configs'} className="icon-text"><FaGear color="white" fontSize={16} /><span className="link-text"> Configurações</span></Link>
+          <Link to={`/configs/${userId}`} className="icon-text"><FaGear color="white" fontSize={16} /><span className="link-text"> Configurações</span></Link>
           <Link to={`/perfil/${userId}`} className="icon-text"><FaUserAlt color="white" fontSize={18} /><span className="link-text">Perfil</span></Link>
 
         </nav>

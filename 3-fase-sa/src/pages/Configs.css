@@ -1,164 +1,89 @@
-.configs-container {
+.profile-container {
+  padding: 40px 20px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px;
-  background-color: #f0f2f5;
-  min-height: 100vh;
 }
 
-.profile-card-config {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+.profile-card {
+  background-color: white;
   padding: 30px;
-  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
-  box-sizing: border-box;
-  margin-top: 50px;
-}
-
-.profile-image {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background-color: #e0e0e0;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto 20px;
-  overflow: hidden;
-  cursor: pointer;
-  border: 3px solid #007bff;
-  transition: transform 0.3s ease;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.profile-image:hover {
-  transform: scale(1.05);
-}
-
-.profile-image img {
-  width: 100%;
-  height: 100%;
+.profile-image,
+.profile-default-icon {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
   object-fit: cover;
-  border-radius: 50%;
-}
-
-.profile-card-config h1 {
-  font-size: 2.2em;
-  color: #333;
-  margin-bottom: 25px;
-  font-weight: 600;
-}
-
-.btn-remover {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 1em;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.btn-remover:hover {
-  background-color: #c82333;
-  transform: translateY(-2px);
-}
-
-.container-infos-user-config {
-  text-align: left;
-  margin-top: 30px;
-}
-
-.label-configs {
-  display: block;
-  font-size: 1.1em;
-  color: #555;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-.ipt-config-link {
-  width: 100%;
-  padding: 12px 10px;
+  align-self: center;
   margin-bottom: 20px;
+  color: #2B6ADE;
+}
+
+.profile-card input,
+.profile-card textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1em;
-  color: #333;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
 }
 
-.ipt-config-link::placeholder {
-  color: #999;
-}
-
-.ipt-config-link:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+.profile-card input:focus,
+.profile-card textarea:focus {
   outline: none;
+  border-color: #2B6ADE;
 }
 
-.p-config-link {
-  margin-top: -10px;
-  margin-bottom: 25px;
-  font-size: 0.95em;
-  color: #666;
+.profile-card textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
-.link-config-user {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.link-config-user:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
-.actions {
+.save-profile-btn {
   display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  margin-top: 30px;
-}
-
-.save-btn {
-  background-color: #28a745;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #2B6ADE;
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 12px 25px;
-  font-size: 1.1em;
+  border-radius: 10px;
   cursor: pointer;
-  flex-grow: 1;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.save-btn:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
+.save-profile-btn:hover {
+  background-color: #204ea5;
 }
 
-.delete-btn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 25px;
-  font-size: 1.1em;
-  cursor: pointer;
-  flex-grow: 1;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
+@media (max-width: 768px) {
+  .profile-container {
+    margin-left: 0;
+    padding: 20px;
+  }
 
-.delete-btn:hover {
-  background-color: #c82333;
-  transform: translateY(-2px);
+  .profile-card {
+    width: 100%;
+    padding: 20px;
+  }
 }
