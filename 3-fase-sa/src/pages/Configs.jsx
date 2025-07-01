@@ -10,6 +10,8 @@ function Configs() {
   const [previewImage, setPreviewImage] = useState(null);
   const fileInputRef = useRef(null);
   const [linkPessoal, setLinkPessoal] = useState("");
+  const [nome, setNome] = useState("");
+  const [bio, setBio] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -103,6 +105,23 @@ function Configs() {
 
           <div className='container-infos-user-config'>
 
+            <label className='label-configs'>Nome</label>
+            <input
+              type="text"
+              placeholder="Nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className='ipt-config-link'
+            />
+
+            <label className='label-configs'>Biografia</label>
+            <input
+              type="text"
+              placeholder="Biografia"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              className='ipt-config-link'
+            />
 
             <label className='label-configs'>Colocar links de projetos e/ou sites</label>
 

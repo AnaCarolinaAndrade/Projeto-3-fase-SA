@@ -1,107 +1,255 @@
 .configs-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 60px 20px;
-  background: #dce4ee;
-  height: 100vh;
-  font-size: 15px;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  margin-left: 250px;
 }
 
 .profile-card-config {
-  background: white;
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  width: 65%;
-  height: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  margin-top: 50px;
 }
 
-.container-infos-user-config {
-  border: 1px solid black;
-  padding: 10px;
-}
-
-.label-configs {
-  color: #555;
-  padding-bottom: 15px;
-}
-
-.ipt-config-link {
-  padding: 10px;
-  font-size: 15px;
-}
-
+/* Estilos da imagem de perfil (avatar) */
 .profile-image {
-  display: contents;
-  border: 1px solid #4f46e5;
-  margin-bottom: 20px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  /* Garante que a imagem não vaze do círculo */
   cursor: pointer;
+  border: 3px solid #007bff;
+  /* Borda para destaque */
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05);
 }
 
 .profile-image img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 4px solid #4f46e5;
+  /* Garante que a imagem cubra o espaço sem distorção */
+  border-radius: 50%;
 }
 
-.info {
-  font-size: 16px;
-  color: #666;
-  margin: 8px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+/* Estilos para o título (nome do usuário) */
+.profile-card-config h1 {
+  font-size: 2.2em;
+  color: #333;
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
-.actions {
-  margin-top: 30px;
-  display: flex;
-  width: 400px;
-  gap: 15px;
-}
-
-.save-btn, .delete-btn {
-  padding: 12px;
-  font-size: 15px;
+/* Estilos para o botão de remover imagem */
+.btn-remover {
+  background-color: #dc3545;
+  /* Vermelho para ações destrutivas */
+  color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  margin-top: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.save-btn {
-  background-color: #27dc4e;
-  color: white;
+.btn-remover:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
 }
 
-.save-btn:hover {
-  background-color: #18ad38;
+/* Container para as informações do usuário e inputs */
+.container-infos-user-config {
+  text-align: left;
+  margin-top: 30px;
 }
 
-.delete-btn {
-  background-color: #ef4444;
-  color: white;
-}
-
-.delete-btn:hover {
-  background-color: #dc2626;
-}
-
-
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 24px;
+/* Estilos para os rótulos (labels) */
+.label-configs {
+  display: block;
+  font-size: 1.1em;
   color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Estilos para os campos de input */
+.ipt-config-link {
+  width: calc(100% - 20px);
+  /* Ocupa quase 100% com padding */
+  padding: 12px 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ipt-config-link::placeholder {
+  color: #999;
+}
+
+.ipt-config-link:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Estilos para o parágrafo do link visualizado */
+.p-config-link {
+  margin-top: -10px;
+  /* Ajusta o espaçamento com o input */
+  margin-bottom: 25px;
+  font-size: 0.95em;
+  color: #666;
 }
 
 .link-config-user {
+  color: #007bff;
   text-decoration: none;
-  color: #3026ef;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.link-config-user:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Container para os botões de ação */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  /* Espaça os botões */
+  gap: 15px;
+  /* Espaço entre os botões */
+  margin-top: 30px;
+}
+
+/* Estilos para o botão de salvar */
+.save-btn {
+  background-color: #28a745;
+  /* Verde para ações de sucesso */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 1.1em;
+  cursor: pointer;
+  flex-grow: 1;
+  /* Permite que o botão ocupe o espaço disponível */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.save-btn:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+/* Estilos para o botão de deletar */
+.delete-btn {
+  background-color: #dc3545;
+  /* Vermelho para ações destrutivas */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  font-size: 1.1em;
+  cursor: pointer;
+  flex-grow: 1;
+  /* Permite que o botão ocupe o espaço disponível */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+/* --- Media Queries para Responsividade --- */
+
+@media (max-width: 768px) {
+  .configs-container {
+    margin-left: 0;
+    /* Remove a margem da sidebar em telas menores */
+    padding: 15px;
+  }
+
+  .profile-card-config {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+  }
+
+  .profile-card-config h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+
+  .btn-remover {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+
+  .ipt-config-link {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+
+  .actions {
+    flex-direction: column;
+    /* Empilha os botões em telas menores */
+    gap: 10px;
+  }
+
+  .save-btn,
+  .delete-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-card-config {
+    margin-top: 15px;
+    border-radius: 8px;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-card-config h1 {
+    font-size: 1.5em;
+  }
+
+  .label-configs {
+    font-size: 1em;
+  }
 }
