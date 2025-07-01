@@ -19,6 +19,7 @@
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "framer-motion": "^12.4.10",
+    "google-auth-library": "^10.1.0",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.475.0",
     "mongoose": "^8.16.0",

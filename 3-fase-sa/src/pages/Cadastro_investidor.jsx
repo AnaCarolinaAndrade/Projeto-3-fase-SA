@@ -11,6 +11,7 @@ function Cadastro_investidor() {
     confirmarSenha: '',
   })
 
+  
   const [logado, setLogado] = useState(false)
   const [error, setError] = useState(null)
 
@@ -32,10 +33,10 @@ function Cadastro_investidor() {
     }
 
     try {
-      const response =  fetch('http://localhost:5000/api/investidor', {
+      const response =  await fetch('http://localhost:5000/api/investidor', {
         method: 'POST',
         headers: { 'Content-type': 'application/JSON' },
-        body: JSON.stringify( cadastro)
+        body: JSON.stringify(cadastro)
       })
 
       if (response.ok) {

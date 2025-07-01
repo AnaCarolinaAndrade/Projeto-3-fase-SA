@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMiniHome } from "react-icons/hi2";
 import { FaUserFriends } from "react-icons/fa";
@@ -14,7 +14,8 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [rodar, setRodar] = useState(false);
   const [girado, setGirado] = useState(false);
-  const userId = localStorage.getItem('userId')
+  const userId = localStorage.getItem('userId');
+  const userType = localStorage.getItem('userType'); // Pega o tipo de usuário: 'investidor' ou 'profissional'
 
   const girar = () => {
     setRodar(true);
@@ -24,6 +25,31 @@ function Sidebar() {
       setGirado(!girado);
     }, 300)
   };
+
+  useEffect(() => {
+    const checkProfessionalProjects = async () => {
+      // AQUI: A condição é para o 'profissional' que cria projetos
+      if (userType === 'profissional' && userId) { 
+        try {
+          const response = await fetch(`http://localhost:5000/api/projetos/${userId}`);
+          const data = await response.json();
+
+          if (response.ok && data.hasProjects) {
+            setShowEditProjectLink(true);
+          } else {
+            setShowEditProjectLink(false);
+          }
+        } catch (error) {
+          console.error('Erro ao verificar projetos do profissional:', error);
+          setShowEditProjectLink(false);
+        }
+      } else {
+        setShowEditProjectLink(false);
+      }
+    };
+
+    checkProfessionalProjects();
+  }, [userId, userType]); 
 
   return (
     <>

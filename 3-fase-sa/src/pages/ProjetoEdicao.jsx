@@ -69,9 +69,9 @@ function ProjetoEdicao() {
         headers: { 'Content-Type': 'application/json' },
 
         body: JSON.stringify({
-        nomeProjeto: project.nomeProjeto,
-        descricao: project.descricao,
-        imageUrl: project.imageUrl
+          nomeProjeto: project.nomeProjeto,
+          descricao: project.descricao,
+          imageUrl: project.imageUrl
         })
       });
 
@@ -80,7 +80,7 @@ function ProjetoEdicao() {
       if (response.ok) {
         alert(data.message || 'Projeto atualizado com sucesso!');
         navigate('/Projetos');
-       }else {
+      } else {
         setError(data.message || 'Erro ao atualizar o projeto. Tente novamente.');
         console.error('Erro ao atualizar projeto:', data.message);
       }
@@ -152,7 +152,7 @@ function ProjetoEdicao() {
               {project.imageUrl && (
                 <div className="project-image-preview">
                   <p>Pré-visualização da Imagem:</p>
-                  <img src={project.imageUrl} alt="Pré-visualização do Projeto"/>
+                  <img src={project.imageUrl} alt="Pré-visualização do Projeto" />
                 </div>
               )}
 
