@@ -56,20 +56,36 @@ def handle_message(msg):
 
 # === ROTAS DE AUTENTICAÇÃO E USUÁRIOS ===
 
-# Rota de Login (agora retorna JWT)
 @app.route('/api/login', methods=['POST'])
-def login():
+def login_usuario():
     data = request.get_json()
     email = data.get('email')
     senha = data.get('senha')
 
+    if not email or not senha:
+        return jsonify({'message': 'Email e senha são obrigatórios.'}), 400
+
     usuario = usuarios_collection.find_one({'email': email})
+    print(f"Usuário encontrado no DB: {usuario}")
 
     if not usuario:
-        return jsonify({'error': 'Email ou senha incorretos'}), 401
+        return jsonify({'message': 'Email ou senha inválidos.'}), 401
 
-    if not bcrypt.checkpw(senha.encode('utf-8'), usuario['senha'].encode('utf-8')):
-        return jsonify({'error': 'Email ou senha incorretos'}), 401
+    try:
+        print(f"Senha do DB (hash): {usuario['senha']}") 
+        print(f"Senha fornecida (plain): {senha}") 
+        if not bcrypt.checkpw(senha.encode('utf-8'), usuario['senha'].encode('utf-8')):
+            return jsonify({'message': 'Email ou senha inválidos.'}), 401
+    except Exception as e:
+        print(f"Erro na verificação de senha: {e}") 
+        return jsonify({'message': 'Erro interno na verificação de senha.'}), 500
+
+    user_id_str = str(usuario['_id'])
+    
+    return jsonify({
+        'message': 'Login bem-sucedido!',
+        'id': user_id_str
+    }), 200
 
 
 # === LOGIN COM GOOGLE (API-BASED) ===
@@ -224,11 +240,6 @@ def get_usuario_by_id(user_id):
     else:
         return jsonify({"message": "Usuário não encontrado."}), 404
 
-
-@app.route('/api/usuarios', methods=['GET'])
-def get_all_usuarios(): 
-    usuarios = list(usuarios_collection.find({}, {"_id": 0}))
-    return jsonify(usuarios)
 
 @app.route('/api/usuarios', methods=['DELETE'])
 def deletar_proprio_usuario():

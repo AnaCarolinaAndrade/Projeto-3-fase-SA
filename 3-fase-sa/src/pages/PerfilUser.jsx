@@ -1,43 +1,79 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './PerfilUser.css';
+import React, { useState, useEffect } from 'react';
+import './PerfilUser.css'; // Mantenha o CSS
 import Sidebar from '../components/Sidebar';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { BsPersonCircle, BsGenderFemale } from 'react-icons/bs'; // Exemplo de importação de ícones
+import { IoMapOutline } from 'react-icons/io5'; // Exemplo para Ionicons v5, instale se não tiver
+import { FaPen } from "react-icons/fa6";
 
-function Configs() {
+
+function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
   const { id } = useParams();
+  const cleanId = id ? id.trim() : null; // Adicione .trim() aqui
+  const navigate = useNavigate(); // Hook para navegação
   const [perfilUsuario, setPerfilUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPerfilUsuario = async () => {
-      if (!id) {
-        setError('ID do usuário não fornecido na URL.');
+      if (!cleanId) { // Use cleanId aqui
+        const loggedInUserId = localStorage.getItem('userId');
+        if (loggedInUserId) {
+          // Certifique-se de que o ID armazenado também está limpo ao redirecionar
+          navigate(`/perfil/${loggedInUserId.trim()}`);
+          return;
+        }
+        setError('ID do usuário não fornecido na URL ou usuário não logado.');
         setLoading(false);
         return;
       }
 
       try {
-        // Obter o token de sessão (se necessário para autenticação)
+        // Obter o token de sessão (JWT) se sua rota de backend exigir
         const sessionToken = localStorage.getItem('sessionToken');
-        const headers = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
+        const headers = {};
+        if (sessionToken) {
+          headers['Authorization'] = `Bearer ${sessionToken}`;
+        }
+        // Se você estiver usando sessões Flask (cookies), não precisa enviar cabeçalho de Authorization
+        // O navegador já envia os cookies automaticamente, mas você precisará de axios.defaults.withCredentials = true;
 
         // Requisição ao seu backend para obter os detalhes do usuário específico
-        const response = await fetch(`http://localhost:5000/api/usuarios/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/usuarios/${cleanId}`, {
+          method: 'GET', // Adicionar o método para clareza, mesmo que seja o padrão
           headers: headers,
         });
 
         if (!response.ok) {
+          // Tratar diferentes status de erro
           if (response.status === 404) {
             throw new Error('Perfil de usuário não encontrado.');
           }
-          throw new Error(`Erro ao buscar perfil: ${response.status}`);
+          if (response.status === 401 || response.status === 403) {
+            alert('Sua sessão expirou ou você não tem permissão para ver este perfil. Faça login novamente.');
+            localStorage.removeItem('sessionToken');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userType');
+            navigate('/login');
+            return; // Interrompe a execução
+          }
+          throw new Error(`Erro ao buscar perfil: ${response.status} - ${response.statusText}`);
         }
 
         const data = await response.json();
-        setPerfilUsuario(data); // Assume que 'data' é o objeto do usuário
-        // Se o backend retorna { "usuario": { ... } }, então setPerfilUsuario(data.usuario);
+
+        if (data && data.usuario) {
+          setPerfilUsuario(data.usuario);
+        } else if (data) {
+          // Caso o backend retorne o objeto diretamente, sem o "usuario" encapsulado
+          setPerfilUsuario(data);
+        } else {
+          throw new Error('Dados do perfil inválidos ou ausentes na resposta.');
+        }
+
       } catch (err) {
+        console.error('Erro detalhado ao buscar perfil:', err);
         setError('Erro ao buscar perfil: ' + err.message);
       } finally {
         setLoading(false);
@@ -45,7 +81,18 @@ function Configs() {
     };
 
     fetchPerfilUsuario();
-  }, [id]); // Dependência no ID, para refazer a busca se o ID na URL mudar
+  }, [cleanId, navigate]);
+
+  const handleEditProfileClick = () => {
+
+    const loggedInUserId = localStorage.getItem('userId');
+    if (loggedInUserId) {
+      navigate(`/configs/${loggedInUserId}`);
+    } else {
+      alert('ID do usuário não encontrado. Faça login para editar o perfil.');
+      navigate('/login');
+    }
+  };
 
   if (loading) {
     return (
@@ -80,10 +127,33 @@ function Configs() {
       <div className="profile-container">
         <div className='profile'>
           <div className="profile-card">
-            <h1><BsPersonCircle /> {perfilUsuario.nome || 'Nome do Usuário'}</h1>
-            <p><IoMapOutline /> {perfilUsuario.localizacao || 'Localização não informada'}</p>
-            <p><BsGenderFemale /> {perfilUsuario.genero || 'Gênero não informado'}</p>
-            <p>Bio: {perfilUsuario.bio || 'Sem bio.'}</p>
+            {perfilUsuario.imagemPerfil ? (
+              <img src={perfilUsuario.imagemPerfil} alt="Imagem de Perfil" className="profile-image" />
+            ) : (
+              <BsPersonCircle className="profile-default-icon" size={100} />
+            )}
+
+            <h1>{perfilUsuario.nome || 'Nome do Usuário'}
+              <button className="edit-profile-btn" onClick={handleEditProfileClick}>
+                <FaPen size={15} />
+              </button></h1>
+            <p className="profile-detail">
+              {perfilUsuario.email && (<span>Email: {perfilUsuario.email}</span>)}
+            </p>
+            <p className="profile-detail">
+              {perfilUsuario.localizacao && (<><IoMapOutline /> {perfilUsuario.localizacao}</>)}
+              {!perfilUsuario.localizacao && 'Localização não informada'}
+            </p>
+            <p className="profile-detail">
+              {perfilUsuario.genero && (<><BsGenderFemale /> {perfilUsuario.genero}</>)}
+              {!perfilUsuario.genero && 'Gênero não informado'}
+            </p>
+            <p className="profile-detail">
+              Bio: {perfilUsuario.bio || 'Sem bio.'}
+            </p>
+            <p className="profile-detail">
+              {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
+            </p>
           </div>
         </div>
       </div>
@@ -91,4 +161,4 @@ function Configs() {
   );
 }
 
-export default Configs;
+export default PerfilUser; // Exportar com o novo nome
