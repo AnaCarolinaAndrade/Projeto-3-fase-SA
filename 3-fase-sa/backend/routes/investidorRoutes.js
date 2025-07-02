@@ -12,7 +12,7 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 //rota para registrar um novo investidor
-router.post('/register', async (req, res) => {
+router.post('/api/investidor', async (req, res) => {
  const { nome, documento, email, senha, confirmarSenha } = req.body;
 
    //validação de campos obrigatórios

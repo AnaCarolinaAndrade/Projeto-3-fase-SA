@@ -1,29 +1,25 @@
-// backend-investidor e projetoEdicao/server.js
+// backend/server.js
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-<<<<<<< HEAD
+import connectDB from './configDB.js'; // Importa a função de conexão com o DB
+import projectRoutes from './routes/projectRoutes.js'; // Importa as rotas de projeto
+import investidorRoutes from './routes/investidorRoutes.js'; // Importa as rotas de investidor
+import projetoEdicaoRoutes from './routes/projetosEdicao.js'; // Importa as rotas de projetoEdicao
 
-import connectDB from './projectRoutes.js';
-import investidorRoutes from './routes/investidoresRoutes.js';
-import projetoEdicao from './routes/projetosEdicao.js';
-=======
-import connectDB from './routes/projectRoutes.js';
-import investidorRoutes from './routes/investidorRoutes.js';
-import projetoEdicao from './routes/projectRoutes.js';
->>>>>>> 3b6fd70e9db5333ed1b87d0b53f11ad43e87008f
+dotenv.config(); // Carrega as variáveis de ambiente
 
-dotenv.config();
-
-connectDB();
+connectDB(); // Chama a função para conectar ao banco de dados
 
 const app = express();
 
-app.use(express.json()); 
-app.use(cors()); 
+app.use(express.json()); // Middleware para parsear JSON no corpo das requisições
+app.use(cors());         // Middleware para habilitar CORS
 
-app.use('/api/investidores', investidorRoutes);
-app.use('/api/projetoEdicao', projetoEdicao);
+// Rotas da API
+app.use('/api/projectRoutes', projectRoutes); // Usando '/api/projetos' para as rotas de projeto
+app.use('/api/investidor', investidorRoutes);
+app.use('/api/projetoEdicao', projetoEdicaoRoutes); // Adicionado: Rotas para projetoEdicao
 
 app.get('/', (req, res) => {
     res.send('API está rodando...');

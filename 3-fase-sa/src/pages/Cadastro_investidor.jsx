@@ -11,7 +11,6 @@ function Cadastro_investidor() {
     confirmarSenha: '',
   })
 
-  
   const [logado, setLogado] = useState(false)
   const [error, setError] = useState(null)
 
