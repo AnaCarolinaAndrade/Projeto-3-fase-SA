@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'; // Importar useNaviga
 import { BsPersonCircle, BsGenderFemale } from 'react-icons/bs'; // Exemplo de importação de ícones
 import { IoMapOutline } from 'react-icons/io5'; // Exemplo para Ionicons v5, instale se não tiver
 import { FaPen } from "react-icons/fa6";
+import ProjetosUser from '../components/ProjetosUser';
 
 
 function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
@@ -152,6 +153,9 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
               {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
             </p>
           </div>
+        </div>
+        <div className='posts-profile'>
+          <ProjetosUser />
         </div>
       </div>
     </>

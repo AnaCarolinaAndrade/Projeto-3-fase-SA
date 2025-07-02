@@ -22,7 +22,7 @@ export default function Projetos() {
       <div>
         <Sidebar />
       </div>
-      <div className='container-projetos-cards-projetos'>
+      <div className='container-projetos-cards-projetos'> 
         <div className='container-cards-projetos'>
           {projetos.length === 0 &&
             <div className='container-sem-projetos'>
