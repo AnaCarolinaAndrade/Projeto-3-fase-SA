@@ -3,7 +3,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(0deg, #2337a7cb 1%, #0F1111 80%);
+ background: linear-gradient(to bottom,
+      rgb(0, 0, 0) 70%,
+      /* transparente no topo */
+      #1f1f1f 99%,
+      /* suave intermediário */
+      #1f1f1f  10%
+      /* mais intenso embaixo */
+    );
 }
 
 .form-cadastro {
@@ -13,8 +20,6 @@
     width: 100%;
     max-width: 500px;
     height: auto;
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .form-cadastro h2{
@@ -25,7 +30,7 @@
 .enviar-formulario {
     width: 100%;
     padding: 12px;
-    background-color: #00A3F5;
+    background-color: #32c3fc;
     color: white;
     border: none;
     border-radius: 5px;
@@ -69,11 +74,14 @@
     width: 100%;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    background-color: #f6f6f6;
+    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4);
+    transition: box-shadow 0.3s ease;
+    outline: none;
 }
 
 .form-group input:focus {
-    outline: none;
+ box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.7);
 }
 
 .ipt-senha-cadastro {

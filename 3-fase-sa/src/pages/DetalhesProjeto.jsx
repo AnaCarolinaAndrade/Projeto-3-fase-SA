@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './DetalhesProjeto.css'
+import Voltar from '../components/Voltar';
 
 
 export default function DetalhesProjeto() {
@@ -54,11 +55,11 @@ export default function DetalhesProjeto() {
         <div className='container-projeto-detalhes'>
             <div>
                 <h1>{projeto.nomeProjeto || 'Título do Projeto'}</h1>
-                <p>{projeto.descricao || 'Descrição do projeto'}</p>
                 {projeto.url_do_projeto && (
                     <p>Link: <a href={projeto.url_do_projeto} target="_blank" rel="noopener noreferrer">{projeto.url_do_projeto}</a></p>
                 )}
                 {projeto.imagem && <img src={projeto.imagem} alt="Capa" />}
+                <p>{projeto.descricao || 'Descrição do projeto'}</p>
             </div>
 
         </div>

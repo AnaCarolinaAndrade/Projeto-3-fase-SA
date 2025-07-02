@@ -185,15 +185,15 @@ def get_usuarios():
     return jsonify(usuarios_data)
 
 
-@app.route('/api/usuarios', methods=['PUT'])
-def update_user():
+@app.route('/api/usuarios/<string:user_id>', methods=['PUT'])
+def update_user(user_id):
     data = request.get_json()
     update_data = {}
 
     nome = data.get('nome')
     if nome is not None:
         update_data['nome'] = nome
-        
+
     dataNascimento = data.get('dataNascimento')
     if dataNascimento is not None:
         update_data['dataNascimento'] = dataNascimento
@@ -202,29 +202,49 @@ def update_user():
     if genero is not None:
         update_data['genero'] = genero
 
-    nova_senha = data.get('senha')
-    if nova_senha is not None:
-        hashed_password = bcrypt.hashpw(nova_senha.encode('utf-8'), bcrypt.gensalt())
+    senha = data.get('senha')
+    if senha is not None:
+        hashed_password = bcrypt.hashpw(senha.encode('utf-8'), bcrypt.gensalt())
         update_data['senha'] = hashed_password.decode('utf-8')
+
+    email = data.get('email')
+    if email is not None:
+        update_data['email'] = email
+
+    localizacao = data.get('localizacao')
+    if localizacao is not None:
+        update_data['localizacao'] = localizacao
+
+    bio = data.get('bio')
+    if bio is not None:
+        update_data['bio'] = bio
+
+    imagemPerfil = data.get('imagemPerfil')
+    if imagemPerfil is not None:
+        update_data['imagemPerfil'] = imagemPerfil
 
     if update_data:
         try:
-            result = usuarios_collection.update_one({'$set': update_data})
-            if result.modified_count > 0:
-                updated_user = usuarios_collection.find_one({'_id': 1})
-                if updated_user:
-                    updated_user['_id'] = str(updated_user['_id'])
-                    updated_user.pop('senha', None)
+            result = usuarios_collection.update_one(
+                {'_id': ObjectId(user_id)},
+                {'$set': update_data}
+            )
+            if result.matched_count == 0:
+                return jsonify({'error': 'Usuário não encontrado'}), 404
+
+            updated_user = usuarios_collection.find_one({'_id': ObjectId(user_id)})
+            if updated_user:
+                updated_user['_id'] = str(updated_user['_id'])
+                updated_user.pop('senha', None)
                 return jsonify({
                     'message': 'Informações atualizadas com sucesso!',
-                    'user': updated_user
+                    'usuario': updated_user
                 }), 200
-            return jsonify({'message': 'Nenhuma informação foi alterada.'}), 200
         except Exception as e:
             print(f"Erro ao atualizar o usuário: {e}")
             return jsonify({'error': f'Erro ao atualizar o usuário: {e}'}), 500
-    return jsonify({'message': 'Nenhuma informação para atualizar.'}), 200
 
+    return jsonify({'message': 'Nenhuma informação para atualizar.'}), 400
 
 @app.route('/api/usuarios/<string:user_id>', methods=['GET'])
 def get_usuario_by_id(user_id):

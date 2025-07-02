@@ -1,6 +1,7 @@
 import './PessoasChat.css'
 import Sidebar from '../components/Sidebar'
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function PessoasChat() {
 
@@ -32,17 +33,17 @@ export default function PessoasChat() {
 
     if (usuarios.length === 0) {
         return <div className='container-sem-usuarios'>
-
+            <Sidebar />
             <div>
                 <p className='sem-usuarios'>Parece que não há nenhum usuário cadastrado no momento.</p>
                 <img src="./img/no-user2.png" className='no-users' />   
             </div>
-
         </div>
 
     }
 
-    if (!usuarios) return <div className="loading">Carregando...</div>;
+    if (!usuarios) return 
+    <div className="loading">Carregando...</div>;
 
     return (
         <div className='container-pessoas-chat'>
@@ -54,9 +55,8 @@ export default function PessoasChat() {
                     <div className="usuarios-list">
                         {usuarios.map(usuario => (
                             <div key={usuario._id || usuario.id} className="usuario-item">
-                                <button>{usuario.nome}</button>
+                                <Link to={`/chat/${usuario._id || usuario.id}`}>{usuario.nome}</Link>
                                 <p> {usuario.descricao}</p>
-
                                 {usuario.genero && <p>Gênero: {usuario.genero}</p>}
                             </div>
                         ))}

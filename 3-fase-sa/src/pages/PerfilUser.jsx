@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom'; // Importar useNaviga
 import { BsPersonCircle, BsGenderFemale } from 'react-icons/bs'; // Exemplo de importação de ícones
 import { IoMapOutline } from 'react-icons/io5'; // Exemplo para Ionicons v5, instale se não tiver
 import { FaPen } from "react-icons/fa6";
+import ProjetosUser from '../components/ProjetosUser';
 
 
 function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
@@ -138,25 +139,30 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
                 <FaPen size={15} />
               </button></h1>
             <p className="profile-detail">
-              {perfilUsuario.email && (<span>Email: {perfilUsuario.email}</span>)}
+              {perfilUsuario.email && (<span>Email para contato: {perfilUsuario.email}</span>)}
             </p>
             <p className="profile-detail">
-              {perfilUsuario.localizacao && (<><IoMapOutline /> {perfilUsuario.localizacao}</>)}
+              {perfilUsuario.localizacao && (<><span>Localização:</span><IoMapOutline /> {perfilUsuario.localizacao}</>)}
               {!perfilUsuario.localizacao && 'Localização não informada'}
             </p>
-            <p className="profile-detail">
-              {perfilUsuario.genero && (<><BsGenderFemale /> {perfilUsuario.genero}</>)}
-              {!perfilUsuario.genero && 'Gênero não informado'}
-            </p>
+
             <p className="profile-detail">
               Bio: {perfilUsuario.bio || 'Sem bio.'}
             </p>
             <p className="profile-detail">
               {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
             </p>
+
+            <div className='profile-line'/>
+            
+            <div className='posts-profile'>
+              <ProjetosUser />
+            </div>
           </div>
+
         </div>
       </div>
+
     </>
   );
 }

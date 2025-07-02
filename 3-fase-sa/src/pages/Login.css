@@ -53,6 +53,12 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
+.login-box h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
 .login-btn {
     width: 100%;
     padding: 12px;

@@ -164,3 +164,26 @@
  font-size: 24px;
  cursor: pointer;
 }
+
+/* Em seu Navbar.css */
+
+.buttons-container {
+  display: flex; /* Para alinhar os itens horizontalmente */
+  align-items: center; /* Para centralizar verticalmente */
+  gap: 15px; /* Espaçamento entre os grupos de botões */
+}
+
+.links-nav, .links-nav-logged-in {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaçamento entre os itens dentro de cada grupo (ex: Login e Cadastro) */
+}
+
+.foto-perfil-nav {
+  width: 40px; /* Ajuste o tamanho conforme necessário */
+  height: 40px;
+  border-radius: 50%; /* Para deixá-la redonda */
+  object-fit: cover;
+}
+
+/* Adicione estilos para os botões .btn, .btn.login, .btn.signup, .btn.logout se ainda não tiver */

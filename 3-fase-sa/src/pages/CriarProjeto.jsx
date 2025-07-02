@@ -217,7 +217,7 @@ export default function CriarProjeto() {
               />
             </div>
 
-            <div className='formulario-projeto'>
+            {/* <div className='formulario-projeto'>
               <label className='label-configs'>Coloque o link para o seu site</label>
 
               <input
@@ -235,7 +235,7 @@ export default function CriarProjeto() {
                   </a>
                 </p>
               )}
-            </div>
+            </div> */}
 
             <button type="submit" className="btn-primary">Criar Projeto</button>
           </form>

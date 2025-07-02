@@ -22,7 +22,7 @@ export default function Projetos() {
       <div>
         <Sidebar />
       </div>
-      <div className='container-projetos-cards-projetos'>
+      <div className='container-projetos-cards-projetos'> 
         <div className='container-cards-projetos'>
           {projetos.length === 0 &&
             <div className='container-sem-projetos'>
@@ -35,7 +35,7 @@ export default function Projetos() {
             {projetos.map(projeto => (
               <Link key={projeto.id} className="card-projeto" to={`/projetos/${projeto.id}`}>
                 {projeto.imagem && <img src={projeto.imagem} alt="Capa" className='card-projeto-imagem' />}
-                <div className='info-projeto'> {/* Este div conterá o overlay e as informações */}
+                <div className='info-projeto'> 
                   <div class="card-projeto-overlay"></div>
                   <h2 className='card-projeto-titulo'>{projeto.nomeProjeto}</h2>
                   <p className='card-projeto-descricao'>{projeto.descricao}</p>

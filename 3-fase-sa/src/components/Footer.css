@@ -5,7 +5,6 @@
 .container-footer-2 {
   padding: 40px 20px;
   display: flex;
-
   align-items: flex-start;
   font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
@@ -17,8 +16,7 @@
   margin-left: 16%;
   flex-wrap: wrap;
   padding: 15px;
-  margin-top: 50%;
-
+  margin-top: 25%;
 }
 
 .container-contatos {
@@ -42,16 +40,16 @@
   margin-right: 6%;
 }
 
-.container-info-menu{ 
+.container-info-menu {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
 }
 
-.alinhamento-1{
+.alinhamento-1 {
   width: 50%
 }
 
-.alinhamento-2{
+.alinhamento-2 {
   margin-left: 20px;
 }
 
@@ -68,7 +66,7 @@
 
 .container-contatos li,
 .container-menu li,
-.container-localizacao li{
+.container-localizacao li {
   list-style-type: none;
   padding: 5px 0;
   font-weight: 400;
