@@ -19,9 +19,6 @@ export default function ProjetosUser() {
 
     return (
         <div className="container-projetos-user">
-            <div>
-                <Sidebar />
-            </div>
             <div className='container-projetos-cards-projetos-user'>
                 <div className='container-cards-projetos-user'>
                     {projetos.length === 0 &&

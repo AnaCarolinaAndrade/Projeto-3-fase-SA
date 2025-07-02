@@ -145,19 +145,21 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
               {perfilUsuario.localizacao && (<><IoMapOutline /> {perfilUsuario.localizacao}</>)}
               {!perfilUsuario.localizacao && 'Localização não informada'}
             </p>
-            
+
             <p className="profile-detail">
               Bio: {perfilUsuario.bio || 'Sem bio.'}
             </p>
             <p className="profile-detail">
               {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
             </p>
+            <div className='posts-profile'>
+              <ProjetosUser />
+            </div>
           </div>
-        </div>
-        <div className='posts-profile'>
-          <ProjetosUser />
+
         </div>
       </div>
+
     </>
   );
 }
