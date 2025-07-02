@@ -139,10 +139,10 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
                 <FaPen size={15} />
               </button></h1>
             <p className="profile-detail">
-              {perfilUsuario.email && (<span>Email: {perfilUsuario.email}</span>)}
+              {perfilUsuario.email && (<span>Email para contato: {perfilUsuario.email}</span>)}
             </p>
             <p className="profile-detail">
-              {perfilUsuario.localizacao && (<><IoMapOutline /> {perfilUsuario.localizacao}</>)}
+              {perfilUsuario.localizacao && (<><span>Localização:</span><IoMapOutline /> {perfilUsuario.localizacao}</>)}
               {!perfilUsuario.localizacao && 'Localização não informada'}
             </p>
 
@@ -152,6 +152,9 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
             <p className="profile-detail">
               {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
             </p>
+
+            <div className='profile-line'/>
+            
             <div className='posts-profile'>
               <ProjetosUser />
             </div>

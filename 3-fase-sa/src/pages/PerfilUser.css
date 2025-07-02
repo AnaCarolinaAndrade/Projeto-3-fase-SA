@@ -68,3 +68,10 @@
   color: #333;
   padding-left: 10px;
 }
+
+.profile-line{
+  width: 90%;
+  height: 1.5px;
+  background-color: #ccc;
+  margin: 1rem 0;
+}

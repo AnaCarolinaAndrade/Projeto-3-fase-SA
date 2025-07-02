@@ -45,7 +45,7 @@
   display: block;
   background-color: #ffffff;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-} 
+}
 
 .card-projeto-user:hover {
   transform: translateY(-8px);
@@ -168,4 +168,24 @@
   height: auto;
   margin: 0 auto;
   display: block;
+}
+
+.novo-projeto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border-style: dashed;
+  width: 100%;
+  max-width: 320px;
+  height: 250px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.novo-projeto a {
+  text-decoration: none;
+  color: #000000;
 }

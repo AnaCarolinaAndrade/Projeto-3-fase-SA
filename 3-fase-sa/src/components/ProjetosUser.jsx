@@ -39,7 +39,11 @@ export default function ProjetosUser() {
                                     <span className="categoria-projeto-user">{projeto.categoria}</span>
                                 </div>
                             </Link>
-                        ))}
+                        ))} 
+
+                        <div className='novo-projeto'>
+                            <Link to={'/criarProjeto'} className='botoes-projetos-user'>Criar um novo projeto</Link>
+                        </div>
                     </div>
                 </div>
             </div>
