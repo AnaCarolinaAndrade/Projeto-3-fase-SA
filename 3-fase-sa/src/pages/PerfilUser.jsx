@@ -18,10 +18,9 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
 
   useEffect(() => {
     const fetchPerfilUsuario = async () => {
-      if (!cleanId) { // Use cleanId aqui
+      if (!cleanId) {
         const loggedInUserId = localStorage.getItem('userId');
         if (loggedInUserId) {
-          // Certifique-se de que o ID armazenado também está limpo ao redirecionar
           navigate(`/perfil/${loggedInUserId.trim()}`);
           return;
         }
@@ -31,23 +30,18 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
       }
 
       try {
-        // Obter o token de sessão (JWT) se sua rota de backend exigir
         const sessionToken = localStorage.getItem('sessionToken');
         const headers = {};
         if (sessionToken) {
           headers['Authorization'] = `Bearer ${sessionToken}`;
         }
-        // Se você estiver usando sessões Flask (cookies), não precisa enviar cabeçalho de Authorization
-        // O navegador já envia os cookies automaticamente, mas você precisará de axios.defaults.withCredentials = true;
 
-        // Requisição ao seu backend para obter os detalhes do usuário específico
         const response = await fetch(`http://localhost:5000/api/usuarios/${cleanId}`, {
-          method: 'GET', // Adicionar o método para clareza, mesmo que seja o padrão
+          method: 'GET',
           headers: headers,
         });
 
         if (!response.ok) {
-          // Tratar diferentes status de erro
           if (response.status === 404) {
             throw new Error('Perfil de usuário não encontrado.');
           }
@@ -57,7 +51,7 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
             localStorage.removeItem('userId');
             localStorage.removeItem('userType');
             navigate('/login');
-            return; // Interrompe a execução
+            return;
           }
           throw new Error(`Erro ao buscar perfil: ${response.status} - ${response.statusText}`);
         }
@@ -67,7 +61,6 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
         if (data && data.usuario) {
           setPerfilUsuario(data.usuario);
         } else if (data) {
-          // Caso o backend retorne o objeto diretamente, sem o "usuario" encapsulado
           setPerfilUsuario(data);
         } else {
           throw new Error('Dados do perfil inválidos ou ausentes na resposta.');
@@ -153,8 +146,8 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
               {perfilUsuario.linkPessoal && (<a href={perfilUsuario.linkPessoal} target="_blank" rel="noopener noreferrer">Link Pessoal</a>)}
             </p>
 
-            <div className='profile-line'/>
-            
+            <div className='profile-line' />
+
             <div className='posts-profile'>
               <ProjetosUser />
             </div>
@@ -167,4 +160,4 @@ function PerfilUser() { // Renomeado o componente para PerfilUser para clareza
   );
 }
 
-export default PerfilUser; // Exportar com o novo nome
+export default PerfilUser; 
