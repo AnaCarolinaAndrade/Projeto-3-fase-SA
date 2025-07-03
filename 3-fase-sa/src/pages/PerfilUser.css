@@ -1,0 +1,77 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100%;
+  background-color: #f5f7fa;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: end;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 80rem;
+  width: 100%;
+  height: 100%;
+  margin-left: 90px;
+}
+
+.profile-card h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  object-fit: cover;
+  border: 4px solid #2B6ADE;
+  margin-bottom: 1rem;
+}
+
+.profile-default-icon {
+  color: #2B6ADE;
+  margin-bottom: 1rem;
+}
+
+.profile-detail {
+  font-size: 1rem;
+  color: #555;
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.profile-detail a {
+  color: #2B6ADE;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.profile-detail a:hover {
+  text-decoration: underline;
+}
+
+.edit-profile-btn {
+  color: #333;
+  padding-left: 10px;
+}
+
+.profile-line{
+  width: 90%;
+  height: 1.5px;
+  background-color: #ccc;
+  margin: 1rem 0;
+}
