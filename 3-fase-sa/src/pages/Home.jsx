@@ -33,7 +33,8 @@ function Home() {
             <Link to={'./projetos'} className='botoes-projetos' >Acessar  Projetos</Link>
           </div>
         </div>
-      </div>
+
+      </div>        
       <Footer />
     </div>
   )
