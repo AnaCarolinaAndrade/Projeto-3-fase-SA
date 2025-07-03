@@ -58,7 +58,6 @@ function Cadastro_investidor() {
   return (
     <div className='container-cadastro-investidor-cor'>
       <div className='container-cadastro-investidor-alinhamento'>
-       <img src='./img/logo_pequena.png' alt="Logo" className='logo' /><h1 className='container-titulo'>Cadastre-se como investidor</h1>
 
         <div className='alinhamentos-wrapper' >
          <label>Nome da empresa/investidor</label><input type='text' id='nome' 
