@@ -32,6 +32,17 @@ export default function Questionario() {
     setRecomendacoes(filtrados);
   }
 
+  useEffect(() => {
+    fetch('http://localhost:5173/api/criar_questionario')
+      .then(res => res.json())
+      .then(data => {
+        setProjetos(data);
+      })
+      .catch(err => {
+        console.error("Erro ao buscar projetos:", err);
+      });
+  }, []);
+
   return (
     <div className="questionario-container">
       <h2>Encontre projetos ideais pra você</h2>

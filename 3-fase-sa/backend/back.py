@@ -22,6 +22,11 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
+projetos = {
+    1: {"titulo": "Projeto A", "descricao": "Primeiro projeto"},
+    2: {"titulo": "Projeto B", "descricao": "Segundo projeto"},
+}
+
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
@@ -273,6 +278,32 @@ def deletar_proprio_usuario():
         return jsonify({'erro': 'Erro interno ao deletar usuário'}), 500
 
 # === ROTAS DE PROJETOS ===
+
+@app.route('/projetos/<int:id>', methods=['PUT'])
+def editar_projeto(id):
+    if id not in projetos:
+        return jsonify({"erro": "Projeto não encontrado"}), 404
+
+    dados = request.json
+    titulo = dados.get("titulo")
+    descricao = dados.get("descricao")
+
+    if titulo:
+        projetos[id]["titulo"] = titulo
+    if descricao:
+        projetos[id]["descricao"] = descricao
+
+    return jsonify({"mensagem": "Projeto atualizado", "projeto": projetos[id]})
+
+# Rota para deletar um projeto
+@app.route('/projetos/<int:id>', methods=['DELETE'])
+def deletar_projeto(id):
+    if id not in projetos:
+        return jsonify({"erro": "Projeto não encontrado"}), 404
+
+    del projetos[id]
+    return jsonify({"mensagem": f"Projeto {id} deletado com sucesso"})
+    
 @app.route('/api/criar_projetos', methods=['POST'])
 def criar_projeto():
     nomeProjeto = request.form.get('nomeProjeto')
@@ -469,6 +500,8 @@ def handle_private_message(data):
             'message': message,
             'me': False
         }, room=receiver_sid)
+        
+
 
 # === EXECUTAR APLICAÇÃO ===
 if __name__ == '__main__':

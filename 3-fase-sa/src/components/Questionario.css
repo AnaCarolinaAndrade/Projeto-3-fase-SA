@@ -27,21 +27,6 @@ select {
   border: 1px solid #ccc;
 }
 
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #4f46e5;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #4338ca;
-}
-
 .resultados {
   margin-top: 30px;
 }
