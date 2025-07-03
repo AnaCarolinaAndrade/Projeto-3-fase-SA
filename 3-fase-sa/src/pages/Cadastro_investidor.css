@@ -54,8 +54,10 @@
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 5px;
-   width: 350px; /* Mesma largura do input para alinhamento consistente */
-  text-align: left;
+  width: 350px; /* Mesma largura do input para alinhamento consistente */
+   display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .container-cadastro-investidor-alinhamento input {

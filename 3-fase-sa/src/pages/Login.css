@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(0deg, #2337a7cb 1%, #0F1111 80%);
+    background: linear-gradient(0deg, #01253ee2 1%, #0f0f0f 38%);
 }
 
 .login-left {
@@ -138,9 +138,15 @@
     border: 0;
     font-size: 1rem;
     color: black;
-    outline: none;
-    margin-right: 8px;
+    box-sizing: border-box;
+   box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.4);
+   transition: box-shadow 0.3s ease;
+   outline: none;
+   margin-right: 8px;
+}
 
+.container-input input:focus{
+ box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.7);
 }
 
 .input-wrapper input {

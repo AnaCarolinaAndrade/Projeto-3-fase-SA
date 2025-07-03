@@ -58,24 +58,30 @@ function Cadastro_investidor() {
   return (
     <div className='container-cadastro-investidor-cor'>
       <div className='container-cadastro-investidor-alinhamento'>
-      <img src='./img/logo_pequena.png' alt="Logo" className='logo' /><h1 className='container-titulo'>Cadastre-se como investidor</h1>
+       <img src='./img/logo_pequena.png' alt="Logo" className='logo' /><h1 className='container-titulo'>Cadastre-se como investidor</h1>
 
         <div className='alinhamentos-wrapper' >
-          <div className='alinhamento-esquerda'>
-            <label>Nome da empresa/investidor</label><input type='text' id='nome' name='nome' value={cadastro.nome} onChange={handleChange} required></input>
-            <label>CNPJ da empresa ou CPF do Investidor</label><input type='text' id='documento' name='documento' value={cadastro.documento} onChange={handleChange} required></input>
-            <label>Email</label><input type='email' id='email' name='email' value={cadastro.email} onChange={handleChange} required></input>
-          </div>
+         <label>Nome da empresa/investidor</label><input type='text' id='nome' 
+         name='nome' value={cadastro.nome} onChange={handleChange} required></input>
 
-          <div className='alinhamento-direita'>
-            <label>Senha</label><input type='password' id='senha' name='senha' value={cadastro.senha} onChange={handleChange} required></input>
-            <label>Confirmar Senha</label><input type='password' id='confirmarSenha' name='confirmarSenha' value={cadastro.confirmarSenha} onChange={handleChange} required></input>
-          </div>
+         <label>CNPJ da empresa ou CPF do Investidor</label><input type='text' id='documento' 
+         name='documento' value={cadastro.documento} onChange={handleChange} required></input>
+
+         <label>Email</label><input type='email' id='email' name='email' 
+         value={cadastro.email} onChange={handleChange} required></input>
+
+         <label>Senha</label>
+         <input type='password' id='senha' name='senha'
+          value={cadastro.senha} onChange={handleChange} required></input>
+
+         <label>Confirmar Senha</label>
+         <input type='password' id='confirmarSenha' name='confirmarSenha' 
+         value={cadastro.confirmarSenha} onChange={handleChange} required></input>
         </div>
-
+        
         {error && <p style={{ color: 'red', background: 'transparen'}}>{error}</p>}
         <button className='container-button' disabled={logado} onClick={handleSubmit}>
-          {logado ? 'Cadastrando...' : 'Confirmar Cadastro'}</button>
+        {logado ? 'Cadastrando...' : 'Confirmar Cadastro'}</button>
       </div>
 
     </div>
