@@ -55,13 +55,20 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 ### Instalações e configurações das bibliotecas do Python
 
 
-instale o python em: https://www.python.org/downloads/
+
 
 # Passo 1: 
+
+instale o python em: https://www.python.org/downloads/
+
+após ir para a tela de instalação procure pela versão 3.12.10 que é a versão mais instavel e atual do python, depois clique em download
 
 ![Captura de tela 2025-06-28 114846](https://github.com/user-attachments/assets/cc11915a-699f-4c49-a4b6-ffe2302f451d)
 
 # Passo 2:
+
+depois role para baixo e baixe a versão do **Windows installer (64 bits)**
+
 ![Captura de tela 2025-06-28 115147](https://github.com/user-attachments/assets/b9cdfccd-f074-4063-a2a7-e4e202c7b824)
 
 # Passo 3:
