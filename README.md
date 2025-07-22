@@ -57,7 +57,7 @@ Siga-nos no Instagram para acompanhar as novidades: [@dexes_project](https://www
 
 
 
-# Passo 1: 
+# Passo 1:
 
 instale o python em: https://www.python.org/downloads/
 
