@@ -22,36 +22,10 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}}, supports_credentials=True)
 
 socketio = SocketIO(app, cors_allowed_origins="*")
-projetos = {
-    1: {"titulo": "Projeto A", "descricao": "Primeiro projeto"},
-    2: {"titulo": "Projeto B", "descricao": "Segundo projeto"},
-}
-
 
 MONGO_URI = os.getenv("MONGO_URI")
 DATABASE_NAME = os.getenv("DATABASE_NAME")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
-
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
-if not os.path.exists(app.config['UPLOAD_FOLDER']):
-    os.makedirs(app.config['UPLOAD_FOLDER'])
-
-# === CONEXÃO COM O BANCO DE DADOS ===
-try:
-    client = MongoClient(MONGO_URI)
-    db = client[DATABASE_NAME]
-    usuarios_collection = db["usuarios"]
-    projetos_collection = db['projetos']
-    usuarios_google_collection = db['usuarios_google']
-    comentarios_collection = db['comentario']
-except Exception as e:
-    print(f"Erro ao conectar ao MongoDB: {e}")
-    exit()
-
-# === FUNÇÕES UTILITÁRIAS ===
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # === SOCKET.IO ===
 @socketio.on('message')
